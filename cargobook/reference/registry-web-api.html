@@ -1,0 +1,473 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>注册中心Web API - The Cargo Book</title>
+
+
+        <!-- Custom HTML head -->
+        <style>
+            dd {
+                margin-bottom: 1em;
+            }
+        </style>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">简介</a></li><li class="chapter-item expanded "><a href="../getting-started/index.html"><strong aria-hidden="true">1.</strong> 入门指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting-started/installation.html"><strong aria-hidden="true">1.1.</strong> 安装</a></li><li class="chapter-item expanded "><a href="../getting-started/first-steps.html"><strong aria-hidden="true">1.2.</strong> Cargo起步</a></li></ol></li><li class="chapter-item expanded "><a href="../guide/index.html"><strong aria-hidden="true">2.</strong> Cargo指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guide/why-cargo-exists.html"><strong aria-hidden="true">2.1.</strong> 为何有Cargo</a></li><li class="chapter-item expanded "><a href="../guide/creating-a-new-project.html"><strong aria-hidden="true">2.2.</strong> 创建新包</a></li><li class="chapter-item expanded "><a href="../guide/working-on-an-existing-project.html"><strong aria-hidden="true">2.3.</strong> 让包工作</a></li><li class="chapter-item expanded "><a href="../guide/dependencies.html"><strong aria-hidden="true">2.4.</strong> 依赖</a></li><li class="chapter-item expanded "><a href="../guide/project-layout.html"><strong aria-hidden="true">2.5.</strong> 包的设计</a></li><li class="chapter-item expanded "><a href="../guide/cargo-toml-vs-cargo-lock.html"><strong aria-hidden="true">2.6.</strong> Cargo.toml vs Cargo.lock</a></li><li class="chapter-item expanded "><a href="../guide/tests.html"><strong aria-hidden="true">2.7.</strong> 测试</a></li><li class="chapter-item expanded "><a href="../guide/continuous-integration.html"><strong aria-hidden="true">2.8.</strong> 持续集成</a></li><li class="chapter-item expanded "><a href="../guide/cargo-home.html"><strong aria-hidden="true">2.9.</strong> Cargo主页</a></li><li class="chapter-item expanded "><a href="../guide/build-cache.html"><strong aria-hidden="true">2.10.</strong> 构建缓存</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/index.html"><strong aria-hidden="true">3.</strong> Cargo参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/specifying-dependencies.html"><strong aria-hidden="true">3.1.</strong> 指定依赖</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/overriding-dependencies.html"><strong aria-hidden="true">3.1.1.</strong> 覆盖依赖</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/manifest.html"><strong aria-hidden="true">3.2.</strong> 配置格式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cargo-targets.html"><strong aria-hidden="true">3.2.1.</strong> Cargo目标</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/workspaces.html"><strong aria-hidden="true">3.3.</strong> 工作空间</a></li><li class="chapter-item expanded "><a href="../reference/features.html"><strong aria-hidden="true">3.4.</strong> 特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/features-examples.html"><strong aria-hidden="true">3.4.1.</strong> 特性示例</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/profiles.html"><strong aria-hidden="true">3.5.</strong> 编译设置</a></li><li class="chapter-item expanded "><a href="../reference/config.html"><strong aria-hidden="true">3.6.</strong> 配置</a></li><li class="chapter-item expanded "><a href="../reference/environment-variables.html"><strong aria-hidden="true">3.7.</strong> 环境变量</a></li><li class="chapter-item expanded "><a href="../reference/build-scripts.html"><strong aria-hidden="true">3.8.</strong> 构建脚本</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/build-script-examples.html"><strong aria-hidden="true">3.8.1.</strong> 构建脚本示例</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/publishing.html"><strong aria-hidden="true">3.9.</strong> 发布到crates.io</a></li><li class="chapter-item expanded "><a href="../reference/pkgid-spec.html"><strong aria-hidden="true">3.10.</strong> 包ID规范</a></li><li class="chapter-item expanded "><a href="../reference/source-replacement.html"><strong aria-hidden="true">3.11.</strong> 源替换</a></li><li class="chapter-item expanded "><a href="../reference/external-tools.html"><strong aria-hidden="true">3.12.</strong> 插件</a></li><li class="chapter-item expanded "><a href="../reference/registries.html"><strong aria-hidden="true">3.13.</strong> 注册中心</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/running-a-registry.html"><strong aria-hidden="true">3.13.1.</strong> 运行注册中心</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/registry-index.html"><strong aria-hidden="true">3.13.1.1.</strong> 注册中心索引</a></li><li class="chapter-item expanded "><a href="../reference/registry-web-api.html" class="active"><strong aria-hidden="true">3.13.1.2.</strong> 注册中心Web API</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../reference/resolver.html"><strong aria-hidden="true">3.14.</strong> 依赖解析</a></li><li class="chapter-item expanded "><a href="../reference/semver.html"><strong aria-hidden="true">3.15.</strong> 语义化兼容</a></li><li class="chapter-item expanded "><a href="../reference/future-incompat-report.html"><strong aria-hidden="true">3.16.</strong> 未来不兼容报告</a></li><li class="chapter-item expanded "><a href="../reference/timings.html"><strong aria-hidden="true">3.17.</strong> 报告构建时间</a></li><li class="chapter-item expanded "><a href="../reference/unstable.html"><strong aria-hidden="true">3.18.</strong> 不稳定特性</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/index.html"><strong aria-hidden="true">4.</strong> Cargo命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/general-commands.html"><strong aria-hidden="true">4.1.</strong> 常用命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo.html"><strong aria-hidden="true">4.1.1.</strong> cargo</a></li><li class="chapter-item expanded "><a href="../commands/cargo-help.html"><strong aria-hidden="true">4.1.2.</strong> cargo help</a></li><li class="chapter-item expanded "><a href="../commands/cargo-version.html"><strong aria-hidden="true">4.1.3.</strong> cargo version</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/build-commands.html"><strong aria-hidden="true">4.2.</strong> 构建命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-bench.html"><strong aria-hidden="true">4.2.1.</strong> cargo bench</a></li><li class="chapter-item expanded "><a href="../commands/cargo-build.html"><strong aria-hidden="true">4.2.2.</strong> cargo build</a></li><li class="chapter-item expanded "><a href="../commands/cargo-check.html"><strong aria-hidden="true">4.2.3.</strong> cargo check</a></li><li class="chapter-item expanded "><a href="../commands/cargo-clean.html"><strong aria-hidden="true">4.2.4.</strong> cargo clean</a></li><li class="chapter-item expanded "><a href="../commands/cargo-doc.html"><strong aria-hidden="true">4.2.5.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fetch.html"><strong aria-hidden="true">4.2.6.</strong> cargo fetch</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fix.html"><strong aria-hidden="true">4.2.7.</strong> cargo fix</a></li><li class="chapter-item expanded "><a href="../commands/cargo-run.html"><strong aria-hidden="true">4.2.8.</strong> cargo run</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustc.html"><strong aria-hidden="true">4.2.9.</strong> cargo rustc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustdoc.html"><strong aria-hidden="true">4.2.10.</strong> cargo rustdoc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-test.html"><strong aria-hidden="true">4.2.11.</strong> cargo test</a></li><li class="chapter-item expanded "><a href="../commands/cargo-report.html"><strong aria-hidden="true">4.2.12.</strong> cargo report</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/manifest-commands.html"><strong aria-hidden="true">4.3.</strong> 配置命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-add.html"><strong aria-hidden="true">4.3.1.</strong> cargo add</a></li><li class="chapter-item expanded "><a href="../commands/cargo-generate-lockfile.html"><strong aria-hidden="true">4.3.2.</strong> cargo generate-lockfile</a></li><li class="chapter-item expanded "><a href="../commands/cargo-locate-project.html"><strong aria-hidden="true">4.3.3.</strong> cargo locate-project</a></li><li class="chapter-item expanded "><a href="../commands/cargo-metadata.html"><strong aria-hidden="true">4.3.4.</strong> cargo metadata</a></li><li class="chapter-item expanded "><a href="../commands/cargo-pkgid.html"><strong aria-hidden="true">4.3.5.</strong> cargo pkgid</a></li><li class="chapter-item expanded "><a href="../commands/cargo-remove.html"><strong aria-hidden="true">4.3.6.</strong> cargo remove</a></li><li class="chapter-item expanded "><a href="../commands/cargo-tree.html"><strong aria-hidden="true">4.3.7.</strong> cargo tree</a></li><li class="chapter-item expanded "><a href="../commands/cargo-update.html"><strong aria-hidden="true">4.3.8.</strong> cargo update</a></li><li class="chapter-item expanded "><a href="../commands/cargo-vendor.html"><strong aria-hidden="true">4.3.9.</strong> cargo vendor</a></li><li class="chapter-item expanded "><a href="../commands/cargo-verify-project.html"><strong aria-hidden="true">4.3.10.</strong> cargo verify-project</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/package-commands.html"><strong aria-hidden="true">4.4.</strong> 包命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-init.html"><strong aria-hidden="true">4.4.1.</strong> cargo init</a></li><li class="chapter-item expanded "><a href="../commands/cargo-install.html"><strong aria-hidden="true">4.4.2.</strong> cargo install</a></li><li class="chapter-item expanded "><a href="../commands/cargo-new.html"><strong aria-hidden="true">4.4.3.</strong> cargo new</a></li><li class="chapter-item expanded "><a href="../commands/cargo-search.html"><strong aria-hidden="true">4.4.4.</strong> cargo search</a></li><li class="chapter-item expanded "><a href="../commands/cargo-uninstall.html"><strong aria-hidden="true">4.4.5.</strong> cargo uninstall</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/publishing-commands.html"><strong aria-hidden="true">4.5.</strong> 发布命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-login.html"><strong aria-hidden="true">4.5.1.</strong> cargo login</a></li><li class="chapter-item expanded "><a href="../commands/cargo-owner.html"><strong aria-hidden="true">4.5.2.</strong> cargo owner</a></li><li class="chapter-item expanded "><a href="../commands/cargo-package.html"><strong aria-hidden="true">4.5.3.</strong> cargo package</a></li><li class="chapter-item expanded "><a href="../commands/cargo-publish.html"><strong aria-hidden="true">4.5.4.</strong> cargo publish</a></li><li class="chapter-item expanded "><a href="../commands/cargo-yank.html"><strong aria-hidden="true">4.5.5.</strong> cargo yank</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> 常见问题</a></li><li class="chapter-item expanded "><a href="../appendix/glossary.html"><strong aria-hidden="true">6.</strong> 附录: 词汇表</a></li><li class="chapter-item expanded "><a href="../appendix/git-authentication.html"><strong aria-hidden="true">7.</strong> 附录: Git认证</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Cargo Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/cargo/tree/master/src/doc/src" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/cargo/edit/master/src/doc/src/reference/registry-web-api.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="web-api"><a class="header" href="#web-api">Web API</a></h2>
+<p>注册机构可以在 <code>config.json</code> 中定义的位置托管一个网络API，以支持下面列出的任何动作。</p>
+<p>对于需要认证的请求，Cargo包含 <code>Authorization</code> 头。该头的值是API token。如果 token 无效，服务器应以403代码进行响应。用户应该访问注册中心的网站来获得token ，Cargo可以使用 <a href="../commands/cargo-login.html"><code>cargo login</code></a> 命令来存储token，或者在命令行中传递token。</p>
+<p>响应使用200代码表示成功。
+错误应使用适当的响应代码，如404。
+失败响应应该有一个JSON对象，其结构如下:</p>
+<pre><code class="language-javascript">{
+    // 要显示给用户的错误数组。
+    &quot;errors&quot;: [
+        {
+            // 作为字符串的错误消息。
+            &quot;detail&quot;: &quot;error message text&quot;
+        }
+    ]
+}
+</code></pre>
+<p>如果响应有这种结构，Cargo会向用户显示详细的信息，即使响应代码是200。
+如果响应代码表明有错误，而且内容没有这种结构，Cargo会向用户显示一条旨在帮助调试服务器错误的信息。
+服务器返回一个 <code>errors</code> 对象，允许注册中心提供更详细的或以用户为中心的错误信息。</p>
+<p>为了向后兼容，服务器应该忽略任何意外的查询参数或JSON字段。
+如果缺少的JSON字段，应该假定它为空。端点以路径中的 <code>v1</code> 部分为版本，如果将来有任何需要，Cargo负责处理向后兼容的回调。</p>
+<p>Cargo为所有请求设置了以下头信息:</p>
+<ul>
+<li><code>Content-Type</code>: <code>application/json</code></li>
+<li><code>Accept</code>: <code>application/json</code></li>
+<li><code>User-Agent</code>: The Cargo version such as <code>cargo 1.32.0 (8610973aa 2019-01-02)</code>. This may be modified by the user in a configuration value.
+Added in 1.29.</li>
+</ul>
+<h3 id="发布"><a class="header" href="#发布">发布</a></h3>
+<ul>
+<li>Endpoint: <code>/api/v1/crates/new</code></li>
+<li>Method: PUT</li>
+<li>Authorization: Included</li>
+</ul>
+<p>发布端点用于发布新版本的crate。服务器应该验证该crate，使其可供下载，并将其添加到索引中。</p>
+<p>Cargo发送的数据体:</p>
+<ul>
+<li>JSON数据长度的32位无符号小端整数。</li>
+<li>作为JSON对象的包的元数据。</li>
+<li><code>.crate</code> 文件长度的32位无符号小端整数。</li>
+<li><code>.crate</code> 文件。</li>
+</ul>
+<p>下面是JSON对象注释的例子。包括一些由<a href="https://crates.io/">crates.io</a>所限制的说明，
+只是为了说明一些关于可能进行的验证类型的建议，而不是<a href="https://crates.io/">crates.io</a>所限制的详尽清单。</p>
+<pre><code class="language-javascript">{
+    // 包的名称。
+    &quot;name&quot;: &quot;foo&quot;,
+    // 发布的包的版本。
+    &quot;vers&quot;: &quot;0.1.0&quot;,
+    // 包的直接依赖的数组。
+    &quot;deps&quot;: [
+        {
+            // 依赖的名称。
+            // 如果依赖是由源包名重新命名的，这就是原来的名字。新的包名被保存在 `explicit_name_in_toml` 字段中。
+            &quot;name&quot;: &quot;rand&quot;,
+            // 这个依赖的语义化版本要求。
+            &quot;version_req&quot;: &quot;^0.6&quot;,
+            // 为该依赖启用的特性数组(以字符串形式)。
+            &quot;features&quot;: [&quot;i128_support&quot;],
+            // 布尔值，表示这是否是可选的依赖。
+            &quot;optional&quot;: false,
+            // 是否启用默认特性的布尔值。
+            &quot;default_features&quot;: true,
+            // 依赖的目标平台。
+            // 如果不是目标依赖，则为空。
+            // 否则，就是字符串，如 &quot;cfg(windows)&quot; 。
+            &quot;target&quot;: null,
+            // 依赖的类别。
+            // &quot;dev&quot;, &quot;build&quot;, or &quot;normal&quot;.
+            &quot;kind&quot;: &quot;normal&quot;,
+            // 该依赖所在的注册中心索引的URL，是字符串。如果没有指定或为空，则假定该依赖在当前注册中心中。
+            &quot;registry&quot;: null,
+            // 如果依赖被重新命名，这是新包名称的字符串。如果没有指定或为空，则该依赖未重命名。
+            &quot;explicit_name_in_toml&quot;: null,
+        }
+    ],
+    // 为该包定义的一组特性。
+    // 每个特性都映射到它所启用的特性或依赖数组。
+    // Cargo对特性名称不做限制，但crates.io需要字母数字的ASCII、 `_` 或 `-` 字符。
+    &quot;features&quot;: {
+        &quot;extras&quot;: [&quot;rand/simd_support&quot;]
+    },
+    // 作者的字符串列表.
+    // 可能为空。
+    &quot;authors&quot;: [&quot;Alice &lt;a@example.com&gt;&quot;],
+    // 来自配置清单的描述字段。
+    // 可能为空。crates.io 至少需要一些内容。
+    &quot;description&quot;: null,
+    // 这个包的文档的网站的URL字符串。
+    // 可为空。
+    &quot;documentation&quot;: null,
+    // 这个包的主页的网站的URL字符串。
+    // 可为空。
+    &quot;homepage&quot;: null,
+    // README文件内容的字符串。
+    // 可为空。
+    &quot;readme&quot;: null,
+    // crate中的README文件的相对路径字符串。
+    // 可为空。
+    &quot;readme_file&quot;: null,
+    // 包的关键词的字符串数组。
+    &quot;keywords&quot;: [],
+    // 包的类别字符串的数组。
+    &quot;categories&quot;: [],
+    // 包的许可证的字符串。
+    // 可为空。 crates.io 要求设置 `license` 或 `license_file` 。
+    &quot;license&quot;: null,
+    // 许可证文件的相对路径字符串。
+    // 可为空。
+    &quot;license_file&quot;: null,
+    // 包的源码库网站的URL字符串。
+    // 可为空。
+    &quot;repository&quot;: null,
+    // 可选的 &quot;状态&quot; 标志的对象。每个值是字符串到字符串映射的对象。
+    // crates.io对标志的格式有特殊解释。
+    &quot;badges&quot;: {
+        &quot;travis-ci&quot;: {
+            &quot;branch&quot;: &quot;master&quot;,
+            &quot;repository&quot;: &quot;rust-lang/cargo&quot;
+        }
+    },
+    // 包清单中的 `links` 字符串值，如果没有指定则为空。这个字段是可选的，默认为空。
+    &quot;links&quot;: null
+}
+</code></pre>
+<p>响应成功包括JSON对象:</p>
+<pre><code class="language-javascript">{
+    // 可选的警告对象，以显示给用户。
+    &quot;warnings&quot;: {
+        // 无效和被忽略的类别的字符串数组。
+        &quot;invalid_categories&quot;: [],
+        // 标志名称的字符串数组，这些标志名称是无效的并被忽略。
+        &quot;invalid_badges&quot;: [],
+        // 向用户显示的任意警告字符串的数组。
+        &quot;other&quot;: []
+    }
+}
+</code></pre>
+<h3 id="yank"><a class="header" href="#yank">Yank</a></h3>
+<ul>
+<li>Endpoint: <code>/api/v1/crates/{crate_name}/{version}/yank</code></li>
+<li>Method: DELETE</li>
+<li>Authorization: Included</li>
+</ul>
+<p>yank端点将在索引中将给定版本的crate的 <code>yank</code> 字段设置为 <code>true</code> 。</p>
+<p>响应成功包括JSON对象:</p>
+<pre><code class="language-javascript">{
+    // 表示删除成功，始终为true。
+    &quot;ok&quot;: true,
+}
+</code></pre>
+<h3 id="unyank"><a class="header" href="#unyank">Unyank</a></h3>
+<ul>
+<li>Endpoint: <code>/api/v1/crates/{crate_name}/{version}/unyank</code></li>
+<li>Method: PUT</li>
+<li>Authorization: Included</li>
+</ul>
+<p>unyank端点将在索引中将给定版本的crate的 <code>yank</code> 字段设置为 <code>false</code> 。</p>
+<p>响应成功包括JSON对象:</p>
+<pre><code class="language-javascript">{
+    // 表示删除成功，始终为true。
+    &quot;ok&quot;: true,
+}
+</code></pre>
+<h3 id="所有者"><a class="header" href="#所有者">所有者</a></h3>
+<p>Cargo没有固有的用户和所有者的概念，但它提供 <code>owner</code> 命令来帮助管理谁有控制crate的授权。
+具体如何处理用户和所有者，由注册中心决定。
+关于<a href="https://crates.io/">crates.io</a>如何通过GitHub用户和团队处理所有者的描述，请参见[发布文档]。</p>
+<h4 id="owners-list"><a class="header" href="#owners-list">Owners: List</a></h4>
+<ul>
+<li>Endpoint: <code>/api/v1/crates/{crate_name}/owners</code></li>
+<li>Method: GET</li>
+<li>Authorization: Included</li>
+</ul>
+<p>owners端点返回crate的所有者列表。</p>
+<p>响应成功包括JSON对象:</p>
+<pre><code class="language-javascript">{
+    // crate的所有者数组。
+    &quot;users&quot;: [
+        {
+            // 所有者的唯一无符号32位整数。
+            &quot;id&quot;: 70,
+            // 所有者唯一的用户名。
+            &quot;login&quot;: &quot;github:rust-lang:core&quot;,
+            // 所有者的名字。
+            // 这是可选的，可以为空。
+            &quot;name&quot;: &quot;Core&quot;,
+        }
+    ]
+}
+</code></pre>
+<h4 id="owners-add"><a class="header" href="#owners-add">Owners: Add</a></h4>
+<ul>
+<li>Endpoint: <code>/api/v1/crates/{crate_name}/owners</code></li>
+<li>Method: PUT</li>
+<li>Authorization: Included</li>
+</ul>
+<p>PUT请求将向注册中心发送请求，以将新的所有者添加到crate里。
+如何处理这个请求是由注册中心决定。
+例如，<a href="https://crates.io/">crates.io</a>会向用户发送一个邀请，他们必须在被添加之前接受。</p>
+<p>该请求应包括以下JSON对象:</p>
+<pre><code class="language-javascript">{
+    // 要添加的所有者的 `login` 字符串数组。
+    &quot;users&quot;: [&quot;login_name&quot;]
+}
+</code></pre>
+<p>响应成功包括JSON对象:</p>
+<pre><code class="language-javascript">{
+    // 表示添加成功，始终为真。
+    &quot;ok&quot;: true,
+    // 一个要显示给用户的字符串。
+    &quot;msg&quot;: &quot;user ehuss has been invited to be an owner of crate cargo&quot;
+}
+</code></pre>
+<h4 id="owners-remove"><a class="header" href="#owners-remove">Owners: Remove</a></h4>
+<ul>
+<li>Endpoint: <code>/api/v1/crates/{crate_name}/owners</code></li>
+<li>Method: DELETE</li>
+<li>Authorization: Included</li>
+</ul>
+<p>DELETE请求将从crate中删除一个所有者。该请求应包括以下JSON对象:</p>
+<pre><code class="language-javascript">{
+    // 要删除的所有者的 `login` 字符串数组。
+    &quot;users&quot;: [&quot;login_name&quot;]
+}
+</code></pre>
+<p>响应成功包括JSON对象:</p>
+<pre><code class="language-javascript">{
+    // 表示删除成功，始终为真。
+    &quot;ok&quot;: true
+}
+</code></pre>
+<h3 id="search"><a class="header" href="#search">Search</a></h3>
+<ul>
+<li>Endpoint: <code>/api/v1/crates</code></li>
+<li>Method: GET</li>
+<li>Query Parameters:
+<ul>
+<li><code>q</code>: The search query string.</li>
+<li><code>per_page</code>: Number of results, default 10, max 100.</li>
+</ul>
+</li>
+</ul>
+<p>搜索请求将使用服务器上定义的标准对caate进行搜索。</p>
+<p>响应成功包括JSON对象:</p>
+<pre><code class="language-javascript">{
+    // 结果数组
+    &quot;crates&quot;: [
+        {
+            // crate的名字。
+            &quot;name&quot;: &quot;rand&quot;,
+            // 可用的最高版本
+            &quot;max_version&quot;: &quot;0.6.1&quot;,
+            // crate的文字描述。
+            &quot;description&quot;: &quot;Random number generators and other randomness functionality.\n&quot;,
+        }
+    ],
+    &quot;meta&quot;: {
+        // 服务器上可用的结果总数。
+        &quot;total&quot;: 119
+    }
+}
+</code></pre>
+<h3 id="login"><a class="header" href="#login">Login</a></h3>
+<ul>
+<li>Endpoint: <code>/me</code></li>
+</ul>
+<p>&quot;login&quot; 端点不是实际的API请求。
+它的存在仅仅是为了 <a href="../commands/cargo-login.html"><code>cargo login</code></a> 命令显示URL，指示用户在网络浏览器中访问以登录并获取API令牌。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../reference/registry-index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../reference/resolver.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../reference/registry-index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../reference/resolver.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
