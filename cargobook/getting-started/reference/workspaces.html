@@ -1,0 +1,362 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>工作空间 - The Cargo Book</title>
+
+
+        <!-- Custom HTML head -->
+        <style>
+            dd {
+                margin-bottom: 1em;
+            }
+        </style>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">简介</a></li><li class="chapter-item expanded "><a href="../getting-started/index.html"><strong aria-hidden="true">1.</strong> 入门指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting-started/installation.html"><strong aria-hidden="true">1.1.</strong> 安装</a></li><li class="chapter-item expanded "><a href="../getting-started/first-steps.html"><strong aria-hidden="true">1.2.</strong> Cargo起步</a></li></ol></li><li class="chapter-item expanded "><a href="../guide/index.html"><strong aria-hidden="true">2.</strong> Cargo指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guide/why-cargo-exists.html"><strong aria-hidden="true">2.1.</strong> 为何有Cargo</a></li><li class="chapter-item expanded "><a href="../guide/creating-a-new-project.html"><strong aria-hidden="true">2.2.</strong> 创建新包</a></li><li class="chapter-item expanded "><a href="../guide/working-on-an-existing-project.html"><strong aria-hidden="true">2.3.</strong> 让包工作</a></li><li class="chapter-item expanded "><a href="../guide/dependencies.html"><strong aria-hidden="true">2.4.</strong> 依赖</a></li><li class="chapter-item expanded "><a href="../guide/project-layout.html"><strong aria-hidden="true">2.5.</strong> 包的设计</a></li><li class="chapter-item expanded "><a href="../guide/cargo-toml-vs-cargo-lock.html"><strong aria-hidden="true">2.6.</strong> Cargo.toml vs Cargo.lock</a></li><li class="chapter-item expanded "><a href="../guide/tests.html"><strong aria-hidden="true">2.7.</strong> 测试</a></li><li class="chapter-item expanded "><a href="../guide/continuous-integration.html"><strong aria-hidden="true">2.8.</strong> 持续集成</a></li><li class="chapter-item expanded "><a href="../guide/cargo-home.html"><strong aria-hidden="true">2.9.</strong> Cargo主页</a></li><li class="chapter-item expanded "><a href="../guide/build-cache.html"><strong aria-hidden="true">2.10.</strong> 构建缓存</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/index.html"><strong aria-hidden="true">3.</strong> Cargo参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/specifying-dependencies.html"><strong aria-hidden="true">3.1.</strong> 指定依赖</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/overriding-dependencies.html"><strong aria-hidden="true">3.1.1.</strong> 覆盖依赖</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/manifest.html"><strong aria-hidden="true">3.2.</strong> 配置格式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cargo-targets.html"><strong aria-hidden="true">3.2.1.</strong> Cargo目标</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/workspaces.html" class="active"><strong aria-hidden="true">3.3.</strong> 工作空间</a></li><li class="chapter-item expanded "><a href="../reference/features.html"><strong aria-hidden="true">3.4.</strong> 特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/features-examples.html"><strong aria-hidden="true">3.4.1.</strong> 特性示例</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/profiles.html"><strong aria-hidden="true">3.5.</strong> 编译设置</a></li><li class="chapter-item expanded "><a href="../reference/config.html"><strong aria-hidden="true">3.6.</strong> 配置</a></li><li class="chapter-item expanded "><a href="../reference/environment-variables.html"><strong aria-hidden="true">3.7.</strong> 环境变量</a></li><li class="chapter-item expanded "><a href="../reference/build-scripts.html"><strong aria-hidden="true">3.8.</strong> 构建脚本</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/build-script-examples.html"><strong aria-hidden="true">3.8.1.</strong> 构建脚本示例</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/publishing.html"><strong aria-hidden="true">3.9.</strong> 发布到crates.io</a></li><li class="chapter-item expanded "><a href="../reference/pkgid-spec.html"><strong aria-hidden="true">3.10.</strong> 包ID规范</a></li><li class="chapter-item expanded "><a href="../reference/source-replacement.html"><strong aria-hidden="true">3.11.</strong> 源替换</a></li><li class="chapter-item expanded "><a href="../reference/external-tools.html"><strong aria-hidden="true">3.12.</strong> 插件</a></li><li class="chapter-item expanded "><a href="../reference/registries.html"><strong aria-hidden="true">3.13.</strong> 注册中心</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/running-a-registry.html"><strong aria-hidden="true">3.13.1.</strong> 运行注册中心</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/registry-index.html"><strong aria-hidden="true">3.13.1.1.</strong> 注册中心索引</a></li><li class="chapter-item expanded "><a href="../reference/registry-web-api.html"><strong aria-hidden="true">3.13.1.2.</strong> 注册中心Web API</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../reference/resolver.html"><strong aria-hidden="true">3.14.</strong> 依赖解析</a></li><li class="chapter-item expanded "><a href="../reference/semver.html"><strong aria-hidden="true">3.15.</strong> 语义化兼容</a></li><li class="chapter-item expanded "><a href="../reference/future-incompat-report.html"><strong aria-hidden="true">3.16.</strong> 未来不兼容报告</a></li><li class="chapter-item expanded "><a href="../reference/timings.html"><strong aria-hidden="true">3.17.</strong> 报告构建时间</a></li><li class="chapter-item expanded "><a href="../reference/unstable.html"><strong aria-hidden="true">3.18.</strong> 不稳定特性</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/index.html"><strong aria-hidden="true">4.</strong> Cargo命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/general-commands.html"><strong aria-hidden="true">4.1.</strong> 常用命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo.html"><strong aria-hidden="true">4.1.1.</strong> cargo</a></li><li class="chapter-item expanded "><a href="../commands/cargo-help.html"><strong aria-hidden="true">4.1.2.</strong> cargo help</a></li><li class="chapter-item expanded "><a href="../commands/cargo-version.html"><strong aria-hidden="true">4.1.3.</strong> cargo version</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/build-commands.html"><strong aria-hidden="true">4.2.</strong> 构建命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-bench.html"><strong aria-hidden="true">4.2.1.</strong> cargo bench</a></li><li class="chapter-item expanded "><a href="../commands/cargo-build.html"><strong aria-hidden="true">4.2.2.</strong> cargo build</a></li><li class="chapter-item expanded "><a href="../commands/cargo-check.html"><strong aria-hidden="true">4.2.3.</strong> cargo check</a></li><li class="chapter-item expanded "><a href="../commands/cargo-clean.html"><strong aria-hidden="true">4.2.4.</strong> cargo clean</a></li><li class="chapter-item expanded "><a href="../commands/cargo-doc.html"><strong aria-hidden="true">4.2.5.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fetch.html"><strong aria-hidden="true">4.2.6.</strong> cargo fetch</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fix.html"><strong aria-hidden="true">4.2.7.</strong> cargo fix</a></li><li class="chapter-item expanded "><a href="../commands/cargo-run.html"><strong aria-hidden="true">4.2.8.</strong> cargo run</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustc.html"><strong aria-hidden="true">4.2.9.</strong> cargo rustc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustdoc.html"><strong aria-hidden="true">4.2.10.</strong> cargo rustdoc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-test.html"><strong aria-hidden="true">4.2.11.</strong> cargo test</a></li><li class="chapter-item expanded "><a href="../commands/cargo-report.html"><strong aria-hidden="true">4.2.12.</strong> cargo report</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/manifest-commands.html"><strong aria-hidden="true">4.3.</strong> 配置命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-add.html"><strong aria-hidden="true">4.3.1.</strong> cargo add</a></li><li class="chapter-item expanded "><a href="../commands/cargo-generate-lockfile.html"><strong aria-hidden="true">4.3.2.</strong> cargo generate-lockfile</a></li><li class="chapter-item expanded "><a href="../commands/cargo-locate-project.html"><strong aria-hidden="true">4.3.3.</strong> cargo locate-project</a></li><li class="chapter-item expanded "><a href="../commands/cargo-metadata.html"><strong aria-hidden="true">4.3.4.</strong> cargo metadata</a></li><li class="chapter-item expanded "><a href="../commands/cargo-pkgid.html"><strong aria-hidden="true">4.3.5.</strong> cargo pkgid</a></li><li class="chapter-item expanded "><a href="../commands/cargo-remove.html"><strong aria-hidden="true">4.3.6.</strong> cargo remove</a></li><li class="chapter-item expanded "><a href="../commands/cargo-tree.html"><strong aria-hidden="true">4.3.7.</strong> cargo tree</a></li><li class="chapter-item expanded "><a href="../commands/cargo-update.html"><strong aria-hidden="true">4.3.8.</strong> cargo update</a></li><li class="chapter-item expanded "><a href="../commands/cargo-vendor.html"><strong aria-hidden="true">4.3.9.</strong> cargo vendor</a></li><li class="chapter-item expanded "><a href="../commands/cargo-verify-project.html"><strong aria-hidden="true">4.3.10.</strong> cargo verify-project</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/package-commands.html"><strong aria-hidden="true">4.4.</strong> 包命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-init.html"><strong aria-hidden="true">4.4.1.</strong> cargo init</a></li><li class="chapter-item expanded "><a href="../commands/cargo-install.html"><strong aria-hidden="true">4.4.2.</strong> cargo install</a></li><li class="chapter-item expanded "><a href="../commands/cargo-new.html"><strong aria-hidden="true">4.4.3.</strong> cargo new</a></li><li class="chapter-item expanded "><a href="../commands/cargo-search.html"><strong aria-hidden="true">4.4.4.</strong> cargo search</a></li><li class="chapter-item expanded "><a href="../commands/cargo-uninstall.html"><strong aria-hidden="true">4.4.5.</strong> cargo uninstall</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/publishing-commands.html"><strong aria-hidden="true">4.5.</strong> 发布命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-login.html"><strong aria-hidden="true">4.5.1.</strong> cargo login</a></li><li class="chapter-item expanded "><a href="../commands/cargo-owner.html"><strong aria-hidden="true">4.5.2.</strong> cargo owner</a></li><li class="chapter-item expanded "><a href="../commands/cargo-package.html"><strong aria-hidden="true">4.5.3.</strong> cargo package</a></li><li class="chapter-item expanded "><a href="../commands/cargo-publish.html"><strong aria-hidden="true">4.5.4.</strong> cargo publish</a></li><li class="chapter-item expanded "><a href="../commands/cargo-yank.html"><strong aria-hidden="true">4.5.5.</strong> cargo yank</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> 常见问题</a></li><li class="chapter-item expanded "><a href="../appendix/glossary.html"><strong aria-hidden="true">6.</strong> 附录: 词汇表</a></li><li class="chapter-item expanded "><a href="../appendix/git-authentication.html"><strong aria-hidden="true">7.</strong> 附录: Git认证</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Cargo Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/cargo/tree/master/src/doc/src" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/cargo/edit/master/src/doc/src/reference/workspaces.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="工作空间"><a class="header" href="#工作空间">工作空间</a></h2>
+<p><em>工作空间</em> 是一个或多个包的集合，这些包称为 <em>工作空间成员</em> ，它们被统一管理。</p>
+<p>工作空间的关键目标是:</p>
+<ul>
+<li>常规命令可以在所有工作空间成员中运行，如 <code>cargo check --workspace</code> 。</li>
+<li>所有包共享 <a href="../guide/cargo-toml-vs-cargo-lock.html"><code>Cargo.lock</code></a> 文件，该文件在 <em>工作空间根</em> 下。</li>
+<li>所有包共享 <a href="../guide/build-cache.html">output directory</a> ，该目录默认为 <em>工作空间根</em> 下的 <code>target</code> 。</li>
+<li>共享包的metadata，比如 <a href="#the-package-table"><code>workspace.package</code></a> 。</li>
+<li>仅识别 <em>根</em> 配置清单 <code>Cargo.toml</code> 中的 <a href="overriding-dependencies.html#the-patch-section"><code>[patch]</code></a> , <a href="overriding-dependencies.html#the-replace-section"><code>[replace]</code></a> 和 <a href="profiles.html"><code>[profile.*]</code></a> ，忽略其成员 crate 配置清单中的。</li>
+</ul>
+<p>在 <code>Cargo.toml</code> 中， <code>[workspace]</code> 表支持以下部分:</p>
+<ul>
+<li><code>[workspace]</code>](#the-workspace-section) — 工作空间的定义。
+<ul>
+<li><a href="resolver.html#resolver-versions"><code>resolver</code></a> — 设置要使用的依赖解析器。</li>
+<li><a href="#the-members-and-exclude-fields"><code>members</code></a> — 包含在工作空间的包。</li>
+<li><a href="#the-members-and-exclude-fields"><code>exclude</code></a> — 从工作空间排除的包。</li>
+<li><a href="#the-default-members-field"><code>default-members</code></a> — 当没有选择特定的包时，对包进行操作。</li>
+<li><a href="#the-package-table"><code>package</code></a> — 可被包继承的键。</li>
+<li><a href="#the-dependencies-table"><code>dependencies</code></a>  — 可被包继承的依赖键。</li>
+<li><a href="#the-metadata-table"><code>metadata</code></a> — 插件的附带设置。</li>
+</ul>
+</li>
+<li><a href="overriding-dependencies.html#the-patch-section"><code>[patch]</code></a> — 覆盖依赖。</li>
+<li><a href="overriding-dependencies.html#the-replace-section"><code>[replace]</code></a> — 覆盖依赖(已废弃)。</li>
+<li><a href="profiles.html"><code>[profile]</code></a> — 编译器设置和优化。</li>
+</ul>
+<h3 id="workspace部分"><a class="header" href="#workspace部分"><code>[workspace]</code>部分</a></h3>
+<p>要创建工作空间，你需要在 <code>Cargo.toml</code> 中添加 <code>[workspace]</code> 表:</p>
+<pre><code class="language-toml">[workspace]
+# ...
+</code></pre>
+<p>工作空间至少要有一个成员，要么是一个根package，或者是虚拟配置清单。</p>
+<h4 id="root-package"><a class="header" href="#root-package">Root package</a></h4>
+<p>如果在已定义 <code>[package]</code> 的 <code>Cargo.toml</code> 中，添加 <a href="#the-workspace-section"><code>[workspace]</code> 部分</a> ，该package就是工作空间的 <em>Root package</em> 。 <em>工作空间根</em> 指的是工作空间 <code>Cargo.toml</code> 所在的目录。</p>
+<pre><code class="language-toml">[workspace]
+
+[package]
+name = &quot;hello_world&quot; # 包的名称
+version = &quot;0.1.0&quot;    # 当前语义化版本
+authors = [&quot;Alice &lt;a@example.com&gt;&quot;, &quot;Bob &lt;b@example.com&gt;&quot;]
+</code></pre>
+<p><a id="virtual-manifest"></a></p>
+<h4 id="虚拟工作空间"><a class="header" href="#虚拟工作空间">虚拟工作空间</a></h4>
+<p>或者，可以创建 <code>Cargo.toml</code> 文件中，有 <code>[workspace]</code> 表，但没有 <a href="manifest.html#the-package-section"><code>[package]</code></a> 表，则称为 <em>虚拟配置清单</em> 。这通常在没有 &quot;主&quot; 包时很有用，可把拥有的包放在不同的目录里。</p>
+<pre><code class="language-toml"># [PROJECT_DIR]/Cargo.toml
+[workspace]
+members = [&quot;hello_world&quot;]
+</code></pre>
+<pre><code class="language-toml"># [PROJECT_DIR]/hello_world/Cargo.toml
+[package]
+name = &quot;hello_world&quot; # package名称
+version = &quot;0.1.0&quot;    # 当前的语义化版本
+authors = [&quot;Alice &lt;a@example.com&gt;&quot;, &quot;Bob &lt;b@example.com&gt;&quot;]
+</code></pre>
+<h3 id="members-和-exclude-字段"><a class="header" href="#members-和-exclude-字段"><code>members</code> 和 <code>exclude</code> 字段</a></h3>
+<p><code>members</code> 和 <code>exclude</code> 字段定义哪些包是工作空间的成员:</p>
+<pre><code class="language-toml">[workspace]
+members = [&quot;member1&quot;, &quot;path/to/member2&quot;, &quot;crates/*&quot;]
+exclude = [&quot;crates/foo&quot;, &quot;path/to/other&quot;]
+</code></pre>
+<p>存在工作空间目录中的所有 <a href="specifying-dependencies.html#specifying-path-dependencies"><code>path</code> dependencies</a> 自动成为成员。其他成员可以用 <code>members</code> 键列出，该键是包含 <code>Cargo.toml</code> 文件的目录的字符串数组。</p>
+<p><code>members</code> 列表也支持 <a href="https://docs.rs/glob/0.3.0/glob/struct.Pattern.html">globs</a> 通配符来匹配多个路径，使用典型的文件名通配符模式，如 <code>*</code> 和 <code>?</code> 。</p>
+<p><code>exclude</code> 键可以防止路径被包含到工作空间，排除某些路径依赖，可用通配符模式。</p>
+<p>当在工作空间的子目录内时，Cargo会自动搜索父目录中的 <code>Cargo.toml</code> 文件，以其中的 <code>[workspace]</code> 定义，来确定使用的工作空间。
+在成员crate中可以使用 <a href="manifest.html#the-workspace-field"><code>package.workspace</code></a> 配置键来指向工作空间的根，以覆盖自动搜索。如果成员不在工作空间根的子目录内，就需要手动设置。</p>
+<h4 id="package-部分"><a class="header" href="#package-部分">Package 部分</a></h4>
+<p>在工作空间中，与包有关的cargo命令，如 <a href="../commands/cargo-build.html"><code>cargo build</code></a> ，可以使用 <code>-p</code>/<code>-package</code> 或 <code>-workspace</code> 命令行标志来决定对哪些包进行操作。
+如果没有指定这两个标志，Cargo将使用当前工作目录下的包。如果当前目录是 <a href="#virtual-workspace">虚拟工作空间</a> ，
+它将适用于所有成员(如同在命令行中指定 <code>--workspace</code> 一样)。 参见 <a href="#the-default-members-field"><code>default-members</code></a> 。</p>
+<h3 id="default-members-字段"><a class="header" href="#default-members-字段"><code>default-members</code> 字段</a></h3>
+<p><code>default-members</code> 键可选，在未使用工作空间根和包选择标志时，设置被操作的成员:</p>
+<pre><code class="language-toml">[workspace]
+members = [&quot;path/to/member1&quot;, &quot;path/to/member2&quot;, &quot;path/to/member3/*&quot;]
+default-members = [&quot;path/to/member2&quot;, &quot;path/to/member3/foo&quot;]
+</code></pre>
+<p>当指定 <code>default-members</code> 时，扩展的必须是 <code>members</code> 的子集。</p>
+<h3 id="package-表"><a class="header" href="#package-表"><code>package</code> 表</a></h3>
+<p><code>workspace.package</code> 表可以定义工作空间成员继承的键。这些键可以通过在成员包中定义 <code>{key}.workspace = true</code> 方式继承。</p>
+<p>支持的键:</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th></th></tr></thead><tbody>
+<tr><td><code>authors</code></td><td><code>categories</code></td></tr>
+<tr><td><code>description</code></td><td><code>documentation</code></td></tr>
+<tr><td><code>edition</code></td><td><code>exclude</code></td></tr>
+<tr><td><code>homepage</code></td><td><code>include</code></td></tr>
+<tr><td><code>keywords</code></td><td><code>license</code></td></tr>
+<tr><td><code>license-file</code></td><td><code>publish</code></td></tr>
+<tr><td><code>readme</code></td><td><code>repository</code></td></tr>
+<tr><td><code>rust-version</code></td><td><code>version</code></td></tr>
+</tbody></table>
+</div>
+<ul>
+<li><code>license-file</code> 和 <code>readme</code> 是相对于工作空间根。</li>
+<li><code>include</code> 和 <code>exclude</code> 是相对于包的根。</li>
+</ul>
+<p>示例:</p>
+<pre><code class="language-toml"># [PROJECT_DIR]/Cargo.toml
+[workspace]
+members = [&quot;bar&quot;]
+
+[workspace.package]
+version = &quot;1.2.3&quot;
+authors = [&quot;Nice Folks&quot;]
+description = &quot;A short description of my package&quot;
+documentation = &quot;https://example.com/bar&quot;
+</code></pre>
+<pre><code class="language-toml"># [PROJECT_DIR]/bar/Cargo.toml
+[package]
+name = &quot;bar&quot;
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+documentation.workspace = true
+</code></pre>
+<h3 id="dependencies-表"><a class="header" href="#dependencies-表"><code>dependencies</code> 表</a></h3>
+<p><code>workspace.dependencies</code> 是可以定义工作空间成员所继承的依赖。</p>
+<p>指定工作空间依赖与<a href="specifying-dependencies.html">包依赖</a>类似，除了:</p>
+<ul>
+<li>此表中的依赖不能被声明为 <code>optional</code> 。</li>
+<li>在此表中声明的 <a href="features.html"><code>features</code></a> 与来自 <code>[dependencies]</code> 的 <code>features</code> 是添加的。</li>
+</ul>
+<p>那么你可以<a href="specifying-dependencies.html#inheriting-a-dependency-from-a-workspace">把工作区的依赖作为包的依赖来继承</a></p>
+<p>示例:</p>
+<pre><code class="language-toml"># [PROJECT_DIR]/Cargo.toml
+[workspace]
+members = [&quot;bar&quot;]
+
+[workspace.dependencies]
+cc = &quot;1.0.73&quot;
+rand = &quot;0.8.5&quot;
+regex = { version = &quot;1.6.0&quot;, default-features = false, features = [&quot;std&quot;] }
+</code></pre>
+<pre><code class="language-toml"># [PROJECT_DIR]/bar/Cargo.toml
+[package]
+name = &quot;bar&quot;
+version = &quot;0.2.0&quot;
+
+[dependencies]
+regex = { workspace = true, features = [&quot;unicode&quot;] }
+
+[build-dependencies]
+cc.workspace = true
+
+[dev-dependencies]
+rand.workspace = true
+</code></pre>
+<h3 id="metadata-表"><a class="header" href="#metadata-表"><code>metadata</code> 表</a></h3>
+<p>Cargo忽略 <code>workspace.metadata</code> 表的检查，不会被警告。一些工具可以在 <code>Cargo.toml</code> 这一部分中存储工作空间配置。比如:</p>
+<pre><code class="language-toml">[workspace]
+members = [&quot;member1&quot;, &quot;member2&quot;]
+
+[workspace.metadata.webcontents]
+root = &quot;path/to/webproject&quot;
+tool = [&quot;npm&quot;, &quot;run&quot;, &quot;build&quot;]
+# ...
+</code></pre>
+<p>在包中也有类似的表 <a href="manifest.html#the-metadata-table"><code>package.metadata</code></a> 。虽然cargo没有为表的内容指定格式，
+但建议外部工具以一致的方式使用它们，比如，如果对工具来说有意义，那么在 <code>package.metadata</code> 中缺少数据时，可以参考 <code>workspace.metadata</code> 中的数据。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../reference/cargo-targets.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../reference/features.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../reference/cargo-targets.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../reference/features.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

@@ -1,0 +1,1042 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>配置 - The Cargo Book</title>
+
+
+        <!-- Custom HTML head -->
+        <style>
+            dd {
+                margin-bottom: 1em;
+            }
+        </style>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">简介</a></li><li class="chapter-item expanded "><a href="../getting-started/index.html"><strong aria-hidden="true">1.</strong> 入门指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting-started/installation.html"><strong aria-hidden="true">1.1.</strong> 安装</a></li><li class="chapter-item expanded "><a href="../getting-started/first-steps.html"><strong aria-hidden="true">1.2.</strong> Cargo起步</a></li></ol></li><li class="chapter-item expanded "><a href="../guide/index.html"><strong aria-hidden="true">2.</strong> Cargo指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guide/why-cargo-exists.html"><strong aria-hidden="true">2.1.</strong> 为何有Cargo</a></li><li class="chapter-item expanded "><a href="../guide/creating-a-new-project.html"><strong aria-hidden="true">2.2.</strong> 创建新包</a></li><li class="chapter-item expanded "><a href="../guide/working-on-an-existing-project.html"><strong aria-hidden="true">2.3.</strong> 让包工作</a></li><li class="chapter-item expanded "><a href="../guide/dependencies.html"><strong aria-hidden="true">2.4.</strong> 依赖</a></li><li class="chapter-item expanded "><a href="../guide/project-layout.html"><strong aria-hidden="true">2.5.</strong> 包的设计</a></li><li class="chapter-item expanded "><a href="../guide/cargo-toml-vs-cargo-lock.html"><strong aria-hidden="true">2.6.</strong> Cargo.toml vs Cargo.lock</a></li><li class="chapter-item expanded "><a href="../guide/tests.html"><strong aria-hidden="true">2.7.</strong> 测试</a></li><li class="chapter-item expanded "><a href="../guide/continuous-integration.html"><strong aria-hidden="true">2.8.</strong> 持续集成</a></li><li class="chapter-item expanded "><a href="../guide/cargo-home.html"><strong aria-hidden="true">2.9.</strong> Cargo主页</a></li><li class="chapter-item expanded "><a href="../guide/build-cache.html"><strong aria-hidden="true">2.10.</strong> 构建缓存</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/index.html"><strong aria-hidden="true">3.</strong> Cargo参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/specifying-dependencies.html"><strong aria-hidden="true">3.1.</strong> 指定依赖</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/overriding-dependencies.html"><strong aria-hidden="true">3.1.1.</strong> 覆盖依赖</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/manifest.html"><strong aria-hidden="true">3.2.</strong> 配置格式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cargo-targets.html"><strong aria-hidden="true">3.2.1.</strong> Cargo目标</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/workspaces.html"><strong aria-hidden="true">3.3.</strong> 工作空间</a></li><li class="chapter-item expanded "><a href="../reference/features.html"><strong aria-hidden="true">3.4.</strong> 特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/features-examples.html"><strong aria-hidden="true">3.4.1.</strong> 特性示例</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/profiles.html"><strong aria-hidden="true">3.5.</strong> 编译设置</a></li><li class="chapter-item expanded "><a href="../reference/config.html" class="active"><strong aria-hidden="true">3.6.</strong> 配置</a></li><li class="chapter-item expanded "><a href="../reference/environment-variables.html"><strong aria-hidden="true">3.7.</strong> 环境变量</a></li><li class="chapter-item expanded "><a href="../reference/build-scripts.html"><strong aria-hidden="true">3.8.</strong> 构建脚本</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/build-script-examples.html"><strong aria-hidden="true">3.8.1.</strong> 构建脚本示例</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/publishing.html"><strong aria-hidden="true">3.9.</strong> 发布到crates.io</a></li><li class="chapter-item expanded "><a href="../reference/pkgid-spec.html"><strong aria-hidden="true">3.10.</strong> 包ID规范</a></li><li class="chapter-item expanded "><a href="../reference/source-replacement.html"><strong aria-hidden="true">3.11.</strong> 源替换</a></li><li class="chapter-item expanded "><a href="../reference/external-tools.html"><strong aria-hidden="true">3.12.</strong> 插件</a></li><li class="chapter-item expanded "><a href="../reference/registries.html"><strong aria-hidden="true">3.13.</strong> 注册中心</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/running-a-registry.html"><strong aria-hidden="true">3.13.1.</strong> 运行注册中心</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/registry-index.html"><strong aria-hidden="true">3.13.1.1.</strong> 注册中心索引</a></li><li class="chapter-item expanded "><a href="../reference/registry-web-api.html"><strong aria-hidden="true">3.13.1.2.</strong> 注册中心Web API</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../reference/resolver.html"><strong aria-hidden="true">3.14.</strong> 依赖解析</a></li><li class="chapter-item expanded "><a href="../reference/semver.html"><strong aria-hidden="true">3.15.</strong> 语义化兼容</a></li><li class="chapter-item expanded "><a href="../reference/future-incompat-report.html"><strong aria-hidden="true">3.16.</strong> 未来不兼容报告</a></li><li class="chapter-item expanded "><a href="../reference/timings.html"><strong aria-hidden="true">3.17.</strong> 报告构建时间</a></li><li class="chapter-item expanded "><a href="../reference/unstable.html"><strong aria-hidden="true">3.18.</strong> 不稳定特性</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/index.html"><strong aria-hidden="true">4.</strong> Cargo命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/general-commands.html"><strong aria-hidden="true">4.1.</strong> 常用命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo.html"><strong aria-hidden="true">4.1.1.</strong> cargo</a></li><li class="chapter-item expanded "><a href="../commands/cargo-help.html"><strong aria-hidden="true">4.1.2.</strong> cargo help</a></li><li class="chapter-item expanded "><a href="../commands/cargo-version.html"><strong aria-hidden="true">4.1.3.</strong> cargo version</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/build-commands.html"><strong aria-hidden="true">4.2.</strong> 构建命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-bench.html"><strong aria-hidden="true">4.2.1.</strong> cargo bench</a></li><li class="chapter-item expanded "><a href="../commands/cargo-build.html"><strong aria-hidden="true">4.2.2.</strong> cargo build</a></li><li class="chapter-item expanded "><a href="../commands/cargo-check.html"><strong aria-hidden="true">4.2.3.</strong> cargo check</a></li><li class="chapter-item expanded "><a href="../commands/cargo-clean.html"><strong aria-hidden="true">4.2.4.</strong> cargo clean</a></li><li class="chapter-item expanded "><a href="../commands/cargo-doc.html"><strong aria-hidden="true">4.2.5.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fetch.html"><strong aria-hidden="true">4.2.6.</strong> cargo fetch</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fix.html"><strong aria-hidden="true">4.2.7.</strong> cargo fix</a></li><li class="chapter-item expanded "><a href="../commands/cargo-run.html"><strong aria-hidden="true">4.2.8.</strong> cargo run</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustc.html"><strong aria-hidden="true">4.2.9.</strong> cargo rustc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustdoc.html"><strong aria-hidden="true">4.2.10.</strong> cargo rustdoc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-test.html"><strong aria-hidden="true">4.2.11.</strong> cargo test</a></li><li class="chapter-item expanded "><a href="../commands/cargo-report.html"><strong aria-hidden="true">4.2.12.</strong> cargo report</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/manifest-commands.html"><strong aria-hidden="true">4.3.</strong> 配置命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-add.html"><strong aria-hidden="true">4.3.1.</strong> cargo add</a></li><li class="chapter-item expanded "><a href="../commands/cargo-generate-lockfile.html"><strong aria-hidden="true">4.3.2.</strong> cargo generate-lockfile</a></li><li class="chapter-item expanded "><a href="../commands/cargo-locate-project.html"><strong aria-hidden="true">4.3.3.</strong> cargo locate-project</a></li><li class="chapter-item expanded "><a href="../commands/cargo-metadata.html"><strong aria-hidden="true">4.3.4.</strong> cargo metadata</a></li><li class="chapter-item expanded "><a href="../commands/cargo-pkgid.html"><strong aria-hidden="true">4.3.5.</strong> cargo pkgid</a></li><li class="chapter-item expanded "><a href="../commands/cargo-remove.html"><strong aria-hidden="true">4.3.6.</strong> cargo remove</a></li><li class="chapter-item expanded "><a href="../commands/cargo-tree.html"><strong aria-hidden="true">4.3.7.</strong> cargo tree</a></li><li class="chapter-item expanded "><a href="../commands/cargo-update.html"><strong aria-hidden="true">4.3.8.</strong> cargo update</a></li><li class="chapter-item expanded "><a href="../commands/cargo-vendor.html"><strong aria-hidden="true">4.3.9.</strong> cargo vendor</a></li><li class="chapter-item expanded "><a href="../commands/cargo-verify-project.html"><strong aria-hidden="true">4.3.10.</strong> cargo verify-project</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/package-commands.html"><strong aria-hidden="true">4.4.</strong> 包命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-init.html"><strong aria-hidden="true">4.4.1.</strong> cargo init</a></li><li class="chapter-item expanded "><a href="../commands/cargo-install.html"><strong aria-hidden="true">4.4.2.</strong> cargo install</a></li><li class="chapter-item expanded "><a href="../commands/cargo-new.html"><strong aria-hidden="true">4.4.3.</strong> cargo new</a></li><li class="chapter-item expanded "><a href="../commands/cargo-search.html"><strong aria-hidden="true">4.4.4.</strong> cargo search</a></li><li class="chapter-item expanded "><a href="../commands/cargo-uninstall.html"><strong aria-hidden="true">4.4.5.</strong> cargo uninstall</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/publishing-commands.html"><strong aria-hidden="true">4.5.</strong> 发布命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-login.html"><strong aria-hidden="true">4.5.1.</strong> cargo login</a></li><li class="chapter-item expanded "><a href="../commands/cargo-owner.html"><strong aria-hidden="true">4.5.2.</strong> cargo owner</a></li><li class="chapter-item expanded "><a href="../commands/cargo-package.html"><strong aria-hidden="true">4.5.3.</strong> cargo package</a></li><li class="chapter-item expanded "><a href="../commands/cargo-publish.html"><strong aria-hidden="true">4.5.4.</strong> cargo publish</a></li><li class="chapter-item expanded "><a href="../commands/cargo-yank.html"><strong aria-hidden="true">4.5.5.</strong> cargo yank</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> 常见问题</a></li><li class="chapter-item expanded "><a href="../appendix/glossary.html"><strong aria-hidden="true">6.</strong> 附录: 词汇表</a></li><li class="chapter-item expanded "><a href="../appendix/git-authentication.html"><strong aria-hidden="true">7.</strong> 附录: Git认证</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Cargo Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/cargo/tree/master/src/doc/src" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/cargo/edit/master/src/doc/src/reference/config.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="配置"><a class="header" href="#配置">配置</a></h2>
+<p>此文档解释Cargo的配置系统，以及可用的键或配置项。关于包的配置清单，参阅<a href="manifest.html">manifest format</a>。</p>
+<h3 id="层次结构"><a class="header" href="#层次结构">层次结构</a></h3>
+<p>Cargo允许对特定的包进行本地配置和全局配置，会在当前目录和所有父目录下寻找配置文件。
+比如，如果在 <code>/projects/foo/bar/baz</code> 中调用Cargo，那么以下的配置文件会被探测到，并按照这个顺序统一管理:</p>
+<ul>
+<li><code>/projects/foo/bar/baz/.cargo/config.toml</code></li>
+<li><code>/projects/foo/bar/.cargo/config.toml</code></li>
+<li><code>/projects/foo/.cargo/config.toml</code></li>
+<li><code>/projects/.cargo/config.toml</code></li>
+<li><code>/.cargo/config.toml</code></li>
+<li><code>$CARGO_HOME/config.toml</code> 默认为:
+<ul>
+<li>Windows: <code>%USERPROFILE%\.cargo\config.toml</code></li>
+<li>Unix: <code>$HOME/.cargo/config.toml</code></li>
+</ul>
+</li>
+</ul>
+<p>按照这种结构，可以指定每个包的配置，可以将其检出到版本控制中。可以在主目录下用一个配置文件指定个人的默认值。</p>
+<p>如果一个键在多个配置文件中被指定，将合并这些值。数字、字符串和布尔值将使用更深层级配置目录中的值，其优先于祖先目录中的，主目录的优先级最低。数组将连接在一起。</p>
+<p>目前，当从工作空间调用时，Cargo不会从工作空间的crate中读取配置文件，比如，工作空间有两个crate，分别为 <code>/projects/foo/bar/baz/mylib</code> 和 <code>/projects/foo/bar/baz/mybin</code> ，
+并且存在 <code>/projects/foo/bar/baz/mylib/.cargo/config.toml</code> 和 <code>/projects/foo/bar/baz/mybin/.cargo/config.toml</code> ，如果从工作空间根(<code>/projects/foo/bar/baz/</code>)调用，Cargo就不会读取这些配置文件。</p>
+<blockquote>
+<p><strong>注意:</strong> Cargo 也可以读取没有 <code>.toml</code> 扩展名的配置文件，如<code>.cargo/config</code>。
+对 <code>.toml</code> 扩展的支持是在1.39版本中加入的，是首选的形式。如果两个文件都存在，Cargo 将使用没有扩展名的文件。</p>
+</blockquote>
+<h3 id="配置格式"><a class="header" href="#配置格式">配置格式</a></h3>
+<p>配置文件是以 <a href="https://toml.io/">TOML格式</a> 编写，在表内有简洁的键值对。以下是对所有设置的概述，详细说明见下文。</p>
+<p>paths = [&quot;/path/to/override&quot;] # 路径依赖覆盖</p>
+<p>[alias]     # 命令别名
+b = &quot;build&quot;
+c = &quot;check&quot;
+t = &quot;test&quot;
+r = &quot;run&quot;
+rr = &quot;run --release&quot;
+recursive_example = &quot;rr --example recursions&quot;
+space_example = [&quot;run&quot;, &quot;--release&quot;, &quot;--&quot;, &quot;&quot;command list&quot;&quot;]</p>
+<p>[build]
+jobs = 1                      # 并行任务数, 默认为 CPU 数
+rustc = &quot;rustc&quot;               # rust 编译器工具
+rustc-wrapper = &quot;…&quot;           # 运行这个包装器，而不是 <code>rustc</code>
+rustc-workspace-wrapper = &quot;…&quot; # 运行这个包装器，而不是 <code>rustc</code> ，对于工作空间成员
+rustdoc = &quot;rustdoc&quot;           # 文档生成工具
+target = &quot;triple&quot;             # 构建目标三元组 (被 <code>cargo install</code> 忽略)
+target-dir = &quot;target&quot;         # 放置所有生成制品的路径
+rustflags = [&quot;…&quot;, &quot;…&quot;]        # 要传递给所有编译器调用的自定义标志
+rustdocflags = [&quot;…&quot;, &quot;…&quot;]     # 传递给rustdoc的自定义标志
+incremental = true            # 是否启用增量编译
+dep-info-basedir = &quot;…&quot;        # 开发文件中目标的基础目录路径</p>
+<p>[doc]
+browser = &quot;chromium&quot;          # 与 <code>cargo doc --open</code> 一起使用的浏览器，覆盖 <code>BROWSER</code> 环境变量。</p>
+<p><a href="environment-variables.html">env</a></p>
+<h1 id="为cargo运行的任何进程设置env_var_namevalue"><a class="header" href="#为cargo运行的任何进程设置env_var_namevalue">为Cargo运行的任何进程设置ENV_VAR_NAME=value</a></h1>
+<p>ENV_VAR_NAME = &quot;value&quot;</p>
+<h1 id="即使环境中已经存在也将设置"><a class="header" href="#即使环境中已经存在也将设置">即使环境中已经存在，也将设置</a></h1>
+<p>ENV_VAR_NAME_2 = { value = &quot;value&quot;, force = true }</p>
+<h1 id="该值是相对于包含-configtoml-的cargo目录而言的设置为绝对的"><a class="header" href="#该值是相对于包含-configtoml-的cargo目录而言的设置为绝对的">该值是相对于包含 <code>config.toml</code> 的.cargo目录而言的，设置为绝对的。</a></h1>
+<p>ENV_VAR_NAME_3 = { value = &quot;relative/path&quot;, relative = true }</p>
+<p>[future-incompat-report]
+frequency = 'always' # 何时显示关于未来不兼容报告的通知</p>
+<p>[cargo-new]
+vcs = &quot;none&quot;              # VCS 便用 ('git', 'hg', 'pijul', 'fossil', 'none')</p>
+<p>[http]
+debug = false               # HTTP 调试
+proxy = &quot;host:port&quot;         # libcurl格式的HTTP代理
+ssl-version = &quot;tlsv1.3&quot;     # 要使用的TLS版本
+ssl-version.max = &quot;tlsv1.3&quot; # TLS 最大版本
+ssl-version.min = &quot;tlsv1.1&quot; # TLS 最小版本
+timeout = 30                # 每个HTTP请求的超时，单位为秒
+low-speed-limit = 10        # 网络超时阈值(字节/秒)。
+cainfo = &quot;cert.pem&quot;         # CA证书绑定的路径
+check-revoke = true         # 检查SSL证书是否被撤销
+multiplexing = true         # HTTP/2 多路复用
+user-agent = &quot;…&quot;            # user-agent 头</p>
+<p>[install]
+root = &quot;/some/path&quot;         # <code>cargo install</code> 目标目录</p>
+<p>[net]
+retry = 2                   # 网络重试
+git-fetch-with-cli = true   # 使用 <code>git</code> 可执行文件进行git操作
+offline = true              # 不接入网络</p>
+<p>[patch.<registry>]</p>
+<h1 id="与cargotoml中-patch-的键相同"><a class="header" href="#与cargotoml中-patch-的键相同">与Cargo.toml中 [patch] 的键相同。</a></h1>
+<p>[profile.<name>]         # 通过配置来修改编译设置。
+opt-level = 0            # 优化级别。
+debug = true             # 包括调试信息。
+split-debuginfo = '...'  # 调试信息拆分行为。
+debug-assertions = true  # 启用调试断言。
+overflow-checks = true   # 启用运行时的整数溢出检查。
+lto = false              # 设置链接时优化。
+panic = 'unwind'         # 恐慌策略。
+incremental = true       # 增量编译。
+codegen-units = 16       # 代码生成单元的数目。
+rpath = false            # 设置rpath链接选项。
+[profile.<name>.build-override]  # 覆盖build-script的设置。</p>
+<h1 id="profile下的键是一样的"><a class="header" href="#profile下的键是一样的">profile下的键是一样的。</a></h1>
+<p>[profile.<name>.package.<name>]  # 覆盖包的配置文件。</p>
+<h1 id="profile下的键是一样的-没有-panic-lto-和-rpath"><a class="header" href="#profile下的键是一样的-没有-panic-lto-和-rpath">profile下的键是一样的 (没有 <code>panic</code>, <code>lto</code>, 和 <code>rpath</code>)。</a></h1>
+<p>[registries.<name>]  # crates.io外的其他注册中心
+index = &quot;…&quot;          # 注册中心的URL索引
+token = &quot;…&quot;          # 注册中心的认证令牌</p>
+<p>[registry]
+default = &quot;…&quot;        # 默认注册中心的名称
+token = &quot;…&quot;          # crates.io的认证令牌</p>
+<p>[source.<name>]      # 源的定义和替换
+replace-with = &quot;…&quot;   # 用给定命名的源替换这个源
+directory = &quot;…&quot;      # 目录源的路径
+registry = &quot;…&quot;       # 注册中心源的 URL
+local-registry = &quot;…&quot; # 本地注册源的路径
+git = &quot;…&quot;            # git 源的 URL
+branch = &quot;…&quot;         # git 仓库的分支名称
+tag = &quot;…&quot;            # git 仓库的 tag 名称
+rev = &quot;…&quot;            # git 仓库的修订</p>
+<p>[target.<triple>]
+linker = &quot;…&quot;            # 要使用的链接器
+runner = &quot;…&quot;            # 运行可执行文件的包装器
+rustflags = [&quot;…&quot;, &quot;…&quot;]  # <code>rustc</code> 的自定义标记</p>
+<p>[target.<cfg>]
+runner = &quot;…&quot;            # 运行可执行文件的包装器
+rustflags = [&quot;…&quot;, &quot;…&quot;]  # <code>rustc</code> 的自定义标记</p>
+<p>[target.<triple>.<links>] # <code>links</code> 构建脚本覆盖
+rustc-link-lib = [&quot;foo&quot;]
+rustc-link-search = [&quot;/path/to/foo&quot;]
+rustc-flags = [&quot;-L&quot;, &quot;/some/path&quot;]
+rustc-cfg = ['key=&quot;value&quot;']
+rustc-env = {key = &quot;value&quot;}
+rustc-cdylib-link-arg = [&quot;…&quot;]
+metadata_key1 = &quot;value&quot;
+metadata_key2 = &quot;value&quot;</p>
+<p>[term]
+quiet = false          # cargo是否输出静默
+verbose = false        # cargo是否提供详细输出
+color = 'auto'         # cargo是否着色输出
+progress.when = 'auto' # cargo是否显示进度条
+progress.width = 80    # 进度条的宽度</p>
+<pre><code>
+### 环境变量
+
+除了TOML配置文件，Cargo还可以通过环境变量进行配置。对于每个形如 `foo.bar` 的配置键，也可以用环境变量 `CARGO_FOO_BAR` 定义值。
+键将转换为大写字母，点和破折号将转换为下划线。例如，`target.x86_64-unknown-linux-gnu.runner` 键也可以由 `CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUNNER` 环境变量定义。
+
+环境变量将优先于TOML配置文件。目前只有整数、布尔值、字符串和一些数组值支持由环境变量定义。
+[下面描述](#configuration-keys)表明哪些键支持环境变量，否则由于[技术问题](https://github.com/rust-lang/cargo/issues/5416)而不受支持。
+
+除了上述系统外，Cargo还能识别一些其他特定的[环境变量][env]。
+
+### 命令行覆盖
+
+Cargo也可以通过 `--config` 命令行选项接受任意的配置覆盖。参数应是TOML语法中的 &quot;KEY=VALUE&quot; 。
+
+```console
+cargo --config net.git-fetch-with-cli=true fetch
+</code></pre>
+<p><code>--config</code> 选项可以多次指定，在这种情况下，这些值将按照从左到右的顺序合并，合并逻辑与多个配置文件时相同。
+以这种方式指定的配置值优先于环境变量，环境变量优先于配置文件。</p>
+<p>一些看起像什么Bourne shell语法使用的例子:</p>
+<pre><code class="language-console"># 多数 shells 请求将转义。
+cargo --config http.proxy=\&quot;http://example.com\&quot; …
+
+# 可以使用空格。
+cargo --config &quot;net.git-fetch-with-cli = true&quot; …
+
+# TOML数组例子。单引号使其更容易读写。
+cargo --config 'build.rustdocflags = [&quot;--html-in-header&quot;, &quot;header.html&quot;]' …
+
+# 一个复杂的TOML键的例子。
+cargo --config &quot;target.'cfg(all(target_arch = \&quot;arm\&quot;, target_os = \&quot;none\&quot;))'.runner = 'my-runner'&quot; …
+
+# 覆盖一个配置文件设置的例子。
+cargo --config profile.dev.package.image.opt-level=3 …
+</code></pre>
+<p><code>--config</code> 选项也可以用来传递额外的配置文件的路径，Cargo应该在特定的调用中使用这些文件。
+通过这种方式加载的配置文件中的选项与直接用 <code>--config</code> 指定的其他选项遵循同样的优先级规则。</p>
+<h3 id="config相对路径"><a class="header" href="#config相对路径">Config相对路径</a></h3>
+<p>配置文件中的路径可以是绝对的、相对的，或者是没有任何路径分隔符的无修饰名称。
+没有路径分隔符的可执行文件的路径将使用 <code>PATH</code> 环境变量来搜索可执行文件。
+非可执行文件的路径将相对于配置值定义位置。</p>
+<p>具体来说，规则是:</p>
+<ul>
+<li>对于环境变量，路径是相对于当前工作目录的。</li>
+<li>对于直接从 <a href="#command-line-overrides"><code>--config KEY=VALUE</code></a> 选项加载的配置值，路径是相对于当前工作目录的。</li>
+<li>对于配置文件，路径是相对于定义配置文件的目录的父目录而言的，无论这些文件是来自 <a href="#hierarchical-structure">层级检索</a> 还是 <a href="#command-line-overrides"><code>--config &lt;path&gt;</code></a> 选项。</li>
+</ul>
+<blockquote>
+<p><strong>注意:</strong> 为了与现有的 <code>.cargo/config.toml</code> 检索行为保持一致，在设计上，通过 <code>--config &lt;path&gt;</code> 传递的配置文件中的路径是相对于配置文件本身两级。
+为了避免意外的结果，经验方法是把你的额外配置文件放在项目中发现的 <code>.cargo/config.toml</code> 的同一级别。
+例如，给定项目 <code>/my/project</code> ，建议把配置文件放在 <code>/my/project/.cargo</code> 下，或者在同一级别上新建一个目录，如 <code>/my/project/.config</code> 。</p>
+</blockquote>
+<pre><code class="language-toml"># 相对路径例子。
+
+[target.x86_64-unknown-linux-gnu]
+runner = &quot;foo&quot;  # 在 `PATH` 中搜索 `foo` .
+
+[source.vendored-sources]
+# 目录是相对于 `.cargo/config.toml` 所在的父目录而言的。
+# 比如, `/my/project/.cargo/config.toml` 会在 `/my/project/vendor` 。
+directory = &quot;vendor&quot;
+</code></pre>
+<h3 id="带参数的可执行路径"><a class="header" href="#带参数的可执行路径">带参数的可执行路径</a></h3>
+<p>一些Cargo命令调用外部程序，可以为其配置路径和一些参数。</p>
+<p>该值可以是一个字符串数组，如 <code>['/path/to/program', 'somearg']</code> 或一个空格分隔的字符串，如 <code>'/path/to/program somearg'</code> 。
+如果可执行文件的路径包含空格，则必须使用列表形式。</p>
+<p>如果Cargo向程序传递其他参数，比如打开或运行的路径，它们将在这种格式的选项值中最后指定的参数之后传递。
+如果指定的程序没有路径分隔符，Cargo会在 <code>PATH</code> 中搜索其可执行文件。</p>
+<h3 id="证书"><a class="header" href="#证书">证书</a></h3>
+<p>带有敏感信息的配置值存储在 <code>$CARGO_HOME/credentials.toml</code> 文件中。
+这个文件由 <a href="../commands/cargo-login.html"><code>cargo login</code></a> 自动创建和更新。它遵循与Cargo配置文件相同的格式。</p>
+<pre><code class="language-toml">[registry]
+token = &quot;…&quot;   # crates.io 访问 token
+
+[registries.&lt;name&gt;]
+token = &quot;…&quot;   # 具名注册中心访问 token
+</code></pre>
+<p>一些Cargo命令使用令牌，例如 <a href="../commands/cargo-publish.html"><code>cargo publish</code></a> ，用于与远程注册中心进行认证。
+应该注意保护令牌，使其私密。</p>
+<p>与其他大多数配置值一样，令牌可以用环境变量来指定。
+<a href="https://crates.io/">crates.io</a>的令牌可以用 <code>CARGO_REGISTRY_TOKEN</code> 环境变量来指定。
+其他注册中心的令牌可以用 <code>CARGO_REGISTRIES_&lt;name&gt;_TOKEN</code> 形式的环境变量来指定，其中 <code>&lt;name&gt;</code> 是大写的注册中心的名称。</p>
+<h3 id="配置键"><a class="header" href="#配置键">配置键</a></h3>
+<p>本节记录了所有的配置键。带有可变部分的键的描述用角括号标注，如 <code>target.&lt;triple&gt;</code> ，
+其中 <code>&lt;triple&gt;</code> 部分可以是任意目标三元组，如 <code>target.x86_64-pc-windows-msvc</code> 。</p>
+<h4 id="paths"><a class="header" href="#paths"><code>paths</code></a></h4>
+<ul>
+<li>Type: 字符串数组 (paths)</li>
+<li>Default: none</li>
+<li>Environment: 不受支持</li>
+</ul>
+<p>一个本地包的路径数组，这些包将用作依赖覆盖。
+更多信息请参阅 <a href="overriding-dependencies.html#paths-overrides">覆盖依赖指南</a> 。</p>
+<h4 id="alias"><a class="header" href="#alias"><code>[alias]</code></a></h4>
+<ul>
+<li>Type: 字符串或字符串数组</li>
+<li>Default: 参阅下面</li>
+<li>Environment: <code>CARGO_ALIAS_&lt;name&gt;</code></li>
+</ul>
+<p><code>[alias]</code> 表定义了CLI命令的别名。例如，运行 <code>cargo b</code> 是运行 <code>cargo build</code> 的别名。表中的每个键是子命令，而值是实际要运行的命令。
+值可以是一个字符串数组，其中第一个元素是命令，后面的元素是参数。它也可以是一个字符串，按空格分割成子命令和参数。以下是Cargo内置的别名:</p>
+<pre><code class="language-toml">[alias]
+b = &quot;build&quot;
+c = &quot;check&quot;
+d = &quot;doc&quot;
+t = &quot;test&quot;
+r = &quot;run&quot;
+rm = &quot;remove&quot;
+</code></pre>
+<p>别名不允许重新定义现有的内置命令。</p>
+<p>别名可递归:</p>
+<pre><code class="language-toml">[alias]
+rr = &quot;run --release&quot;
+recursive_example = &quot;rr --example recursions&quot;
+</code></pre>
+<h4 id="build"><a class="header" href="#build"><code>[build]</code></a></h4>
+<p><code>[build]</code> 表控制构建时的操作和编译器设置。</p>
+<h5 id="buildjobs"><a class="header" href="#buildjobs"><code>build.jobs</code></a></h5>
+<ul>
+<li>Type: 整数</li>
+<li>Default: 逻辑CPU的数量</li>
+<li>Environment: <code>CARGO_BUILD_JOBS</code></li>
+</ul>
+<p>设定并行运行的最大编译器进程数。如果是负数，它将编译器进程的最大数量设置为逻辑CPU的数量加上所提供的值。不应为0。</p>
+<p>可以用 <code>--jobs</code> CLI选项覆盖。</p>
+<h5 id="buildrustc"><a class="header" href="#buildrustc"><code>build.rustc</code></a></h5>
+<ul>
+<li>Type: 字符串 (程序路径)</li>
+<li>Default: &quot;rustc&quot;</li>
+<li>Environment: <code>CARGO_BUILD_RUSTC</code> 或 <code>RUSTC</code></li>
+</ul>
+<p>设置用于 <code>rustc</code> 的可执行文件。</p>
+<h5 id="buildrustc-wrapper"><a class="header" href="#buildrustc-wrapper"><code>build.rustc-wrapper</code></a></h5>
+<ul>
+<li>Type: 字符串 (程序路径)</li>
+<li>Default: none</li>
+<li>Environment: <code>CARGO_BUILD_RUSTC_WRAPPER</code> 或 <code>RUSTC_WRAPPER</code></li>
+</ul>
+<p>设置包装器来代替 <code>rustc</code> 执行。传递给包装器的第一个参数是要使用的实际可执行文件的路径(即 <code>build.rustc</code> ，如果它被设置了，或者 <code>&quot;rustc&quot;</code> 以其它方式)。</p>
+<h5 id="buildrustc-workspace-wrapper"><a class="header" href="#buildrustc-workspace-wrapper"><code>build.rustc-workspace-wrapper</code></a></h5>
+<ul>
+<li>Type: 字符串 (程序路径)</li>
+<li>Default: none</li>
+<li>Environment: <code>CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER</code> 或 <code>RUSTC_WORKSPACE_WRAPPER</code></li>
+</ul>
+<p>设置包装器来代替 <code>rustc</code> 执行，仅适用于工作空间成员。
+传递给包装器的第一个参数是要使用的实际可执行文件的路径(即 <code>build.rustc</code> ，如果它被设置了，或 <code>&quot;rustc&quot;</code> 以其它方式)。
+它影响文件名hash，以便包装器产生的制品被单独缓存。</p>
+<h5 id="buildrustdoc"><a class="header" href="#buildrustdoc"><code>build.rustdoc</code></a></h5>
+<ul>
+<li>Type: 字符串 (程序路径)</li>
+<li>Default: &quot;rustdoc&quot;</li>
+<li>Environment: <code>CARGO_BUILD_RUSTDOC</code> 或 <code>RUSTDOC</code></li>
+</ul>
+<p>设置用于 <code>rustdoc</code> 的可执行文件。</p>
+<h5 id="buildtarget"><a class="header" href="#buildtarget"><code>build.target</code></a></h5>
+<ul>
+<li>Type: 字符串或字符串数组</li>
+<li>Default: 主机平台</li>
+<li>Environment: <code>CARGO_BUILD_TARGET</code></li>
+</ul>
+<p>默认的目标平台三元组编译。</p>
+<p>这允许传递字符串或字符串数组。每个字符串值是目标平台三元组。将为每个选定的架构构建目标。</p>
+<p>该字符串值也可以是 <code>.json</code> 目标规格文件的相对路径。</p>
+<p>可以用 <code>--target</code> CLI选项覆盖。</p>
+<pre><code class="language-toml">[build]
+target = [&quot;x86_64-unknown-linux-gnu&quot;, &quot;i686-unknown-linux-gnu&quot;]
+</code></pre>
+<h5 id="buildtarget-dir"><a class="header" href="#buildtarget-dir"><code>build.target-dir</code></a></h5>
+<ul>
+<li>Type: 字符路 (path)</li>
+<li>Default: &quot;target&quot;</li>
+<li>Environment: <code>CARGO_BUILD_TARGET_DIR</code> 或 <code>CARGO_TARGET_DIR</code></li>
+</ul>
+<p>放置所有编译器输出的路径。如果没有指定，默认是位于工作空间根名为 <code>target</code> 的目录。</p>
+<p>可以用 <code>--target-dir</code> CLI选项覆盖。</p>
+<h5 id="buildrustflags"><a class="header" href="#buildrustflags"><code>build.rustflags</code></a></h5>
+<ul>
+<li>Type: 字符串或字符串数组</li>
+<li>Default: none</li>
+<li>Environment: <code>CARGO_BUILD_RUSTFLAGS</code> 或 <code>CARGO_ENCODED_RUSTFLAGS</code> 或 <code>RUSTFLAGS</code></li>
+</ul>
+<p>额外的命令行标志，传递给 <code>rustc</code> 。该值可以是字符串数组或以空格分隔的字符串。</p>
+<p>有四个互相排斥的额外标志来源，依次检查，首先使用第一个:</p>
+<ol>
+<li><code>CARGO_ENCODED_RUSTFLAGS</code> 环境变量。</li>
+<li><code>RUSTFLAGS</code>  环境变量。</li>
+<li>所有匹配的 <code>target.&lt;triple&gt;.rustflags</code> 和 <code>target.&lt;cfg&gt;.rustflags</code> 配置项连接在一起。</li>
+<li><code>build.rustflags</code> 配置值。</li>
+</ol>
+<p>额外的标志也可以通过 <a href="../commands/cargo-rustc.html"><code>cargo rustc</code></a> 命令传递。</p>
+<p>如果使用 <code>--target</code> 标志(或<a href="#buildtarget"><code>build.target</code></a>)，那么这些标志将只传递给目标的编译器。为主机构建的内容，如构建脚本或过程宏，将不会收到这些参数。
+如果不使用 <code>--target</code> ，标志将被传递给所有编译器调用(包括构建脚本和过程宏)，因为依赖是共享的。
+如果你有不想传递给构建脚本或过程宏的参数，并且是为主机构建的，请将 <code>--target</code> 与主机三元组一起传递。</p>
+<p>我们不建议传入Cargo本身通常管理的标志。
+例如，由<a href="profiles.html">profiles</a>决定的标志，最好通过设置适当的配置文件来处理。</p>
+<blockquote>
+<p><strong>警告</strong>: 由于直接向编译器传递标志的低阶特性，这可能会与未来版本的Cargo产生冲突，后者可能会自行发布相同或类似的标志，这可能会干扰你指定的标志。
+这是Cargo可能总是不会向后兼容的领域。</p>
+</blockquote>
+<h5 id="buildrustdocflags"><a class="header" href="#buildrustdocflags"><code>build.rustdocflags</code></a></h5>
+<ul>
+<li>Type: 字符串或字符串数组</li>
+<li>Default: none</li>
+<li>Environment: <code>CARGO_BUILD_RUSTDOCFLAGS</code> 或 <code>CARGO_ENCODED_RUSTDOCFLAGS</code> 或 <code>RUSTDOCFLAGS</code></li>
+</ul>
+<p>额外的命令行标志，传递给 <code>rustdoc</code> 。该值可以是字符串数组或以空格分隔的字符串。</p>
+<p>有三个相互排斥的额外标志来源。依次检查它们，首先使用第一个:</p>
+<ol>
+<li><code>CARGO_ENCODED_RUSTDOCFLAGS</code> 环境变量。</li>
+<li><code>RUSTDOCFLAGS</code> 环境变量。</li>
+<li><code>build.rustdocflags</code> 配置值。</li>
+</ol>
+<p>附加标志也可以通过 <a href="../commands/cargo-rustdoc.html"><code>cargo rustdoc</code></a> 命令传递。</p>
+<h5 id="buildincremental"><a class="header" href="#buildincremental"><code>build.incremental</code></a></h5>
+<ul>
+<li>Type: bool</li>
+<li>Default: 来自配置文件</li>
+<li>Environment: <code>CARGO_BUILD_INCREMENTAL</code> 或 <code>CARGO_INCREMENTAL</code></li>
+</ul>
+<p>是否执行[增量编译]。如果没有设置，默认是使用 <a href="profiles.html#incremental">profile</a> 中的值。否则这将覆盖所有配置文件的设置。</p>
+<p><code>CARGO_INCREMENTAL</code> 环境变量可以设置为 <code>1</code> 以强制启用所有配置文件的增量编译，或 <code>0</code> 以禁用它。这个环境变量覆盖配置设置。</p>
+<h5 id="builddep-info-basedir"><a class="header" href="#builddep-info-basedir"><code>build.dep-info-basedir</code></a></h5>
+<ul>
+<li>Type: 字符串 (path)</li>
+<li>Default: none</li>
+<li>Environment: <code>CARGO_BUILD_DEP_INFO_BASEDIR</code></li>
+</ul>
+<p>从<a href="../guide/build-cache.html#dep-info-files">dep info</a>文件路径中分割指定的路径前缀。
+这个配置的目的是为需要相对路径的工具，将绝对路径转换成相对路径。</p>
+<p>这个设置自身是与配置相对的路径。举例来说，<code>&quot;.&quot;</code> 的值将分割所有以 <code>.cargo</code> 目录的父目录为起点的路径。</p>
+<h5 id="buildpipelining"><a class="header" href="#buildpipelining"><code>build.pipelining</code></a></h5>
+<p>这个选项已被废弃，未使用。Cargo总是启用流水线。</p>
+<h4 id="doc"><a class="header" href="#doc"><code>[doc]</code></a></h4>
+<p><code>[doc]</code> 表定义了 <a href="../commands/cargo-doc.html"><code>cargo doc</code></a> 命令的选项。</p>
+<h5 id="docbrowser"><a class="header" href="#docbrowser"><code>doc.browser</code></a></h5>
+<ul>
+<li>Type: 字符串或字符串数组 (<a href="#executable-paths-with-arguments">带参数的程序路径</a>)</li>
+<li>Default: <code>BROWSER</code> 环境变量，如果缺少该变量，则以系统特定的方式打开链接</li>
+</ul>
+<p>这个选项设置 <a href="../commands/cargo-doc.html"><code>cargo doc</code></a> 使用的浏览器，在用 <code>--open</code> 选项打开文档时，覆盖 <code>BROWSER</code> 环境变量。</p>
+<h4 id="cargo-new"><a class="header" href="#cargo-new"><code>[cargo-new]</code></a></h4>
+<p><code>[cargo-new]</code> 表定义了 <a href="../commands/cargo-new.html"><code>cargo new</code></a> 命令的默认值。</p>
+<h5 id="cargo-newname"><a class="header" href="#cargo-newname"><code>cargo-new.name</code></a></h5>
+<p>该选项已被废弃，未被使用。</p>
+<h5 id="cargo-newemail"><a class="header" href="#cargo-newemail"><code>cargo-new.email</code></a></h5>
+<p>该选项已被废弃，未被使用。</p>
+<h5 id="cargo-newvcs"><a class="header" href="#cargo-newvcs"><code>cargo-new.vcs</code></a></h5>
+<ul>
+<li>Type: 字符串</li>
+<li>Default: &quot;git&quot; 或 &quot;none&quot;</li>
+<li>Environment: <code>CARGO_CARGO_NEW_VCS</code></li>
+</ul>
+<p>指定初始化新版本库时使用的源码控制系统。
+有效值是 <code>git</code> 、 <code>hg</code> (用于Mercurial) 、 <code>pijul</code>  、 <code>fossil</code> ，或 <code>none</code> 以禁用此行为。默认为 <code>git</code> ，如果已经在一个VCS仓库内，则默认为 <code>none</code> 。可以用 <code>--vcs</code> CLI选项来覆盖。</p>
+<h3 id="env"><a class="header" href="#env"><code>[env]</code></a></h3>
+<p><code>[env]</code> 部分允许你为构建脚本、rustc调用、 <code>cargo run</code> 和 <code>cargo build</code> 设置附加的环境变量。</p>
+<pre><code class="language-toml">[env]
+OPENSSL_DIR = &quot;/opt/openssl&quot;
+</code></pre>
+<p>默认情况下，指定的变量将不会覆盖环境中已经存在的值。可以通过设置 <code>force</code> 标志来改变这种行为。</p>
+<p>设置 <code>relative</code> 标志会将该值评估为相对配置路径，它是相对于包含 <code>config.toml</code> 文件的 <code>.cargo</code> 目录的父目录而言的。环境变量的值将是完整的绝对路径。</p>
+<pre><code class="language-toml">[env]
+TMPDIR = { value = &quot;/home/tmp&quot;, force = true }
+OPENSSL_DIR = { value = &quot;vendor/openssl&quot;, relative = true }
+</code></pre>
+<h3 id="future-incompat-report"><a class="header" href="#future-incompat-report"><code>[future-incompat-report]</code></a></h3>
+<p><code>[future-incompat-report]</code> 表控制 <a href="future-incompat-report.html">未来不匹配的报告</a> 的设置。</p>
+<h4 id="future-incompat-reportfrequency"><a class="header" href="#future-incompat-reportfrequency"><code>future-incompat-report.frequency</code></a></h4>
+<ul>
+<li>Type: 字符串</li>
+<li>Default: &quot;always&quot;</li>
+<li>Environment: <code>CARGO_FUTURE_INCOMPAT_REPORT_FREQUENCY</code></li>
+</ul>
+<p>控制当未来不兼容报告可用时，多长时间向终端显示一次通知。可能的值为:</p>
+<ul>
+<li><code>always</code> (默认): 当命令(例如 <code>cargo build</code>)产生未来不兼容报告时，总是显示通知。</li>
+<li><code>never</code>: 永不显示通知</li>
+</ul>
+<h4 id="http"><a class="header" href="#http"><code>[http]</code></a></h4>
+<p><code>[http]</code> 表定义了HTTP行为设置。包括获取crate的依赖和访问远程git仓库。</p>
+<h5 id="httpdebug"><a class="header" href="#httpdebug"><code>http.debug</code></a></h5>
+<ul>
+<li>Type: boolean</li>
+<li>Default: false</li>
+<li>Environment: <code>CARGO_HTTP_DEBUG</code></li>
+</ul>
+<p>如果 <code>true</code> ，启用对HTTP请求的调试。调试信息可以通过设置 <code>CARGO_LOG=cargo::ops::registry=debug</code> 环境变量查看(或者使用 <code>trace</code> 获取更多信息) 。</p>
+<p>当把这个输出的日志发布到公开位置时，要小心谨慎。该输出可能包括带有认证令牌的头信息，你不希望泄漏这些信息。在发布日志之前，一定要审查日志。</p>
+<h5 id="httpproxy"><a class="header" href="#httpproxy"><code>http.proxy</code></a></h5>
+<ul>
+<li>Type: 字符串</li>
+<li>Default: none</li>
+<li>Environment: <code>CARGO_HTTP_PROXY</code> 或 <code>HTTPS_PROXY</code> 或 <code>https_proxy</code> 或 <code>http_proxy</code></li>
+</ul>
+<p>设置一个要使用的HTTP和HTTPS代理。其格式为 [libcurl格式] ，如 <code>[protocol://]host[:port]</code> 。
+如果没有设置，Cargo也会检查你全局git配置中的 <code>http.proxy</code> 设置。
+如果这些都没有设置， <code>HTTPS_PROXY</code> 或 <code>https_proxy</code> 环境变量为HTTPS请求设置代理， <code>http_proxy</code> 为HTTP请求设置。</p>
+<h5 id="httptimeout"><a class="header" href="#httptimeout"><code>http.timeout</code></a></h5>
+<ul>
+<li>Type: 整数</li>
+<li>Default: 30</li>
+<li>Environment: <code>CARGO_HTTP_TIMEOUT</code> 或 <code>HTTP_TIMEOUT</code></li>
+</ul>
+<p>设置每个HTTP请求的超时，单位为秒。</p>
+<h5 id="httpcainfo"><a class="header" href="#httpcainfo"><code>http.cainfo</code></a></h5>
+<ul>
+<li>Type: 字符串 (path)</li>
+<li>Default: none</li>
+<li>Environment: <code>CARGO_HTTP_CAINFO</code></li>
+</ul>
+<p>CA证书绑定文件的路径，用于验证TLS证书。如果没有指定，Cargo会尝试使用系统证书。</p>
+<h5 id="httpcheck-revoke"><a class="header" href="#httpcheck-revoke"><code>http.check-revoke</code></a></h5>
+<ul>
+<li>Type: boolean</li>
+<li>Default: true (Windows) false (all others)</li>
+<li>Environment: <code>CARGO_HTTP_CHECK_REVOKE</code></li>
+</ul>
+<p>这决定了是否应该进行TLS证书撤销检查。仅适用于Windows。</p>
+<h5 id="httpssl-version"><a class="header" href="#httpssl-version"><code>http.ssl-version</code></a></h5>
+<ul>
+<li>Type: string or min/max table</li>
+<li>Default: none</li>
+<li>Environment: <code>CARGO_HTTP_SSL_VERSION</code></li>
+</ul>
+<p>此设置要使用的最小TLS版本。它需要一个字符串，可能的值是 &quot;default&quot;、&quot;tlsv1&quot;、&quot;tlsv1.0&quot;、&quot;tlsv1.1&quot;、&quot;tlsv1.2&quot;、&quot;tlsv1.3&quot; 之一。</p>
+<p>这可能是有两个键的表， <code>min</code> 和 <code>max</code> ，每个键都有相同的字符串值，指定要使用的TLS版本的最小和最大范围。</p>
+<p>默认情况下，最小版本为 &quot;tlsv1.0&quot; ，最大版本为你的平台上支持的最新版本，通常为 &quot;tlsv1.3&quot; 。</p>
+<h5 id="httplow-speed-limit"><a class="header" href="#httplow-speed-limit"><code>http.low-speed-limit</code></a></h5>
+<ul>
+<li>Type: 整数</li>
+<li>Default: 10</li>
+<li>Environment: <code>CARGO_HTTP_LOW_SPEED_LIMIT</code></li>
+</ul>
+<p>此设置控制过慢连接超时行为。
+如果以字节/秒为单位的平均传输速度低于<a href="#httptimeout"><code>http.timeout</code></a>秒的给定值(默认为30秒)，那么该连接被认为太慢，Cargo将中止并重试。</p>
+<h5 id="httpmultiplexing"><a class="header" href="#httpmultiplexing"><code>http.multiplexing</code></a></h5>
+<ul>
+<li>Type: boolean</li>
+<li>Default: true</li>
+<li>Environment: <code>CARGO_HTTP_MULTIPLEXING</code></li>
+</ul>
+<p>当 <code>true</code> 时，Cargo将尝试使用多路复用的HTTP2协议。
+这允许多个请求使用同一个连接，通常可以提高获取多文件的性能。
+如果 <code>false</code> ，Cargo将使用HTTP1.1，没有管道。</p>
+<h5 id="httpuser-agent"><a class="header" href="#httpuser-agent"><code>http.user-agent</code></a></h5>
+<ul>
+<li>Type: 字符串</li>
+<li>Default: Cargo的版本</li>
+<li>Environment: <code>CARGO_HTTP_USER_AGENT</code></li>
+</ul>
+<p>指定要使用的自定义user-agent 头。如果没有指定，默认是一个包括Cargo版本的字符串。</p>
+<h4 id="install"><a class="header" href="#install"><code>[install]</code></a></h4>
+<p><code>[install]</code> 表定义了 <a href="../commands/cargo-install.html"><code>cargo install</code></a> 命令的默认值。</p>
+<h5 id="installroot"><a class="header" href="#installroot"><code>install.root</code></a></h5>
+<ul>
+<li>Type: 字符串 (path)</li>
+<li>Default: Cargo的主目录</li>
+<li>Environment: <code>CARGO_INSTALL_ROOT</code></li>
+</ul>
+<p>为 <a href="../commands/cargo-install.html"><code>cargo install</code></a> 设置安装可执行文件的根目录的路径。可执行文件会进入根目录下的 <code>bin</code> 目录。</p>
+<p>为了跟踪已安装的可执行文件的信息，一些附加文件，如 <code>.crates.toml</code> 和 <code>.crates2.json</code> 也会在这个根下创建。</p>
+<p>如果没有指定，默认是Cargo的主目录 (默认为你的主目录中 <code>.cargo</code> ) 。</p>
+<p>可以用 <code>--root</code> 命令行选项来覆盖。</p>
+<h4 id="net"><a class="header" href="#net"><code>[net]</code></a></h4>
+<p><code>[net]</code> 表控制网络配置。</p>
+<h5 id="netretry"><a class="header" href="#netretry"><code>net.retry</code></a></h5>
+<ul>
+<li>Type: 整数</li>
+<li>Default: 2</li>
+<li>Environment: <code>CARGO_NET_RETRY</code></li>
+</ul>
+<p>可能是虚假网络的错误重试次数。</p>
+<h5 id="netgit-fetch-with-cli"><a class="header" href="#netgit-fetch-with-cli"><code>net.git-fetch-with-cli</code></a></h5>
+<ul>
+<li>Type: boolean</li>
+<li>Default: false</li>
+<li>Environment: <code>CARGO_NET_GIT_FETCH_WITH_CLI</code></li>
+</ul>
+<p>如果这是 <code>true</code> ，那么Cargo将使用 <code>git</code> 可执行程序来获取注册中心索引和git依赖。如果是 <code>false</code> ，那么它将使用内置的 <code>git</code> 库。</p>
+<p>如果你有特殊的认证要求，而Cargo不支持的话，将此设置为 <code>true</code> 会有帮助。
+参阅 <a href="../appendix/git-authentication.html">Git Authentication</a>以了解更多关于设置git认证的信息。</p>
+<h5 id="netoffline"><a class="header" href="#netoffline"><code>net.offline</code></a></h5>
+<ul>
+<li>Type: boolean</li>
+<li>Default: false</li>
+<li>Environment: <code>CARGO_NET_OFFLINE</code></li>
+</ul>
+<p>如果是 <code>true</code> ，那么Cargo将避免访问网络，并尝试使用本地缓存的数据。
+如果是 <code>false</code> ，Cargo将根据需要访问网络，如果遇到网络错误，将产生一个错误。</p>
+<p>可以用 <code>--offline</code> 命令行选项来覆盖。</p>
+<h4 id="patch"><a class="header" href="#patch"><code>[patch]</code></a></h4>
+<p>就像你可以用<a href="overriding-dependencies.html#the-patch-section"><code>[patch]</code> in <code>Cargo.toml</code></a>覆盖依赖一样，
+你可以在cargo配置文件中覆盖它们，将这些补丁应用于任何受影响的构建。其格式与 <code>Cargo.toml</code> 中的格式相同。</p>
+<p>由于 <code>.cargo/config.toml</code> 文件通常不会检出到源代码控制中，你应该尽可能选择使用 <code>Cargo.toml</code> 来打补丁，以确保其他开发者可以在自己的环境中编译你的crate。
+一般来说，只有当补丁部分由外部构建工具自动生成时，才合适通过cargo配置文件进行修补。</p>
+<p>如果特定的依赖在cargo配置文件和 <code>Cargo.toml</code> 文件中都有补丁，则使用配置文件中的补丁。
+如果多个配置文件对同一个依赖打了补丁，则使用标准的cargo配置合并，它更倾向于使用离当前目录最近的定义值。
+<code>$HOME/.cargo/config.toml</code> 的优先级最低。</p>
+<p>在这样的 <code>[patch]</code> 部分中的相对的 <code>path</code> 依赖是相对于它们出现的配置文件。</p>
+<h4 id="profile"><a class="header" href="#profile"><code>[profile]</code></a></h4>
+<p><code>[profile]</code> 表可以用来全局改变编译设置，并覆盖 <code>Cargo.toml</code> 中指定的设置。
+它的语法和选项与 <code>Cargo.toml</code> 中指定的编译设置相同。
+关于选项的详细信息，请参阅 [编译设置章节] 。</p>
+<h5 id="profilenamebuild-override"><a class="header" href="#profilenamebuild-override"><code>[profile.&lt;name&gt;.build-override]</code></a></h5>
+<ul>
+<li>Environment: <code>CARGO_PROFILE_&lt;name&gt;_BUILD_OVERRIDE_&lt;key&gt;</code></li>
+</ul>
+<p>build-override 表覆盖构建脚本、过程宏和其依赖的设置。
+它的键值与常规profile相同。参见 <a href="profiles.html#overrides">覆盖部分</a> 以了解更多细节。</p>
+<h5 id="profilenamepackagename"><a class="header" href="#profilenamepackagename"><code>[profile.&lt;name&gt;.package.&lt;name&gt;]</code></a></h5>
+<ul>
+<li>Environment: 不支持</li>
+</ul>
+<p>包的表覆盖特定包的设置。它和常规的profile有相同的键，除了 <code>panic</code> 、 <code>lto</code> 和 <code>rpath</code> 设置。
+参阅 <a href="profiles.html#overrides">overrides section</a> 以了解更多细节。</p>
+<h5 id="profilenamecodegen-units"><a class="header" href="#profilenamecodegen-units"><code>profile.&lt;name&gt;.codegen-units</code></a></h5>
+<ul>
+<li>Type: 整数</li>
+<li>Default: 参阅配置文件文档。</li>
+<li>Environment: <code>CARGO_PROFILE_&lt;name&gt;_CODEGEN_UNITS</code></li>
+</ul>
+<p>参阅 <a href="profiles.html#codegen-units">codegen-units</a> 。</p>
+<h5 id="profilenamedebug"><a class="header" href="#profilenamedebug"><code>profile.&lt;name&gt;.debug</code></a></h5>
+<ul>
+<li>Type: 整数或布尔</li>
+<li>Default: 参阅配置文件文档。</li>
+<li>Environment: <code>CARGO_PROFILE_&lt;name&gt;_DEBUG</code></li>
+</ul>
+<p>参阅 <a href="profiles.html#debug">debug</a>。</p>
+<h5 id="profilenamesplit-debuginfo"><a class="header" href="#profilenamesplit-debuginfo"><code>profile.&lt;name&gt;.split-debuginfo</code></a></h5>
+<ul>
+<li>Type: 字符串</li>
+<li>Default: 参阅配置文件文档。</li>
+<li>Environment: <code>CARGO_PROFILE_&lt;name&gt;_SPLIT_DEBUGINFO</code></li>
+</ul>
+<p>参阅 <a href="profiles.html#split-debuginfo">split-debuginfo</a>。</p>
+<h5 id="profilenamedebug-assertions"><a class="header" href="#profilenamedebug-assertions"><code>profile.&lt;name&gt;.debug-assertions</code></a></h5>
+<ul>
+<li>Type: 布尔</li>
+<li>Default: 参阅配置文件文档。</li>
+<li>Environment: <code>CARGO_PROFILE_&lt;name&gt;_DEBUG_ASSERTIONS</code></li>
+</ul>
+<p>参阅 <a href="profiles.html#debug-assertions">debug-assertions</a>。</p>
+<h5 id="profilenameincremental"><a class="header" href="#profilenameincremental"><code>profile.&lt;name&gt;.incremental</code></a></h5>
+<ul>
+<li>Type: 布尔</li>
+<li>Default: 参阅配置文件文档。</li>
+<li>Environment: <code>CARGO_PROFILE_&lt;name&gt;_INCREMENTAL</code></li>
+</ul>
+<p>参阅 <a href="profiles.html#incremental">incremental</a>.</p>
+<h5 id="profilenamelto"><a class="header" href="#profilenamelto"><code>profile.&lt;name&gt;.lto</code></a></h5>
+<ul>
+<li>Type: 字符串或布尔</li>
+<li>Default: 参阅配置文件文档。</li>
+<li>Environment: <code>CARGO_PROFILE_&lt;name&gt;_LTO</code></li>
+</ul>
+<p>参阅 <a href="profiles.html#lto">lto</a> 。</p>
+<h5 id="profilenameoverflow-checks"><a class="header" href="#profilenameoverflow-checks"><code>profile.&lt;name&gt;.overflow-checks</code></a></h5>
+<ul>
+<li>Type: 布尔</li>
+<li>Default: 参阅配置文件文档。</li>
+<li>Environment: <code>CARGO_PROFILE_&lt;name&gt;_OVERFLOW_CHECKS</code></li>
+</ul>
+<p>参阅 <a href="profiles.html#overflow-checks">overflow-checks</a> 。</p>
+<h5 id="profilenameopt-level"><a class="header" href="#profilenameopt-level"><code>profile.&lt;name&gt;.opt-level</code></a></h5>
+<ul>
+<li>Type: 字符串或布尔</li>
+<li>Default: 参阅配置文件文档。</li>
+<li>Environment: <code>CARGO_PROFILE_&lt;name&gt;_OPT_LEVEL</code></li>
+</ul>
+<p>参阅 <a href="profiles.html#opt-level">opt-level</a> 。</p>
+<h5 id="profilenamepanic"><a class="header" href="#profilenamepanic"><code>profile.&lt;name&gt;.panic</code></a></h5>
+<ul>
+<li>Type: 字符串</li>
+<li>default: 参阅配置文件文档。</li>
+<li>Environment: <code>CARGO_PROFILE_&lt;name&gt;_PANIC</code></li>
+</ul>
+<p>参阅 <a href="profiles.html#panic">panic</a> 。</p>
+<h5 id="profilenamerpath"><a class="header" href="#profilenamerpath"><code>profile.&lt;name&gt;.rpath</code></a></h5>
+<ul>
+<li>Type: 布尔</li>
+<li>default: 参阅配置文件文档。</li>
+<li>Environment: <code>CARGO_PROFILE_&lt;name&gt;_RPATH</code></li>
+</ul>
+<p>参阅 <a href="profiles.html#rpath">rpath</a> 。</p>
+<h4 id="registries"><a class="header" href="#registries"><code>[registries]</code></a></h4>
+<p><code>[registries]</code> 表用于指定额外的[注册中心]。它由各个命名的注册中心的子表组成。</p>
+<h5 id="registriesnameindex"><a class="header" href="#registriesnameindex"><code>registries.&lt;name&gt;.index</code></a></h5>
+<ul>
+<li>Type: 字符串 (url)</li>
+<li>Default: none</li>
+<li>Environment: <code>CARGO_REGISTRIES_&lt;name&gt;_INDEX</code></li>
+</ul>
+<p>指定注册中心git索引的URL。</p>
+<h5 id="registriesnametoken"><a class="header" href="#registriesnametoken"><code>registries.&lt;name&gt;.token</code></a></h5>
+<ul>
+<li>Type: 字符串</li>
+<li>Default: none</li>
+<li>Environment: <code>CARGO_REGISTRIES_&lt;name&gt;_TOKEN</code></li>
+</ul>
+<p>指定特定注册中心的认证令牌。
+这个值应该只出现在 <a href="#credentials">credentials</a> 文件中。
+这用于需要认证的注册中心命令，如 <a href="../commands/cargo-publish.html"><code>cargo publish</code></a> 。</p>
+<p>可以用 <code>--token</code> 命令行选项来覆盖。</p>
+<h4 id="registry"><a class="header" href="#registry"><code>[registry]</code></a></h4>
+<p><code>[registry]</code> 表控制在没有指定的情况下使用的默认注册中心。</p>
+<h5 id="registryindex"><a class="header" href="#registryindex"><code>registry.index</code></a></h5>
+<p>不再接受此值，不应使用。</p>
+<h5 id="registrydefault"><a class="header" href="#registrydefault"><code>registry.default</code></a></h5>
+<ul>
+<li>Type: 字符串</li>
+<li>Default: <code>&quot;crates-io&quot;</code></li>
+<li>Environment: <code>CARGO_REGISTRY_DEFAULT</code></li>
+</ul>
+<p>注册中心的名称(来自<a href="#registries"> <code>registries</code> 表</a>)，默认用于 <a href="../commands/cargo-publish.html"><code>cargo publish</code></a> 等注册中心命令。</p>
+<p>可以用 <code>--registry</code> 命令行选项来覆盖。</p>
+<h5 id="registrytoken"><a class="header" href="#registrytoken"><code>registry.token</code></a></h5>
+<ul>
+<li>Type: 字符串</li>
+<li>Default: none</li>
+<li>Environment: <code>CARGO_REGISTRY_TOKEN</code></li>
+</ul>
+<p>指定 <a href="https://crates.io/">crates.io</a> 的认证令牌。
+这个值应该只出现在 <a href="#credentials">credentials</a> 文件中。
+这用于像 <a href="../commands/cargo-publish.html"><code>cargo publish</code></a> 这样的需要认证的注册中心命令。</p>
+<p>可以用 <code>--token</code> 命令行选项来覆盖。</p>
+<h4 id="source"><a class="header" href="#source"><code>[source]</code></a></h4>
+<p><code>[source]</code> 表定义了可用的注册中心源。更多信息见<a href="source-replacement.html">源替换</a>。
+它由每个命名的源的子表组成。源应该只定义为目录、注册中心、本地注册或git中的一种。</p>
+<h5 id="sourcenamereplace-with"><a class="header" href="#sourcenamereplace-with"><code>source.&lt;name&gt;.replace-with</code></a></h5>
+<ul>
+<li>Type: 字符串</li>
+<li>Default: none</li>
+<li>Environment: 不支持</li>
+</ul>
+<p>如果设置，用给定的命名源或命名注册中心替换这个源。</p>
+<h5 id="sourcenamedirectory"><a class="header" href="#sourcenamedirectory"><code>source.&lt;name&gt;.directory</code></a></h5>
+<ul>
+<li>Type: 字符串 (path)</li>
+<li>Default: none</li>
+<li>Environment: 不支持</li>
+</ul>
+<p>设置目录路径，作为目录源使用。</p>
+<h5 id="sourcenameregistry"><a class="header" href="#sourcenameregistry"><code>source.&lt;name&gt;.registry</code></a></h5>
+<ul>
+<li>Type: 字符串 (url)</li>
+<li>Default: none</li>
+<li>Environment: 不支持</li>
+</ul>
+<p>设置用于注册中心源的URL。</p>
+<h5 id="sourcenamelocal-registry"><a class="header" href="#sourcenamelocal-registry"><code>source.&lt;name&gt;.local-registry</code></a></h5>
+<ul>
+<li>Type: 字符串 (path)</li>
+<li>Default: none</li>
+<li>Environment: 不支持</li>
+</ul>
+<p>设置目录路径，用作本地注册源。</p>
+<h5 id="sourcenamegit"><a class="header" href="#sourcenamegit"><code>source.&lt;name&gt;.git</code></a></h5>
+<ul>
+<li>Type: 字符串 (url)</li>
+<li>Default: none</li>
+<li>Environment: 不支持</li>
+</ul>
+<p>设置用于git仓库源的URL。</p>
+<h5 id="sourcenamebranch"><a class="header" href="#sourcenamebranch"><code>source.&lt;name&gt;.branch</code></a></h5>
+<ul>
+<li>Type: 字符串</li>
+<li>Default: none</li>
+<li>Environment: 不支持</li>
+</ul>
+<p>设置用于git仓库的分支名称。</p>
+<p>如果没有设置 <code>branch</code> 、 <code>tag</code> 或 <code>rev</code> ，则默认为 <code>master</code> 分支。</p>
+<h5 id="sourcenametag"><a class="header" href="#sourcenametag"><code>source.&lt;name&gt;.tag</code></a></h5>
+<ul>
+<li>Type: 字符串</li>
+<li>Default: none</li>
+<li>Environment: 不支持</li>
+</ul>
+<p>设置用于git仓库的tag名称。</p>
+<p>如果没有设置 <code>branch</code> 、 <code>tag</code> 或 <code>rev</code> ，则默认为 <code>master</code> 分支。</p>
+<h5 id="sourcenamerev"><a class="header" href="#sourcenamerev"><code>source.&lt;name&gt;.rev</code></a></h5>
+<ul>
+<li>Type: 字符串</li>
+<li>Default: none</li>
+<li>Environment: 不支持</li>
+</ul>
+<p>设置用于git仓库的<a href="https://git-scm.com/docs/gitrevisions">revision</a>。</p>
+<p>如果没有设置 <code>branch</code> 、 <code>tag</code> 或 <code>rev</code> ，则默认为 <code>master</code> 分支。</p>
+<h4 id="target"><a class="header" href="#target"><code>[target]</code></a></h4>
+<p><code>[target]</code> 表用于指定特定平台目标的设置。
+它由子表组成，这个子表是平台三元组或 <a href="../../reference/conditional-compilation.html"><code>cfg()</code> 表达式</a> 。
+如果目标平台与 <code>&lt;triple&gt;</code> 值或 <code>&lt;cfg&gt;</code> 表达式匹配，将使用给定的值。</p>
+<pre><code class="language-toml">[target.thumbv7m-none-eabi]
+linker = &quot;arm-none-eabi-gcc&quot;
+runner = &quot;my-emulator&quot;
+rustflags = [&quot;…&quot;, &quot;…&quot;]
+
+[target.'cfg(all(target_arch = &quot;arm&quot;, target_os = &quot;none&quot;))']
+runner = &quot;my-arm-wrapper&quot;
+rustflags = [&quot;…&quot;, &quot;…&quot;]
+</code></pre>
+<p><code>cfg</code> 值来自编译器内置的值 (运行 <code>rustc --print=cfg</code> 查看)，由[构建脚本]设置的值，以及传递给 <code>rustc</code> 的附加 <code>--cfg</code> 标志(例如在 <code>RUSTFLAGS</code> 中定义的标志)。
+不要在 <code>debug_assertions</code> 或 Cargo 特性(如 <code>feature=&quot;foo&quot;</code> )上尝试match匹配。</p>
+<p>如果使用目标规格的JSON文件，<code>&lt;triple&gt;</code> 值是文件名。例如， <code>--target foo/bar.json</code> 将匹配 <code>[target.bar]</code> 。</p>
+<h5 id="targettriplear"><a class="header" href="#targettriplear"><code>target.&lt;triple&gt;.ar</code></a></h5>
+<p>该选项已被废弃，未被使用。</p>
+<h5 id="targettriplelinker"><a class="header" href="#targettriplelinker"><code>target.&lt;triple&gt;.linker</code></a></h5>
+<ul>
+<li>Type: 字符串 (程序路径)</li>
+<li>Default: none</li>
+<li>Environment: <code>CARGO_TARGET_&lt;triple&gt;_LINKER</code></li>
+</ul>
+<p>指定在编译 <code>&lt;triple&gt;</code> 时传递给 <code>rustc</code> (通过<a href="../../rustc/codegen-options/index.html#linker"><code>-C linker</code></a>) 的链接器。默认情况下，链接器不可覆盖。</p>
+<h5 id="targettriplerunner"><a class="header" href="#targettriplerunner"><code>target.&lt;triple&gt;.runner</code></a></h5>
+<ul>
+<li>Type: 字符串或者字符串数组 (<a href="#executable-paths-with-arguments">带参数的程序路径</a>)</li>
+<li>Default: none</li>
+<li>Environment: <code>CARGO_TARGET_&lt;triple&gt;_RUNNER</code></li>
+</ul>
+<p>如果提供了运行器，目标 <code>&lt;triple&gt;</code> 的可执行文件将通过调用指定的运行器和作为参数传递的实际可执行文件来执行。
+这适用于 <a href="../commands/cargo-run.html"><code>cargo run</code></a>, <a href="../commands/cargo-test.html"><code>cargo test</code></a> 和 <a href="../commands/cargo-bench.html"><code>cargo bench</code></a> 命令。
+默认情况下，编译后的可执行文件被直接执行。</p>
+<h5 id="targetcfgrunner"><a class="header" href="#targetcfgrunner"><code>target.&lt;cfg&gt;.runner</code></a></h5>
+<p>这类似于 <a href="#targettriplerunner">target runner</a> ，但使用 <a href="../../reference/conditional-compilation.html"><code>cfg()</code> 表达式</a> 。
+如果同时有 <code>&lt;triple&gt;</code> 和 <code>&lt;cfg&gt;</code> 运行器匹配， <code>&lt;triple&gt;</code> 将优先使用。
+如果有一个以上的 <code>&lt;cfg&gt;</code> 运行器与当前目标匹配，则错误。</p>
+<h5 id="targettriplerustflags"><a class="header" href="#targettriplerustflags"><code>target.&lt;triple&gt;.rustflags</code></a></h5>
+<ul>
+<li>Type: 字符串或字符串数组</li>
+<li>Default: none</li>
+<li>Environment: <code>CARGO_TARGET_&lt;triple&gt;_RUSTFLAGS</code></li>
+</ul>
+<p>为这个 <code>&lt;triple&gt;</code> 向编译器传递一组自定义标志。该值可以是字符串数组或以空格分隔的字符串。</p>
+<p>参阅 <a href="#buildrustflags"><code>build.rustflags</code></a> ，以了解更多关于特定附加标志的不同方式的细节。</p>
+<h5 id="targetcfgrustflags"><a class="header" href="#targetcfgrustflags"><code>target.&lt;cfg&gt;.rustflags</code></a></h5>
+<p>这类似于 <a href="#targettriplerustflags">target rustflags</a> ，但使用 <a href="../../reference/conditional-compilation.html"><code>cfg()</code> 表达式</a> 。
+如果有几个 <code>&lt;cfg&gt;</code> 和 <code>&lt;triple&gt;</code> 条目与当前的目标相匹配，这些标志就会被关连在一起。</p>
+<h5 id="targettriplelinks"><a class="header" href="#targettriplelinks"><code>target.&lt;triple&gt;.&lt;links&gt;</code></a></h5>
+<p>链接子表提供了一种[覆盖构建脚本]的方法。
+当指定时，给定的 <code>links</code> 库的构建脚本将不会运行，而会使用给定的值。</p>
+<pre><code class="language-toml">[target.x86_64-unknown-linux-gnu.foo]
+rustc-link-lib = [&quot;foo&quot;]
+rustc-link-search = [&quot;/path/to/foo&quot;]
+rustc-flags = &quot;-L /some/path&quot;
+rustc-cfg = ['key=&quot;value&quot;']
+rustc-env = {key = &quot;value&quot;}
+rustc-cdylib-link-arg = [&quot;…&quot;]
+metadata_key1 = &quot;value&quot;
+metadata_key2 = &quot;value&quot;
+</code></pre>
+<h4 id="term"><a class="header" href="#term"><code>[term]</code></a></h4>
+<p><code>[term]</code> 表控制终端输出和交互。</p>
+<h5 id="termquiet"><a class="header" href="#termquiet"><code>term.quiet</code></a></h5>
+<ul>
+<li>Type: 布尔</li>
+<li>Default: false</li>
+<li>Environment: <code>CARGO_TERM_QUIET</code></li>
+</ul>
+<p>控制Cargo是否显示日志信息。</p>
+<p>指定 <code>--quiet</code> 标志将覆盖和强制静默输出。
+指定 <code>--verbose</code> 标志将覆盖和禁用静默输出。</p>
+<h5 id="termverbose"><a class="header" href="#termverbose"><code>term.verbose</code></a></h5>
+<ul>
+<li>Type: 布尔</li>
+<li>Default: false</li>
+<li>Environment: <code>CARGO_TERM_VERBOSE</code></li>
+</ul>
+<p>控制Cargo是否显示附加的详细信息。</p>
+<p>指定 <code>--quiet</code> 标志将覆盖并禁用信息输出。
+指定 <code>--verbose</code> 标志将覆盖并强制进行信息输出。</p>
+<h5 id="termcolor"><a class="header" href="#termcolor"><code>term.color</code></a></h5>
+<ul>
+<li>Type: 字符串</li>
+<li>Default: &quot;auto&quot;</li>
+<li>Environment: <code>CARGO_TERM_COLOR</code></li>
+</ul>
+<p>控制是否在终端中使用彩色输出。可能的值:</p>
+<ul>
+<li><code>auto</code> (默认): 自动检测终端是否有颜色支持。</li>
+<li><code>always</code>: 允许显示颜色。</li>
+<li><code>never</code>: 不允许显示颜色。</li>
+</ul>
+<p>可以用 <code>--color</code> 命令行选项来覆盖。</p>
+<h5 id="termprogresswhen"><a class="header" href="#termprogresswhen"><code>term.progress.when</code></a></h5>
+<ul>
+<li>Type: 字符串</li>
+<li>Default: &quot;auto&quot;</li>
+<li>Environment: <code>CARGO_TERM_PROGRESS_WHEN</code></li>
+</ul>
+<p>控制是否在终端中显示进度条。可能的值:</p>
+<ul>
+<li><code>auto</code> (默认): 智能地猜测是否显示进度条。</li>
+<li><code>always</code>: 允许显示进度条。</li>
+<li><code>never</code>: 不允许显示进度条。</li>
+</ul>
+<h5 id="termprogresswidth"><a class="header" href="#termprogresswidth"><code>term.progress.width</code></a></h5>
+<ul>
+<li>Type: 整数</li>
+<li>Default: none</li>
+<li>Environment: <code>CARGO_TERM_PROGRESS_WIDTH</code></li>
+</ul>
+<p>设置进度条的宽度。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../reference/profiles.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../reference/environment-variables.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../reference/profiles.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../reference/environment-variables.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

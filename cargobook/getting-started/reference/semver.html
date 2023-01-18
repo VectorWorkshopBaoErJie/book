@@ -1,0 +1,1233 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>语义化兼容 - The Cargo Book</title>
+
+
+        <!-- Custom HTML head -->
+        <style>
+            dd {
+                margin-bottom: 1em;
+            }
+        </style>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">简介</a></li><li class="chapter-item expanded "><a href="../getting-started/index.html"><strong aria-hidden="true">1.</strong> 入门指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting-started/installation.html"><strong aria-hidden="true">1.1.</strong> 安装</a></li><li class="chapter-item expanded "><a href="../getting-started/first-steps.html"><strong aria-hidden="true">1.2.</strong> Cargo起步</a></li></ol></li><li class="chapter-item expanded "><a href="../guide/index.html"><strong aria-hidden="true">2.</strong> Cargo指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guide/why-cargo-exists.html"><strong aria-hidden="true">2.1.</strong> 为何有Cargo</a></li><li class="chapter-item expanded "><a href="../guide/creating-a-new-project.html"><strong aria-hidden="true">2.2.</strong> 创建新包</a></li><li class="chapter-item expanded "><a href="../guide/working-on-an-existing-project.html"><strong aria-hidden="true">2.3.</strong> 让包工作</a></li><li class="chapter-item expanded "><a href="../guide/dependencies.html"><strong aria-hidden="true">2.4.</strong> 依赖</a></li><li class="chapter-item expanded "><a href="../guide/project-layout.html"><strong aria-hidden="true">2.5.</strong> 包的设计</a></li><li class="chapter-item expanded "><a href="../guide/cargo-toml-vs-cargo-lock.html"><strong aria-hidden="true">2.6.</strong> Cargo.toml vs Cargo.lock</a></li><li class="chapter-item expanded "><a href="../guide/tests.html"><strong aria-hidden="true">2.7.</strong> 测试</a></li><li class="chapter-item expanded "><a href="../guide/continuous-integration.html"><strong aria-hidden="true">2.8.</strong> 持续集成</a></li><li class="chapter-item expanded "><a href="../guide/cargo-home.html"><strong aria-hidden="true">2.9.</strong> Cargo主页</a></li><li class="chapter-item expanded "><a href="../guide/build-cache.html"><strong aria-hidden="true">2.10.</strong> 构建缓存</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/index.html"><strong aria-hidden="true">3.</strong> Cargo参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/specifying-dependencies.html"><strong aria-hidden="true">3.1.</strong> 指定依赖</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/overriding-dependencies.html"><strong aria-hidden="true">3.1.1.</strong> 覆盖依赖</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/manifest.html"><strong aria-hidden="true">3.2.</strong> 配置格式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cargo-targets.html"><strong aria-hidden="true">3.2.1.</strong> Cargo目标</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/workspaces.html"><strong aria-hidden="true">3.3.</strong> 工作空间</a></li><li class="chapter-item expanded "><a href="../reference/features.html"><strong aria-hidden="true">3.4.</strong> 特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/features-examples.html"><strong aria-hidden="true">3.4.1.</strong> 特性示例</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/profiles.html"><strong aria-hidden="true">3.5.</strong> 编译设置</a></li><li class="chapter-item expanded "><a href="../reference/config.html"><strong aria-hidden="true">3.6.</strong> 配置</a></li><li class="chapter-item expanded "><a href="../reference/environment-variables.html"><strong aria-hidden="true">3.7.</strong> 环境变量</a></li><li class="chapter-item expanded "><a href="../reference/build-scripts.html"><strong aria-hidden="true">3.8.</strong> 构建脚本</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/build-script-examples.html"><strong aria-hidden="true">3.8.1.</strong> 构建脚本示例</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/publishing.html"><strong aria-hidden="true">3.9.</strong> 发布到crates.io</a></li><li class="chapter-item expanded "><a href="../reference/pkgid-spec.html"><strong aria-hidden="true">3.10.</strong> 包ID规范</a></li><li class="chapter-item expanded "><a href="../reference/source-replacement.html"><strong aria-hidden="true">3.11.</strong> 源替换</a></li><li class="chapter-item expanded "><a href="../reference/external-tools.html"><strong aria-hidden="true">3.12.</strong> 插件</a></li><li class="chapter-item expanded "><a href="../reference/registries.html"><strong aria-hidden="true">3.13.</strong> 注册中心</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/running-a-registry.html"><strong aria-hidden="true">3.13.1.</strong> 运行注册中心</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/registry-index.html"><strong aria-hidden="true">3.13.1.1.</strong> 注册中心索引</a></li><li class="chapter-item expanded "><a href="../reference/registry-web-api.html"><strong aria-hidden="true">3.13.1.2.</strong> 注册中心Web API</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../reference/resolver.html"><strong aria-hidden="true">3.14.</strong> 依赖解析</a></li><li class="chapter-item expanded "><a href="../reference/semver.html" class="active"><strong aria-hidden="true">3.15.</strong> 语义化兼容</a></li><li class="chapter-item expanded "><a href="../reference/future-incompat-report.html"><strong aria-hidden="true">3.16.</strong> 未来不兼容报告</a></li><li class="chapter-item expanded "><a href="../reference/timings.html"><strong aria-hidden="true">3.17.</strong> 报告构建时间</a></li><li class="chapter-item expanded "><a href="../reference/unstable.html"><strong aria-hidden="true">3.18.</strong> 不稳定特性</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/index.html"><strong aria-hidden="true">4.</strong> Cargo命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/general-commands.html"><strong aria-hidden="true">4.1.</strong> 常用命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo.html"><strong aria-hidden="true">4.1.1.</strong> cargo</a></li><li class="chapter-item expanded "><a href="../commands/cargo-help.html"><strong aria-hidden="true">4.1.2.</strong> cargo help</a></li><li class="chapter-item expanded "><a href="../commands/cargo-version.html"><strong aria-hidden="true">4.1.3.</strong> cargo version</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/build-commands.html"><strong aria-hidden="true">4.2.</strong> 构建命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-bench.html"><strong aria-hidden="true">4.2.1.</strong> cargo bench</a></li><li class="chapter-item expanded "><a href="../commands/cargo-build.html"><strong aria-hidden="true">4.2.2.</strong> cargo build</a></li><li class="chapter-item expanded "><a href="../commands/cargo-check.html"><strong aria-hidden="true">4.2.3.</strong> cargo check</a></li><li class="chapter-item expanded "><a href="../commands/cargo-clean.html"><strong aria-hidden="true">4.2.4.</strong> cargo clean</a></li><li class="chapter-item expanded "><a href="../commands/cargo-doc.html"><strong aria-hidden="true">4.2.5.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fetch.html"><strong aria-hidden="true">4.2.6.</strong> cargo fetch</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fix.html"><strong aria-hidden="true">4.2.7.</strong> cargo fix</a></li><li class="chapter-item expanded "><a href="../commands/cargo-run.html"><strong aria-hidden="true">4.2.8.</strong> cargo run</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustc.html"><strong aria-hidden="true">4.2.9.</strong> cargo rustc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustdoc.html"><strong aria-hidden="true">4.2.10.</strong> cargo rustdoc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-test.html"><strong aria-hidden="true">4.2.11.</strong> cargo test</a></li><li class="chapter-item expanded "><a href="../commands/cargo-report.html"><strong aria-hidden="true">4.2.12.</strong> cargo report</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/manifest-commands.html"><strong aria-hidden="true">4.3.</strong> 配置命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-add.html"><strong aria-hidden="true">4.3.1.</strong> cargo add</a></li><li class="chapter-item expanded "><a href="../commands/cargo-generate-lockfile.html"><strong aria-hidden="true">4.3.2.</strong> cargo generate-lockfile</a></li><li class="chapter-item expanded "><a href="../commands/cargo-locate-project.html"><strong aria-hidden="true">4.3.3.</strong> cargo locate-project</a></li><li class="chapter-item expanded "><a href="../commands/cargo-metadata.html"><strong aria-hidden="true">4.3.4.</strong> cargo metadata</a></li><li class="chapter-item expanded "><a href="../commands/cargo-pkgid.html"><strong aria-hidden="true">4.3.5.</strong> cargo pkgid</a></li><li class="chapter-item expanded "><a href="../commands/cargo-remove.html"><strong aria-hidden="true">4.3.6.</strong> cargo remove</a></li><li class="chapter-item expanded "><a href="../commands/cargo-tree.html"><strong aria-hidden="true">4.3.7.</strong> cargo tree</a></li><li class="chapter-item expanded "><a href="../commands/cargo-update.html"><strong aria-hidden="true">4.3.8.</strong> cargo update</a></li><li class="chapter-item expanded "><a href="../commands/cargo-vendor.html"><strong aria-hidden="true">4.3.9.</strong> cargo vendor</a></li><li class="chapter-item expanded "><a href="../commands/cargo-verify-project.html"><strong aria-hidden="true">4.3.10.</strong> cargo verify-project</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/package-commands.html"><strong aria-hidden="true">4.4.</strong> 包命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-init.html"><strong aria-hidden="true">4.4.1.</strong> cargo init</a></li><li class="chapter-item expanded "><a href="../commands/cargo-install.html"><strong aria-hidden="true">4.4.2.</strong> cargo install</a></li><li class="chapter-item expanded "><a href="../commands/cargo-new.html"><strong aria-hidden="true">4.4.3.</strong> cargo new</a></li><li class="chapter-item expanded "><a href="../commands/cargo-search.html"><strong aria-hidden="true">4.4.4.</strong> cargo search</a></li><li class="chapter-item expanded "><a href="../commands/cargo-uninstall.html"><strong aria-hidden="true">4.4.5.</strong> cargo uninstall</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/publishing-commands.html"><strong aria-hidden="true">4.5.</strong> 发布命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-login.html"><strong aria-hidden="true">4.5.1.</strong> cargo login</a></li><li class="chapter-item expanded "><a href="../commands/cargo-owner.html"><strong aria-hidden="true">4.5.2.</strong> cargo owner</a></li><li class="chapter-item expanded "><a href="../commands/cargo-package.html"><strong aria-hidden="true">4.5.3.</strong> cargo package</a></li><li class="chapter-item expanded "><a href="../commands/cargo-publish.html"><strong aria-hidden="true">4.5.4.</strong> cargo publish</a></li><li class="chapter-item expanded "><a href="../commands/cargo-yank.html"><strong aria-hidden="true">4.5.5.</strong> cargo yank</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> 常见问题</a></li><li class="chapter-item expanded "><a href="../appendix/glossary.html"><strong aria-hidden="true">6.</strong> 附录: 词汇表</a></li><li class="chapter-item expanded "><a href="../appendix/git-authentication.html"><strong aria-hidden="true">7.</strong> 附录: Git认证</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Cargo Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/cargo/tree/master/src/doc/src" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/cargo/edit/master/src/doc/src/reference/semver.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="语义化兼容性"><a class="header" href="#语义化兼容性">语义化兼容性</a></h1>
+<p>本章详细介绍了对于新发布的包，什么是传统意义上的兼容或破坏性的语义化版本变化。
+关于什么是语义化版本，以及Cargo如何使用它来确保库的兼容性，请参阅<a href="resolver.html#semver-compatibility">SemVer compatibility</a>部分。</p>
+<p>这些只是<em>准则</em>，而不一定是所有项目都会遵守的硬性规定。
+<a href="#change-categories">Change categories</a>部分详细说明了本指南如何对变更的级别和严重程度进行分类。
+本指南的大部分内容都集中在那些会导致 <code>cargo</code> 和 <code>rustc</code> 不能构建以前正常工作的内容的变化。
+几乎所有的改变都有可能对运行时的行为产生负面影响，对于这些情况，通常由项目维护者判断是否属于语义化不兼容的改变。</p>
+<p>也可以参见<a href="https://github.com/rust-lang/rust-semverver">rust-semverver</a>，它是一个实验性的工具，试图以编程方式检查兼容性规则。</p>
+<h2 id="更改类别"><a class="header" href="#更改类别">更改类别</a></h2>
+<p>下面列出的所有策略都是按变化的级别来分类的:</p>
+<ul>
+<li><strong>Major change</strong>: 这种变化需要语义化版本的重要改变。</li>
+<li><strong>Minor change</strong>: 这种变化只需要在语义化版本上做小改动。</li>
+<li><strong>Possibly-breaking change</strong>: 一些项目可能认为是大的变化，另一些则认为是小的变化。</li>
+</ul>
+<p>&quot;可能破坏&quot; 类别涵盖了在更新期间有<em>潜在</em>破坏的变化，但不一定会导致破坏。
+这些变化的影响应该被仔细考虑。确切的性质将取决于该变化和项目维护者的原则。</p>
+<p>有些项目可能会选择只在一个小的变化上增加补丁号。我们鼓励遵循语义化规范，只在补丁版本中应用错误修复。
+然而，一个错误的修复可能需要一个被标记为 &quot;次要改动&quot; 的API变化，并且不应该影响兼容性。
+本指南不对每个 &quot;次要改动&quot; 应如何处理采取立场，因为次要改动和补丁改动之间的区别是取决于改动的性质的惯例。</p>
+<p>有些改动被标记为 &quot;次要&quot;，即使它们有破坏构建的潜在风险。
+这适用于潜在风险极低的情况，而且可能破坏的代码不太可能用习惯性的Rust编写，或者去特别强调不使用。</p>
+<p>本指南使用 &quot;主要&quot; 和 &quot;次要&quot; 这两个术语是假设这与 &quot;1.0.0&quot; 或更高版本有关。从 &quot;0.y.z&quot; 开始的初始开发版本可以把 &quot;y&quot; 中的变化作为主要版本，而把 &quot;z&quot; 作为次要版本。
+&quot;0.0.z&quot; 版本总是主要变化。这是因为Cargo使用的惯例是，只有最左边的非零部分中的变化才被认为是不兼容的。</p>
+<ul>
+<li>API 兼容性
+<ul>
+<li>条目
+<ul>
+<li><a href="#item-remove">Major: 重命名/移动/移除任何公共条目</a></li>
+<li><a href="#item-new">Minor: 添加新的公开条目</a></li>
+</ul>
+</li>
+<li>Structs
+<ul>
+<li><a href="#struct-add-private-field-when-public">Major: 当所有当前字段都为公共时，添加私有结构体字段</a></li>
+<li><a href="#struct-add-public-field-when-no-private">Major: 在没有私有字段时添加公共字段</a></li>
+<li><a href="#struct-private-fields-with-private">Minor: 当至少有一个私有字段存在时添加或删除私有字段</a></li>
+<li><a href="#struct-tuple-normal-with-private">Minor: 从一个包含所有私有字段(至少包含一个字段)的元组结构体到一个普通结构体，反之亦然</a></li>
+</ul>
+</li>
+<li>Enums
+<ul>
+<li><a href="#enum-variant-new">Major: 添加新的枚举变量(没有 <code>non_exhaustive</code>)</a></li>
+<li><a href="#enum-fields-new">Major: 向枚举变量添加新字段</a></li>
+</ul>
+</li>
+<li>Traits
+<ul>
+<li><a href="#trait-new-item-no-default">Major: 添加非默认的trait条目</a></li>
+<li><a href="#trait-item-signature">Major: trait条目签名任何变化</a></li>
+<li><a href="#trait-new-default-item">Possibly-breaking: 添加默认trait条目</a></li>
+<li><a href="#trait-object-safety">Major: 添加trait条目使trait非对象安全</a></li>
+<li><a href="#trait-new-parameter-no-default">Major: 添加没有默认的类型参数</a></li>
+<li><a href="#trait-new-parameter-default">Minor: 增加默认的trait类型参数</a></li>
+</ul>
+</li>
+<li>Implementations
+<ul>
+<li><a href="#impl-item-new">Possibly-breaking change: 添加任何内部条目</a></li>
+</ul>
+</li>
+<li>Generics
+<ul>
+<li><a href="#generic-bounds-tighten">Major: 收紧泛型边界</a></li>
+<li><a href="#generic-bounds-loosen">Minor: 放宽泛型边界</a></li>
+<li><a href="#generic-new-default">Minor: 添加默认类型参数</a></li>
+<li><a href="#generic-generalize-identical">Minor: 泛化类型以使用泛型(具有等同类型)</a></li>
+<li><a href="#generic-generalize-different">Major: 泛化类型以使用泛型(可能有不同的类型)</a></li>
+<li><a href="#generic-more-generic">Minor: 将泛化类型改为更泛化的类型</a></li>
+</ul>
+</li>
+<li>Functions
+<ul>
+<li><a href="#fn-change-arity">Major: 添加/删除函数参数</a></li>
+<li><a href="#fn-generic-new">Possibly-breaking: 引入新的函数类型参数</a></li>
+<li><a href="#fn-generalize-compatible">Minor: 泛化函数以使用泛型(支持原始类型)</a></li>
+<li><a href="#fn-generalize-mismatch">Major: 泛化函数以使用类型不匹配的泛型</a></li>
+</ul>
+</li>
+<li>Attributes
+<ul>
+<li><a href="#attr-no-std-to-std">Major: 从 <code>no_std</code> 切换到要求 <code>std</code> </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>工具和环境的兼容性
+<ul>
+<li><a href="#env-new-rust">Possibly-breaking: 改变所需的最小Rust版本</a></li>
+<li><a href="#env-change-requirements">Possibly-breaking: 改变平台和环境要求</a></li>
+<li>Cargo
+<ul>
+<li><a href="#cargo-feature-add">Minor: 增加新的Cargo特性</a></li>
+<li><a href="#cargo-feature-remove">Major: 删除Cargo特性</a></li>
+<li><a href="#cargo-feature-remove-another">Major: 如果改变了特性或公共条目，从特性列表中删除一个特性</a></li>
+<li><a href="#cargo-remove-opt-dep">Possibly-breaking: 删除可选的依赖</a></li>
+<li><a href="#cargo-change-dep-feature">Minor: 改变依赖特性</a></li>
+<li><a href="#cargo-dep-add">Minor: 添加依赖</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#application-compatibility">应用程序兼容性</a></li>
+</ul>
+<h2 id="api兼容性"><a class="header" href="#api兼容性">API兼容性</a></h2>
+<p>下面所有的例子都包含三个部分：原始代码，修改后的代码，以及可能出现在另一个项目中的代码使用范例。
+在次要改动中，示例用法应该成功地与前后两个版本一起构建。</p>
+<p><a id="item-remove"></a></p>
+<h3 id="major-重新命名移动删除任意公共条目"><a class="header" href="#major-重新命名移动删除任意公共条目">Major: 重新命名/移动/删除任意公共条目</a></h3>
+<p>缺失公开暴露<a href="../../reference/items.html">条目</a>将导致对该条目的任何使用无法编译。</p>
+<pre><code class="language-rust ignore">// MAJOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub fn foo() {}
+
+///////////////////////////////////////////////////////////
+// 之后
+// ... 条目被移除
+
+///////////////////////////////////////////////////////////
+// 示例：将打破用法。
+fn main() {
+    updated_crate::foo(); // Error: 不能找到函数 `foo`
+}</code></pre>
+<p>这包括添加任何种类的[<code>cfg</code> 属性]，它可以根据<a href="../../reference/conditional-compilation.html">conditional compilation</a> &quot;条件编译&quot;改变哪些条目或行为是可用的。</p>
+<p>缓和策略:</p>
+<ul>
+<li>将要删除的条目标记为<a href="../../reference/attributes/diagnostics.html#the-deprecated-attribute">deprecated</a>，然后在以后的语义化版本打破性发布中删除它们。</li>
+<li>将重命名的条目标记为<a href="../../reference/attributes/diagnostics.html#the-deprecated-attribute">deprecated</a>，并使用 <a href="../../reference/items/use-declarations.html"><code>pub use</code></a> 条目来重新输出旧名称。</li>
+</ul>
+<p><a id="item-new"></a></p>
+<h3 id="minor-添加新公共条目"><a class="header" href="#minor-添加新公共条目">Minor: 添加新公共条目</a></h3>
+<p>增加新的、公开的<a href="../../reference/items.html">items</a>是次要变化。</p>
+<pre><code class="language-rust ignore">// MINOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+// ... 缺少条目
+
+///////////////////////////////////////////////////////////
+// 之后
+pub fn foo() {}
+
+///////////////////////////////////////////////////////////
+// 示例：库的使用将安全工作。
+// `foo` 没有被使用，因为它之前并不存在。</code></pre>
+<p>请注意，在某些少见的情况下，由于通配符导入的原因，这可能是<em>破坏性</em>改变。例如，如果你添加了一个新的特性，
+而一个条目使用了一个将该特性带入范围的通配符导入，并且这个新的特性引入了一个与它所实现的任意类型相冲突的关联项，这可能会因为这种混淆而导致编译时错误。例子:</p>
+<pre><code class="language-rust ignore">// Breaking change example
+
+///////////////////////////////////////////////////////////
+// 之前
+// ... 缺少trait
+
+///////////////////////////////////////////////////////////
+// 之后
+pub trait NewTrait {
+    fn foo(&amp;self) {}
+}
+
+impl NewTrait for i32 {}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的。
+use updated_crate::*;
+
+pub trait LocalTrait {
+    fn foo(&amp;self) {}
+}
+
+impl LocalTrait for i32 {}
+
+fn main() {
+    123i32.foo(); // Error:  在作用域有多个适用的条目
+}</code></pre>
+<p>这并不被认为是重要改变，因为通常通配符导入是一个已知的向前兼容的风险。应该避免从外部crate中导入条目的通配符。</p>
+<p><a id="struct-add-private-field-when-public"></a></p>
+<h3 id="major-当当前所有字段都是公共的时候添加私有结构体字段"><a class="header" href="#major-当当前所有字段都是公共的时候添加私有结构体字段">Major: 当当前所有字段都是公共的时候，添加私有结构体字段</a></h3>
+<p>当私有字段被添加到之前拥有所有公共字段的结构体中时。
+这将破坏任何试图用<a href="../../reference/expressions/struct-expr.html">struct literal</a>&quot;结构体字面量&quot;来构建该结构体的代码。</p>
+<pre><code class="language-rust ignore">// MAJOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub struct Foo {
+    pub f1: i32,
+}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub struct Foo {
+    pub f1: i32,
+    f2: i32,
+}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的。
+fn main() {
+    let x = updated_crate::Foo { f1: 123 }; // Error: 不能构建 `Foo`
+}</code></pre>
+<p>缓和策略:</p>
+<ul>
+<li>不要向所有公共字段的结构体添加新字段。</li>
+<li>在首次引入结构体时，将结构标记为<a href="../../reference/attributes/type_system.html#the-non_exhaustive-attribute"><code>#[non_exhaustive]</code></a>，
+以阻止用户使用结构字面量语法，而是提供构造方法或 <a href="../../std/default/trait.Default.html">Default</a> 实现。</li>
+</ul>
+<p><a id="struct-add-public-field-when-no-private"></a></p>
+<h3 id="major-在不存在私有字段的情况下添加公共字段"><a class="header" href="#major-在不存在私有字段的情况下添加公共字段">Major: 在不存在私有字段的情况下添加公共字段</a></h3>
+<p>当公共字段被添加到拥有所有公共字段的结构体中时，这将破坏任何试图用<a href="../../reference/expressions/struct-expr.html">struct literal</a>&quot;结构体字面量&quot;来构建它的代码。</p>
+<pre><code class="language-rust ignore">// MAJOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub struct Foo {
+    pub f1: i32,
+}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub struct Foo {
+    pub f1: i32,
+    pub f2: i32,
+}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的。
+fn main() {
+    let x = updated_crate::Foo { f1: 123 }; // Error: 缺失 `f2` 字段
+}</code></pre>
+<p>缓和策略:</p>
+<ul>
+<li>不要向所有公共字段结构体添加新字段。</li>
+<li>在首次引入结构体时，将结构体标记为<a href="../../reference/attributes/type_system.html#the-non_exhaustive-attribute"><code>#[non_exhaustive]</code></a>，
+以阻止用户使用结构体字面量语法，而是提供构造方法或<a href="../../std/default/trait.Default.html">Default</a>实现。</li>
+</ul>
+<p><a id="struct-private-fields-with-private"></a></p>
+<h3 id="minor-当至少有一个私有字段存在时添加或删除私有字段"><a class="header" href="#minor-当至少有一个私有字段存在时添加或删除私有字段">Minor: 当至少有一个私有字段存在时添加或删除私有字段</a></h3>
+<p>当结构已经至少有一个私有字段时，从结构中添加或删除私有字段是安全的。</p>
+<pre><code class="language-rust ignore">// MINOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+#[derive(Default)]
+pub struct Foo {
+    f1: i32,
+}
+
+///////////////////////////////////////////////////////////
+// 之后
+#[derive(Default)]
+pub struct Foo {
+    f2: f64,
+}
+
+///////////////////////////////////////////////////////////
+// 示例： 使用库将是安全的。
+fn main() {
+    // 不能访问私有字段。
+    let x = updated_crate::Foo::default();
+}</code></pre>
+<p>这是安全的，因为现有的代码不能使用<a href="../../reference/expressions/struct-expr.html">struct literal</a>来构造它，无需彻底匹配其内容。</p>
+<p>请注意，对于元组结构体来说，如果元组包含公共字段，增加或删除私有字段会改变任何公共字段的索引，将是 <strong>major变化</strong> 。</p>
+<pre><code class="language-rust ignore">// MAJOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+#[derive(Default)]
+pub struct Foo(pub i32, i32);
+
+///////////////////////////////////////////////////////////
+// 之后
+#[derive(Default)]
+pub struct Foo(f64, pub i32, i32);
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的。
+fn main() {
+    let x = updated_crate::Foo::default();
+    let y = x.0; // Error: 是私有的。
+}</code></pre>
+<p><a id="struct-tuple-normal-with-private"></a></p>
+<h3 id="minor-从具有所有私有字段的元组结构体至少有一个字段到正常的结构体"><a class="header" href="#minor-从具有所有私有字段的元组结构体至少有一个字段到正常的结构体">Minor: 从具有所有私有字段的元组结构体(至少有一个字段)到正常的结构体。</a></h3>
+<p>如果所有字段都是私有的，那么将元组结构体改变为普通结构体是安全的，反之亦然。</p>
+<pre><code class="language-rust ignore">// MINOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+#[derive(Default)]
+pub struct Foo(i32);
+
+///////////////////////////////////////////////////////////
+// 之后
+#[derive(Default)]
+pub struct Foo {
+    f1: i32,
+}
+
+///////////////////////////////////////////////////////////
+// 示例：库的使用将是安全的。
+fn main() {
+    // 不能访问私有字段。
+    let x = updated_crate::Foo::default();
+}</code></pre>
+<p>这是安全的，因为当前的代码不能使用<a href="../../reference/expressions/struct-expr.html">struct literal</a>来构造它，不能匹配它的内容。</p>
+<p><a id="enum-variant-new"></a></p>
+<h3 id="major-添加新的枚举条目-没有-non_exhaustive--"><a class="header" href="#major-添加新的枚举条目-没有-non_exhaustive--">Major: 添加新的枚举条目 (没有 <code>non_exhaustive</code> ) 。</a></h3>
+<p>如果枚举未使用<a href="../../reference/attributes/type_system.html#the-non_exhaustive-attribute"><code>#[non_exhaustive]</code></a>属性，增加新的枚举条目是破坏性的改变。</p>
+<pre><code class="language-rust ignore">// MAJOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub enum E {
+    Variant1,
+}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub enum E {
+    Variant1,
+    Variant2,
+}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的。
+fn main() {
+    use updated_crate::E;
+    let x = E::Variant1;
+    match x { // Error: `E::Variant2` 未涵盖
+        E::Variant1 =&gt; {}
+    }
+}</code></pre>
+<p>缓和策略:</p>
+<ul>
+<li>在引入枚举时，将其标记为<a href="../../reference/attributes/type_system.html#the-non_exhaustive-attribute"><code>#[non_exhaustive]</code></a>，以迫使用户使用[通配符模式]来捕获新的变体。</li>
+</ul>
+<p><a id="enum-fields-new"></a></p>
+<h3 id="major-向枚举变量添加新字段"><a class="header" href="#major-向枚举变量添加新字段">Major: 向枚举变量添加新字段</a></h3>
+<p>在枚举变体中添加新的字段是一种破坏性的改变，因为所有的字段都是公开的，构造函数和匹配将无法编译。</p>
+<pre><code class="language-rust ignore">// MAJOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub enum E {
+    Variant1 { f1: i32 },
+}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub enum E {
+    Variant1 { f1: i32, f2: i32 },
+}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的。
+fn main() {
+    use updated_crate::E;
+    let x = E::Variant1 { f1: 1 }; // Error: 缺失 f2
+    match x {
+        E::Variant1 { f1 } =&gt; {} // Error: 缺失 f2
+    }
+}</code></pre>
+<p>缓和策略:</p>
+<ul>
+<li>在引入枚举时，将变体标记为<a href="../../reference/attributes/type_system.html#the-non_exhaustive-attribute"><code>non_exhaustive</code></a>，使其没有通配符的情况下不能构建或匹配它。
+<pre><code class="language-rust ignore skip">pub enum E {
+    #[non_exhaustive]
+    Variant1{f1: i32}
+}</code></pre>
+</li>
+<li>在引入枚举时，使用显式结构体作为值，在这里你可以对字段可见性进行控制。
+<pre><code class="language-rust ignore skip">pub struct Foo {
+   f1: i32,
+   f2: i32,
+}
+pub enum E {
+    Variant1(Foo)
+}</code></pre>
+</li>
+</ul>
+<p><a id="trait-new-item-no-default"></a></p>
+<h3 id="major-添加非默认的trait条目"><a class="header" href="#major-添加非默认的trait条目">Major: 添加非默认的trait条目</a></h3>
+<p>在特性中添加非默认的条目是一种破坏性的改变。这将破坏该特性的任何实现者。</p>
+<pre><code class="language-rust ignore">// MAJOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub trait Trait {}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub trait Trait {
+    fn foo(&amp;self);
+}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的。
+use updated_crate::Trait;
+struct Foo;
+
+impl Trait for Foo {}  // Error: 未实现所有trait条目</code></pre>
+<p>缓和策略:</p>
+<ul>
+<li>始终为新的相关trait条目提供默认的实现或值。</li>
+<li>在引入trait时，使用<a href="https://rust-lang.github.io/api-guidelines/future-proofing.html#sealed-traits-protect-against-downstream-implementations-c-sealed">sealed trait</a>技术来防止crate外的用户实现该trait。</li>
+</ul>
+<p><a id="trait-item-signature"></a></p>
+<h3 id="major-trait条目签名的任何变化"><a class="header" href="#major-trait条目签名的任何变化">Major: trait条目签名的任何变化</a></h3>
+<p>对trait条目的签名做任何改变都是破坏性的。可能会破坏该trait的外部实现者。</p>
+<pre><code class="language-rust ignore">// MAJOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub trait Trait {
+    fn f(&amp;self, x: i32) {}
+}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub trait Trait {
+    // 对于密封的trait或普通函数，这将是次要变化，因为用泛型来泛化严格地扩展了可能的用法。
+    // 但在这种情况下，trait的实现必须使用相同的签名。
+    fn f&lt;V&gt;(&amp;self, x: V) {}
+}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的。
+use updated_crate::Trait;
+struct Foo;
+
+impl Trait for Foo {
+    fn f(&amp;self, x: i32) {}  // Error: trait 声明有1个类型参数
+}</code></pre>
+<p>缓和策略:</p>
+<ul>
+<li>引入带有默认实现的新条目，以涵盖新功能，而不是修改现有条目。</li>
+<li>当引入该trait时，使用<a href="https://rust-lang.github.io/api-guidelines/future-proofing.html#sealed-traits-protect-against-downstream-implementations-c-sealed">sealed trait</a>来防止crate外的用户实现该trait。</li>
+</ul>
+<p><a id="trait-new-default-item"></a></p>
+<h3 id="possibly-breaking-添加默认的trait条目"><a class="header" href="#possibly-breaking-添加默认的trait条目">Possibly-breaking: 添加默认的trait条目</a></h3>
+<p>添加默认的trait条目通常是安全的。然而，这有时会导致编译错误。
+例如，如果在另一个trait中存在同名的方法，则会引入混淆。</p>
+<pre><code class="language-rust ignore">// Breaking change example
+
+///////////////////////////////////////////////////////////
+// 之前
+pub trait Trait {}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub trait Trait {
+    fn foo(&amp;self) {}
+}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的。
+use updated_crate::Trait;
+struct Foo;
+
+trait LocalTrait {
+    fn foo(&amp;self) {}
+}
+
+impl Trait for Foo {}
+impl LocalTrait for Foo {}
+
+fn main() {
+    let x = Foo;
+    x.foo(); // Error: 作用域内有多个符合条目
+}</code></pre>
+<p>注意，这种二义性并不存在于<a href="../../reference/items/implementations.html#inherent-implementations">inherent implementations</a>的名称冲突，因为它们优先于trait条目。</p>
+<p>参见<a href="#trait-object-safety">trait-object-safety</a>，了解添加trait条目时需要考虑的特殊情况。</p>
+<p>缓和策略:</p>
+<ul>
+<li>一些项目可能认为这是可以接受的破坏，特别是如果新的条目名称不太可能与任何现有的代码发生冲突。请谨慎选择名称，以有助避免这些冲突。此外，要求下游用户在更新依赖时添加<a href="../../reference/expressions/call-expr.html#disambiguating-function-calls">disambiguation syntax</a> &quot;歧义消除语法&quot; 以选择恰当的函数，这是可以接受的。</li>
+</ul>
+<p><a id="trait-object-safety"></a></p>
+<h3 id="major-添加trait条目使trait非对象安全"><a class="header" href="#major-添加trait条目使trait非对象安全">Major: 添加trait条目，使trait非对象安全</a></h3>
+<p>增加改变trait的条目，使trait不再是<a href="../../reference/items/traits.html#object-safety">object safe</a>，这是破坏性的变化。</p>
+<pre><code class="language-rust ignore">// MAJOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub trait Trait {}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub trait Trait {
+    // 一个相关的常量使得该trait不是对象安全的。
+    const CONST: i32 = 123;
+}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的。
+use updated_crate::Trait;
+struct Foo;
+
+impl Trait for Foo {}
+
+fn main() {
+    let obj: Box&lt;dyn Trait&gt; = Box::new(Foo); // Error: 不能成为一个对象
+}</code></pre>
+<p>反之也是安全的(将非对象安全的trait变成安全的trait)。</p>
+<p><a id="trait-new-parameter-no-default"></a></p>
+<h3 id="major-添加没有默认值的类型参数"><a class="header" href="#major-添加没有默认值的类型参数">Major: 添加没有默认值的类型参数</a></h3>
+<p>在trait中添加没有默认值的类型参数是一种破坏性的改变。</p>
+<pre><code class="language-rust ignore">// MAJOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub trait Trait {}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub trait Trait&lt;T&gt; {}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的
+use updated_crate::Trait;
+struct Foo;
+
+impl Trait for Foo {}  // Error: 缺失泛型</code></pre>
+<p>缓和策略:</p>
+<ul>
+<li>见 <a href="#trait-new-parameter-default">添加默认trait类型参数</a>.</li>
+</ul>
+<p><a id="trait-new-parameter-default"></a></p>
+<h3 id="minor-添加默认trait类型参数"><a class="header" href="#minor-添加默认trait类型参数">Minor: 添加默认trait类型参数</a></h3>
+<p>在trait中添加类型参数是安全的，只要它有默认值。
+外部实现者将使用默认值而不需要指定参数。</p>
+<pre><code class="language-rust ignore">// MINOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub trait Trait {}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub trait Trait&lt;T = i32&gt; {}
+
+///////////////////////////////////////////////////////////
+// 示例：库的使用是安全的。
+use updated_crate::Trait;
+struct Foo;
+
+impl Trait for Foo {}</code></pre>
+<p><a id="impl-item-new"></a></p>
+<h3 id="possibly-breaking-change-添加任意内部条目"><a class="header" href="#possibly-breaking-change-添加任意内部条目">Possibly-breaking change: 添加任意内部条目</a></h3>
+<p>通常情况下，向一个实现添加内部条目应该是安全的，因为内部条目比trait条目有优先权。
+然而，在某些情况下，如果名称与具有不同签名的已实现的trait条目相同，则冲突会导致问题。</p>
+<pre><code class="language-rust ignore">// 破坏性改变示例
+
+///////////////////////////////////////////////////////////
+// 之前
+pub struct Foo;
+
+///////////////////////////////////////////////////////////
+// 之后
+pub struct Foo;
+
+impl Foo {
+    pub fn foo(&amp;self) {}
+}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的
+use updated_crate::Foo;
+
+trait Trait {
+    fn foo(&amp;self, x: i32) {}
+}
+
+impl Trait for Foo {}
+
+fn main() {
+    let x = Foo;
+    x.foo(1); // Error: 这个函数有0个参数
+}</code></pre>
+<p>注意，如果签名匹配，就不会出现编译时错误，但可能会出现运行时行为的静默变化(因为现在执行的是一个不同的函数)。</p>
+<p>缓和策略:</p>
+<ul>
+<li>一些项目可能认为这是可以接受的破坏，特别是如果新的条目名称不太可能与任何现有的代码发生冲突。请谨慎选择名称，以有助避免这些冲突。此外，要求下游用户在更新依赖时添加<a href="../../reference/expressions/call-expr.html#disambiguating-function-calls">disambiguation syntax</a> &quot;歧义消除语法&quot; 以选择恰当的函数，这是可以接受的。</li>
+</ul>
+<p><a id="generic-bounds-tighten"></a></p>
+<h3 id="major-收紧泛型边界"><a class="header" href="#major-收紧泛型边界">Major: 收紧泛型边界</a></h3>
+<p>在类型上收紧泛型边界是破坏性的改变，因为这可能会打破用户对较宽松边界的预期。</p>
+<pre><code class="language-rust ignore">// MAJOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub struct Foo&lt;A&gt; {
+    pub f1: A,
+}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub struct Foo&lt;A: Eq&gt; {
+    pub f1: A,
+}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的。
+use updated_crate::Foo;
+
+fn main() {
+    let s = Foo { f1: 1.23 }; // Error: trait 边界 `{float}: Eq` 不满足
+}</code></pre>
+<p><a id="generic-bounds-loosen"></a></p>
+<h3 id="minor-放宽泛型边界"><a class="header" href="#minor-放宽泛型边界">Minor: 放宽泛型边界</a></h3>
+<p>放宽类型泛型界限是安全的，因为它仅扩展了允许的范围。</p>
+<pre><code class="language-rust ignore">// MINOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub struct Foo&lt;A: Clone&gt; {
+    pub f1: A,
+}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub struct Foo&lt;A&gt; {
+    pub f1: A,
+}
+
+///////////////////////////////////////////////////////////
+// 示例：库的使用是安全的。
+use updated_crate::Foo;
+
+fn main() {
+    let s = Foo { f1: 123 };
+}</code></pre>
+<p><a id="generic-new-default"></a></p>
+<h3 id="minor-添加默认的类型参数"><a class="header" href="#minor-添加默认的类型参数">Minor: 添加默认的类型参数</a></h3>
+<p>只要类型有默认值，给它添加类型参数是安全的。所有现有的引用将使用默认值，而不需要指定参数。</p>
+<pre><code class="language-rust ignore">// MINOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+#[derive(Default)]
+pub struct Foo {}
+
+///////////////////////////////////////////////////////////
+// 之后
+#[derive(Default)]
+pub struct Foo&lt;A = i32&gt; {
+    f1: A,
+}
+
+///////////////////////////////////////////////////////////
+// 示例：库的使用是安全的。
+use updated_crate::Foo;
+
+fn main() {
+    let s: Foo = Default::default();
+}</code></pre>
+<p><a id="generic-generalize-identical"></a></p>
+<h3 id="minor-泛化类型以使用泛型具有相同的类型"><a class="header" href="#minor-泛化类型以使用泛型具有相同的类型">Minor: 泛化类型以使用泛型(具有相同的类型)</a></h3>
+<p>结构体或枚举字段可以从具体类型改变为泛型类型参数，前提是这种变化带来的所有现有用例的类型相同。
+例如，下面的改变是允许的。</p>
+<pre><code class="language-rust ignore">// MINOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub struct Foo(pub u8);
+
+///////////////////////////////////////////////////////////
+// 之后
+pub struct Foo&lt;T = u8&gt;(pub T);
+
+///////////////////////////////////////////////////////////
+// 示例：库的使用是安全的。
+use updated_crate::Foo;
+
+fn main() {
+    let s: Foo = Foo(123);
+}</code></pre>
+<p>因为当前 <code>Foo</code> 是 <code>Foo&lt;u8&gt;</code> 的缩写，产生相同的字段类型。</p>
+<p><a id="generic-generalize-different"></a></p>
+<h3 id="major-泛化类型以使用泛型可能有不同的类型"><a class="header" href="#major-泛化类型以使用泛型可能有不同的类型">Major: 泛化类型以使用泛型(可能有不同的类型)</a></h3>
+<p>如果类型可以改变，将结构体或枚举字段从具体类型改为泛型类型参数就是破坏性的。</p>
+<pre><code class="language-rust ignore">// MAJOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub struct Foo&lt;T = u8&gt;(pub T, pub u8);
+
+///////////////////////////////////////////////////////////
+// 之后
+pub struct Foo&lt;T = u8&gt;(pub T, pub T);
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的
+use updated_crate::Foo;
+
+fn main() {
+    let s: Foo&lt;f32&gt; = Foo(3.14, 123); // Error: 缺失类型。
+}</code></pre>
+<p><a id="generic-more-generic"></a></p>
+<h3 id="minor-将泛型类型改为一个更泛型的类型"><a class="header" href="#minor-将泛型类型改为一个更泛型的类型">Minor: 将泛型类型改为一个更泛型的类型</a></h3>
+<p>将一个泛型类型改为更泛型的类型是安全的。例如，下面添加了一个默认为原始类型的泛型参数，
+这是安全的，因为所有现有的用户都会为两个字段使用相同的类型，默认的参数不需要被指定。</p>
+<pre><code class="language-rust ignore">// MINOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub struct Foo&lt;T&gt;(pub T, pub T);
+
+///////////////////////////////////////////////////////////
+// 之后
+pub struct Foo&lt;T, U = T&gt;(pub T, pub U);
+
+///////////////////////////////////////////////////////////
+// 示例：库的使用是安全的
+use updated_crate::Foo;
+
+fn main() {
+    let s: Foo&lt;f32&gt; = Foo(1.0, 2.0);
+}</code></pre>
+<p><a id="fn-change-arity"></a></p>
+<h3 id="major-添加删除函数参数"><a class="header" href="#major-添加删除函数参数">Major: 添加/删除函数参数</a></h3>
+<p>改变函数参数是一种破坏性的改变。</p>
+<pre><code class="language-rust ignore">// MAJOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub fn foo() {}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub fn foo(x: i32) {}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的。
+fn main() {
+    updated_crate::foo(); // Error: 这个函数需要一个参数
+}</code></pre>
+<p>缓和策略:</p>
+<ul>
+<li>用新的签名引入一个新的函数，并可能<a href="../../reference/attributes/diagnostics.html#the-deprecated-attribute">弃用</a>旧的函数。</li>
+<li>引入接受结构体参数的函数，其中结构体是用构建模式构建的。这允许将来在结构体中添加新的字段。</li>
+</ul>
+<p><a id="fn-generic-new"></a></p>
+<h3 id="possibly-breaking-引入新的函数类型参数"><a class="header" href="#possibly-breaking-引入新的函数类型参数">Possibly-breaking: 引入新的函数类型参数</a></h3>
+<p>通常情况下，增加非默认类型参数是安全的，但在某些情况下，可能是破坏性的改变。</p>
+<pre><code class="language-rust ignore">// Breaking change example
+
+///////////////////////////////////////////////////////////
+// 之前
+pub fn foo&lt;T&gt;() {}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub fn foo&lt;T, U&gt;() {}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的
+use updated_crate::foo;
+
+fn main() {
+    foo::&lt;u8&gt;(); // Error: 这个函数需要2个泛型参数，但只提供了一个泛型参数
+}</code></pre>
+<p>然而，这样的显式调用是非常少见的(通常可以用其他方式编写)，所以这种破坏通常是可以接受的。
+我们应该考虑有问题的函数被显式类型参数调用的可能性。</p>
+<p><a id="fn-generalize-compatible"></a></p>
+<h3 id="minor-泛化函数以使用泛型支持原始类型"><a class="header" href="#minor-泛化函数以使用泛型支持原始类型">Minor: 泛化函数以使用泛型(支持原始类型)</a></h3>
+<p>函数的参数或其返回值的类型可以被<em>泛化</em>以使用泛型，包括引入一个新类型的参数，
+只要它可以被实例化为原始类型。例如，允许以下变化:</p>
+<pre><code class="language-rust ignore">// MINOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub fn foo(x: u8) -&gt; u8 {
+    x
+}
+pub fn bar&lt;T: Iterator&lt;Item = u8&gt;&gt;(t: T) {}
+
+///////////////////////////////////////////////////////////
+// 之后
+use std::ops::Add;
+pub fn foo&lt;T: Add&gt;(x: T) -&gt; T {
+    x
+}
+pub fn bar&lt;T: IntoIterator&lt;Item = u8&gt;&gt;(t: T) {}
+
+///////////////////////////////////////////////////////////
+// 示例：库的使用是安全的
+use updated_crate::{bar, foo};
+
+fn main() {
+    foo(1);
+    bar(vec![1, 2, 3].into_iter());
+}</code></pre>
+<p>因为所有现有的使用都是新签名的实例化。 </p>
+<p>也许有些令人惊讶的是，泛化也适用于trait对象，因为每个trait都实现了自己:</p>
+<pre><code class="language-rust ignore">// MINOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub trait Trait {}
+pub fn foo(t: &amp;dyn Trait) {}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub trait Trait {}
+pub fn foo&lt;T: Trait + ?Sized&gt;(t: &amp;T) {}
+
+///////////////////////////////////////////////////////////
+// 示例：库的使用是安全的。
+use updated_crate::{foo, Trait};
+
+struct Foo;
+impl Trait for Foo {}
+
+fn main() {
+    let obj = Foo;
+    foo(&amp;obj);
+}</code></pre>
+<p>(使用 <code>?Sized</code> 是必要的，否则你就无法恢复原始签名。)</p>
+<p>以这种方式引入泛型，有可能造成类型推断的失败。这些通常是少见的，
+对于一些项目来说，可能是可以接受的故障，因为这可以通过额外的类型注解来修复。</p>
+<pre><code class="language-rust ignore">// Breaking change example
+
+///////////////////////////////////////////////////////////
+// 之前
+pub fn foo() -&gt; i32 {
+    0
+}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub fn foo&lt;T: Default&gt;() -&gt; T {
+    Default::default()
+}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的
+use updated_crate::foo;
+
+fn main() {
+    let x = foo(); // Error: 需要类型注释
+}</code></pre>
+<p><a id="fn-generalize-mismatch"></a></p>
+<h3 id="major-泛化函数以使用类型不匹配的泛型"><a class="header" href="#major-泛化函数以使用类型不匹配的泛型">Major: 泛化函数以使用类型不匹配的泛型</a></h3>
+<p>如果泛型约束或改变了以前允许的类型，那么改变函数参数或返回类型就是一种破坏性的改变。
+例如，下面增加了一个可能不被现有代码所满足的泛型约束:</p>
+<pre><code class="language-rust ignore">// MAJOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+pub fn foo(x: Vec&lt;u8&gt;) {}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub fn foo&lt;T: Copy + IntoIterator&lt;Item = u8&gt;&gt;(x: T) {}
+
+///////////////////////////////////////////////////////////
+// 示例：使用是破坏性的
+use updated_crate::foo;
+
+fn main() {
+    foo(vec![1, 2, 3]); // Error: `Vec&lt;u8&gt;` 没有实现 `Copy` 
+}</code></pre>
+<p><a id="attr-no-std-to-std"></a></p>
+<h3 id="major-从-no_std-转为要求-std"><a class="header" href="#major-从-no_std-转为要求-std">Major: 从 <code>no_std</code> 转为要求 <code>std</code></a></h3>
+<p>如果你的库特别支持 <a href="../../reference/names/preludes.html#the-no_std-attribute"><code>no_std</code></a> 环境，做一个需要 <code>std</code> 的新版本是破坏性的改变。</p>
+<pre><code class="language-rust ignore skip">// MAJOR CHANGE
+
+///////////////////////////////////////////////////////////
+// 之前
+#![no_std]
+pub fn foo() {}
+
+///////////////////////////////////////////////////////////
+// 之后
+pub fn foo() {
+    std::time::SystemTime::now();
+}
+
+///////////////////////////////////////////////////////////
+// 示例:使用是破坏性的
+// 这将导致no_std目标的链接失败，因为它们没有 `std` crate。
+#![no_std]
+use updated_crate::foo;
+
+fn example() {
+    foo();
+}</code></pre>
+<p>缓和策略:</p>
+<ul>
+<li>为了避免这种情况，一种常见的方式是包含 <code>std</code> <a href="features.html">Cargo feature</a> ，可以选择启用 <code>std</code> 支持，当该特性关闭时，库可以在<code>no_std</code> 环境下使用。</li>
+</ul>
+<h2 id="工具和环境的兼容性"><a class="header" href="#工具和环境的兼容性">工具和环境的兼容性</a></h2>
+<p><a id="env-new-rust"></a></p>
+<h3 id="possibly-breaking-改变所需的最小rust版本"><a class="header" href="#possibly-breaking-改变所需的最小rust版本">Possibly-breaking: 改变所需的最小Rust版本</a></h3>
+<p>在新版本的Rust中引入使用新的特性，会破坏使用旧版本Rust的项目。
+这也包括在新版本的Cargo中使用新特性，以及要求在之前在稳定版本上工作的crate中使用只在每日构建使用的特性。</p>
+<p>一些项目出于各种原因选择在次要版本中允许这样做。通常情况下，更新到一个较新的Rust版本是比较容易的。Rust也有一个6周的快速发布周期，一些项目会在一个发布窗口期内提供兼容性(比如当前的稳定版加上之前的N个版本)。只要记住，一些大型项目可能无法迅速更新其Rust工具链。</p>
+<p>缓和策略:</p>
+<ul>
+<li>使用<a href="features.html">Cargo features</a>使新特性可选加入。</li>
+<li>为旧版本提供更大的支持窗口期。</li>
+<li>如果可能的话，复制新的标准库项目的源代码，这样你就可以继续使用旧的版本，但利用新的特性。</li>
+<li>为较早的次要版本提供一个单独的分支，可以接收重要bug修复的向后移植。</li>
+<li>请注意<a href="https://github.com/rust-lang/rust/issues/64796"><code>[cfg(version(..))]</code></a>和<a href="https://github.com/rust-lang/rust/issues/64797"><code>#[cfg(accessible(..))]</code></a>特性，它们为新特性提供了选择机制。这些特性目前是不稳定的，只在每日构建中可用。</li>
+</ul>
+<p><a id="env-change-requirements"></a></p>
+<h3 id="possibly-breaking-改变平台和环境要求"><a class="header" href="#possibly-breaking-改变平台和环境要求">Possibly-breaking: 改变平台和环境要求</a></h3>
+<p>一个库对它所运行的环境有非常宽泛的假设，例如主机平台、操作系统版本、可用的服务、文件系统支持等等。如果你发布的新版本限制了以前支持的内容，例如需要新版本的操作系统，这可能是破坏性的变化。这些变化可能很难跟踪，因为你可能并不总是知道在一个没有自动测试的环境中，变化是否会形成破坏。</p>
+<p>一些项目可能认为这是可以接受的破坏，特别是如果这种破坏对大多数用户来说是不可能的，或者项目没有资源来支持所有环境。
+另一种值得注意的情况是，当供应商停止对某些硬件或操作系统的支持时，项目可能认为停止支持也是合理的。</p>
+<p>缓和策略:</p>
+<ul>
+<li>记录你具体支持的平台和环境。</li>
+<li>在CI中，在宽泛的环境中测试你的代码。</li>
+</ul>
+<h3 id="cargo"><a class="header" href="#cargo">Cargo</a></h3>
+<p><a id="cargo-feature-add"></a></p>
+<h4 id="minor-增加新的cargo特性"><a class="header" href="#minor-增加新的cargo特性">Minor: 增加新的Cargo特性</a></h4>
+<p>增加新的<a href="features.html">Cargo features</a>通常是安全的。如果该特性引入了新的变化，带来破坏性，这可能会给那些有更严格的向后兼容性需求的项目带来困难。在这种情况下，应避免将该特性添加到 &quot;默认&quot; 列表中，并记录可能启用该特性的后果。</p>
+<pre><code class="language-toml"># MINOR CHANGE
+
+###########################################################
+# 之前
+[features]
+# ..empty
+
+###########################################################
+# 之后
+[features]
+std = []
+</code></pre>
+<p><a id="cargo-feature-remove"></a></p>
+<h4 id="major-移除-cargo-特性"><a class="header" href="#major-移除-cargo-特性">Major: 移除 Cargo 特性</a></h4>
+<p>移除<a href="features.html">Cargo features</a>通常是一种破坏性的改变。这将导致任何启用该特性的项目出现错误。</p>
+<pre><code class="language-toml"># MAJOR CHANGE
+
+###########################################################
+# 之前
+[features]
+logging = []
+
+###########################################################
+# 之后
+[dependencies]
+# ..logging removed
+</code></pre>
+<p>缓和策略:</p>
+<ul>
+<li>清楚地记录你的特性。如果有一个内部或实验性的特性，就把它标记为这样的特性，以便用户知道这个特性的状态。</li>
+<li>在 <code>Cargo.toml</code> 中保留旧的特性，但删除其功能。记录该特性已被废弃，并在未来的语义化主要版本中删除。</li>
+</ul>
+<p><a id="cargo-feature-remove-another"></a></p>
+<h4 id="major-如果改变了功能或公共条目从特性列表中删除一个特性"><a class="header" href="#major-如果改变了功能或公共条目从特性列表中删除一个特性">Major: 如果改变了功能或公共条目，从特性列表中删除一个特性</a></h4>
+<p>如果从另一个特性中删除特性，这可能会破坏现有的用户，如果他们期望通过该特性来获得该功能。</p>
+<pre><code class="language-toml"># Breaking change example
+
+###########################################################
+# 之前
+[features]
+default = [&quot;std&quot;]
+std = []
+
+###########################################################
+# 之后
+[features]
+default = []  # 如果包期望启用std，这可能会导致它们失败。
+std = []
+</code></pre>
+<p><a id="cargo-remove-opt-dep"></a></p>
+<h4 id="possibly-breaking-删除可选依赖"><a class="header" href="#possibly-breaking-删除可选依赖">Possibly-breaking: 删除可选依赖</a></h4>
+<p>删除可选依赖可能会破坏使用你的库的项目，因为另一个项目可能通过<a href="features.html">Cargo features</a>启用该依赖。</p>
+<pre><code class="language-toml"># Breaking change example
+
+###########################################################
+# 之前
+[dependencies]
+curl = { version = &quot;0.4.31&quot;, optional = true }
+
+###########################################################
+# 之后
+[dependencies]
+# ..curl removed
+</code></pre>
+<p>缓和策略:</p>
+<ul>
+<li>清楚地记录你的特性。如果可选依赖不包括在记录的特性列表中，那么你可以决定认为改变无记录的条目是安全的。</li>
+<li>留下可选择依赖，只是在你的库中不使用它。</li>
+<li>用一个什么都不做的<a href="features.html">Cargo feature</a>来替换这个可选依赖，并记录下它的废弃情况。</li>
+<li>使用能够实现可选的依赖的高级特性，并将这些特性记录为实现扩展功能的首选方式。例如，如果你的库对 &quot;联网&quot; 这样的内容有可选的支持，创建一个名为 &quot;联网&quot; 的泛型特性，它能够实现 &quot;联网&quot; 所需的可选依赖。然后记录 &quot;联网&quot; 特性。</li>
+</ul>
+<p><a id="cargo-change-dep-feature"></a></p>
+<h4 id="minor-改变依赖特性"><a class="header" href="#minor-改变依赖特性">Minor: 改变依赖特性</a></h4>
+<p>通常情况下，改变依赖上的特性是安全的，只要该特性不引入破坏性的变化。</p>
+<pre><code class="language-toml"># MINOR CHANGE
+
+###########################################################
+# 之前
+[dependencies]
+rand = { version = &quot;0.7.3&quot;, features = [&quot;small_rng&quot;] }
+
+
+###########################################################
+# 之后
+[dependencies]
+rand = &quot;0.7.3&quot;
+</code></pre>
+<p><a id="cargo-dep-add"></a></p>
+<h4 id="minor-添加依赖"><a class="header" href="#minor-添加依赖">Minor: 添加依赖</a></h4>
+<p>增加新的依赖通常是安全的，只要新的依赖没有引入新的需求而导致破坏性的变化。
+例如，在一个以前在稳定版本上工作的项目中添加一个需要每日构建的新依赖，是一个重大的变化。</p>
+<pre><code class="language-toml"># MINOR CHANGE
+
+###########################################################
+# 之前
+[dependencies]
+# ..empty
+
+###########################################################
+# 之后
+[dependencies]
+log = &quot;0.4.11&quot;
+</code></pre>
+<h2 id="应用程序兼容性"><a class="header" href="#应用程序兼容性">应用程序兼容性</a></h2>
+<p>Cargo项目也可能包括可执行的二进制文件，它们有自己的接口(如CLI接口、OS级交互等)。
+由于这些是Cargo包的一部分，它们经常使用和共享与包相同的版本。
+你需要决定是否以及如何在你对应用程序的修改中采用语义化版本约定与你的用户进行沟通。
+对应用程序的潜在破坏性和兼容性的改变不胜枚举，
+所以我们鼓励你使用<a href="https://semver.org/">SemVer</a>规范的精神来指导你决定如何将版本控制应用于你的应用程序，或者至少记录你的承诺。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../reference/resolver.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../reference/future-incompat-report.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../reference/resolver.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../reference/future-incompat-report.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>插件 - The Cargo Book</title>
+
+
+        <!-- Custom HTML head -->
+        <style>
+            dd {
+                margin-bottom: 1em;
+            }
+        </style>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">简介</a></li><li class="chapter-item expanded "><a href="../getting-started/index.html"><strong aria-hidden="true">1.</strong> 入门指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting-started/installation.html"><strong aria-hidden="true">1.1.</strong> 安装</a></li><li class="chapter-item expanded "><a href="../getting-started/first-steps.html"><strong aria-hidden="true">1.2.</strong> Cargo起步</a></li></ol></li><li class="chapter-item expanded "><a href="../guide/index.html"><strong aria-hidden="true">2.</strong> Cargo指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guide/why-cargo-exists.html"><strong aria-hidden="true">2.1.</strong> 为何有Cargo</a></li><li class="chapter-item expanded "><a href="../guide/creating-a-new-project.html"><strong aria-hidden="true">2.2.</strong> 创建新包</a></li><li class="chapter-item expanded "><a href="../guide/working-on-an-existing-project.html"><strong aria-hidden="true">2.3.</strong> 让包工作</a></li><li class="chapter-item expanded "><a href="../guide/dependencies.html"><strong aria-hidden="true">2.4.</strong> 依赖</a></li><li class="chapter-item expanded "><a href="../guide/project-layout.html"><strong aria-hidden="true">2.5.</strong> 包的设计</a></li><li class="chapter-item expanded "><a href="../guide/cargo-toml-vs-cargo-lock.html"><strong aria-hidden="true">2.6.</strong> Cargo.toml vs Cargo.lock</a></li><li class="chapter-item expanded "><a href="../guide/tests.html"><strong aria-hidden="true">2.7.</strong> 测试</a></li><li class="chapter-item expanded "><a href="../guide/continuous-integration.html"><strong aria-hidden="true">2.8.</strong> 持续集成</a></li><li class="chapter-item expanded "><a href="../guide/cargo-home.html"><strong aria-hidden="true">2.9.</strong> Cargo主页</a></li><li class="chapter-item expanded "><a href="../guide/build-cache.html"><strong aria-hidden="true">2.10.</strong> 构建缓存</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/index.html"><strong aria-hidden="true">3.</strong> Cargo参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/specifying-dependencies.html"><strong aria-hidden="true">3.1.</strong> 指定依赖</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/overriding-dependencies.html"><strong aria-hidden="true">3.1.1.</strong> 覆盖依赖</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/manifest.html"><strong aria-hidden="true">3.2.</strong> 配置格式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cargo-targets.html"><strong aria-hidden="true">3.2.1.</strong> Cargo目标</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/workspaces.html"><strong aria-hidden="true">3.3.</strong> 工作空间</a></li><li class="chapter-item expanded "><a href="../reference/features.html"><strong aria-hidden="true">3.4.</strong> 特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/features-examples.html"><strong aria-hidden="true">3.4.1.</strong> 特性示例</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/profiles.html"><strong aria-hidden="true">3.5.</strong> 编译设置</a></li><li class="chapter-item expanded "><a href="../reference/config.html"><strong aria-hidden="true">3.6.</strong> 配置</a></li><li class="chapter-item expanded "><a href="../reference/environment-variables.html"><strong aria-hidden="true">3.7.</strong> 环境变量</a></li><li class="chapter-item expanded "><a href="../reference/build-scripts.html"><strong aria-hidden="true">3.8.</strong> 构建脚本</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/build-script-examples.html"><strong aria-hidden="true">3.8.1.</strong> 构建脚本示例</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/publishing.html"><strong aria-hidden="true">3.9.</strong> 发布到crates.io</a></li><li class="chapter-item expanded "><a href="../reference/pkgid-spec.html"><strong aria-hidden="true">3.10.</strong> 包ID规范</a></li><li class="chapter-item expanded "><a href="../reference/source-replacement.html"><strong aria-hidden="true">3.11.</strong> 源替换</a></li><li class="chapter-item expanded "><a href="../reference/external-tools.html" class="active"><strong aria-hidden="true">3.12.</strong> 插件</a></li><li class="chapter-item expanded "><a href="../reference/registries.html"><strong aria-hidden="true">3.13.</strong> 注册中心</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/running-a-registry.html"><strong aria-hidden="true">3.13.1.</strong> 运行注册中心</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/registry-index.html"><strong aria-hidden="true">3.13.1.1.</strong> 注册中心索引</a></li><li class="chapter-item expanded "><a href="../reference/registry-web-api.html"><strong aria-hidden="true">3.13.1.2.</strong> 注册中心Web API</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../reference/resolver.html"><strong aria-hidden="true">3.14.</strong> 依赖解析</a></li><li class="chapter-item expanded "><a href="../reference/semver.html"><strong aria-hidden="true">3.15.</strong> 语义化兼容</a></li><li class="chapter-item expanded "><a href="../reference/future-incompat-report.html"><strong aria-hidden="true">3.16.</strong> 未来不兼容报告</a></li><li class="chapter-item expanded "><a href="../reference/timings.html"><strong aria-hidden="true">3.17.</strong> 报告构建时间</a></li><li class="chapter-item expanded "><a href="../reference/unstable.html"><strong aria-hidden="true">3.18.</strong> 不稳定特性</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/index.html"><strong aria-hidden="true">4.</strong> Cargo命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/general-commands.html"><strong aria-hidden="true">4.1.</strong> 常用命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo.html"><strong aria-hidden="true">4.1.1.</strong> cargo</a></li><li class="chapter-item expanded "><a href="../commands/cargo-help.html"><strong aria-hidden="true">4.1.2.</strong> cargo help</a></li><li class="chapter-item expanded "><a href="../commands/cargo-version.html"><strong aria-hidden="true">4.1.3.</strong> cargo version</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/build-commands.html"><strong aria-hidden="true">4.2.</strong> 构建命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-bench.html"><strong aria-hidden="true">4.2.1.</strong> cargo bench</a></li><li class="chapter-item expanded "><a href="../commands/cargo-build.html"><strong aria-hidden="true">4.2.2.</strong> cargo build</a></li><li class="chapter-item expanded "><a href="../commands/cargo-check.html"><strong aria-hidden="true">4.2.3.</strong> cargo check</a></li><li class="chapter-item expanded "><a href="../commands/cargo-clean.html"><strong aria-hidden="true">4.2.4.</strong> cargo clean</a></li><li class="chapter-item expanded "><a href="../commands/cargo-doc.html"><strong aria-hidden="true">4.2.5.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fetch.html"><strong aria-hidden="true">4.2.6.</strong> cargo fetch</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fix.html"><strong aria-hidden="true">4.2.7.</strong> cargo fix</a></li><li class="chapter-item expanded "><a href="../commands/cargo-run.html"><strong aria-hidden="true">4.2.8.</strong> cargo run</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustc.html"><strong aria-hidden="true">4.2.9.</strong> cargo rustc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustdoc.html"><strong aria-hidden="true">4.2.10.</strong> cargo rustdoc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-test.html"><strong aria-hidden="true">4.2.11.</strong> cargo test</a></li><li class="chapter-item expanded "><a href="../commands/cargo-report.html"><strong aria-hidden="true">4.2.12.</strong> cargo report</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/manifest-commands.html"><strong aria-hidden="true">4.3.</strong> 配置命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-add.html"><strong aria-hidden="true">4.3.1.</strong> cargo add</a></li><li class="chapter-item expanded "><a href="../commands/cargo-generate-lockfile.html"><strong aria-hidden="true">4.3.2.</strong> cargo generate-lockfile</a></li><li class="chapter-item expanded "><a href="../commands/cargo-locate-project.html"><strong aria-hidden="true">4.3.3.</strong> cargo locate-project</a></li><li class="chapter-item expanded "><a href="../commands/cargo-metadata.html"><strong aria-hidden="true">4.3.4.</strong> cargo metadata</a></li><li class="chapter-item expanded "><a href="../commands/cargo-pkgid.html"><strong aria-hidden="true">4.3.5.</strong> cargo pkgid</a></li><li class="chapter-item expanded "><a href="../commands/cargo-remove.html"><strong aria-hidden="true">4.3.6.</strong> cargo remove</a></li><li class="chapter-item expanded "><a href="../commands/cargo-tree.html"><strong aria-hidden="true">4.3.7.</strong> cargo tree</a></li><li class="chapter-item expanded "><a href="../commands/cargo-update.html"><strong aria-hidden="true">4.3.8.</strong> cargo update</a></li><li class="chapter-item expanded "><a href="../commands/cargo-vendor.html"><strong aria-hidden="true">4.3.9.</strong> cargo vendor</a></li><li class="chapter-item expanded "><a href="../commands/cargo-verify-project.html"><strong aria-hidden="true">4.3.10.</strong> cargo verify-project</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/package-commands.html"><strong aria-hidden="true">4.4.</strong> 包命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-init.html"><strong aria-hidden="true">4.4.1.</strong> cargo init</a></li><li class="chapter-item expanded "><a href="../commands/cargo-install.html"><strong aria-hidden="true">4.4.2.</strong> cargo install</a></li><li class="chapter-item expanded "><a href="../commands/cargo-new.html"><strong aria-hidden="true">4.4.3.</strong> cargo new</a></li><li class="chapter-item expanded "><a href="../commands/cargo-search.html"><strong aria-hidden="true">4.4.4.</strong> cargo search</a></li><li class="chapter-item expanded "><a href="../commands/cargo-uninstall.html"><strong aria-hidden="true">4.4.5.</strong> cargo uninstall</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/publishing-commands.html"><strong aria-hidden="true">4.5.</strong> 发布命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-login.html"><strong aria-hidden="true">4.5.1.</strong> cargo login</a></li><li class="chapter-item expanded "><a href="../commands/cargo-owner.html"><strong aria-hidden="true">4.5.2.</strong> cargo owner</a></li><li class="chapter-item expanded "><a href="../commands/cargo-package.html"><strong aria-hidden="true">4.5.3.</strong> cargo package</a></li><li class="chapter-item expanded "><a href="../commands/cargo-publish.html"><strong aria-hidden="true">4.5.4.</strong> cargo publish</a></li><li class="chapter-item expanded "><a href="../commands/cargo-yank.html"><strong aria-hidden="true">4.5.5.</strong> cargo yank</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> 常见问题</a></li><li class="chapter-item expanded "><a href="../appendix/glossary.html"><strong aria-hidden="true">6.</strong> 附录: 词汇表</a></li><li class="chapter-item expanded "><a href="../appendix/git-authentication.html"><strong aria-hidden="true">7.</strong> 附录: Git认证</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Cargo Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/cargo/tree/master/src/doc/src" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/cargo/edit/master/src/doc/src/reference/external-tools.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="插件"><a class="header" href="#插件">插件</a></h2>
+<p>Cargo的目标之一是能与第三方工具简单集成，如IDE和其他构建系统。为了使集成更容易，Cargo有几个工具:</p>
+<ul>
+<li>
+<p><a href="../commands/cargo-metadata.html"><code>cargo metadata</code></a>命令，以JSON格式输出包结构和依赖信息。</p>
+</li>
+<li>
+<p><code>--message-format</code> 标志，用于输出关于特定构建的信息，以及</p>
+</li>
+<li>
+<p>支持自定义子命令。</p>
+</li>
+</ul>
+<h3 id="关于包结构信息"><a class="header" href="#关于包结构信息">关于包结构信息</a></h3>
+<p>你可以使用 <a href="../commands/cargo-metadata.html"><code>cargo metadata</code></a> 命令来获取包结构和依赖的信息。有关输出格式的详细信息，请参见<a href="../commands/cargo-metadata.html"><code>cargo metadata</code></a>文档。</p>
+<p>该格式是稳定的，有相应版本。当调用 <code>cargo metadata</code> 时，你应该明确传递 <code>--format-version</code> 标志以避免向前不兼容的风险。</p>
+<p>如果你使用的是Rust，可以使用<a href="https://crates.io/crates/cargo_metadata">cargo_metadata</a> crate来解析输出。</p>
+<h3 id="json-消息"><a class="header" href="#json-消息">JSON 消息</a></h3>
+<p>当传递 <code>---message-format=json</code> 时，Cargo会在构建时输出以下信息:</p>
+<ul>
+<li>
+<p>编译器错误和警告。</p>
+</li>
+<li>
+<p>产生的制品。</p>
+</li>
+<li>
+<p>构建脚本的结果(例如，本地依赖)。</p>
+</li>
+</ul>
+<p>在标准输出以每行的JSON对象格式输出。<code>reason</code> 字段区分不同种类的信息。</p>
+<p><code>--message-format</code> 选项也可以采用额外的格式化值，改变JSON信息的计算和显示方式。
+更多细节见<a href="../commands/cargo-build.html">build command documentation</a>中对 <code>--message-format</code> 选项的描述。</p>
+<p>如果你使用的是Rust，可以使用 <a href="https://crates.io/crates/cargo_metadata">cargo_metadata</a> crate来解析这些信息。</p>
+<h4 id="编译消息"><a class="header" href="#编译消息">编译消息</a></h4>
+<p>&quot;compiler-message&quot; 消息包括来自编译器的输出，如警告和错误。关于 <code>rustc</code> 的消息格式，请参见 <a href=".../.../rustc/json.html">rustc JSON 章节</a>，它被嵌入到以下结构中。</p>
+<pre><code class="language-javascript">{
+    /* &quot;reason&quot; 表示信息的种类。*/
+    &quot;reason&quot;: &quot;compiler-message&quot;,
+    /* 包的ID，是指包的唯一标识。 */
+    &quot;package_id&quot;: &quot;my-package 0.1.0 (path+file:///path/to/my-package)&quot;,
+    /*  包配置清单的绝对路径。 */
+    &quot;manifest_path&quot;: &quot;/path/to/my-package/Cargo.toml&quot;,
+    /* 产生该消息的Cargo目标(lib、bin、example等等)。 */
+    &quot;target&quot;: {
+        /* 目标种类数组。
+           - lib目标列出配置清单中的 `cate-type` 值，如 &quot;lib&quot;、&quot;rlib&quot;、&quot;dylib&quot;、&quot;proc-macro&quot; 等(默认[&quot;lib&quot;])。
+           - 二进制是 [&quot;bin&quot;]
+           - 实例是 [&quot;example&quot;]
+           - 综合测试是 [&quot;test&quot;]
+           - 基准是 [&quot;bench&quot;]
+           - 构建脚本是 [&quot;custom-build&quot;]
+        */
+        &quot;kind&quot;: [
+            &quot;lib&quot;
+        ],
+        /* crate类型数组。
+           - lib和示例库列出配置清单中的 `crate-type` 值，如 &quot;lib&quot;、&quot;rlib&quot;、&quot;dylib&quot;、&quot;proc-macro&quot; 等(默认为[&quot;lib&quot;])。
+           - 所有其他目标类型是 [&quot;bin&quot;]
+        */
+        &quot;crate_types&quot;: [
+            &quot;lib&quot;
+        ],
+        /* 目标名称。 */
+        &quot;name&quot;: &quot;my-package&quot;,
+        /* 目标的根源文件的绝对路径。 */
+        &quot;src_path&quot;: &quot;/path/to/my-package/src/lib.rs&quot;,
+        /* 目标的Rust版本。默认为包版本。 */
+        &quot;edition&quot;: &quot;2018&quot;,
+        /* 所需特性的数组。如果没有设置必要的特性，则不包含此属性。 */
+        &quot;required-features&quot;: [&quot;feat1&quot;],
+        /* 该目标是否启用了文档测试，以及该目标是否与文档测试兼容。 */
+        &quot;doctest&quot;: true
+    },
+    /* 由编译器发出的信息。 参阅 https://doc.rust-lang.org/rustc/json.html 。 */
+    &quot;message&quot;: {
+        /* ... */
+    }
+}
+</code></pre>
+<h4 id="制品消息"><a class="header" href="#制品消息">制品消息</a></h4>
+<p>对于每一个编译步骤，都会发出 &quot;compiler-artifact&quot; 消息，其结构如下:</p>
+<pre><code class="language-javascript">{
+    /* &quot;reason&quot; 表示信息的种类。 */
+    &quot;reason&quot;: &quot;compiler-artifact&quot;,
+    /* 包的ID，是指包的唯一标识。 */
+    &quot;package_id&quot;: &quot;my-package 0.1.0 (path+file:///path/to/my-package)&quot;,
+    /* 包配置清单的绝对路径。 */
+    &quot;manifest_path&quot;: &quot;/path/to/my-package/Cargo.toml&quot;,
+    /* 产生制品的Cargo目标(lib、bin、example等等)。详见上面 `compiler-message` 的定义。 */
+    &quot;target&quot;: {
+        &quot;kind&quot;: [
+            &quot;lib&quot;
+        ],
+        &quot;crate_types&quot;: [
+            &quot;lib&quot;
+        ],
+        &quot;name&quot;: &quot;my-package&quot;,
+        &quot;src_path&quot;: &quot;/path/to/my-package/src/lib.rs&quot;,
+        &quot;edition&quot;: &quot;2018&quot;,
+        &quot;doctest&quot;: true,
+        &quot;test&quot;: true
+    },
+    /* 该简介表明使用了哪些编译器设置。 */
+    &quot;profile&quot;: {
+        /* 优化级别。 */
+        &quot;opt_level&quot;: &quot;0&quot;,
+        /* 调试级别，是0、1或2的整数。如果 &quot;null&quot;，它意味着rustc的默认值为0。 */
+        &quot;debuginfo&quot;: 2,
+        /* 是否启用了调试断言。 */
+        &quot;debug_assertions&quot;: true,
+        /* 是否启用了溢出检查。 */
+        &quot;overflow_checks&quot;: true,
+        /* 是否使用`--test` 标志。*/
+        &quot;test&quot;: false
+    },
+    /* 启用特性数组。 */
+    &quot;features&quot;: [&quot;feat1&quot;, &quot;feat2&quot;],
+    /* 该步骤产生的文件的数组。*/
+    &quot;filenames&quot;: [
+        &quot;/path/to/my-package/target/debug/libmy_package.rlib&quot;,
+        &quot;/path/to/my-package/target/debug/deps/libmy_package-be9f3faac0a26ef0.rmeta&quot;
+    ],
+    /* 创建的可执行文件的路径的字符串，如果该步骤没有生成可执行文件，则为空。 */
+    &quot;executable&quot;: null,
+    /* 这个步骤是否被实际执行。当 `true` 时，这意味着预先存在的制品是最新的，并且 `rustc` 没有被执行。当 `false` 时，这意味着运行 `rustc` 以生成制品。 */
+    &quot;fresh&quot;: true
+}
+
+</code></pre>
+<h4 id="构建脚本输出"><a class="header" href="#构建脚本输出">构建脚本输出</a></h4>
+<p>&quot;build-script-executed&quot; 消息包括构建脚本的解析输出。注意，即使构建脚本没有运行，也会发出这个消息；
+它将显示之前缓存的值。关于构建脚本输出的更多细节可以在<a href="build-scripts.html">构建脚本章节</a>中找到。</p>
+<pre><code class="language-javascript">{
+    /* &quot;reason&quot; 表示信息的种类。 */
+    &quot;reason&quot;: &quot;build-script-executed&quot;,
+    /* 包的ID，是指包的唯一标识。 */
+    &quot;package_id&quot;: &quot;my-package 0.1.0 (path+file:///path/to/my-package)&quot;,
+    /* 要链接的库的数组，如 `cargo:rustc-link-lib` 指令所指示。注意，这可能包括字符串中的 &quot;KIND=&quot; 前缀，其中KIND是库的种类。 */
+    &quot;linked_libs&quot;: [&quot;foo&quot;, &quot;static=bar&quot;],
+    /* 包含在库搜索路径中的路径数组，如 `cargo:rustc-link-search` 指令所指示。注意，这可能包括字符串中的 &quot;KIND=&quot; 前缀，其中KIND是库的种类。 */
+    &quot;linked_paths&quot;: [&quot;/some/path&quot;, &quot;native=/another/path&quot;],
+    /* 要启用的cfg值数组，如 `cargo:rustc-cfg` 指令所示。 */
+    &quot;cfgs&quot;: [&quot;cfg1&quot;, &quot;cfg2=\&quot;string\&quot;&quot;],
+    /* 要设置的环境变量的 [KEY, VALUE] 数组，如 `cargo:rustc-env` 指令所示。 */
+    &quot;env&quot;: [
+        [&quot;SOME_KEY&quot;, &quot;some value&quot;],
+        [&quot;ANOTHER_KEY&quot;, &quot;another value&quot;]
+    ],
+    /* 一个绝对路径，在编译当前包时作为 `OUT_DIR` 环境变量的值。 */
+    &quot;out_dir&quot;: &quot;/some/path/in/target/dir&quot;
+}
+</code></pre>
+<h4 id="构建完成"><a class="header" href="#构建完成">构建完成</a></h4>
+<p>构建结束后会发出 &quot;build-finished&quot; 消息。</p>
+<pre><code class="language-javascript">{
+    /* &quot;reason&quot; 表示信息的种类。 */
+    &quot;reason&quot;: &quot;build-finished&quot;,
+    /* 构建是否成功完成。 */
+    &quot;success&quot;: true,
+}
+</code></pre>
+<p>这条信息对工具来说很有帮助，可以知道何时停止读取JSON信息。
+诸如 <code>cargo test</code> 或 <code>cargo run</code> 之类的命令在构建完成后可能会产生额外的输出。
+这条消息让工具知道Cargo不会产生额外的JSON消息，但之后可能会有额外的输出(比如 <code>cargo run</code> 执行的程序产生的输出)。</p>
+<blockquote>
+<p>注意: 对测试的JSON输出有实验性的每日支持，所以如果启用了该功能，额外的测试专用JSON消息可能会在 &quot;build-finished&quot; 消息之后。</p>
+</blockquote>
+<h3 id="自定义子命令"><a class="header" href="#自定义子命令">自定义子命令</a></h3>
+<p>Cargo被设计成可以扩展新的子命令，而不需要修改Cargo本身。
+这是通过将 cargo <code>(?&lt;command&gt;[^ ]+)</code> 形式的调用转换成插件 <code>cargo-${command}</code> 的调用来实现的。
+该插件必须存在于用户的 <code>$PATH</code> 目录中。</p>
+<p>当Cargo调用一个自定义子命令时，子命令的第一个参数将是自定义子命令的文件名，像往常一样。
+第二个参数将是子命令名称本身。例如，调用 &quot;cargo-${command}&quot; 时，第二个参数将是 &quot;${command}&quot; 。
+命令行上的任何其他参数将被转发，不做任何改变。</p>
+<p>Cargo也可以用 <code>cargo help ${command}</code> 显示自定义子命令的帮助输出。
+如果子命令的第三个参数是 <code>--help</code>，Cargo会假定该子命令会打印帮助信息。
+因此，<code>cargo help ${command}</code> 会调用 <code>cargo-${command} ${command} --help</code> 。</p>
+<p>自定义子命令可以使用 <code>CARGO</code> 环境变量来回调Cargo。
+另外，它也可以作为一个库链接到 <code>cargo</code> crate ，但这种方法有缺点。</p>
+<ul>
+<li>作为一个库，Cargo是不稳定的：API可能会改变而未淘汰。</li>
+<li>链接的Cargo库的版本可能与Cargo二进制文件不同。</li>
+</ul>
+<p>相反，我们鼓励使用CLI接口来驱动Cargo。<a href="../commands/cargo-metadata.html"><code>cargo metadata</code></a> 命令可以用来获取当前项目的信息(<a href="https://crates.io/crates/cargo_metadata"><code>cargo_metadata</code></a> crate为该命令提供了Rust接口)。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../reference/source-replacement.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../reference/registries.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../reference/source-replacement.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../reference/registries.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
