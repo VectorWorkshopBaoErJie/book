@@ -153,7 +153,7 @@
                     <main>
                         <h1 id="cargo1"><a class="header" href="#cargo1">cargo(1)</a></h1>
 <h2 id="name"><a class="header" href="#name">NAME</a></h2>
-<p>cargo - The Rust package manager</p>
+<p>cargo - Rust包管理器</p>
 <h2 id="synopsis"><a class="header" href="#synopsis">SYNOPSIS</a></h2>
 <p><code>cargo</code> [<em>options</em>] <em>command</em> [<em>args</em>]<br />
 <code>cargo</code> [<em>options</em>] <code>--version</code><br />
@@ -161,223 +161,195 @@
 <code>cargo</code> [<em>options</em>] <code>--help</code><br />
 <code>cargo</code> [<em>options</em>] <code>--explain</code> <em>code</em></p>
 <h2 id="description"><a class="header" href="#description">DESCRIPTION</a></h2>
-<p>This program is a package manager and build tool for the Rust language,
-available at <a href="https://rust-lang.org">https://rust-lang.org</a>.</p>
+<p>这个程序是Rust语言的包管理器和构建工具，可在<a href="https://rust-lang.org">https://rust-lang.org</a>上获得。</p>
 <h2 id="commands"><a class="header" href="#commands">COMMANDS</a></h2>
-<h3 id="build-commands"><a class="header" href="#build-commands">Build Commands</a></h3>
+<h3 id="构建命令"><a class="header" href="#构建命令">构建命令</a></h3>
 <p><a href="cargo-bench.html">cargo-bench(1)</a><br />
-    Execute benchmarks of a package.</p>
+    执行包的基准测试。</p>
 <p><a href="cargo-build.html">cargo-build(1)</a><br />
-    Compile a package.</p>
+    编译包</p>
 <p><a href="cargo-check.html">cargo-check(1)</a><br />
-    Check a local package and all of its dependencies for errors.</p>
+    检查本地包及其所有依赖是否有错误。</p>
 <p><a href="cargo-clean.html">cargo-clean(1)</a><br />
-    Remove artifacts that Cargo has generated in the past.</p>
+    移除Cargo曾生成的制品。</p>
 <p><a href="cargo-doc.html">cargo-doc(1)</a><br />
-    Build a package's documentation.</p>
+    构建包的文档。</p>
 <p><a href="cargo-fetch.html">cargo-fetch(1)</a><br />
-    Fetch dependencies of a package from the network.</p>
+    从网络中获取包的依赖。</p>
 <p><a href="cargo-fix.html">cargo-fix(1)</a><br />
-    Automatically fix lint warnings reported by rustc.</p>
+    自动修复rustc报告的lint警告。</p>
 <p><a href="cargo-run.html">cargo-run(1)</a><br />
-    Run a binary or example of the local package.</p>
+    运行本地包的二进制文件或示例文件。</p>
 <p><a href="cargo-rustc.html">cargo-rustc(1)</a><br />
-    Compile a package, and pass extra options to the compiler.</p>
+    编译包，并传递附加选项给编译器。</p>
 <p><a href="cargo-rustdoc.html">cargo-rustdoc(1)</a><br />
-    Build a package's documentation, using specified custom flags.</p>
+    使用指定的自定义标志构建包的文档。</p>
 <p><a href="cargo-test.html">cargo-test(1)</a><br />
-    Execute unit and integration tests of a package.</p>
-<h3 id="manifest-commands"><a class="header" href="#manifest-commands">Manifest Commands</a></h3>
+    执行包的单元测试和集成测试。</p>
+<h3 id="配置清单命令"><a class="header" href="#配置清单命令">配置清单命令</a></h3>
 <p><a href="cargo-generate-lockfile.html">cargo-generate-lockfile(1)</a><br />
-    Generate <code>Cargo.lock</code> for a project.</p>
+    为项目生成 <code>Cargo.lock</code> .</p>
 <p><a href="cargo-locate-project.html">cargo-locate-project(1)</a><br />
-    Print a JSON representation of a <code>Cargo.toml</code> file's location.</p>
+    打印 <code>Cargo.toml</code> 文件位置的JSON表示。</p>
 <p><a href="cargo-metadata.html">cargo-metadata(1)</a><br />
-    Output the resolved dependencies of a package in machine-readable format.</p>
+    以机器可读的格式输出已解决的包的依赖。</p>
 <p><a href="cargo-pkgid.html">cargo-pkgid(1)</a><br />
-    Print a fully qualified package specification.</p>
+    打印完全合格的包规范。</p>
 <p><a href="cargo-tree.html">cargo-tree(1)</a><br />
-    Display a tree visualization of a dependency graph.</p>
+    显示依赖图的可视化树。</p>
 <p><a href="cargo-update.html">cargo-update(1)</a><br />
-    Update dependencies as recorded in the local lock file.</p>
+    更新本地lock file中记录的依赖。</p>
 <p><a href="cargo-vendor.html">cargo-vendor(1)</a><br />
-    Vendor all dependencies locally.</p>
+    在本地提供所有依赖。</p>
 <p><a href="cargo-verify-project.html">cargo-verify-project(1)</a><br />
-    Check correctness of crate manifest.</p>
-<h3 id="package-commands"><a class="header" href="#package-commands">Package Commands</a></h3>
+    检查crate配置是否正确。</p>
+<h3 id="包命令"><a class="header" href="#包命令">包命令</a></h3>
 <p><a href="cargo-init.html">cargo-init(1)</a><br />
-    Create a new Cargo package in an existing directory.</p>
+    在现有目录中创建新的Cargo包。</p>
 <p><a href="cargo-install.html">cargo-install(1)</a><br />
-    Build and install a Rust binary.</p>
+    构建并安装Rust二进制文件。</p>
 <p><a href="cargo-new.html">cargo-new(1)</a><br />
-    Create a new Cargo package.</p>
+    创建新的Cargo包。</p>
 <p><a href="cargo-search.html">cargo-search(1)</a><br />
-    Search packages in crates.io.</p>
+    在 crates.io 搜索包。</p>
 <p><a href="cargo-uninstall.html">cargo-uninstall(1)</a><br />
-    Remove a Rust binary.</p>
-<h3 id="publishing-commands"><a class="header" href="#publishing-commands">Publishing Commands</a></h3>
+    移除Rust二进制文件。</p>
+<h3 id="发布命令"><a class="header" href="#发布命令">发布命令</a></h3>
 <p><a href="cargo-login.html">cargo-login(1)</a><br />
-    Save an API token from the registry locally.</p>
+    在本地注册中心保存API令牌。</p>
 <p><a href="cargo-owner.html">cargo-owner(1)</a><br />
-    Manage the owners of a crate on the registry.</p>
+    在注册中心管理crate的所有者。</p>
 <p><a href="cargo-package.html">cargo-package(1)</a><br />
-    Assemble the local package into a distributable tarball.</p>
+    将本地包打包成可分发的压缩包。</p>
 <p><a href="cargo-publish.html">cargo-publish(1)</a><br />
-    Upload a package to the registry.</p>
+    上传一个包到注册中心。</p>
 <p><a href="cargo-yank.html">cargo-yank(1)</a><br />
-    Remove a pushed crate from the index.</p>
-<h3 id="general-commands"><a class="header" href="#general-commands">General Commands</a></h3>
+    从索引中移除已推送的crate。</p>
+<h3 id="常规命令"><a class="header" href="#常规命令">常规命令</a></h3>
 <p><a href="cargo-help.html">cargo-help(1)</a><br />
-    Display help information about Cargo.</p>
+    显示有关Cargo的帮助信息。</p>
 <p><a href="cargo-version.html">cargo-version(1)</a><br />
-    Show version information.</p>
+    显示版本信息。</p>
 <h2 id="options"><a class="header" href="#options">OPTIONS</a></h2>
-<h3 id="special-options"><a class="header" href="#special-options">Special Options</a></h3>
+<h3 id="特定选项"><a class="header" href="#特定选项">特定选项</a></h3>
 <dl>
 <dt class="option-term" id="option-cargo--V"><a class="option-anchor" href="#option-cargo--V"></a><code>-V</code></dt>
 <dt class="option-term" id="option-cargo---version"><a class="option-anchor" href="#option-cargo---version"></a><code>--version</code></dt>
-<dd class="option-desc">Print version info and exit. If used with <code>--verbose</code>, prints extra
-information.</dd>
+<dd class="option-desc">打印版本信息并退出。如果有 <code>--verbose</code>, 打印额外的信息。</dd>
 <dt class="option-term" id="option-cargo---list"><a class="option-anchor" href="#option-cargo---list"></a><code>--list</code></dt>
-<dd class="option-desc">List all installed Cargo subcommands. If used with <code>--verbose</code>, prints extra
-information.</dd>
+<dd class="option-desc">列出所有已安装的Cargo子命令。如果有 <code>--verbose</code>, 打印额外的信息。</dd>
 <dt class="option-term" id="option-cargo---explain"><a class="option-anchor" href="#option-cargo---explain"></a><code>--explain</code> <em>code</em></dt>
-<dd class="option-desc">Run <code>rustc --explain CODE</code> which will print out a detailed explanation of an
-error message (for example, <code>E0004</code>).</dd>
+<dd class="option-desc">运行 <code>rustc --explain CODE</code> 这将打印错误信息的详细解释 (例如, <code>E0004</code>).</dd>
 </dl>
-<h3 id="display-options"><a class="header" href="#display-options">Display Options</a></h3>
+<h3 id="显示选项"><a class="header" href="#显示选项">显示选项</a></h3>
 <dl>
 <dt class="option-term" id="option-cargo--v"><a class="option-anchor" href="#option-cargo--v"></a><code>-v</code></dt>
 <dt class="option-term" id="option-cargo---verbose"><a class="option-anchor" href="#option-cargo---verbose"></a><code>--verbose</code></dt>
-<dd class="option-desc">Use verbose output. May be specified twice for &quot;very verbose&quot; output which
-includes extra output such as dependency warnings and build script output.
-May also be specified with the <code>term.verbose</code>
-<a href="../reference/config.html">config value</a>.</dd>
+<dd class="option-desc">使用详细输出。可能指定两次，&quot;非常详细&quot; 包含额外的内容，如依赖警告和构建脚本输出。也可以用 <code>term.verbose</code>
+<a href="../reference/config.html">配置</a>.</dd>
 <dt class="option-term" id="option-cargo--q"><a class="option-anchor" href="#option-cargo--q"></a><code>-q</code></dt>
 <dt class="option-term" id="option-cargo---quiet"><a class="option-anchor" href="#option-cargo---quiet"></a><code>--quiet</code></dt>
-<dd class="option-desc">Do not print cargo log messages.
-May also be specified with the <code>term.quiet</code>
-<a href="../reference/config.html">config value</a>.</dd>
+<dd class="option-desc">不要打印cargo日志信息。也可以用 <code>term.quiet</code>
+<a href="../reference/config.html">配置</a>.</dd>
 <dt class="option-term" id="option-cargo---color"><a class="option-anchor" href="#option-cargo---color"></a><code>--color</code> <em>when</em></dt>
-<dd class="option-desc">Control when colored output is used. Valid values:</p>
+<dd class="option-desc">控制何时使用彩色输出。有效值:</p>
 <ul>
-<li><code>auto</code> (default): Automatically detect if color support is available on the
-terminal.</li>
-<li><code>always</code>: Always display colors.</li>
-<li><code>never</code>: Never display colors.</li>
+<li><code>auto</code> (默认): 自动检测终端上是否有颜色支持。</li>
+<li><code>always</code>: 总是显示颜色。</li>
+<li><code>never</code>: 总不显示颜色。</li>
 </ul>
-<p>May also be specified with the <code>term.color</code>
-<a href="../reference/config.html">config value</a>.</dd>
+<p> 也可以用 <code>term.color</code>
+<a href="../reference/config.html">配置</a>.</dd>
 </dl>
-<h3 id="manifest-options"><a class="header" href="#manifest-options">Manifest Options</a></h3>
+<h3 id="配置选项"><a class="header" href="#配置选项">配置选项</a></h3>
 <dl>
 <dt class="option-term" id="option-cargo---frozen"><a class="option-anchor" href="#option-cargo---frozen"></a><code>--frozen</code></dt>
 <dt class="option-term" id="option-cargo---locked"><a class="option-anchor" href="#option-cargo---locked"></a><code>--locked</code></dt>
-<dd class="option-desc">Either of these flags requires that the <code>Cargo.lock</code> file is
-up-to-date. If the lock file is missing, or it needs to be updated, Cargo will
-exit with an error. The <code>--frozen</code> flag also prevents Cargo from
-attempting to access the network to determine if it is out-of-date.</p>
-<p>These may be used in environments where you want to assert that the
-<code>Cargo.lock</code> file is up-to-date (such as a CI build) or want to avoid network
-access.</dd>
+<dd class="option-desc">这些标志中的任何一个都要求<code>Cargo.lock</code>文件是最新的。 如果lock file丢失，或者需要更新，Cargo将以错误退出。
+ <code>--frozen</code> 标志还可以防止Cargo试图访问网络以确定其是否过时。</p>
+<p>这可能用于你想断言 <code>Cargo.lock</code> 文件是最新的环境(如CI构建)或想避免网络访问。</dd>
 <dt class="option-term" id="option-cargo---offline"><a class="option-anchor" href="#option-cargo---offline"></a><code>--offline</code></dt>
-<dd class="option-desc">Prevents Cargo from accessing the network for any reason. Without this
-flag, Cargo will stop with an error if it needs to access the network and
-the network is not available. With this flag, Cargo will attempt to
-proceed without the network if possible.</p>
-<p>Beware that this may result in different dependency resolution than online
-mode. Cargo will restrict itself to crates that are downloaded locally, even
-if there might be a newer version as indicated in the local copy of the index.
-See the <a href="cargo-fetch.html">cargo-fetch(1)</a> command to download dependencies before going
-offline.</p>
-<p>May also be specified with the <code>net.offline</code> <a href="../reference/config.html">config value</a>.</dd>
+<dd class="option-desc">阻止Cargo访问网络。如果没有这个标志，Cargo在需要访问网络而网络不可用的情况下会以错误方式停止。
+有了这个标志，如果可能的话，Cargo将尝试在没有网络的情况下进行。</p>
+<p>请注意，这可能会导致与在线模式不同的依赖解决。
+Cargo会将自己限制在本地下载的crate上，即使在本地拷贝的索引中可能有一个较新的版本。
+参见 <a href="cargo-fetch.html">cargo-fetch(1)</a> 命令在离线前下载依赖。</p>
+<p>也可以用 <code>net.offline</code> <a href="../reference/config.html">配置</a>。</dd>
 </dl>
-<h3 id="common-options"><a class="header" href="#common-options">Common Options</a></h3>
+<h3 id="通用选项"><a class="header" href="#通用选项">通用选项</a></h3>
 <dl>
 <dt class="option-term" id="option-cargo-+toolchain"><a class="option-anchor" href="#option-cargo-+toolchain"></a><code>+</code><em>toolchain</em></dt>
-<dd class="option-desc">If Cargo has been installed with rustup, and the first argument to <code>cargo</code>
-begins with <code>+</code>, it will be interpreted as a rustup toolchain name (such
-as <code>+stable</code> or <code>+nightly</code>).
-See the <a href="https://rust-lang.github.io/rustup/overrides.html">rustup documentation</a>
-for more information about how toolchain overrides work.</dd>
+<dd class="option-desc">如果Cargo已经安装了rustup。 <code>cargo</code>的第一个参数以<code>+</code>开始, 它将被解释为一个rustup工具链名称 (比如 <code>+stable</code> 或 <code>+nightly</code>)。
+参见 <a href="https://rust-lang.github.io/rustup/overrides.html">rustup 文档</a> 有关工具链覆盖如何工作的详细信息。</dd>
 <dt class="option-term" id="option-cargo---config"><a class="option-anchor" href="#option-cargo---config"></a><code>--config</code> <em>KEY=VALUE</em> or <em>PATH</em></dt>
-<dd class="option-desc">Overrides a Cargo configuration value. The argument should be in TOML syntax of <code>KEY=VALUE</code>,
-or provided as a path to an extra configuration file. This flag may be specified multiple times.
-See the <a href="../reference/config.html#command-line-overrides">command-line overrides section</a> for more information.</dd>
+<dd class="option-desc">覆盖Cargo配置值。参数应该是TOML语法中的 <code>KEY=VALUE</code>,
+或作为一个额外的配置文件的路径提供。这个标志可以被多次指定。
+参见 <a href="../reference/config.html#command-line-overrides">command-line 覆盖部分</a> 了解详细信息。</dd>
 <dt class="option-term" id="option-cargo--h"><a class="option-anchor" href="#option-cargo--h"></a><code>-h</code></dt>
 <dt class="option-term" id="option-cargo---help"><a class="option-anchor" href="#option-cargo---help"></a><code>--help</code></dt>
-<dd class="option-desc">Prints help information.</dd>
+<dd class="option-desc">打印帮助信息。</dd>
 <dt class="option-term" id="option-cargo--Z"><a class="option-anchor" href="#option-cargo--Z"></a><code>-Z</code> <em>flag</em></dt>
-<dd class="option-desc">Unstable (nightly-only) flags to Cargo. Run <code>cargo -Z help</code> for details.</dd>
+<dd class="option-desc"> Cargo 不稳定的 (每日构建) 标记 。运行 <code>cargo -Z 获得</code> 详细帮助。</dd>
 </dl>
 <h2 id="environment"><a class="header" href="#environment">ENVIRONMENT</a></h2>
-<p>See <a href="../reference/environment-variables.html">the reference</a> for
-details on environment variables that Cargo reads.</p>
+<p>关于Cargo读取的环境变量的详情，参阅 <a href="../reference/environment-variables.html">参考</a> 。</p>
 <h2 id="exit-status"><a class="header" href="#exit-status">EXIT STATUS</a></h2>
 <ul>
-<li><code>0</code>: Cargo succeeded.</li>
-<li><code>101</code>: Cargo failed to complete.</li>
+<li><code>0</code>: Cargo 成功。</li>
+<li><code>101</code>: Cargo 未能完成。</li>
 </ul>
 <h2 id="files"><a class="header" href="#files">FILES</a></h2>
 <p><code>~/.cargo/</code><br />
-    Default location for Cargo's &quot;home&quot; directory where it
-stores various files. The location can be changed with the <code>CARGO_HOME</code>
-environment variable.</p>
+    Cargo &quot;home&quot; 目录的默认位置，存储各种文件。这个位置可以通过 <code>CARGO_HOME</code> 环境变量来改变。</p>
 <p><code>$CARGO_HOME/bin/</code><br />
-    Binaries installed by <a href="cargo-install.html">cargo-install(1)</a> will be located here. If using
-<a href="https://rust-lang.github.io/rustup/">rustup</a>, executables distributed with Rust are also located here.</p>
+    由 <a href="cargo-install.html">cargo-install(1)</a> 安装的二进制文件会放在这里。如果使用 <a href="https://rust-lang.github.io/rustup/">rustup</a>，随 Rust 分布的可执行文件也位于这里。</p>
 <p><code>$CARGO_HOME/config.toml</code><br />
-    The global configuration file. See <a href="../reference/config.html">the reference</a>
-for more information about configuration files.</p>
+    全局配置文件。见<a href="../reference/config.html">参考</a>了解更多关于配置文件的信息。</p>
 <p><code>.cargo/config.toml</code><br />
-    Cargo automatically searches for a file named <code>.cargo/config.toml</code> in the
-current directory, and all parent directories. These configuration files
-will be merged with the global configuration file.</p>
+    Cargo会自动在当前目录和所有父目录下搜索名为 <code>.cargo/config.toml</code> 的文件。这些配置文件将合并到全局配置文件中。</p>
 <p><code>$CARGO_HOME/credentials.toml</code><br />
-    Private authentication information for logging in to a registry.</p>
+    用于登录注册中心的私人认证信息。</p>
 <p><code>$CARGO_HOME/registry/</code><br />
-    This directory contains cached downloads of the registry index and any
-downloaded dependencies.</p>
+    这个目录包含注册中心索引的缓存下载和任何下载的依赖。</p>
 <p><code>$CARGO_HOME/git/</code><br />
-    This directory contains cached downloads of git dependencies.</p>
-<p>Please note that the internal structure of the <code>$CARGO_HOME</code> directory is not
-stable yet and may be subject to change.</p>
+    这个目录包含了git依赖的缓存下载。</p>
+<p>请注意， <code>$CARGO_HOME</code> 目录的内部结构还不稳定，可能会有变化。</p>
 <h2 id="examples"><a class="header" href="#examples">EXAMPLES</a></h2>
 <ol>
 <li>
-<p>Build a local package and all of its dependencies:</p>
+<p>构建本地包和它的所有依赖:</p>
 <pre><code>cargo build
 </code></pre>
 </li>
 <li>
-<p>Build a package with optimizations:</p>
+<p>构建优化后的包:</p>
 <pre><code>cargo build --release
 </code></pre>
 </li>
 <li>
-<p>Run tests for a cross-compiled target:</p>
+<p>为交叉编译的目标运行测试:</p>
 <pre><code>cargo test --target i686-unknown-linux-gnu
 </code></pre>
 </li>
 <li>
-<p>Create a new package that builds an executable:</p>
+<p>创建新的包，构建可执行文件:</p>
 <pre><code>cargo new foobar
 </code></pre>
 </li>
 <li>
-<p>Create a package in the current directory:</p>
+<p>在当前目录下创建包:</p>
 <pre><code>mkdir foo &amp;&amp; cd foo
 cargo init .
 </code></pre>
 </li>
 <li>
-<p>Learn about a command's options and usage:</p>
+<p>了解命令的选项和用法:</p>
 <pre><code>cargo help clean
 </code></pre>
 </li>
 </ol>
 <h2 id="bugs"><a class="header" href="#bugs">BUGS</a></h2>
-<p>See <a href="https://github.com/rust-lang/cargo/issues">https://github.com/rust-lang/cargo/issues</a> for issues.</p>
+<p>对于问题见 <a href="https://github.com/rust-lang/cargo/issues">https://github.com/rust-lang/cargo/issues</a> 。</p>
 <h2 id="see-also"><a class="header" href="#see-also">SEE ALSO</a></h2>
 <p><a href="https://doc.rust-lang.org/rustc/index.html">rustc(1)</a>, <a href="https://doc.rust-lang.org/rustdoc/index.html">rustdoc(1)</a></p>
 

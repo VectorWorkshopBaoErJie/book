@@ -153,10 +153,10 @@
                     <main>
                         <h2 id="构建脚本"><a class="header" href="#构建脚本">构建脚本</a></h2>
 <p>有些包需要编译第三方的非Rust代码，例如C库。
-有些包需要链接到C库，这些库可能位于系统中，也可能需要从源代码中构建。
+有些包需要链接到C库，这些库可能位于系统中，也可能需要从源代码构建。
 还有包需要一些功能性工具，比如在构建前生成代码(想想语法分析生成器)。</p>
-<p>Cargo的目的并不是要取代其他为这些任务而优化的工具，但它可以通过定制构建脚本与这些工具进行整合。
-在软件包的根目录下放置一个名为 <code>build.rs</code> 的文件，就会使Cargo在构建软件包之前编译该脚本并执行。</p>
+<p>Cargo的目的并不是要取代为这些任务而优化的其他工具，Cargo可以通过定制构建脚本与这些工具进行整合。
+在包的根目录下放置一个名为 <code>build.rs</code> 的文件，就会使Cargo在构建包之前编译该脚本并执行。</p>
 <pre><code class="language-rust ignore">// 自定义构建脚本实例
 fn main() {
     // 告诉Cargo，如果给定的文件发生更改，则重新运行此构建脚本。
@@ -175,16 +175,16 @@ fn main() {
 </ul>
 <p>下面的章节描述了构建脚本的工作方式，<a href="build-script-examples.html">示例章节</a> 展示了关于如何编写脚本的各种示例。</p>
 <blockquote>
-<p>注意: 可以使用 <a href="manifest.html#package-build"><code>package.build</code> 配置清单key</a> 来改变构建脚本的名称，或完全禁用它。</p>
+<p>注意: 可以使用 <a href="manifest.html#package-build"><code>package.build</code> 配置键</a> 来改变构建脚本的名称，或完全禁用它。</p>
 </blockquote>
 <h3 id="构建脚本的生命周期"><a class="header" href="#构建脚本的生命周期">构建脚本的生命周期</a></h3>
 <p>在构建包之前，Cargo会将构建脚本编译成可执行文件(如果还没有构建的话)。
-然后它将运行脚本，该脚本可以执行任意数量的任务。
+然后运行脚本，该脚本可以执行任意数量的任务。
 脚本可以通过将带有 <code>cargo:</code> 前缀的特殊格式化命令打印到标准输出来与Cargo通信。</p>
 <p>如果构建脚本的任意源文件或依赖项发生更改，将重新构建脚本。</p>
-<p>默认情况下，如果软件包中的任何文件发生变化，Cargo 会重新运行构建脚本。
-通常情况下，最好使用下面 <a href="#change-detection">change detection</a> 一节中描述的 <code>rerun-if</code> 命令，以缩小触发构建脚本重新运行的关注点。</p>
-<p>一旦构建脚本成功执行完毕，包的其他部分就会被编译。
+<p>默认情况下，如果包中的任何文件发生变化，Cargo 会重新运行构建脚本。
+通常，最好使用下面 <a href="#change-detection">change detection</a> 一节中描述的 <code>rerun-if</code> 命令，以缩小触发构建脚本重新运行的关注点。</p>
+<p>一旦构建脚本成功执行完毕，就会编译包的其他部分。
 脚本应该以非零的退出代码退出，以便在出现错误时停止编译，在这种情况下，编译脚本的输出将显示在终端。</p>
 <h3 id="构建脚本的输入"><a class="header" href="#构建脚本的输入">构建脚本的输入</a></h3>
 <p>当构建脚本运行时，若有一些输入到构建脚本，则都是以 <a href="environment-variables.html#environment-variables-cargo-sets-for-build-scripts">环境变量</a> 的形式传递。</p>
@@ -192,8 +192,8 @@ fn main() {
 <h3 id="构建脚本的输出"><a class="header" href="#构建脚本的输出">构建脚本的输出</a></h3>
 <p>构建脚本可以将任何输出文件或中间构件保存在 <a href="environment-variables.html#environment-variables-cargo-sets-for-build-scripts"><code>OUT_DIR</code> 环境变量</a> 指定的目录中。
 脚本不应该修改该目录之外的任何文件。</p>
-<p>构建脚本通过打印到 stdout 来与Cargo交流。
-Cargo会把每一行以 <code>cargo:</code> 开头的字解释为影响包编译的指令。所有其他的行都会被忽略。</p>
+<p>构建脚本通过打印到标准输出与Cargo交流。
+Cargo会把每一行以 <code>cargo:</code> 开头的字解释为影响包编译的指令。忽略所有其他行。</p>
 <blockquote>
 <p>注意：构建脚本打印的 <code>cargo:</code> 指令的顺序 <em>可能</em> 会影响 <code>cargo</code> 传递给 <code>rustc</code> 的参数的顺序。
 反过来，传递给 <code>rustc</code> 的参数顺序也可能影响传递给链接器的参数顺序。
@@ -204,14 +204,14 @@ Cargo会把每一行以 <code>cargo:</code> 开头的字解释为影响包编译
 如果你想在终端上直接看到输出，可以用 <code>-vv</code> 标志来调用Cargo的 &quot;very verbose&quot; 。
 这只发生在编译脚本运行的时候。
 如果Cargo认为没有任何变化，它就不会重新运行脚本，更多信息请参见下面的 <a href="#change-detection">变化检测</a> 。</p>
-<p>构建脚本打印到stdout的所有行都被写入一个文件，如 <code>target/debug/build/&lt;pkg&gt;/output</code>(确切位置可能取决于你的配置)。stderr输出也被保存在同一目录中。</p>
+<p>构建脚本打印到标准输出的所有行都被写入一个文件，如 <code>target/debug/build/&lt;pkg&gt;/output</code>(确切位置可能取决于你的配置)。标准错误输出也保存在同一目录。</p>
 <p>以下是 Cargo 所认识的指令摘要，每条指令都在下面详细说明。</p>
 <ul>
 <li><a href="#rerun-if-changed"><code>cargo:rerun-if-changed=PATH</code></a> — 告诉Cargo何时重新运行脚本。</li>
 <li><a href="#rerun-if-env-changed"><code>cargo:rerun-if-env-changed=VAR</code></a> — 告诉Cargo何时重新运行脚本。</li>
-<li><a href="#rustc-link-arg"><code>cargo:rustc-link-arg=FLAG</code></a> — 为基准、二进制文件、<code>cdylib</code> crates、例子和测试的链接器传递自定义标志。</li>
-<li><a href="#rustc-link-arg-bin"><code>cargo:rustc-link-arg-bin=BIN=FLAG</code></a> — 为二进制 <code>BIN</code> 的链接器传递自定义标志。</li>
-<li><a href="#rustc-link-arg-bins"><code>cargo:rustc-link-arg-bins=FLAG</code></a> — 向二进制文件的链接器传递自定义标志。</li>
+<li><a href="#rustc-link-arg"><code>cargo:rustc-link-arg=FLAG</code></a> — 为基准、二进制文件、<code>cdylib</code> crates、示例和测试的链接器传递自定义标志。</li>
+<li><a href="#rustc-link-arg-bin"><code>cargo:rustc-link-arg-bin=BIN=FLAG</code></a> — 将自定义标志传递给二进制 <code>BIN</code> 的链接器。</li>
+<li><a href="#rustc-link-arg-bins"><code>cargo:rustc-link-arg-bins=FLAG</code></a> — 将自定义标志传递给二进制文件的链接器。</li>
 <li><a href="#rustc-link-arg-tests"><code>cargo:rustc-link-arg-tests=FLAG</code></a> —  将自定义标志传递给链接器进行测试。</li>
 <li><a href="#rustc-link-arg-examples"><code>cargo:rustc-link-arg-examples=FLAG</code></a> — 将自定义标志传递给链接器的例子。</li>
 <li><a href="#rustc-link-arg-benches"><code>cargo:rustc-link-arg-benches=FLAG</code></a> — 将自定义的标志传递给链接器，用于基准测试。</li>
@@ -220,13 +220,13 @@ Cargo会把每一行以 <code>cargo:</code> 开头的字解释为影响包编译
 <li><a href="#rustc-flags"><code>cargo:rustc-flags=FLAGS</code></a> — 将特定标志传递给编译器。</li>
 <li><a href="#rustc-cfg"><code>cargo:rustc-cfg=KEY[=&quot;VALUE&quot;]</code></a> — 启用编译时的 <code>cfg</code> 设置。</li>
 <li><a href="#rustc-env"><code>cargo:rustc-env=VAR=VALUE</code></a> — 设置一个环境变量。</li>
-<li><a href="#rustc-cdylib-link-arg"><code>cargo:rustc-cdylib-link-arg=FLAG</code></a> — 为cdylib crates的链接器传递自定义标志。</li>
+<li><a href="#rustc-cdylib-link-arg"><code>cargo:rustc-cdylib-link-arg=FLAG</code></a> — 为cdylib crate的链接器传递自定义标志。</li>
 <li><a href="#cargo-warning"><code>cargo:warning=MESSAGE</code></a> — 在终端上显示一个警告。</li>
-<li><a href="#the-links-manifest-key"><code>cargo:KEY=VALUE</code></a> — 元数据，由 <code>links</code> 脚本使用。</li>
+<li><a href="#the-links-manifest-key"><code>cargo:KEY=VALUE</code></a> —  <code>links</code> 脚本使用的Metadata。</li>
 </ul>
 <p><a id="rustc-link-arg"></a></p>
 <h4 id="cargorustc-link-argflag"><a class="header" href="#cargorustc-link-argflag"><code>cargo:rustc-link-arg=FLAG</code></a></h4>
-<p><code>rustc-link-arg</code> 指令告诉Cargo将 <a href="../../rustc/codegen-options/index.html#link-arg"><code>-C link-arg=FLAG</code> option</a> 传递给编译器，但只在构建支持的目标(基准、二进制文件、<code>cdylib</code>板条、例子和测试)时使用。
+<p><code>rustc-link-arg</code> 指令告诉Cargo将 <a href="../../rustc/codegen-options/index.html#link-arg"><code>-C link-arg=FLAG</code> option</a> 传递给编译器，但只在构建支持的目标(基准、二进制文件、 <code>cdylib</code> crate、示例和测试)时使用。
 它的使用是高度平台化的。对设置共享库版本或链接器脚本很有用。</p>
 <p><a id="rustc-link-arg-bin"></a></p>
 <h4 id="cargorustc-link-arg-binbinflag"><a class="header" href="#cargorustc-link-arg-binbinflag"><code>cargo:rustc-link-arg-bin=BIN=FLAG</code></a></h4>
@@ -261,20 +261,20 @@ Cargo会把每一行以 <code>cargo:</code> 开头的字解释为影响包编译
 <p><code>rustc-link-search</code> 指令告诉Cargo将 <a href="../../rustc/command-line-arguments.html#option-l-search-path"><code>-L</code> flag</a> 传递给编译器，在库搜索路径中添加一个目录。</p>
 <p>可选的 <code>KIND</code> 可以是 <code>dependency</code> 、 <code>crate</code> 、 <code>native</code> 、 <code>framework</code> 、 <code>all</code> 之一。更多细节见 <a href="../../rustc/command-line-arguments.html#option-l-search-path">rustc book</a> 。</p>
 <p>如果这些路径在 <code>OUT_DIR</code> 内，它们也会被添加到 <a href="environment-variables.html#dynamic-library-paths">动态库搜索路径环境变量</a> 。
-不鼓励依赖这种行为，因为这使得使用产生的二进制文件很困难。一般来说，最好避免在构建脚本中创建动态库(使用现有的系统库就可以了)。</p>
+不鼓励依赖这种行为，因为这使得，使用产生的二进制文件很困难。一般来说，最好避免在构建脚本中创建动态库(使用现有的系统库就可以了)。</p>
 <p><a id="rustc-flags"></a></p>
 <h4 id="cargorustc-flagsflags"><a class="header" href="#cargorustc-flagsflags"><code>cargo:rustc-flags=FLAGS</code></a></h4>
 <p><code>rustc-flags</code> 指令告诉Cargo将给定的以空格分隔的标志传递给编译器。
-这只允许使用 <code>-l </code>和 <code>-L</code> 标志，相当于使用 <a href="#rustc-link-lib"><code>rustc-link-lib</code></a> 和 <a href="#rustc-link-search"><code>rustc-link-search</code></a> 。</p>
+只允许使用 <code>-l </code>和 <code>-L</code> 标志，相当于使用 <a href="#rustc-link-lib"><code>rustc-link-lib</code></a> 和 <a href="#rustc-link-search"><code>rustc-link-search</code></a> 。</p>
 <p><a id="rustc-cfg"></a></p>
 <h4 id="cargorustc-cfgkeyvalue"><a class="header" href="#cargorustc-cfgkeyvalue"><code>cargo:rustc-cfg=KEY[=&quot;VALUE&quot;]</code></a></h4>
 <p><code>rustc-cfg</code> 指令告诉Cargo将给定的<a href="../../rustc/command-line-arguments.html#option-cfg"><code>--cfg</code> flag</a> 的值传递给编译器。
 这可用于编译时检测功能，以启用 <a href="../../reference/conditional-compilation.html">条件编译</a> 。</p>
 <p>请注意，这并 <em>不</em> 影响Cargo的依赖解析。
-这不能用来启用一个可选的依赖，或启用其他Cargo功能。</p>
+这不能用来启用一个可选的依赖，或启用其他Cargo特性。</p>
 <p>请注意，<a href="features.html">Cargo features</a>使用的是 <code>feature=&quot;foo&quot;</code> 的形式。
-用这个标志传递的 <code>cfg</code> 值不限于这种形式，可以只提供一个标识符，或任意的键/值对。例如，发送 <code>cargo:rustc-cfg=abc</code> 将允许代码使用 <code>#[cfg(abc)]</code> (注意缺少 <code>feature=</code> )。
-或者可以使用一个任意的键/值对与一个 <code>=</code> 号，如<code>cargo:rustc-cfg=my_component=&quot;foo&quot;</code>。
+用这个标志传递的 <code>cfg</code> 值不限于这种形式，可以只提供一个标识符，或任意的键值对。例如，发送 <code>cargo:rustc-cfg=abc</code> 将允许代码使用 <code>#[cfg(abc)]</code> (注意缺少 <code>feature=</code> )。
+或者可以使用一个任意的键值对与一个 <code>=</code> 号，如<code>cargo:rustc-cfg=my_component=&quot;foo&quot;</code>。
 键应该是一个Rust标识符，值应该是一个字符串。</p>
 <p><a id="rustc-env"></a></p>
 <h4 id="cargorustc-envvarvalue"><a class="header" href="#cargorustc-envvarvalue"><code>cargo:rustc-env=VAR=VALUE</code></a></h4>
@@ -294,21 +294,21 @@ Cargo会把每一行以 <code>cargo:</code> 开头的字解释为影响包编译
 <p><a id="cargo-warning"></a></p>
 <h4 id="cargowarningmessage"><a class="header" href="#cargowarningmessage"><code>cargo:warning=MESSAGE</code></a></h4>
 <p><code>warning</code> 指令告诉Cargo在构建脚本运行完毕后显示一个警告。
-警告只针对 <code>path</code> 依赖(也就是你在本地工作的那些依赖)，所以例如在<a href="https://crates.io/">crates.io</a>crates中打印出来的警告，默认是不会发送的。
+警告只针对 <code>path</code> 依赖(也就是你在本地的那些依赖)，所以比如在<a href="https://crates.io/">crates.io</a>crate中打印出来的警告，默认是不会发送的。
 <code>-vv</code> &quot;very verbose&quot; 标志可以用来让Cargo显示所有crate的警告。</p>
 <h3 id="构建依赖"><a class="header" href="#构建依赖">构建依赖</a></h3>
-<p>构建脚本也可以依赖其他基于Cargo的crates。
+<p>构建脚本也可以依赖其他基于Cargo的crate。
 依赖是通过配置清单中的 <code>build-dependencies</code> 部分来声明的。</p>
 <pre><code class="language-toml">[build-dependencies]
 cc = &quot;1.0.46&quot;
 </code></pre>
-<p>构建脚本<em>不</em>访问列在 <code>dependencies</code> 或 <code>dev-dependencies</code> 部分的依赖项(它们还没有被构建！)。
+<p>构建脚本 <em>不</em> 访问列在 <code>dependencies</code> 或 <code>dev-dependencies</code> 部分的依赖项(它们还没有被构建！)。
 另外，除非在 <code>[dependencies]</code> 表中明确添加，否则构建的依赖项对包本身是不可用的。</p>
 <p>建议仔细考虑你添加的每个依赖，权衡对编译时间、许可、维护等的影响。
 如果一个依赖是在构建依赖和正常依赖之间共享的，Cargo会尝试重用它。然而，这并不总是能用，例如在交叉编译时，所以要考虑到对编译时间的影响。</p>
 <h3 id="变化检测"><a class="header" href="#变化检测">变化检测</a></h3>
 <p>当重建包时，Cargo不一定知道是否需要再次运行构建脚本。
-默认情况下，它采取一种保守的方法，即如果包中的任何文件被改变(或由 <a href="manifest.html#the-exclude-and-include-fields"><code>exclude</code> 和 <code>include</code> 字段</a> 控制的文件列表被改变)，则总是重新运行构建脚本。
+默认情况下，它采取一种保守的方法，即如果包中的任意文件被改变(或由 <a href="manifest.html#the-exclude-and-include-fields"><code>exclude</code> 和 <code>include</code> 字段</a> 控制的文件列表被改变)，则总是重新运行构建脚本。
 在大多数情况下，这不是一个好的选择，所以建议每个构建脚本至少发出一个 <code>rerun-if</code> 指令(如下所述)。
 如果发出了这些指令，那么Cargo只会在给定值发生变化时重新运行脚本。
 如果Cargo重新运行你自己的crate或依赖的构建脚本，而你又不知道为什么，请参见FAQ中的<a href=".../faq.html#why-is-cargo-rebuilding-my-code">&quot;为什么Cargo要重新构建我的代码？&quot;</a>。</p>
@@ -318,9 +318,8 @@ cc = &quot;1.0.46&quot;
 目前，Cargo只使用文件系统最后修改的 &quot;mtime&quot; 时间戳来确定文件是否有变化。
 它与内部缓存的构建脚本最后运行的时间戳进行比较。</p>
 <p>如果路径指向一个目录，它将扫描整个目录的任何修改。</p>
-<p>如果构建脚本在任何情况下都不需要重新运行，那么发出 <code>cargo:rerun-if-changed=build.rs</code> 是防止其重新运行的简单方法(否则，如果没有发出 <code>rerun-if</code> 指令，则默认为扫描整个包目录的变化)。
-Cargo会自动处理脚本本身是否需要重新编译，当然，脚本在重新编译后会被重新运行。
-否则，指定 <code>build.rs</code> 是多余的，没有必要。</p>
+<p>如果构建脚本在任何情况下都不需要重新运行，那么发送 <code>cargo:rerun-if-changed=build.rs</code> 防止其重新运行(否则，如果没有发送 <code>rerun-if</code> 指令，则默认为扫描整个包目录的变化)。
+Cargo会自动处理脚本本身是否需要重新编译，当然，脚本在重新编译后会重新运行。否则，没有必要指定 <code>build.rs</code> 。</p>
 <p><a id="rerun-if-env-changed"></a></p>
 <h4 id="cargorerun-if-env-changedname"><a class="header" href="#cargorerun-if-env-changedname"><code>cargo:rerun-if-env-changed=NAME</code></a></h4>
 <p><code>rerun-if-env-changed</code> 指令告诉Cargo，如果给定名称的环境变量值发生变化，则重新运行构建脚本。</p>
@@ -336,7 +335,7 @@ links = &quot;foo&quot;
 当使用 <code>links</code> 键时，包必须有一个构建脚本，而构建脚本应该使用 <a href="#rustc-link-lib"><code>rustc-link-lib</code>指令</a> 来链接该库。</p>
 <p>主要的是，Cargo要求每个 <code>links</code> 值最多只能有一个包。
 换句话说，禁止让两个包链接到同一个本地库。
-这有助于防止crates之间的重复符号。注意，有一些<a href="#-sys-packages">已有的惯例</a>可以缓解这个问题。</p>
+这有助于防止crate之间的重复符号。注意，有一些<a href="#-sys-packages">已有的惯例</a>可以缓解这个问题。</p>
 <p>如上文在输出格式中提到的，每个构建脚本可以以键值对的形式生成一组任意的元数据。
 这些元数据被传递给 <strong>依赖的</strong> 包的构建脚本。
 例如，如果包 <code>bar</code> 依赖于 <code>foo</code> ，那么如果 <code>foo</code> 生成 <code>key=value</code> 作为其构建脚本元数据的一部分，那么 <code>bar</code> 的构建脚本将有 <code>DEP_FOO_KEY=value</code> 的环境变量。
@@ -344,7 +343,7 @@ links = &quot;foo&quot;
 <p>请注意，元数据只传递给直接依赖，而不传递给过渡依赖。</p>
 <h3 id="-sys-包"><a class="header" href="#-sys-包"><code>*-sys</code> 包</a></h3>
 <p>一些链接到系统库的Cargo包有后缀为 <code>-sys</code> 的命名惯例。
-任何名为 <code>foo-sys</code> 的包都应该提供两个主要功能。</p>
+任何名为 <code>foo-sys</code> 的包都应该提供两个主要功能:</p>
 <ul>
 <li>库crate应该链接到本地库 <code>libfoo</code> 。这通常会在从源代码构建之前探测当前系统中的 <code>libfoo</code> 。</li>
 <li>这个库应该为 <code>libfoo</code> 中的类型和函数提供 <strong>声明</strong>，而<strong>不是</strong>更高级别的抽象。</li>
@@ -374,16 +373,14 @@ metadata_key1 = &quot;value&quot;
 metadata_key2 = &quot;value&quot;
 </code></pre>
 <p>在这种配置下，如果包声明它链接到 <code>foo</code> ，那么构建脚本将 <strong>不</strong> 被编译或运行，而将使用指定的元数据。</p>
-<p>不应使用 <code>warning</code> 、 <code>rerun-if-changed</code> 和 <code>rerun-if-env-changed</code> 键，它们将被忽略。</p>
+<p>不应使用 <code>warning</code> 、 <code>rerun-if-changed</code> 和 <code>rerun-if-env-changed</code> 键，将忽略它们。</p>
 <h3 id="jobserver"><a class="header" href="#jobserver">Jobserver</a></h3>
-<p>Cargo和 <code>rustc</code> 使用为GNU 制作开发的<a href="http://make.mad-scientist.net/papers/jobserver-implementation/">jobserver 协议</a>来协调进程间的并发。
+<p>Cargo和 <code>rustc</code> 使用为GNU制作开发的<a href="http://make.mad-scientist.net/papers/jobserver-implementation/">jobserver 协议</a>来协调进程间的并发。
 它本质上是信号，控制同时运行的作业数量。
 并发性可以用 <code>--jobs</code> 标志来设置，默认为逻辑CPU的数量。</p>
 <p>每个构建脚本都从Cargo那里继承一个作业槽，并试图运行时只使用一个CPU。
 如果脚本想并行使用更多的CPU，应该使用<a href="https://crates.io/crates/jobserver"><code>jobserver</code> crate</a>来与Cargo协调。</p>
-<p>As an example, the <a href="https://crates.io/crates/cc"><code>cc</code> crate</a> may enable the optional <code>parallel</code> feature
-which will use the jobserver protocol to attempt to build multiple C files
-at the same time.</p>
+<p>举例来说，<a href="https://crates.io/crates/cc"><code>cc</code> crate</a> 可以启用可选的 <code>parallel</code> 特性，它将使用jobserver协议尝试同时构建多个C文件。</p>
 
                     </main>
 

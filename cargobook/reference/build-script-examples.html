@@ -152,9 +152,9 @@
                 <div id="content" class="content">
                     <main>
                         <h2 id="构建脚本示例"><a class="header" href="#构建脚本示例">构建脚本示例</a></h2>
-<p>下面小节是一些编写的构建脚本的示例演示。</p>
-<p>在<a href="https://crates.io/">crates.io</a>的crates构建脚本中可以找到一些常见的功能。
-查看 <a href="https://crates.io/keywords/build-dependencies"><code>build-dependencies</code> keyword</a>，看看有那些可用。
+<p>下面小节是一些编写的构建脚本的示例。</p>
+<p>在<a href="https://crates.io/">crates.io</a>的crate构建脚本中可以找到一些常见的功能。
+查看 <a href="https://crates.io/keywords/build-dependencies"><code>build-dependencies</code> 键</a>，看看有那些可用。
 下面是一些流行的 crates<sup class="footnote-reference"><a href="#†">1</a></sup> 示例。</p>
 <ul>
 <li><a href="https://crates.io/crates/bindgen"><code>bindgen</code></a> — 自动生成Rust FFI与C库的绑定。</li>
@@ -166,7 +166,7 @@
 <a href="https://crates.io/crates/version_check"><code>version_check</code></a> — 这些crates提供了基于当前 <code>rustc</code> (如编译器的版本) 实现条件编译的方法。</li>
 </ul>
 <div class="footnote-definition" id="†"><sup class="footnote-definition-label">1</sup>
-<p>这个列表并不仅是一种签注。它评估你的依赖，看哪一个是更适合你的项目。</p>
+<p>这个列表并不仅是一种签注。评估你的依赖，看哪一个是更适合你的项目。</p>
 </div>
 <h3 id="code-生成"><a class="header" href="#code-生成">Code 生成</a></h3>
 <p>由于各种原因，有些Cargo包在编译前需要生成代码。
@@ -228,7 +228,7 @@ fn main() {
     println!(&quot;{}&quot;, message());
 }</code></pre>
 <p>这就是真正奇妙的地方。该库使用rustc定义的 <a href="../../std/macro.include.html"><code>include!</code> macro</a> 与 <a href="../../std/macro.concat.html"><code>concat!</code></a> 和 <a href="../../std/macro.env.html"><code>env!</code></a> 宏相结合，将生成的文件(<code>hello.rs</code>)纳入crate的编译。</p>
-<p>使用这里显示的结构，crates可以include来自构建脚本本身任意数量的生成文件。</p>
+<p>使用这里显示的结构，crate可以include来自构建脚本本身任意数量的生成文件。</p>
 <h3 id="构建本地库"><a class="header" href="#构建本地库">构建本地库</a></h3>
 <p>有时有必要将一些本地C或C++代码作为包的一部分来构建。
 这是利用构建脚本在Rust crate本身之前构建本地库的另一个很好的用例。
@@ -286,7 +286,7 @@ fn main() {
 <pre><code class="language-toml">[build-dependencies]
 cc = &quot;1.0&quot;
 </code></pre>
-<p>并重写构建脚本以使用这个crate。</p>
+<p>并重写构建脚本以使用这个crate:</p>
 <pre><code class="language-rust ignore">// build.rs
 
 fn main() {
@@ -300,7 +300,7 @@ fn main() {
 <li>它调用适当的编译器 (MSVC用于Windows， <code>gcc</code> 用于MinGW， <code>cc</code> 用于Unix平台，等等)。</li>
 <li>它通过向正在使用的编译器传递适当的标志，将 <code>TARGET</code> 变量考虑在内。</li>
 <li>其他环境变量，如 <code>OPT_LEVEL</code> 、 <code>DEBUG</code> 等，都是自动处理的。</li>
-<li>stdout输出和 <code>OUT_DIR</code> 位置也由 <code>cc</code> 库处理。</li>
+<li>标准输出和 <code>OUT_DIR</code> 位置也由 <code>cc</code> 库处理。</li>
 </ul>
 <p>在这里，可以看到将尽可能多的功能移植到共同的构建依赖中，而不是在所有的构建脚本中重复逻辑的一些主要好处。</p>
 <p>回到示例研究，来快速看一下 <code>src</code> 目录的内容:</p>
@@ -376,13 +376,14 @@ fn test_crc32() {
 [libz-sys 0.1.0] cargo:rerun-if-changed=build.rs
 </code></pre>
 <p>很好! <code>pkg-config</code> 做了所有寻找库的工作，并告知Cargo它的位置。</p>
-<p>包包括库的源代码，如果在系统中找不到它，或者设置了某个特性或环境变量，就静态地构建它，这种情况并不罕见。
+<p>包包含库的源代码，如果在系统中找不到它，或者设置了某个特性或环境变量，就静态地构建它，这种情况并不罕见。
 例如，实际的 <a href="https://crates.io/crates/libz-sys"><code>libz-sys</code> crate</a> 检查环境变量 <code>LIBZ_SYS_STATIC</code> 或 <code>static</code> 特性，从源码构建而不是使用系统库。
 请查看 <a href="https://github.com/rust-lang/libz-sys">the source</a> 以了解更完整的例子。</p>
 <h3 id="使用另一个-sys-crate"><a class="header" href="#使用另一个-sys-crate">使用另一个 <code>sys</code> crate</a></h3>
-<p>当使用 <code>links</code> 键时，crates可以设置元数据，这些元数据可以被其他依赖它的crates读取。这提供了一种在crates之间通信的机制。在这个例子中，我们将创建一个C语言库，利用实际的 <a href="https://crates.io/crates/libz-sys"><code>libz-sys</code> crate</a> 中的zlib。</p>
-<p>如果你有一个依赖于zlib的C库，你可以利用 <a href="https://crates.io/crates/libz-sys"><code>libz-sys</code> crate</a> 来自动查找或构建它。这对于跨平台支持非常有用，比如通常不安装zlib的Windows。
-<code>libz-sys</code><a href="https://github.com/rust-lang/libz-sys/blob/3c594e677c79584500da673f918c4d2101ac97a1/build.rs#L156">设置 <code>include</code> 元数据</a> ，告诉其他软件包在哪里可以找到zlib的头文件。
+<p>当使用 <code>links</code> 键时，crates可以设置metadata，其他依赖它的crates可以读取这些元数据。这提供了一种在crate之间通信的机制。
+在这个例子中，我们将创建一个C语言库，利用实际的 <a href="https://crates.io/crates/libz-sys"><code>libz-sys</code> crate</a> 中的zlib。</p>
+<p>如果你有一个依赖于zlib的C库，你可以利用 <a href="https://crates.io/crates/libz-sys"><code>libz-sys</code> crate</a> 来自动查找或构建它。这对于跨平台支持非常有用，比如在通常不安装zlib的Windows。
+<code>libz-sys</code> <a href="https://github.com/rust-lang/libz-sys/blob/3c594e677c79584500da673f918c4d2101ac97a1/build.rs#L156">设置 <code>include</code> 元数据</a> ，告诉其他包在哪里可以找到zlib的头文件。
 我们的构建脚本可以通过 <code>DEP_Z_INCLUDE</code> 环境变量读取该元数据。
 下面是一个例子:</p>
 <pre><code class="language-toml"># Cargo.toml
@@ -426,7 +427,7 @@ fn main() {
 它传递的信息之一是 <code>version_number</code> 键，这是检测到的OpenSSL的版本。
 构建脚本中的代码看起来<a href="https://github.com/sfackler/rust-openssl/blob/dc72a8e2c429e46c275e528b61a733a66e7877fc/openssl-sys/build/main.rs#L216">像这样</a>:</p>
 <pre><code class="language-rust ignore">println!(&quot;cargo:version_number={:x}&quot;, openssl_version);</code></pre>
-<p>这条指令使 <code>DEP_OPENSSL_VERSION_NUMBER</code> 环境变量在任何直接依赖 <code>openssl-sys</code> 的crates中被设置。</p>
+<p>这条指令使 <code>DEP_OPENSSL_VERSION_NUMBER</code> 环境变量在任何直接依赖 <code>openssl-sys</code> 的crate中被设置。</p>
 <p><code>openssl</code> crate 提供了更高层次的接口，指定 <code>openssl-sys</code> 为依赖项。
 <code>openssl</code> 构建脚本可以通过 <code>DEP_OPENSSL_VERSION_NUMBER</code> 环境变量读取由 <code>openssl-sys</code> 构建脚本生成的版本信息。
 它用这个来生成一些 <a href="https://github.com/sfackler/rust-openssl/blob/dc72a8e2c429e46c275e528b61a733a66e7877fc/openssl/build.rs#L18-L36"><code>cfg</code> values</a>。</p>

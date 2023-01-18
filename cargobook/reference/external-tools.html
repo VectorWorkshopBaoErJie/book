@@ -152,7 +152,7 @@
                 <div id="content" class="content">
                     <main>
                         <h2 id="插件"><a class="header" href="#插件">插件</a></h2>
-<p>Cargo的目标之一是与第三方工具的简单集成，如IDE和其他构建系统。为了使集成更容易，Cargo有几个工具:</p>
+<p>Cargo的目标之一是能与第三方工具简单集成，如IDE和其他构建系统。为了使集成更容易，Cargo有几个工具:</p>
 <ul>
 <li>
 <p><a href="../commands/cargo-metadata.html"><code>cargo metadata</code></a>命令，以JSON格式输出包结构和依赖信息。</p>
@@ -166,7 +166,7 @@
 </ul>
 <h3 id="关于包结构信息"><a class="header" href="#关于包结构信息">关于包结构信息</a></h3>
 <p>你可以使用 <a href="../commands/cargo-metadata.html"><code>cargo metadata</code></a> 命令来获取包结构和依赖的信息。有关输出格式的详细信息，请参见<a href="../commands/cargo-metadata.html"><code>cargo metadata</code></a>文档。</p>
-<p>该格式是稳定的，有相应版本。当调用 &quot;cargo metadata&quot; 时，你应该明确传递 &quot;--format-version&quot; 标志以避免向前不兼容的风险。</p>
+<p>该格式是稳定的，有相应版本。当调用 <code>cargo metadata</code> 时，你应该明确传递 <code>--format-version</code> 标志以避免向前不兼容的风险。</p>
 <p>如果你使用的是Rust，可以使用<a href="https://crates.io/crates/cargo_metadata">cargo_metadata</a> crate来解析输出。</p>
 <h3 id="json-消息"><a class="header" href="#json-消息">JSON 消息</a></h3>
 <p>当传递 <code>---message-format=json</code> 时，Cargo会在构建时输出以下信息:</p>
@@ -181,7 +181,7 @@
 <p>构建脚本的结果(例如，本地依赖)。</p>
 </li>
 </ul>
-<p>在stdout以每行的JSON对象格式输出。<code>reason</code> 字段区分不同种类的信息。</p>
+<p>在标准输出以每行的JSON对象格式输出。<code>reason</code> 字段区分不同种类的信息。</p>
 <p><code>--message-format</code> 选项也可以采用额外的格式化值，改变JSON信息的计算和显示方式。
 更多细节见<a href="../commands/cargo-build.html">build command documentation</a>中对 <code>--message-format</code> 选项的描述。</p>
 <p>如果你使用的是Rust，可以使用 <a href="https://crates.io/crates/cargo_metadata">cargo_metadata</a> crate来解析这些信息。</p>
@@ -276,7 +276,7 @@
     ],
     /* 创建的可执行文件的路径的字符串，如果该步骤没有生成可执行文件，则为空。 */
     &quot;executable&quot;: null,
-    /* 这个步骤是否被实际执行。当 `true` 时，这意味着预先存在的制品是最新的，并且 `rustc` 没有被执行。当 `false` 时，这意味着 `rustc` 被运行以生成制品。 */
+    /* 这个步骤是否被实际执行。当 `true` 时，这意味着预先存在的制品是最新的，并且 `rustc` 没有被执行。当 `false` 时，这意味着运行 `rustc` 以生成制品。 */
     &quot;fresh&quot;: true
 }
 
@@ -321,7 +321,7 @@
 </blockquote>
 <h3 id="自定义子命令"><a class="header" href="#自定义子命令">自定义子命令</a></h3>
 <p>Cargo被设计成可以扩展新的子命令，而不需要修改Cargo本身。
-这是通过将 cargo <code>(?&lt;command&gt;[^ ]+)</code> 形式的调用翻译成插件 <code>cargo-${command}</code> 的调用来实现的。
+这是通过将 cargo <code>(?&lt;command&gt;[^ ]+)</code> 形式的调用转换成插件 <code>cargo-${command}</code> 的调用来实现的。
 该插件必须存在于用户的 <code>$PATH</code> 目录中。</p>
 <p>当Cargo调用一个自定义子命令时，子命令的第一个参数将是自定义子命令的文件名，像往常一样。
 第二个参数将是子命令名称本身。例如，调用 &quot;cargo-${command}&quot; 时，第二个参数将是 &quot;${command}&quot; 。

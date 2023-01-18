@@ -152,24 +152,24 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="报告构建时间"><a class="header" href="#报告构建时间">报告构建时间</a></h1>
-<p><code>--timings</code> 选项提供了一些关于每次编译所需时间的信息，并跟踪时间段的并发信息。</p>
+<p><code>--timings</code> 选项提供了一些关于每次编译所需时间的信息，并跟踪时间推移的并发送信息。</p>
 <pre><code class="language-sh">cargo build --timings
 </code></pre>
 <p>这将在 <code>target/cargo-timings/cargo-timing.html</code> 中写入一个HTML报告。如果你想查看更早的运行情况，也会将报告的副本写到同一目录下，文件名有时间戳。</p>
 <h4 id="阅读图表"><a class="header" href="#阅读图表">阅读图表</a></h4>
 <p>在输出中，有两个图表。&quot;unit&quot; 图显示每个单元随时间变化的持续时间。一个 &quot;unit&quot; 是单一的编译器调用。
-有几行显示了当一个单元结束时，哪些额外的单元被 &quot;unlocked&quot; 。也就是说，它显示了现在允许运行的新单元，因为它们的依赖已经全部完成。
+有几行显示了当一个单元结束时，哪些额外的单元被 &quot;解锁&quot; 。也就是说，它显示现在允许运行的新单元，因为它们的依赖已经全部完成。
 将鼠标悬停在一个单元上，可以突出这些线条。这可以帮助直观地看到依赖的关键路径。由于单元可能以不同的顺序完成，这在运行中可能会发生变化。</p>
 <p>&quot;codegen&quot; 的时间以淡紫色突出显示。在某些情况下，构建管道允许单元在其依赖执行代码生成时开始。
 这一信息并不总是显示(例如，二进制单元不显示代码生成开始时间)。</p>
-<p>&quot;custom build&quot; 单元是 &quot;build.rs&quot; 脚本，运行时以橙色显示。</p>
+<p>&quot;custom build&quot; 单元是 <code>build.rs</code> 脚本，运行时以橙色显示。</p>
 <p>第二张图显示了Cargo在一段时间内的并发量。背景表示CPU使用率。这三条线是:</p>
 <ul>
 <li>&quot;等待&quot; (红色) — 这是等待CPU槽开放的单元的数量。</li>
 <li>&quot;不活跃&quot; (蓝色) — 这是正在等待其依赖完成的单元的数量。</li>
 <li>&quot;活跃&quot; (绿色) — 这是目前正在运行的单元的数量。</li>
 </ul>
-<p>注意：这并不显示编译器本身的并发量。 <code>rustc</code> 通过 &quot;作业服务器&quot; 与Cargo协调，以保持在并发量限制之内。目前这主要适用于代码生成阶段。</p>
+<p>注意：这并不显示编译器本身的并发量。 <code>rustc</code> 通过 &quot;作业服务&quot; 与Cargo协调，以保持在并发量限制之内。目前这主要适用于代码生成阶段。</p>
 <p>编译时间的提示:</p>
 <ul>
 <li>寻找缓慢的依赖。

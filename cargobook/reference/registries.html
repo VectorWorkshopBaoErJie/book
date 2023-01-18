@@ -152,15 +152,15 @@
                 <div id="content" class="content">
                     <main>
                         <h2 id="注册中心"><a class="header" href="#注册中心">注册中心</a></h2>
-<p>Cargo安装crates并从 &quot;注册中心&quot; 中获取依赖。
-默认的注册中心是[crates.io]。注册中心包含一个 &quot;索引&quot; ，其中包含可搜索的可用crates的列表。
-注册中心也可以提供一个网络API，支持直接从Cargo发布新的crates。</p>
+<p>Cargo安装crate并从 &quot;注册中心&quot; 中获取依赖。
+默认的注册中心是[crates.io]。注册中心包含一个 &quot;索引&quot; ，其中包含可搜索的可用crate的列表。
+注册中心也可以提供一个网络API，支持直接从Cargo发布新的crate。</p>
 <blockquote>
 <p>注意: 如果你对镜像或拓展现有的注册中心感兴趣，请看一下<a href="source-replacement.html">源替换</a>。</p>
 </blockquote>
 <p>如果你在实现注册中心服务器，请参阅<a href="running-a-registry.html">注册中心运行</a>了解更多关于Cargo和注册中心之间协议的细节。</p>
 <h3 id="使用备用注册中心"><a class="header" href="#使用备用注册中心">使用备用注册中心</a></h3>
-<p>要使用[crates.io]以外的注册中心，必须将注册中心的名称和索引URL添加到 <a href="config.html"><code>.cargo/config.toml</code> file</a>。<code>registries</code>表对每个注册中心都有一个键，例如:</p>
+<p>要使用[crates.io]以外的注册中心，必须将注册中心的名称和索引URL添加到 <a href="config.html"><code>.cargo/config.toml</code> file</a>。 <code>registries</code> 表对每个注册中心都有一个键，例如:</p>
 <pre><code class="language-toml">[registries]
 my-registry = { index = &quot;https://my-intranet:8080/git/index&quot; }
 </code></pre>
@@ -180,7 +180,7 @@ other-crate = { version = &quot;1.0&quot;, registry = &quot;my-registry&quot; }
 <pre><code class="language-ignore">CARGO_REGISTRIES_MY_REGISTRY_INDEX=https://my-intranet:8080/git/index
 </code></pre>
 <blockquote>
-<p>注意: [crates.io]不接受依赖其他注册中心的crates的包。</p>
+<p>注意: [crates.io]不接受依赖其他注册中心的crate的包。</p>
 </blockquote>
 <h3 id="发布到备用注册中心"><a class="header" href="#发布到备用注册中心">发布到备用注册中心</a></h3>
 <p>如果注册中心支持Web API访问，那么包可以直接从Cargo发布到注册中心。
@@ -200,7 +200,7 @@ Cargo的一些命令，如<a href="../commands/cargo-publish.html"><code>cargo p
 <pre><code class="language-toml">[registry]
 default = &quot;my-registry&quot;
 </code></pre>
-<p>在 <code>Cargo.toml</code> 配置清单中设置 <code>package.publish</code> 键，可以限制包发布到哪些注册中心。这对于防止不小心将闭源包发布到[crates.io]很有用。该值可以是一个注册中心名称的列表，例如。</p>
+<p>在 <code>Cargo.toml</code> 配置清单中设置 <code>package.publish</code> 键，可以限制包发布到哪些注册中心。这可以防止不小心将闭源包发布到[crates.io]。该值可以是一个注册中心名称的列表，例如。</p>
 <pre><code class="language-toml">[package]
 # ...
 publish = [&quot;my-registry&quot;]

@@ -155,28 +155,28 @@
 <p>Cargo 包由 <em>构建目标</em> 组成，构建目标对应着可以编译成 crate 的源文件。
 包中可以包含 <a href="#library">library</a>, <a href="#binaries">binary</a>,
 <a href="#examples">example</a>, <a href="#tests">test</a> 和 <a href="#benchmarks">benchmark</a> 的构建目标。
-构建目标列表可以在 <code>Cargo.toml</code> 目录清单中配置，但总是由源文件的 <a href="../guide/project-layout.html">目录结构</a>
+构建目标列表可以在 <code>Cargo.toml</code> 清单中配置，但总是由源文件的 <a href="../guide/project-layout.html">目录结构</a>
 <a href="#target-auto-discovery">inferred automatically</a></p>
 <p>关于构建目标的配置，查看下面的 <a href="#configuring-a-target">Configuring a target</a>。</p>
-<h3 id="类库"><a class="header" href="#类库">类库</a></h3>
-<p>类库的构建目标定义了 &quot;类库&quot; 的概念，即可以被其他类库和可执行程序使用和链接的库。
-默认文件名会是 <code>src/lib.rs</code> ，类库的名词默认为包的名称。
-包可以只有一个类库。你可以在 <code>Cargo.toml</code> 的 <code>[lib]</code> 标签下 [自定义] 类库的设置。</p>
-<pre><code class="language-toml"># 在 Cargo.toml 自定义类库设置的例子。
+<h3 id="库"><a class="header" href="#库">库</a></h3>
+<p>库的构建目标定义了 &quot;库&quot; ，从而被其他库和可执行程序使用和链接。
+默认文件名是 <code>src/lib.rs</code> ，库的名称默认为包的名称。
+包可以只有一个库。可以在 <code>Cargo.toml</code> 的 <code>[lib]</code> 标签下 [自定义] 库的设置。</p>
+<pre><code class="language-toml"># 在 Cargo.toml 自定义库设置的例子。
 [lib]
 crate-type = [&quot;cdylib&quot;]
 bench = false
 </code></pre>
 <h3 id="二进制构建目标"><a class="header" href="#二进制构建目标">二进制构建目标</a></h3>
 <p>二进制构建目标为编译后可以运行的可执行程序。
-默认的二进制文件名为 <code>src/main.rs</code> ，它默认是包的名称。
+默认的二进制文件名为 <code>src/main.rs</code> ，默认是包的名称。
 额外的二进制文件会放在 <a href="../guide/project-layout.html"><code>src/bin/</code> 目录</a>。
-你可以在 <code>Cargo.toml</code> 的 <code>[[bin]]</code> 标签下为每个二进制文件的 [自定义] 设置。</p>
-<p>二进制文件可以使用包的类库提供的公共 API。
+你可以在 <code>Cargo.toml</code> 的 <code>[[bin]]</code> 标签下为每个二进制文件 [自定义] 设置。</p>
+<p>二进制文件可以使用包的库提供的公共 API。
 它们通过 <code>Cargo.toml</code> 中定义的 <a href="specifying-dependencies.html"><code>[dependencies]</code></a> 链接起来。</p>
-<p>你可以使用带 <code>--bin &lt;bin-名称&gt;</code> 参数的 <a href="../commands/cargo-run.html"><code>cargo run</code></a> 命令来运行单个二进制文件。
-可以使用 <a href="../commands/cargo-install.html"><code>cargo install</code></a> 将可以执行文件赋值到通用目录。</p>
-<pre><code class="language-toml"># 在 Cargo.toml 自定义二进制文件设置的例子。
+<p>你可以使用带 <code>--bin &lt;bin-name&gt;</code> 参数的 <a href="../commands/cargo-run.html"><code>cargo run</code></a> 命令来运行单个二进制文件。
+可以使用 <a href="../commands/cargo-install.html"><code>cargo install</code></a> 将可执行文件复制到常规目录。</p>
+<pre><code class="language-toml"># 在 Cargo.toml 自定义二进制文件设置的示例。
 [[bin]]
 name = &quot;cool-tool&quot;
 test = false
@@ -186,42 +186,42 @@ bench = false
 name = &quot;frobnicator&quot;
 required-features = [&quot;frobnicate&quot;]
 </code></pre>
-<h3 id="例子"><a class="header" href="#例子">例子</a></h3>
-<p><a href="../guide/project-layout.html"><code>examples</code> 目录</a> 下的文件便是使用类库功能的例子。
+<h3 id="示例"><a class="header" href="#示例">示例</a></h3>
+<p><a href="../guide/project-layout.html"><code>examples</code> 目录</a> 下的文件便是使用库功能的例子。
 编译后，文件会生成在 <a href="../guide/build-cache.html"><code>target/debug/examples</code> 目录</a>。</p>
-<p>例子可以使用包中类库的公共 API 。它们通过 <code>Cargo.toml</code> 中定义的 <a href="specifying-dependencies.html"><code>[dependencies]</code></a> 和
+<p>示例可以使用包中库的公共 API 。它们通过 <code>Cargo.toml</code> 中定义的 <a href="specifying-dependencies.html"><code>[dependencies]</code></a> 和
 <a href="specifying-dependencies.html#development-dependencies"><code>[dev-dependencies]</code></a> 链接起来。</p>
-<p>例子默认是二进制可执行文件(带有 <code>main()</code> 函数)。
-你可以指定 <a href="#the-crate-type-field"><code>crate-type</code> 字段</a> 另一个例子编译为类库:</p>
+<p>示例默认是二进制可执行文件(带有 <code>main()</code> 函数)。
+你可以指定 <a href="#the-crate-type-field"><code>crate-type</code> 字段</a> 另一个示例编译为库:</p>
 <pre><code class="language-toml">[[example]]
 name = &quot;foo&quot;
 crate-type = [&quot;staticlib&quot;]
 </code></pre>
-<p>你可以使用带 <code>--example &lt;例子名&gt;</code> 参数的 <a href="../commands/cargo-run.html"><code>cargo run</code></a> 命令来运行单个例子。
-使用带 <code>--example &lt;例子名&gt;</code> 参数的 <a href="../commands/cargo-install.html"><code>cargo install</code></a> 命令来将二进制可执行文件复制到通用目录。
-使用 <a href="../commands/cargo-test.html"><code>cargo test</code></a> 命令编译例子可以防止位衰减。
-如果你想运行 <a href="../commands/cargo-test.html"><code>cargo test</code></a> 的例子中存在 <code>#[test]</code> 函数，你需要将 <a href="#the-test-field">the <code>test</code> field</a> 为 <code>true</code> 。</p>
+<p>你可以使用带 <code>--example &lt;示例名&gt;</code> 参数的 <a href="../commands/cargo-run.html"><code>cargo run</code></a> 命令来运行单个示例。
+使用带 <code>--example &lt;示例名&gt;</code> 参数的 <a href="../commands/cargo-install.html"><code>cargo install</code></a> 命令来将二进制可执行文件复制到常规目录。
+使用 <a href="../commands/cargo-test.html"><code>cargo test</code></a> 命令编译示例可以防止单元损坏。
+如果你想运行 <a href="../commands/cargo-test.html"><code>cargo test</code></a> 示例的中存在的 <code>#[test]</code> 函数，需要 <a href="#the-test-field"> <code>test</code> 字段</a> 为 <code>true</code> 。</p>
 <h3 id="测试"><a class="header" href="#测试">测试</a></h3>
 <p>Cargo 项目中有两种测试的方式:</p>
 <ul>
-<li><em>单元测试</em> 为在类库或二进制(或任何启用了 <a href="#the-test-field">the <code>test</code> field</a> 的构建目标)中
+<li><em>单元测试</em> 为在库或二进制(或任何启用了 <a href="#the-test-field"> <code>test</code> 字段</a> 的构建目标)中
 使用 <a href="../../reference/attributes/testing.html#the-test-attribute"><code>#[test]</code> 属性</a> 标记的函数，这种测试可以访问构建目标中定义的私有 API 。</li>
 <li><em>集成测试</em> 为单独的与项目类库链接的二进制可执行文件。
 它也包含了 <code>#[test]</code> 函数并且仅能访问 <em>公有</em> API 。</li>
 </ul>
 <p>使用 <a href="../commands/cargo-test.html"><code>cargo test</code></a> 命令运行测试。默认情况下，Cargo 和 <code>rustc</code> 使用 <a href="../../rustc/tests/index.html">libtest harness</a> ，
 它负责收集和并行执行带有 <a href="../../reference/attributes/testing.html#the-test-attribute"><code>#[test]</code> 属性</a> 标记的函数，并报告所有测试的成功或失败情况。
-如果你想使用不同的使用或测试策略可以查看 <a href="#the-harness-field">the <code>harness</code> field</a> 。</p>
+如果你想使用不同的使用或测试策略可以查看 <a href="#the-harness-field"> <code>harness</code> 字段</a> 。</p>
 <blockquote>
 <p><strong>注意</strong>: Cargo 有另一种特殊的测试方式:
-<a href="../../rustdoc/documentation-tests.html">documentation tests</a>。
+<a href="../../rustdoc/documentation-tests.html">文档测试</a>。
 它们通过 <code>rustdoc</code> 处理并且使用略有不同的执行模型。
 你可以在 <a href="../commands/cargo-test.html#documentation-tests"><code>cargo test</code></a> 查看更多信息。</p>
 </blockquote>
 <h4 id="集成测试"><a class="header" href="#集成测试">集成测试</a></h4>
 <p><a href="../guide/project-layout.html"><code>tests</code> 目录</a> 目录下的文件便是集成测试。
 当你运行 <a href="../commands/cargo-test.html"><code>cargo test</code></a> 时，Cargo 会将该目录下的每个文件编译为单独的 crate 并执行。</p>
-<p>集成测试可以使用包中类库的公有 API 。
+<p>集成测试可以使用包中库的公有 API 。
 它们也通过 <code>Cargo.toml</code> 中定义的 <a href="specifying-dependencies.html"><code>[dependencies]</code></a> 和
 <a href="specifying-dependencies.html#development-dependencies"><code>[dev-dependencies]</code></a> 链接起来。</p>
 <p>如果你想在多个集成测试中复用代码，你可以将代码放在一个单独的模块中，
@@ -229,7 +229,7 @@ crate-type = [&quot;staticlib&quot;]
 <p>每个单独二进制可执行文件产生一个集成测试结果，<a href="../commands/cargo-test.html"><code>cargo test</code></a> 命令会串行执行集成测试。
 在某些情况下可能效率较低，比如编译耗时较长或运行时没有充分利用CPU多个核心。
 如果你需要进行大量集成测试，推荐创建单个集成测试，并将测试分割成多个模块。
-libtest harness 会自动寻找和并行执行所有 <code>#[test]</code> 标记的函数。
+库测试harness&quot;控制&quot;会自动寻找和并行执行所有 <code>#[test]</code> 标记的函数。
 你可以将模块名传递给 <a href="../commands/cargo-test.html"><code>cargo test</code></a> 来将测试的范围限定在模块内。</p>
 <p>二进制构建目标的集成测试是自动构建的。
 这样集成测试可以检验二进制文件执行的行为。
@@ -242,8 +242,8 @@ libtest harness 会自动寻找和并行执行所有 <code>#[test]</code> 标记
 <li>性能测试的文件放置在 <a href="../guide/project-layout.html"><code>benches</code> 目录</a> 目录下。</li>
 <li>类库和二进制文件中定义的性能测试可以访问构建目标中定义的 <em>私有</em> API。
 <code>benches</code> 目录下的性能测试仅能访问 <em>公有</em> API 。</li>
-<li><a href="#the-bench-field">The <code>bench</code> field</a> 可以用来定义默认对哪个构建目标进行性能测试。</li>
-<li><a href="#the-harness-field">The <code>harness</code> field</a> 可以用来禁用内置的 harness 。</li>
+<li><a href="#the-bench-field"> <code>bench</code> 字段</a> 可以用来定义默认对哪个构建目标进行性能测试。</li>
+<li><a href="#the-harness-field"> <code>harness</code> 字段</a> 可以用来禁用内置的 harness 。</li>
 </ul>
 <blockquote>
 <p><strong>注意</strong>: <a href="../../unstable-book/library-features/test.html"><code>#[bench]</code>
@@ -256,7 +256,7 @@ attribute</a> 目前还不稳定并且仅在 <a href="../../book/appendix-07-nig
 <code>[[example]]</code>, <code>[[test]]</code> 和 <code>[[bench]]</code> 标记都支持相似的配置。
 比如 <code>[[bin]]</code> 这种双层括号标记代表 <a href="https://toml.io/en/v1.0.0-rc.3#array-of-tables">array-of-table of TOML</a>，
 意味着你可以在 crate 添加多个 <code>[[bin]]</code> 来生成多个可执行文件。
-比如 <code>[lib]</code> 代表普通 TOML 列表，意味着你仅可以制定一个类库。</p>
+比如 <code>[lib]</code> 代表普通 TOML 列表，意味着你仅可以制定一个库。</p>
 <p>下面是 TOML 中构建目标设置的概览，针对每个字段都有详细介绍。</p>
 <pre><code class="language-toml">[lib]
 name = &quot;foo&quot;           # 构建目标的名称
@@ -266,15 +266,15 @@ doctest = true         # 文档示例是否默认进行测试
 bench = true           # 是否默认进行性能测试
 doc = true             # 是否默认带有文档
 plugin = false         # 是否用作编译器插件(已弃用)
-proc-macro = false     # proc-macro 类库要设置为 `true`
-harness = true         # 是否使用 libtest harness
+proc-macro = false     # proc-macro 库要设置为 `true`
+harness = true         # 是否使用库测试harness
 edition = &quot;2015&quot;       # 构建目标的版本
 crate-type = [&quot;lib&quot;]   # 要生成的 crate 类型
 required-features = [] # 构建此目标需要使用的特性 (类库不适用)
 </code></pre>
 <h3 id="name-字段"><a class="header" href="#name-字段"><code>name</code> 字段</a></h3>
-<p><code>name</code> 字段指定构建目标的名称，它对应着自动生成的 artifact 的文件名。
-对类库来说，这个字段是它的 crate 名称，其他依赖会使用这个名称来引用它。</p>
+<p><code>name</code> 字段指定构建目标的名称，它对应着自动生成的制品的文件名。
+对库来说，这个字段是它的 crate 名称，其他依赖会使用这个名称来引用它。</p>
 <p>对于 <code>[lib]</code> 和默认的二进制程序(<code>src/main.rs</code>)来说，这个字段默认就是包的名称，
 其中的破折号会被替换成下划线。对于其他 <a href="#target-auto-discovery">auto discovered</a> 构建目标，
 它默认是目录或文件的名称。</p>
@@ -291,7 +291,7 @@ required-features = [] # 构建此目标需要使用的特性 (类库不适用)
 为例子设置 <code>test = true</code> 也会将它构建为测试并且运行例子中所有带 <a href="../../reference/attributes/testing.html#the-test-attribute"><code>#[test]</code></a> 标记的方法。</p>
 </blockquote>
 <h4 id="doctest-字段"><a class="header" href="#doctest-字段"><code>doctest</code> 字段</a></h4>
-<p><code>doctest</code> 字段指明 [文档例子(documentation examples)] 是否默认使用 <a href="../commands/cargo-test.html"><code>cargo test</code></a> 测试。
+<p><code>doctest</code> 字段指明 <a href="../../rustdoc/documentation-tests.html">documentation examples</a> 是否默认使用 <a href="../commands/cargo-test.html"><code>cargo test</code></a> 测试。
 这个字段只与类库有关，它对其他部分的配置没有任何作用。
 对类库来说，此字段默认为 <code>true</code> 。</p>
 <h4 id="bench-字段"><a class="header" href="#bench-字段"><code>bench</code> 字段</a></h4>
@@ -299,9 +299,9 @@ required-features = [] # 构建此目标需要使用的特性 (类库不适用)
 对类库、二进制程序和性能测试程序来说，此字段默认为 <code>true</code> 。</p>
 <h4 id="doc-字段"><a class="header" href="#doc-字段"><code>doc</code> 字段</a></h4>
 <p><code>doc</code> 字段指明构建目标是否包括在 <a href="../commands/cargo-doc.html"><code>cargo doc</code></a> 默认生成的文档中。
-对类库和二进制程序来说，此字段默认为 <code>true</code> 。</p>
+对库和二进制程序来说，此字段默认为 <code>true</code> 。</p>
 <blockquote>
-<p><strong>注意</strong>: 若二进制程序的名称与类库的名称相同，二进制程序则会被跳过。</p>
+<p><strong>注意</strong>: 若二进制程序的名称与库的名称相同，则会跳过二进制程序。</p>
 </blockquote>
 <h4 id="plugin-字段"><a class="header" href="#plugin-字段"><code>plugin</code> 字段</a></h4>
 <p>此字段用于 <code>rustc</code> 的插件，现在已被弃用。</p>
@@ -309,8 +309,8 @@ required-features = [] # 构建此目标需要使用的特性 (类库不适用)
 <p><code>proc-macro</code> 字段指明类库是 <a href="%5Breference%5D%5Bproc-macro-reference%5D">procedural macro</a> 。
 此字段仅适用于 <code>[lib]</code> 构建目标。</p>
 <h4 id="harness-字段"><a class="header" href="#harness-字段"><code>harness</code> 字段</a></h4>
-<p><code>harness</code> 字段指明 [<code>--test</code> 参数] 会传递给 <code>rustc</code> 令其自动包含 libtest 类库。
-libtest 类库用来收集并运行标有 <a href="../../reference/attributes/testing.html#the-test-attribute"><code>#[test]</code> 属性</a> 的测试或标有 <code>#[bench]</code> 属性的性能测试。
+<p><code>harness</code> 字段指明 [<code>--test</code> 参数] 会传递给 <code>rustc</code> 令其自动包含libtest类库。
+libtest 库用来收集并运行标有 <a href="../../reference/attributes/testing.html#the-test-attribute"><code>#[test]</code> 属性</a> 的测试或标有 <code>#[bench]</code> 属性的性能测试。
 对所有构建目标来说，此字段默认为 <code>true</code> 。</p>
 <p>如果此字段设置为 <code>false</code> ，则你需要负责定义 <code>main()</code> 函数来运行测试和性能测试。</p>
 <p>无论 harness 字段是否启用，测试都会启用 <a href="../../reference/conditional-compilation.html#test"><code>cfg(test)</code> 条件表达式</a> 字段。</p>
@@ -326,14 +326,14 @@ libtest 类库用来收集并运行标有 <a href="../../reference/attributes/te
 <div class="table-wrapper"><table><thead><tr><th>构建目标</th><th>Crate Type</th></tr></thead><tbody>
 <tr><td>普通类库</td><td><code>&quot;lib&quot;</code></td></tr>
 <tr><td>Proc-macro 类库</td><td><code>&quot;proc-macro&quot;</code></td></tr>
-<tr><td>例子</td><td><code>&quot;bin&quot;</code></td></tr>
+<tr><td>示例</td><td><code>&quot;bin&quot;</code></td></tr>
 </tbody></table>
 </div>
 <p>此字段可用的值有 <code>bin</code>, <code>lib</code>, <code>rlib</code>, <code>dylib</code>, <code>cdylib</code>, <code>staticlib</code> 和 <code>proc-macro</code> 。
 关于各种 crate 类型的更多信息在 <a href="../../reference/linkage.html">Rust Reference Manual</a> 。</p>
 <h4 id="required-features-字段"><a class="header" href="#required-features-字段"><code>required-features</code> 字段</a></h4>
 <p><code>required-features</code> 字段指定了构建目标完成构建所需要的 <a href="features.html">features</a> 。
-如果要求的特性都没有启用，则此构建目标将被跳过。
+如果要求的特性都没有启用，则跳过此构建目标。
 此字段仅与 <code>[[bin]]</code>, <code>[[bench]]</code>, <code>[[test]]</code> 和 <code>[[example]]</code> 有关。
 此字段对 <code>[lib]</code> 没有影响。</p>
 <pre><code class="language-toml">[features]
@@ -351,8 +351,7 @@ required-features = [&quot;postgres&quot;, &quot;tools&quot;]
 可以在构建目标的配置表中添加不同于标准目录结构的额外构建目标，比如使用
 <code>[lib]</code>, <code>[[bin]]</code>, <code>[[test]]</code>, <code>[[bench]]</code> 或 <code>[[example]]</code> 标记。</p>
 <p>可以禁用目标探测，这样只有手动配置的构建目标会进行构建。
-要禁用对应构建目标类型的自动探测，需在 <code>[package]</code> 部分将
-<code>autobins</code>, <code>autoexamples</code>, <code>autotests</code> 或 <code>autobenches</code> 设置为 <code>false</code> 。</p>
+要禁用对应构建目标类型的自动探测，需在 <code>[package]</code> 部分将 <code>autobins</code>, <code>autoexamples</code>, <code>autotests</code> 或 <code>autobenches</code> 设置为 <code>false</code> 。</p>
 <pre><code class="language-toml">[package]
 # ...
 autobins = false
@@ -361,7 +360,7 @@ autotests = false
 autobenches = false
 </code></pre>
 <p>禁用自动探测应该仅用于一些特殊场景。
-比如，如果你想在类库中给一个 <em>模块</em> 命名为 <code>bin</code> ，
+比如，如果你想在库中给一个 <em>模块</em> 命名为 <code>bin</code> ，
 这样是不行的，因为 Cargo 通常会将 <code>bin</code> 目录下的文件编译为可执行文件。
 这个例子的文件结构如下:</p>
 <pre><code class="language-text">├── Cargo.toml

@@ -152,9 +152,10 @@
                 <div id="content" class="content">
                     <main>
                         <h2 id="配置"><a class="header" href="#配置">配置</a></h2>
-<p>本文档解释了Cargo的配置系统如何工作，以及可用的键或配置。关于通过包的配置清单进行的配置，参阅<a href="manifest.html">配置清单格式</a>。</p>
+<p>此文档解释Cargo的配置系统，以及可用的键或配置项。关于包的配置清单，参阅<a href="manifest.html">manifest format</a>。</p>
 <h3 id="层次结构"><a class="header" href="#层次结构">层次结构</a></h3>
-<p>Cargo允许对某一特定包进行本地配置，也允许进行全局配置。它在当前目录和所有父目录下寻找配置文件。例如，如果在<code>/projects/foo/bar/baz</code>中调用Cargo，那么以下的配置文件会被探测到，并按照这个顺序统一起来。</p>
+<p>Cargo允许对特定的包进行本地配置和全局配置，会在当前目录和所有父目录下寻找配置文件。
+比如，如果在 <code>/projects/foo/bar/baz</code> 中调用Cargo，那么以下的配置文件会被探测到，并按照这个顺序统一管理:</p>
 <ul>
 <li><code>/projects/foo/bar/baz/.cargo/config.toml</code></li>
 <li><code>/projects/foo/bar/.cargo/config.toml</code></li>
@@ -168,16 +169,16 @@
 </ul>
 </li>
 </ul>
-<p>有了这种结构，你可以指定每个包的配置，甚至可以将其检查到版本控制中。你也可以在你的主目录下用一个配置文件指定个人默认值。</p>
-<p>如果一个键在多个配置文件中被指定，这些值将被合并在一起。数字、字符串和布尔值将使用更深层级配置目录中的值，其优先于祖先目录的，其主目录的优先级最低。数组将被连接在一起。</p>
-<p>目前，当从工作区调用时，Cargo不会从工作区的crates中读取配置文件，即如果一个工作区有两个crates，分别名为 <code>/projects/foo/bar/baz/mylib</code> 和 <code>/projects/foo/bar/baz/mybin</code> ，并且存在 <code>/projects/foo/bar/baz/mylib/.cargo/config.toml</code> 和 <code>/projects/foo/bar/baz/mybin/.cargo/config.toml</code> ，如果从工作区根(<code>/projects/foo/bar/baz/</code>)调用，Cargo就不会读取这些配置文件。</p>
+<p>按照这种结构，可以指定每个包的配置，可以将其检出到版本控制中。可以在主目录下用一个配置文件指定个人的默认值。</p>
+<p>如果一个键在多个配置文件中被指定，将合并这些值。数字、字符串和布尔值将使用更深层级配置目录中的值，其优先于祖先目录中的，主目录的优先级最低。数组将连接在一起。</p>
+<p>目前，当从工作空间调用时，Cargo不会从工作空间的crate中读取配置文件，比如，工作空间有两个crate，分别为 <code>/projects/foo/bar/baz/mylib</code> 和 <code>/projects/foo/bar/baz/mybin</code> ，
+并且存在 <code>/projects/foo/bar/baz/mylib/.cargo/config.toml</code> 和 <code>/projects/foo/bar/baz/mybin/.cargo/config.toml</code> ，如果从工作空间根(<code>/projects/foo/bar/baz/</code>)调用，Cargo就不会读取这些配置文件。</p>
 <blockquote>
 <p><strong>注意:</strong> Cargo 也可以读取没有 <code>.toml</code> 扩展名的配置文件，如<code>.cargo/config</code>。
-对<code>.toml</code>扩展的支持是在1.39版本中加入的，是首选的形式。
-如果两个文件都存在，Cargo 将使用没有扩展名的文件。</p>
+对 <code>.toml</code> 扩展的支持是在1.39版本中加入的，是首选的形式。如果两个文件都存在，Cargo 将使用没有扩展名的文件。</p>
 </blockquote>
 <h3 id="配置格式"><a class="header" href="#配置格式">配置格式</a></h3>
-<p>配置文件是以 <a href="https://toml.io/">TOML格式</a> 编写的，在表内有简洁的键值对。以下是对所有设置的快速概述，详细说明见下文。</p>
+<p>配置文件是以 <a href="https://toml.io/">TOML格式</a> 编写，在表内有简洁的键值对。以下是对所有设置的概述，详细说明见下文。</p>
 <p>paths = [&quot;/path/to/override&quot;] # 路径依赖覆盖</p>
 <p>[alias]     # 命令别名
 b = &quot;build&quot;
@@ -189,11 +190,11 @@ recursive_example = &quot;rr --example recursions&quot;
 space_example = [&quot;run&quot;, &quot;--release&quot;, &quot;--&quot;, &quot;&quot;command list&quot;&quot;]</p>
 <p>[build]
 jobs = 1                      # 并行任务数, 默认为 CPU 数
-rustc = &quot;rustc&quot;               # rust  编译器工具
+rustc = &quot;rustc&quot;               # rust 编译器工具
 rustc-wrapper = &quot;…&quot;           # 运行这个包装器，而不是 <code>rustc</code>
-rustc-workspace-wrapper = &quot;…&quot; # 运行这个包装器，而不是 <code>rustc</code> ，对于工作区成员
+rustc-workspace-wrapper = &quot;…&quot; # 运行这个包装器，而不是 <code>rustc</code> ，对于工作空间成员
 rustdoc = &quot;rustdoc&quot;           # 文档生成工具
-target = &quot;triple&quot;             # 构建 target triple (被 <code>cargo install</code> 忽略)
+target = &quot;triple&quot;             # 构建目标三元组 (被 <code>cargo install</code> 忽略)
 target-dir = &quot;target&quot;         # 放置所有生成制品的路径
 rustflags = [&quot;…&quot;, &quot;…&quot;]        # 要传递给所有编译器调用的自定义标志
 rustdocflags = [&quot;…&quot;, &quot;…&quot;]     # 传递给rustdoc的自定义标志
@@ -232,7 +233,7 @@ git-fetch-with-cli = true   # 使用 <code>git</code> 可执行文件进行git�
 offline = true              # 不接入网络</p>
 <p>[patch.<registry>]</p>
 <h1 id="与cargotoml中-patch-的键相同"><a class="header" href="#与cargotoml中-patch-的键相同">与Cargo.toml中 [patch] 的键相同。</a></h1>
-<p>[profile.<name>]         # 通过配置来修改配置文件设置。
+<p>[profile.<name>]         # 通过配置来修改编译设置。
 opt-level = 0            # 优化级别。
 debug = true             # 包括调试信息。
 split-debuginfo = '...'  # 调试信息拆分行为。
@@ -246,7 +247,7 @@ rpath = false            # 设置rpath链接选项。
 [profile.<name>.build-override]  # 覆盖build-script的设置。</p>
 <h1 id="profile下的键是一样的"><a class="header" href="#profile下的键是一样的">profile下的键是一样的。</a></h1>
 <p>[profile.<name>.package.<name>]  # 覆盖包的配置文件。</p>
-<h1 id="profile下的键是一样的-减去-panic-lto-和-rpath"><a class="header" href="#profile下的键是一样的-减去-panic-lto-和-rpath">profile下的键是一样的 (减去 <code>panic</code>, <code>lto</code>, 和 <code>rpath</code>)。</a></h1>
+<h1 id="profile下的键是一样的-没有-panic-lto-和-rpath"><a class="header" href="#profile下的键是一样的-没有-panic-lto-和-rpath">profile下的键是一样的 (没有 <code>panic</code>, <code>lto</code>, 和 <code>rpath</code>)。</a></h1>
 <p>[registries.<name>]  # crates.io外的其他注册中心
 index = &quot;…&quot;          # 注册中心的URL索引
 token = &quot;…&quot;          # 注册中心的认证令牌</p>
@@ -259,9 +260,9 @@ directory = &quot;…&quot;      # 目录源的路径
 registry = &quot;…&quot;       # 注册中心源的 URL
 local-registry = &quot;…&quot; # 本地注册源的路径
 git = &quot;…&quot;            # git 源的 URL
-branch = &quot;…&quot;         # git仓库的分支名称
-tag = &quot;…&quot;            # git仓库的tag名称
-rev = &quot;…&quot;            # git仓库的修订</p>
+branch = &quot;…&quot;         # git 仓库的分支名称
+tag = &quot;…&quot;            # git 仓库的 tag 名称
+rev = &quot;…&quot;            # git 仓库的修订</p>
 <p>[target.<triple>]
 linker = &quot;…&quot;            # 要使用的链接器
 runner = &quot;…&quot;            # 运行可执行文件的包装器
@@ -288,7 +289,7 @@ progress.width = 80    # 进度条的宽度</p>
 ### 环境变量
 
 除了TOML配置文件，Cargo还可以通过环境变量进行配置。对于每个形如 `foo.bar` 的配置键，也可以用环境变量 `CARGO_FOO_BAR` 定义值。
-键被转换为大写字母，点和破折号被转换为下划线。例如，`target.x86_64-unknown-linux-gnu.runner` 键也可以由 `CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUNNER` 环境变量定义。
+键将转换为大写字母，点和破折号将转换为下划线。例如，`target.x86_64-unknown-linux-gnu.runner` 键也可以由 `CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUNNER` 环境变量定义。
 
 环境变量将优先于TOML配置文件。目前只有整数、布尔值、字符串和一些数组值支持由环境变量定义。
 [下面描述](#configuration-keys)表明哪些键支持环境变量，否则由于[技术问题](https://github.com/rust-lang/cargo/issues/5416)而不受支持。
@@ -302,7 +303,7 @@ Cargo也可以通过 `--config` 命令行选项接受任意的配置覆盖。参
 ```console
 cargo --config net.git-fetch-with-cli=true fetch
 </code></pre>
-<p><code>--config</code> 选项可以被多次指定，在这种情况下，这些值将按照从左到右的顺序合并，使用与适用多个配置文件时相同的合并逻辑。
+<p><code>--config</code> 选项可以多次指定，在这种情况下，这些值将按照从左到右的顺序合并，合并逻辑与多个配置文件时相同。
 以这种方式指定的配置值优先于环境变量，环境变量优先于配置文件。</p>
 <p>一些看起像什么Bourne shell语法使用的例子:</p>
 <pre><code class="language-console"># 多数 shells 请求将转义。
@@ -333,7 +334,7 @@ cargo --config profile.dev.package.image.opt-level=3 …
 <li>对于配置文件，路径是相对于定义配置文件的目录的父目录而言的，无论这些文件是来自 <a href="#hierarchical-structure">层级检索</a> 还是 <a href="#command-line-overrides"><code>--config &lt;path&gt;</code></a> 选项。</li>
 </ul>
 <blockquote>
-<p><strong>注意:</strong> 为了与现有的 <code>.cargo/config.toml</code> 检索行为保持一致，在设计上，通过 <code>--config &lt;path&gt;</code> 传递的配置文件中的路径也是相对于配置文件本身两级。
+<p><strong>注意:</strong> 为了与现有的 <code>.cargo/config.toml</code> 检索行为保持一致，在设计上，通过 <code>--config &lt;path&gt;</code> 传递的配置文件中的路径是相对于配置文件本身两级。
 为了避免意外的结果，经验方法是把你的额外配置文件放在项目中发现的 <code>.cargo/config.toml</code> 的同一级别。
 例如，给定项目 <code>/my/project</code> ，建议把配置文件放在 <code>/my/project/.cargo</code> 下，或者在同一级别上新建一个目录，如 <code>/my/project/.config</code> 。</p>
 </blockquote>
@@ -348,30 +349,35 @@ runner = &quot;foo&quot;  # 在 `PATH` 中搜索 `foo` .
 directory = &quot;vendor&quot;
 </code></pre>
 <h3 id="带参数的可执行路径"><a class="header" href="#带参数的可执行路径">带参数的可执行路径</a></h3>
-<p>一些Cargo命令调用外部程序，可以将其配置为路径和一些参数。</p>
-<p>该值可以是一个字符串数组，如 <code>['/path/to/program', 'somearg']</code> 或一个空格分隔的字符串，如 <code>'/path/to/program somearg'</code> 。如果可执行文件的路径包含一个空格，则必须使用列表形式。</p>
-<p>如果Cargo向程序传递其他参数，比如打开或运行的路径，它们将在这种格式的选项值中最后指定的参数之后传递。如果指定的程序没有路径分隔符，Cargo会在 <code>PATH</code> 中搜索其可执行文件。</p>
+<p>一些Cargo命令调用外部程序，可以为其配置路径和一些参数。</p>
+<p>该值可以是一个字符串数组，如 <code>['/path/to/program', 'somearg']</code> 或一个空格分隔的字符串，如 <code>'/path/to/program somearg'</code> 。
+如果可执行文件的路径包含空格，则必须使用列表形式。</p>
+<p>如果Cargo向程序传递其他参数，比如打开或运行的路径，它们将在这种格式的选项值中最后指定的参数之后传递。
+如果指定的程序没有路径分隔符，Cargo会在 <code>PATH</code> 中搜索其可执行文件。</p>
 <h3 id="证书"><a class="header" href="#证书">证书</a></h3>
-<p>带有敏感信息的配置值存储在 <code>$CARGO_HOME/credentials.toml</code> 文件中。这个文件由 <a href="../commands/cargo-login.html"><code>cargo login</code></a> 自动创建和更新。它遵循与Cargo配置文件相同的格式。</p>
+<p>带有敏感信息的配置值存储在 <code>$CARGO_HOME/credentials.toml</code> 文件中。
+这个文件由 <a href="../commands/cargo-login.html"><code>cargo login</code></a> 自动创建和更新。它遵循与Cargo配置文件相同的格式。</p>
 <pre><code class="language-toml">[registry]
 token = &quot;…&quot;   # crates.io 访问 token
 
 [registries.&lt;name&gt;]
 token = &quot;…&quot;   # 具名注册中心访问 token
 </code></pre>
-<p>一些Cargo命令使用令牌，例如<a href="../commands/cargo-publish.html"><code>cargo publish</code></a>，用于与远程注册中心进行认证。应该注意保护令牌，使其私密。</p>
+<p>一些Cargo命令使用令牌，例如 <a href="../commands/cargo-publish.html"><code>cargo publish</code></a> ，用于与远程注册中心进行认证。
+应该注意保护令牌，使其私密。</p>
 <p>与其他大多数配置值一样，令牌可以用环境变量来指定。
 <a href="https://crates.io/">crates.io</a>的令牌可以用 <code>CARGO_REGISTRY_TOKEN</code> 环境变量来指定。
 其他注册中心的令牌可以用 <code>CARGO_REGISTRIES_&lt;name&gt;_TOKEN</code> 形式的环境变量来指定，其中 <code>&lt;name&gt;</code> 是大写的注册中心的名称。</p>
 <h3 id="配置键"><a class="header" href="#配置键">配置键</a></h3>
-<p>本节记录了所有的配置键。带有可变部分的键的描述用角括号标注，如 <code>target.&lt;triple&gt;</code> ，其中 <code>&lt;triple&gt;</code> 部分可以是任何目标三元组，如 <code>target.x86_64-pc-windows-msvc</code> 。</p>
+<p>本节记录了所有的配置键。带有可变部分的键的描述用角括号标注，如 <code>target.&lt;triple&gt;</code> ，
+其中 <code>&lt;triple&gt;</code> 部分可以是任意目标三元组，如 <code>target.x86_64-pc-windows-msvc</code> 。</p>
 <h4 id="paths"><a class="header" href="#paths"><code>paths</code></a></h4>
 <ul>
 <li>Type: 字符串数组 (paths)</li>
 <li>Default: none</li>
 <li>Environment: 不受支持</li>
 </ul>
-<p>一个本地包的路径数组，这些包将被用作依赖覆盖。
+<p>一个本地包的路径数组，这些包将用作依赖覆盖。
 更多信息请参阅 <a href="overriding-dependencies.html#paths-overrides">覆盖依赖指南</a> 。</p>
 <h4 id="alias"><a class="header" href="#alias"><code>[alias]</code></a></h4>
 <ul>
@@ -380,7 +386,7 @@ token = &quot;…&quot;   # 具名注册中心访问 token
 <li>Environment: <code>CARGO_ALIAS_&lt;name&gt;</code></li>
 </ul>
 <p><code>[alias]</code> 表定义了CLI命令的别名。例如，运行 <code>cargo b</code> 是运行 <code>cargo build</code> 的别名。表中的每个键是子命令，而值是实际要运行的命令。
-值可以是一个字符串数组，其中第一个元素是命令，后面的元素是参数。它也可以是一个字符串，它将在空格处被分割成子命令和参数。以下是Cargo内置的别名。</p>
+值可以是一个字符串数组，其中第一个元素是命令，后面的元素是参数。它也可以是一个字符串，按空格分割成子命令和参数。以下是Cargo内置的别名:</p>
 <pre><code class="language-toml">[alias]
 b = &quot;build&quot;
 c = &quot;check&quot;
@@ -403,7 +409,7 @@ recursive_example = &quot;rr --example recursions&quot;
 <li>Default: 逻辑CPU的数量</li>
 <li>Environment: <code>CARGO_BUILD_JOBS</code></li>
 </ul>
-<p>设定并行运行的最大编译器进程数。如果是负数，它将编译器进程的最大数量设置为逻辑CPU的数量加上所提供的值。不应该是0。</p>
+<p>设定并行运行的最大编译器进程数。如果是负数，它将编译器进程的最大数量设置为逻辑CPU的数量加上所提供的值。不应为0。</p>
 <p>可以用 <code>--jobs</code> CLI选项覆盖。</p>
 <h5 id="buildrustc"><a class="header" href="#buildrustc"><code>build.rustc</code></a></h5>
 <ul>
@@ -425,8 +431,8 @@ recursive_example = &quot;rr --example recursions&quot;
 <li>Default: none</li>
 <li>Environment: <code>CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER</code> 或 <code>RUSTC_WORKSPACE_WRAPPER</code></li>
 </ul>
-<p>设置包装器来代替 <code>rustc</code> 执行，仅适用于工作区成员。
-传递给包装器的第一个参数是要使用的实际可执行文件的路径(即<code>build.rustc</code>，如果它被设置了，或 <code>&quot;rustc&quot;</code> 以其它方式)。
+<p>设置包装器来代替 <code>rustc</code> 执行，仅适用于工作空间成员。
+传递给包装器的第一个参数是要使用的实际可执行文件的路径(即 <code>build.rustc</code> ，如果它被设置了，或 <code>&quot;rustc&quot;</code> 以其它方式)。
 它影响文件名hash，以便包装器产生的制品被单独缓存。</p>
 <h5 id="buildrustdoc"><a class="header" href="#buildrustdoc"><code>build.rustdoc</code></a></h5>
 <ul>
@@ -454,7 +460,7 @@ target = [&quot;x86_64-unknown-linux-gnu&quot;, &quot;i686-unknown-linux-gnu&quo
 <li>Default: &quot;target&quot;</li>
 <li>Environment: <code>CARGO_BUILD_TARGET_DIR</code> 或 <code>CARGO_TARGET_DIR</code></li>
 </ul>
-<p>放置所有编译器输出的路径。如果没有指定，默认是位于工作区根的名为 <code>target</code> 的目录。</p>
+<p>放置所有编译器输出的路径。如果没有指定，默认是位于工作空间根名为 <code>target</code> 的目录。</p>
 <p>可以用 <code>--target-dir</code> CLI选项覆盖。</p>
 <h5 id="buildrustflags"><a class="header" href="#buildrustflags"><code>build.rustflags</code></a></h5>
 <ul>
@@ -463,7 +469,7 @@ target = [&quot;x86_64-unknown-linux-gnu&quot;, &quot;i686-unknown-linux-gnu&quo
 <li>Environment: <code>CARGO_BUILD_RUSTFLAGS</code> 或 <code>CARGO_ENCODED_RUSTFLAGS</code> 或 <code>RUSTFLAGS</code></li>
 </ul>
 <p>额外的命令行标志，传递给 <code>rustc</code> 。该值可以是字符串数组或以空格分隔的字符串。</p>
-<p>有四个互相排斥的额外标志源，依次检查，首先使用第一个:</p>
+<p>有四个互相排斥的额外标志来源，依次检查，首先使用第一个:</p>
 <ol>
 <li><code>CARGO_ENCODED_RUSTFLAGS</code> 环境变量。</li>
 <li><code>RUSTFLAGS</code>  环境变量。</li>
@@ -471,9 +477,9 @@ target = [&quot;x86_64-unknown-linux-gnu&quot;, &quot;i686-unknown-linux-gnu&quo
 <li><code>build.rustflags</code> 配置值。</li>
 </ol>
 <p>额外的标志也可以通过 <a href="../commands/cargo-rustc.html"><code>cargo rustc</code></a> 命令传递。</p>
-<p>如果使用 <code>--target</code> 标志(或<a href="#buildtarget"><code>build.target</code></a>)，那么这些标志将只传递给目标的编译器。为主机构建的东西，如构建脚本或proc macros，将不会收到这些args。
-如果不使用 <code>--target</code> ，标志将被传递给所有编译器调用(包括构建脚本和proc macros)，因为依赖是共享的。
-如果你有不想传递给构建脚本或proc macros的args，并且是为主机构建的，请将 <code>--target</code> 与主机三元组一起传递。</p>
+<p>如果使用 <code>--target</code> 标志(或<a href="#buildtarget"><code>build.target</code></a>)，那么这些标志将只传递给目标的编译器。为主机构建的内容，如构建脚本或过程宏，将不会收到这些参数。
+如果不使用 <code>--target</code> ，标志将被传递给所有编译器调用(包括构建脚本和过程宏)，因为依赖是共享的。
+如果你有不想传递给构建脚本或过程宏的参数，并且是为主机构建的，请将 <code>--target</code> 与主机三元组一起传递。</p>
 <p>我们不建议传入Cargo本身通常管理的标志。
 例如，由<a href="profiles.html">profiles</a>决定的标志，最好通过设置适当的配置文件来处理。</p>
 <blockquote>
@@ -487,7 +493,7 @@ target = [&quot;x86_64-unknown-linux-gnu&quot;, &quot;i686-unknown-linux-gnu&quo
 <li>Environment: <code>CARGO_BUILD_RUSTDOCFLAGS</code> 或 <code>CARGO_ENCODED_RUSTDOCFLAGS</code> 或 <code>RUSTDOCFLAGS</code></li>
 </ul>
 <p>额外的命令行标志，传递给 <code>rustdoc</code> 。该值可以是字符串数组或以空格分隔的字符串。</p>
-<p>有三个相互排斥的额外标志源。依次检查它们，首先使用第一个。</p>
+<p>有三个相互排斥的额外标志来源。依次检查它们，首先使用第一个:</p>
 <ol>
 <li><code>CARGO_ENCODED_RUSTDOCFLAGS</code> 环境变量。</li>
 <li><code>RUSTDOCFLAGS</code> 环境变量。</li>
@@ -541,7 +547,7 @@ target = [&quot;x86_64-unknown-linux-gnu&quot;, &quot;i686-unknown-linux-gnu&quo
 OPENSSL_DIR = &quot;/opt/openssl&quot;
 </code></pre>
 <p>默认情况下，指定的变量将不会覆盖环境中已经存在的值。可以通过设置 <code>force</code> 标志来改变这种行为。</p>
-<p>设置 <code>relative</code> 标志会将该值评估为相对配置路径，它是相对于包含<code>config.toml</code> 文件的 <code>.cargo</code> 目录的父目录而言的。环境变量的值将是完整的绝对路径。</p>
+<p>设置 <code>relative</code> 标志会将该值评估为相对配置路径，它是相对于包含 <code>config.toml</code> 文件的 <code>.cargo</code> 目录的父目录而言的。环境变量的值将是完整的绝对路径。</p>
 <pre><code class="language-toml">[env]
 TMPDIR = { value = &quot;/home/tmp&quot;, force = true }
 OPENSSL_DIR = { value = &quot;vendor/openssl&quot;, relative = true }
@@ -601,12 +607,12 @@ OPENSSL_DIR = { value = &quot;vendor/openssl&quot;, relative = true }
 <p>这决定了是否应该进行TLS证书撤销检查。仅适用于Windows。</p>
 <h5 id="httpssl-version"><a class="header" href="#httpssl-version"><code>http.ssl-version</code></a></h5>
 <ul>
-<li>Type: string 或 min/max table</li>
+<li>Type: string or min/max table</li>
 <li>Default: none</li>
 <li>Environment: <code>CARGO_HTTP_SSL_VERSION</code></li>
 </ul>
 <p>此设置要使用的最小TLS版本。它需要一个字符串，可能的值是 &quot;default&quot;、&quot;tlsv1&quot;、&quot;tlsv1.0&quot;、&quot;tlsv1.1&quot;、&quot;tlsv1.2&quot;、&quot;tlsv1.3&quot; 之一。</p>
-<p>这可能是有两个键的表，<code>min</code> 和 <code>max</code> ，每个键都有相同的字符串值，指定要使用的TLS版本的最小和最大范围。</p>
+<p>这可能是有两个键的表， <code>min</code> 和 <code>max</code> ，每个键都有相同的字符串值，指定要使用的TLS版本的最小和最大范围。</p>
 <p>默认情况下，最小版本为 &quot;tlsv1.0&quot; ，最大版本为你的平台上支持的最新版本，通常为 &quot;tlsv1.3&quot; 。</p>
 <h5 id="httplow-speed-limit"><a class="header" href="#httplow-speed-limit"><code>http.low-speed-limit</code></a></h5>
 <ul>
@@ -631,7 +637,7 @@ OPENSSL_DIR = { value = &quot;vendor/openssl&quot;, relative = true }
 <li>Default: Cargo的版本</li>
 <li>Environment: <code>CARGO_HTTP_USER_AGENT</code></li>
 </ul>
-<p>指定要使用的自定义user-agent header。如果没有指定，默认是一个包括Cargo版本的字符串。</p>
+<p>指定要使用的自定义user-agent 头。如果没有指定，默认是一个包括Cargo版本的字符串。</p>
 <h4 id="install"><a class="header" href="#install"><code>[install]</code></a></h4>
 <p><code>[install]</code> 表定义了 <a href="../commands/cargo-install.html"><code>cargo install</code></a> 命令的默认值。</p>
 <h5 id="installroot"><a class="header" href="#installroot"><code>install.root</code></a></h5>
@@ -674,29 +680,27 @@ OPENSSL_DIR = { value = &quot;vendor/openssl&quot;, relative = true }
 <h4 id="patch"><a class="header" href="#patch"><code>[patch]</code></a></h4>
 <p>就像你可以用<a href="overriding-dependencies.html#the-patch-section"><code>[patch]</code> in <code>Cargo.toml</code></a>覆盖依赖一样，
 你可以在cargo配置文件中覆盖它们，将这些补丁应用于任何受影响的构建。其格式与 <code>Cargo.toml</code> 中的格式相同。</p>
-<p>由于 <code>.cargo/config.toml</code> 文件通常不会被检查到源代码控制中，你应该尽可能选择使用 <code>Cargo.toml</code> 来打补丁，以确保其他开发者可以在自己的环境中编译你的crate。
-一般来说，只有当补丁部分由外部构建工具自动生成时，通过cargo配置文件进行修补才是合适的。</p>
+<p>由于 <code>.cargo/config.toml</code> 文件通常不会检出到源代码控制中，你应该尽可能选择使用 <code>Cargo.toml</code> 来打补丁，以确保其他开发者可以在自己的环境中编译你的crate。
+一般来说，只有当补丁部分由外部构建工具自动生成时，才合适通过cargo配置文件进行修补。</p>
 <p>如果特定的依赖在cargo配置文件和 <code>Cargo.toml</code> 文件中都有补丁，则使用配置文件中的补丁。
 如果多个配置文件对同一个依赖打了补丁，则使用标准的cargo配置合并，它更倾向于使用离当前目录最近的定义值。
 <code>$HOME/.cargo/config.toml</code> 的优先级最低。</p>
-<p>在这样的 <code>[patch]</code> 部分中的相对 <code>path</code> 依赖是相对于它们出现配置文件的。</p>
+<p>在这样的 <code>[patch]</code> 部分中的相对的 <code>path</code> 依赖是相对于它们出现的配置文件。</p>
 <h4 id="profile"><a class="header" href="#profile"><code>[profile]</code></a></h4>
-<p><code>[profile]</code> 表可以用来全局改变配置文件的设置，并覆盖 <code>Cargo.toml</code> 中指定的设置。
-它的语法和选项与 <code>Cargo.toml</code> 中指定的配置文件相同。
-关于选项的详细信息，请参阅 [配置文件章节] 。</p>
+<p><code>[profile]</code> 表可以用来全局改变编译设置，并覆盖 <code>Cargo.toml</code> 中指定的设置。
+它的语法和选项与 <code>Cargo.toml</code> 中指定的编译设置相同。
+关于选项的详细信息，请参阅 [编译设置章节] 。</p>
 <h5 id="profilenamebuild-override"><a class="header" href="#profilenamebuild-override"><code>[profile.&lt;name&gt;.build-override]</code></a></h5>
 <ul>
 <li>Environment: <code>CARGO_PROFILE_&lt;name&gt;_BUILD_OVERRIDE_&lt;key&gt;</code></li>
 </ul>
-<p>构建覆盖表覆盖构建脚本、进程宏和其依赖的设置。
-它的键值与普通配置文件相同。
-参见 <a href="profiles.html#overrides">覆盖部分</a> 以了解更多细节。</p>
+<p>build-override 表覆盖构建脚本、过程宏和其依赖的设置。
+它的键值与常规profile相同。参见 <a href="profiles.html#overrides">覆盖部分</a> 以了解更多细节。</p>
 <h5 id="profilenamepackagename"><a class="header" href="#profilenamepackagename"><code>[profile.&lt;name&gt;.package.&lt;name&gt;]</code></a></h5>
 <ul>
 <li>Environment: 不支持</li>
 </ul>
-<p>包表覆盖特定包的设置。
-它和普通的配置文件有相同的键，除 <code>panic</code> 、 <code>lto</code> 和 <code>rpath</code> 设置。
+<p>包的表覆盖特定包的设置。它和常规的profile有相同的键，除了 <code>panic</code> 、 <code>lto</code> 和 <code>rpath</code> 设置。
 参阅 <a href="profiles.html#overrides">overrides section</a> 以了解更多细节。</p>
 <h5 id="profilenamecodegen-units"><a class="header" href="#profilenamecodegen-units"><code>profile.&lt;name&gt;.codegen-units</code></a></h5>
 <ul>
@@ -769,8 +773,7 @@ OPENSSL_DIR = { value = &quot;vendor/openssl&quot;, relative = true }
 </ul>
 <p>参阅 <a href="profiles.html#rpath">rpath</a> 。</p>
 <h4 id="registries"><a class="header" href="#registries"><code>[registries]</code></a></h4>
-<p><code>[注册表]</code> 表用于指定附加的[注册中心]。
-它由各个命名的注册中心的子表组成。</p>
+<p><code>[registries]</code> 表用于指定额外的[注册中心]。它由各个命名的注册中心的子表组成。</p>
 <h5 id="registriesnameindex"><a class="header" href="#registriesnameindex"><code>registries.&lt;name&gt;.index</code></a></h5>
 <ul>
 <li>Type: 字符串 (url)</li>
@@ -784,12 +787,12 @@ OPENSSL_DIR = { value = &quot;vendor/openssl&quot;, relative = true }
 <li>Default: none</li>
 <li>Environment: <code>CARGO_REGISTRIES_&lt;name&gt;_TOKEN</code></li>
 </ul>
-<p>指定给定注册中心的认证令牌。
+<p>指定特定注册中心的认证令牌。
 这个值应该只出现在 <a href="#credentials">credentials</a> 文件中。
 这用于需要认证的注册中心命令，如 <a href="../commands/cargo-publish.html"><code>cargo publish</code></a> 。</p>
 <p>可以用 <code>--token</code> 命令行选项来覆盖。</p>
 <h4 id="registry"><a class="header" href="#registry"><code>[registry]</code></a></h4>
-<p><code>[注册中心]</code> 表控制在没有指定的情况下使用的默认注册中心。</p>
+<p><code>[registry]</code> 表控制在没有指定的情况下使用的默认注册中心。</p>
 <h5 id="registryindex"><a class="header" href="#registryindex"><code>registry.index</code></a></h5>
 <p>不再接受此值，不应使用。</p>
 <h5 id="registrydefault"><a class="header" href="#registrydefault"><code>registry.default</code></a></h5>
@@ -811,10 +814,8 @@ OPENSSL_DIR = { value = &quot;vendor/openssl&quot;, relative = true }
 这用于像 <a href="../commands/cargo-publish.html"><code>cargo publish</code></a> 这样的需要认证的注册中心命令。</p>
 <p>可以用 <code>--token</code> 命令行选项来覆盖。</p>
 <h4 id="source"><a class="header" href="#source"><code>[source]</code></a></h4>
-<p><code>[source]</code> 表定义了可用的注册中心源。
-更多信息见<a href="source-replacement.html">源替换</a>。
-它由每个命名的源的一个子表组成。
-源应该只定义为一种(目录、注册中心、本地注册或git)。</p>
+<p><code>[source]</code> 表定义了可用的注册中心源。更多信息见<a href="source-replacement.html">源替换</a>。
+它由每个命名的源的子表组成。源应该只定义为目录、注册中心、本地注册或git中的一种。</p>
 <h5 id="sourcenamereplace-with"><a class="header" href="#sourcenamereplace-with"><code>source.&lt;name&gt;.replace-with</code></a></h5>
 <ul>
 <li>Type: 字符串</li>
@@ -872,7 +873,7 @@ OPENSSL_DIR = { value = &quot;vendor/openssl&quot;, relative = true }
 <li>Default: none</li>
 <li>Environment: 不支持</li>
 </ul>
-<p>设置用于git仓库的<a href="https://git-scm.com/docs/gitrevisions">修订</a>。</p>
+<p>设置用于git仓库的<a href="https://git-scm.com/docs/gitrevisions">revision</a>。</p>
 <p>如果没有设置 <code>branch</code> 、 <code>tag</code> 或 <code>rev</code> ，则默认为 <code>master</code> 分支。</p>
 <h4 id="target"><a class="header" href="#target"><code>[target]</code></a></h4>
 <p><code>[target]</code> 表用于指定特定平台目标的设置。
@@ -888,9 +889,8 @@ runner = &quot;my-arm-wrapper&quot;
 rustflags = [&quot;…&quot;, &quot;…&quot;]
 </code></pre>
 <p><code>cfg</code> 值来自编译器内置的值 (运行 <code>rustc --print=cfg</code> 查看)，由[构建脚本]设置的值，以及传递给 <code>rustc</code> 的附加 <code>--cfg</code> 标志(例如在 <code>RUSTFLAGS</code> 中定义的标志)。
-不要在 <code>debug_assertions</code> 或 Cargo 特性(如 <code>feature=&quot;foo&quot;</code> )上尝试match。</p>
-<p>如果使用目标规格的JSON文件，<code>&lt;triple&gt;</code> 值是文件名。
-例如， <code>--target foo/bar.json</code> 将匹配 <code>[target.bar]</code> 。</p>
+不要在 <code>debug_assertions</code> 或 Cargo 特性(如 <code>feature=&quot;foo&quot;</code> )上尝试match匹配。</p>
+<p>如果使用目标规格的JSON文件，<code>&lt;triple&gt;</code> 值是文件名。例如， <code>--target foo/bar.json</code> 将匹配 <code>[target.bar]</code> 。</p>
 <h5 id="targettriplear"><a class="header" href="#targettriplear"><code>target.&lt;triple&gt;.ar</code></a></h5>
 <p>该选项已被废弃，未被使用。</p>
 <h5 id="targettriplelinker"><a class="header" href="#targettriplelinker"><code>target.&lt;triple&gt;.linker</code></a></h5>
@@ -899,8 +899,7 @@ rustflags = [&quot;…&quot;, &quot;…&quot;]
 <li>Default: none</li>
 <li>Environment: <code>CARGO_TARGET_&lt;triple&gt;_LINKER</code></li>
 </ul>
-<p>指定在编译 <code>&lt;triple&gt;</code> 时传递给 <code>rustc</code> (通过<a href="../../rustc/codegen-options/index.html#linker"><code>-C linker</code></a>) 的链接器。
-默认情况下，链接器不可覆盖。</p>
+<p>指定在编译 <code>&lt;triple&gt;</code> 时传递给 <code>rustc</code> (通过<a href="../../rustc/codegen-options/index.html#linker"><code>-C linker</code></a>) 的链接器。默认情况下，链接器不可覆盖。</p>
 <h5 id="targettriplerunner"><a class="header" href="#targettriplerunner"><code>target.&lt;triple&gt;.runner</code></a></h5>
 <ul>
 <li>Type: 字符串或者字符串数组 (<a href="#executable-paths-with-arguments">带参数的程序路径</a>)</li>
@@ -920,12 +919,11 @@ rustflags = [&quot;…&quot;, &quot;…&quot;]
 <li>Default: none</li>
 <li>Environment: <code>CARGO_TARGET_&lt;triple&gt;_RUSTFLAGS</code></li>
 </ul>
-<p>为这个 <code>&lt;triple&gt;</code> 向编译器传递一组自定义标志。
-该值可以是字符串数组或以空格分隔的字符串。</p>
+<p>为这个 <code>&lt;triple&gt;</code> 向编译器传递一组自定义标志。该值可以是字符串数组或以空格分隔的字符串。</p>
 <p>参阅 <a href="#buildrustflags"><code>build.rustflags</code></a> ，以了解更多关于特定附加标志的不同方式的细节。</p>
 <h5 id="targetcfgrustflags"><a class="header" href="#targetcfgrustflags"><code>target.&lt;cfg&gt;.rustflags</code></a></h5>
 <p>这类似于 <a href="#targettriplerustflags">target rustflags</a> ，但使用 <a href="../../reference/conditional-compilation.html"><code>cfg()</code> 表达式</a> 。
-如果有几个 <code>&lt;cfg&gt;</code> 和 <code>&lt;triple&gt;</code> 条目与当前的目标相匹配，这些标志就会被连在一起。</p>
+如果有几个 <code>&lt;cfg&gt;</code> 和 <code>&lt;triple&gt;</code> 条目与当前的目标相匹配，这些标志就会被关连在一起。</p>
 <h5 id="targettriplelinks"><a class="header" href="#targettriplelinks"><code>target.&lt;triple&gt;.&lt;links&gt;</code></a></h5>
 <p>链接子表提供了一种[覆盖构建脚本]的方法。
 当指定时，给定的 <code>links</code> 库的构建脚本将不会运行，而会使用给定的值。</p>
@@ -957,8 +955,8 @@ metadata_key2 = &quot;value&quot;
 <li>Environment: <code>CARGO_TERM_VERBOSE</code></li>
 </ul>
 <p>控制Cargo是否显示附加的详细信息。</p>
-<p>指定 <code>--quiet</code> 标志将覆盖并禁用粗略输出。
-指定 <code>--verbose</code> 标志将覆盖并强制进行粗略输出。</p>
+<p>指定 <code>--quiet</code> 标志将覆盖并禁用信息输出。
+指定 <code>--verbose</code> 标志将覆盖并强制进行信息输出。</p>
 <h5 id="termcolor"><a class="header" href="#termcolor"><code>term.color</code></a></h5>
 <ul>
 <li>Type: 字符串</li>
