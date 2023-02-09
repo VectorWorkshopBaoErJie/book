@@ -36,6 +36,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -84,7 +85,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">简介</a></li><li class="chapter-item expanded "><a href="../getting-started/index.html"><strong aria-hidden="true">1.</strong> 入门指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting-started/installation.html"><strong aria-hidden="true">1.1.</strong> 安装</a></li><li class="chapter-item expanded "><a href="../getting-started/first-steps.html"><strong aria-hidden="true">1.2.</strong> Cargo起步</a></li></ol></li><li class="chapter-item expanded "><a href="../guide/index.html"><strong aria-hidden="true">2.</strong> Cargo指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guide/why-cargo-exists.html"><strong aria-hidden="true">2.1.</strong> 为何有Cargo</a></li><li class="chapter-item expanded "><a href="../guide/creating-a-new-project.html"><strong aria-hidden="true">2.2.</strong> 创建新包</a></li><li class="chapter-item expanded "><a href="../guide/working-on-an-existing-project.html"><strong aria-hidden="true">2.3.</strong> 拥有Cargo包</a></li><li class="chapter-item expanded "><a href="../guide/dependencies.html"><strong aria-hidden="true">2.4.</strong> 依赖</a></li><li class="chapter-item expanded "><a href="../guide/project-layout.html"><strong aria-hidden="true">2.5.</strong> 包的布局</a></li><li class="chapter-item expanded "><a href="../guide/cargo-toml-vs-cargo-lock.html"><strong aria-hidden="true">2.6.</strong> Cargo.toml vs Cargo.lock</a></li><li class="chapter-item expanded "><a href="../guide/tests.html"><strong aria-hidden="true">2.7.</strong> 测试</a></li><li class="chapter-item expanded "><a href="../guide/continuous-integration.html"><strong aria-hidden="true">2.8.</strong> 持续集成</a></li><li class="chapter-item expanded "><a href="../guide/cargo-home.html"><strong aria-hidden="true">2.9.</strong> Cargo Home</a></li><li class="chapter-item expanded "><a href="../guide/build-cache.html"><strong aria-hidden="true">2.10.</strong> 构建缓存</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/index.html"><strong aria-hidden="true">3.</strong> Cargo参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/specifying-dependencies.html"><strong aria-hidden="true">3.1.</strong> 指定依赖</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/overriding-dependencies.html"><strong aria-hidden="true">3.1.1.</strong> 覆盖依赖</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/manifest.html"><strong aria-hidden="true">3.2.</strong> 配置格式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cargo-targets.html"><strong aria-hidden="true">3.2.1.</strong> Cargo目标</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/workspaces.html"><strong aria-hidden="true">3.3.</strong> 工作空间</a></li><li class="chapter-item expanded "><a href="../reference/features.html" class="active"><strong aria-hidden="true">3.4.</strong> 特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/features-examples.html"><strong aria-hidden="true">3.4.1.</strong> 特性示例</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/profiles.html"><strong aria-hidden="true">3.5.</strong> 编译设置</a></li><li class="chapter-item expanded "><a href="../reference/config.html"><strong aria-hidden="true">3.6.</strong> 配置</a></li><li class="chapter-item expanded "><a href="../reference/environment-variables.html"><strong aria-hidden="true">3.7.</strong> 环境变量</a></li><li class="chapter-item expanded "><a href="../reference/build-scripts.html"><strong aria-hidden="true">3.8.</strong> 构建脚本</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/build-script-examples.html"><strong aria-hidden="true">3.8.1.</strong> 构建脚本示例</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/publishing.html"><strong aria-hidden="true">3.9.</strong> 发布到crates.io</a></li><li class="chapter-item expanded "><a href="../reference/pkgid-spec.html"><strong aria-hidden="true">3.10.</strong> 规范包ID</a></li><li class="chapter-item expanded "><a href="../reference/source-replacement.html"><strong aria-hidden="true">3.11.</strong> 源替换</a></li><li class="chapter-item expanded "><a href="../reference/external-tools.html"><strong aria-hidden="true">3.12.</strong> 插件</a></li><li class="chapter-item expanded "><a href="../reference/registries.html"><strong aria-hidden="true">3.13.</strong> 注册中心</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/running-a-registry.html"><strong aria-hidden="true">3.13.1.</strong> 运行注册中心</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/registry-index.html"><strong aria-hidden="true">3.13.1.1.</strong> 注册中心索引</a></li><li class="chapter-item expanded "><a href="../reference/registry-web-api.html"><strong aria-hidden="true">3.13.1.2.</strong> 注册中心Web API</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../reference/resolver.html"><strong aria-hidden="true">3.14.</strong> 依赖解析</a></li><li class="chapter-item expanded "><a href="../reference/semver.html"><strong aria-hidden="true">3.15.</strong> 语义化兼容</a></li><li class="chapter-item expanded "><a href="../reference/future-incompat-report.html"><strong aria-hidden="true">3.16.</strong> 未来不兼容报告</a></li><li class="chapter-item expanded "><a href="../reference/timings.html"><strong aria-hidden="true">3.17.</strong> 报告构建时间</a></li><li class="chapter-item expanded "><a href="../reference/unstable.html"><strong aria-hidden="true">3.18.</strong> 不稳定特性</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/index.html"><strong aria-hidden="true">4.</strong> Cargo命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/general-commands.html"><strong aria-hidden="true">4.1.</strong> 常用命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo.html"><strong aria-hidden="true">4.1.1.</strong> cargo</a></li><li class="chapter-item expanded "><a href="../commands/cargo-help.html"><strong aria-hidden="true">4.1.2.</strong> cargo help</a></li><li class="chapter-item expanded "><a href="../commands/cargo-version.html"><strong aria-hidden="true">4.1.3.</strong> cargo version</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/build-commands.html"><strong aria-hidden="true">4.2.</strong> 构建命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-bench.html"><strong aria-hidden="true">4.2.1.</strong> cargo bench</a></li><li class="chapter-item expanded "><a href="../commands/cargo-build.html"><strong aria-hidden="true">4.2.2.</strong> cargo build</a></li><li class="chapter-item expanded "><a href="../commands/cargo-check.html"><strong aria-hidden="true">4.2.3.</strong> cargo check</a></li><li class="chapter-item expanded "><a href="../commands/cargo-clean.html"><strong aria-hidden="true">4.2.4.</strong> cargo clean</a></li><li class="chapter-item expanded "><a href="../commands/cargo-doc.html"><strong aria-hidden="true">4.2.5.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fetch.html"><strong aria-hidden="true">4.2.6.</strong> cargo fetch</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fix.html"><strong aria-hidden="true">4.2.7.</strong> cargo fix</a></li><li class="chapter-item expanded "><a href="../commands/cargo-run.html"><strong aria-hidden="true">4.2.8.</strong> cargo run</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustc.html"><strong aria-hidden="true">4.2.9.</strong> cargo rustc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustdoc.html"><strong aria-hidden="true">4.2.10.</strong> cargo rustdoc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-test.html"><strong aria-hidden="true">4.2.11.</strong> cargo test</a></li><li class="chapter-item expanded "><a href="../commands/cargo-report.html"><strong aria-hidden="true">4.2.12.</strong> cargo report</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/manifest-commands.html"><strong aria-hidden="true">4.3.</strong> 配置命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-add.html"><strong aria-hidden="true">4.3.1.</strong> cargo add</a></li><li class="chapter-item expanded "><a href="../commands/cargo-generate-lockfile.html"><strong aria-hidden="true">4.3.2.</strong> cargo generate-lockfile</a></li><li class="chapter-item expanded "><a href="../commands/cargo-locate-project.html"><strong aria-hidden="true">4.3.3.</strong> cargo locate-project</a></li><li class="chapter-item expanded "><a href="../commands/cargo-metadata.html"><strong aria-hidden="true">4.3.4.</strong> cargo metadata</a></li><li class="chapter-item expanded "><a href="../commands/cargo-pkgid.html"><strong aria-hidden="true">4.3.5.</strong> cargo pkgid</a></li><li class="chapter-item expanded "><a href="../commands/cargo-remove.html"><strong aria-hidden="true">4.3.6.</strong> cargo remove</a></li><li class="chapter-item expanded "><a href="../commands/cargo-tree.html"><strong aria-hidden="true">4.3.7.</strong> cargo tree</a></li><li class="chapter-item expanded "><a href="../commands/cargo-update.html"><strong aria-hidden="true">4.3.8.</strong> cargo update</a></li><li class="chapter-item expanded "><a href="../commands/cargo-vendor.html"><strong aria-hidden="true">4.3.9.</strong> cargo vendor</a></li><li class="chapter-item expanded "><a href="../commands/cargo-verify-project.html"><strong aria-hidden="true">4.3.10.</strong> cargo verify-project</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/package-commands.html"><strong aria-hidden="true">4.4.</strong> 包命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-init.html"><strong aria-hidden="true">4.4.1.</strong> cargo init</a></li><li class="chapter-item expanded "><a href="../commands/cargo-install.html"><strong aria-hidden="true">4.4.2.</strong> cargo install</a></li><li class="chapter-item expanded "><a href="../commands/cargo-new.html"><strong aria-hidden="true">4.4.3.</strong> cargo new</a></li><li class="chapter-item expanded "><a href="../commands/cargo-search.html"><strong aria-hidden="true">4.4.4.</strong> cargo search</a></li><li class="chapter-item expanded "><a href="../commands/cargo-uninstall.html"><strong aria-hidden="true">4.4.5.</strong> cargo uninstall</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/publishing-commands.html"><strong aria-hidden="true">4.5.</strong> 发布命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-login.html"><strong aria-hidden="true">4.5.1.</strong> cargo login</a></li><li class="chapter-item expanded "><a href="../commands/cargo-owner.html"><strong aria-hidden="true">4.5.2.</strong> cargo owner</a></li><li class="chapter-item expanded "><a href="../commands/cargo-package.html"><strong aria-hidden="true">4.5.3.</strong> cargo package</a></li><li class="chapter-item expanded "><a href="../commands/cargo-publish.html"><strong aria-hidden="true">4.5.4.</strong> cargo publish</a></li><li class="chapter-item expanded "><a href="../commands/cargo-yank.html"><strong aria-hidden="true">4.5.5.</strong> cargo yank</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> 常见问题</a></li><li class="chapter-item expanded "><a href="../appendix/glossary.html"><strong aria-hidden="true">6.</strong> 附录: 词汇表</a></li><li class="chapter-item expanded "><a href="../appendix/git-authentication.html"><strong aria-hidden="true">7.</strong> 附录: Git认证</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">简介</a></li><li class="chapter-item expanded "><a href="../getting-started/index.html"><strong aria-hidden="true">1.</strong> 初步准备</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting-started/installation.html"><strong aria-hidden="true">1.1.</strong> 安装</a></li><li class="chapter-item expanded "><a href="../getting-started/first-steps.html"><strong aria-hidden="true">1.2.</strong> Cargo起步</a></li></ol></li><li class="chapter-item expanded "><a href="../guide/index.html"><strong aria-hidden="true">2.</strong> Cargo指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guide/why-cargo-exists.html"><strong aria-hidden="true">2.1.</strong> 为何有Cargo</a></li><li class="chapter-item expanded "><a href="../guide/creating-a-new-project.html"><strong aria-hidden="true">2.2.</strong> 创建新包</a></li><li class="chapter-item expanded "><a href="../guide/working-on-an-existing-project.html"><strong aria-hidden="true">2.3.</strong> 拥有Cargo包</a></li><li class="chapter-item expanded "><a href="../guide/dependencies.html"><strong aria-hidden="true">2.4.</strong> 依赖</a></li><li class="chapter-item expanded "><a href="../guide/project-layout.html"><strong aria-hidden="true">2.5.</strong> 包的布局</a></li><li class="chapter-item expanded "><a href="../guide/cargo-toml-vs-cargo-lock.html"><strong aria-hidden="true">2.6.</strong> Cargo.toml vs Cargo.lock</a></li><li class="chapter-item expanded "><a href="../guide/tests.html"><strong aria-hidden="true">2.7.</strong> 测试</a></li><li class="chapter-item expanded "><a href="../guide/continuous-integration.html"><strong aria-hidden="true">2.8.</strong> 持续集成</a></li><li class="chapter-item expanded "><a href="../guide/cargo-home.html"><strong aria-hidden="true">2.9.</strong> Cargo Home</a></li><li class="chapter-item expanded "><a href="../guide/build-cache.html"><strong aria-hidden="true">2.10.</strong> 构建缓存</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/index.html"><strong aria-hidden="true">3.</strong> Cargo参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/specifying-dependencies.html"><strong aria-hidden="true">3.1.</strong> 指定依赖</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/overriding-dependencies.html"><strong aria-hidden="true">3.1.1.</strong> 覆盖依赖</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/manifest.html"><strong aria-hidden="true">3.2.</strong> 配置格式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cargo-targets.html"><strong aria-hidden="true">3.2.1.</strong> Cargo目标</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/workspaces.html"><strong aria-hidden="true">3.3.</strong> 工作空间</a></li><li class="chapter-item expanded "><a href="../reference/features.html" class="active"><strong aria-hidden="true">3.4.</strong> 特性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/features-examples.html"><strong aria-hidden="true">3.4.1.</strong> 特性示例</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/profiles.html"><strong aria-hidden="true">3.5.</strong> 编译设置</a></li><li class="chapter-item expanded "><a href="../reference/config.html"><strong aria-hidden="true">3.6.</strong> 配置</a></li><li class="chapter-item expanded "><a href="../reference/environment-variables.html"><strong aria-hidden="true">3.7.</strong> 环境变量</a></li><li class="chapter-item expanded "><a href="../reference/build-scripts.html"><strong aria-hidden="true">3.8.</strong> 构建脚本</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/build-script-examples.html"><strong aria-hidden="true">3.8.1.</strong> 构建脚本示例</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/publishing.html"><strong aria-hidden="true">3.9.</strong> 发布到crates.io</a></li><li class="chapter-item expanded "><a href="../reference/pkgid-spec.html"><strong aria-hidden="true">3.10.</strong> 包ID规格</a></li><li class="chapter-item expanded "><a href="../reference/source-replacement.html"><strong aria-hidden="true">3.11.</strong> 源替代</a></li><li class="chapter-item expanded "><a href="../reference/external-tools.html"><strong aria-hidden="true">3.12.</strong> 插件</a></li><li class="chapter-item expanded "><a href="../reference/registries.html"><strong aria-hidden="true">3.13.</strong> 注册中心</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/running-a-registry.html"><strong aria-hidden="true">3.13.1.</strong> 运行注册中心</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/registry-index.html"><strong aria-hidden="true">3.13.1.1.</strong> 注册中心索引</a></li><li class="chapter-item expanded "><a href="../reference/registry-web-api.html"><strong aria-hidden="true">3.13.1.2.</strong> 注册中心Web API</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../reference/resolver.html"><strong aria-hidden="true">3.14.</strong> 依赖解析</a></li><li class="chapter-item expanded "><a href="../reference/semver.html"><strong aria-hidden="true">3.15.</strong> 语义化兼容</a></li><li class="chapter-item expanded "><a href="../reference/future-incompat-report.html"><strong aria-hidden="true">3.16.</strong> 未来不兼容报告</a></li><li class="chapter-item expanded "><a href="../reference/timings.html"><strong aria-hidden="true">3.17.</strong> 构建时报告</a></li><li class="chapter-item expanded "><a href="../reference/unstable.html"><strong aria-hidden="true">3.18.</strong> 不稳定特性</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/index.html"><strong aria-hidden="true">4.</strong> Cargo命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/general-commands.html"><strong aria-hidden="true">4.1.</strong> 常用命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo.html"><strong aria-hidden="true">4.1.1.</strong> cargo</a></li><li class="chapter-item expanded "><a href="../commands/cargo-help.html"><strong aria-hidden="true">4.1.2.</strong> cargo help</a></li><li class="chapter-item expanded "><a href="../commands/cargo-version.html"><strong aria-hidden="true">4.1.3.</strong> cargo version</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/build-commands.html"><strong aria-hidden="true">4.2.</strong> 构建命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-bench.html"><strong aria-hidden="true">4.2.1.</strong> cargo bench</a></li><li class="chapter-item expanded "><a href="../commands/cargo-build.html"><strong aria-hidden="true">4.2.2.</strong> cargo build</a></li><li class="chapter-item expanded "><a href="../commands/cargo-check.html"><strong aria-hidden="true">4.2.3.</strong> cargo check</a></li><li class="chapter-item expanded "><a href="../commands/cargo-clean.html"><strong aria-hidden="true">4.2.4.</strong> cargo clean</a></li><li class="chapter-item expanded "><a href="../commands/cargo-doc.html"><strong aria-hidden="true">4.2.5.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fetch.html"><strong aria-hidden="true">4.2.6.</strong> cargo fetch</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fix.html"><strong aria-hidden="true">4.2.7.</strong> cargo fix</a></li><li class="chapter-item expanded "><a href="../commands/cargo-run.html"><strong aria-hidden="true">4.2.8.</strong> cargo run</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustc.html"><strong aria-hidden="true">4.2.9.</strong> cargo rustc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustdoc.html"><strong aria-hidden="true">4.2.10.</strong> cargo rustdoc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-test.html"><strong aria-hidden="true">4.2.11.</strong> cargo test</a></li><li class="chapter-item expanded "><a href="../commands/cargo-report.html"><strong aria-hidden="true">4.2.12.</strong> cargo report</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/manifest-commands.html"><strong aria-hidden="true">4.3.</strong> 配置命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-add.html"><strong aria-hidden="true">4.3.1.</strong> cargo add</a></li><li class="chapter-item expanded "><a href="../commands/cargo-generate-lockfile.html"><strong aria-hidden="true">4.3.2.</strong> cargo generate-lockfile</a></li><li class="chapter-item expanded "><a href="../commands/cargo-locate-project.html"><strong aria-hidden="true">4.3.3.</strong> cargo locate-project</a></li><li class="chapter-item expanded "><a href="../commands/cargo-metadata.html"><strong aria-hidden="true">4.3.4.</strong> cargo metadata</a></li><li class="chapter-item expanded "><a href="../commands/cargo-pkgid.html"><strong aria-hidden="true">4.3.5.</strong> cargo pkgid</a></li><li class="chapter-item expanded "><a href="../commands/cargo-remove.html"><strong aria-hidden="true">4.3.6.</strong> cargo remove</a></li><li class="chapter-item expanded "><a href="../commands/cargo-tree.html"><strong aria-hidden="true">4.3.7.</strong> cargo tree</a></li><li class="chapter-item expanded "><a href="../commands/cargo-update.html"><strong aria-hidden="true">4.3.8.</strong> cargo update</a></li><li class="chapter-item expanded "><a href="../commands/cargo-vendor.html"><strong aria-hidden="true">4.3.9.</strong> cargo vendor</a></li><li class="chapter-item expanded "><a href="../commands/cargo-verify-project.html"><strong aria-hidden="true">4.3.10.</strong> cargo verify-project</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/package-commands.html"><strong aria-hidden="true">4.4.</strong> 包命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-init.html"><strong aria-hidden="true">4.4.1.</strong> cargo init</a></li><li class="chapter-item expanded "><a href="../commands/cargo-install.html"><strong aria-hidden="true">4.4.2.</strong> cargo install</a></li><li class="chapter-item expanded "><a href="../commands/cargo-new.html"><strong aria-hidden="true">4.4.3.</strong> cargo new</a></li><li class="chapter-item expanded "><a href="../commands/cargo-search.html"><strong aria-hidden="true">4.4.4.</strong> cargo search</a></li><li class="chapter-item expanded "><a href="../commands/cargo-uninstall.html"><strong aria-hidden="true">4.4.5.</strong> cargo uninstall</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/publishing-commands.html"><strong aria-hidden="true">4.5.</strong> 发布命令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-login.html"><strong aria-hidden="true">4.5.1.</strong> cargo login</a></li><li class="chapter-item expanded "><a href="../commands/cargo-owner.html"><strong aria-hidden="true">4.5.2.</strong> cargo owner</a></li><li class="chapter-item expanded "><a href="../commands/cargo-package.html"><strong aria-hidden="true">4.5.3.</strong> cargo package</a></li><li class="chapter-item expanded "><a href="../commands/cargo-publish.html"><strong aria-hidden="true">4.5.4.</strong> cargo publish</a></li><li class="chapter-item expanded "><a href="../commands/cargo-yank.html"><strong aria-hidden="true">4.5.5.</strong> cargo yank</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> 常见问题</a></li><li class="chapter-item expanded "><a href="../supplement.html"><strong aria-hidden="true">6.</strong> 译者补充</a></li><li class="chapter-item expanded "><a href="../appendix/glossary.html"><strong aria-hidden="true">7.</strong> 附录: 词汇表</a></li><li class="chapter-item expanded "><a href="../appendix/git-authentication.html"><strong aria-hidden="true">8.</strong> 附录: Git认证</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -152,40 +153,39 @@
                 <div id="content" class="content">
                     <main>
                         <h2 id="特性"><a class="header" href="#特性">特性</a></h2>
-<p>Cargo的 &quot;特性&quot; 提供了一种机制来表达 <a href="../../reference/conditional-compilation.html">条件编译</a> 和 <a href="#optional-dependencies">可选依赖</a> 。
-包在 <code>Cargo.toml</code> 的 <code>[features]</code> 表中定义了一组命名的特性，每个特性可以被启用或禁用。
-正在构建的包的特性可以在命令行中用 <code>--features</code> 这样的标志启用。
-依赖的特性可以在 <code>Cargo.toml</code> 的依赖声明中启用。</p>
-<p>参阅<a href="features-examples.html">特性实例</a>章节，有关于如何使用特性的一些例子。</p>
+<p>Cargo的通过 &quot;特性&quot; 这一机制来实现 <a href="../../reference/conditional-compilation.html">条件编译</a> 和 <a href="#optional-dependencies">可选依赖</a> 。
+在包 <code>Cargo.toml</code> 的 <code>[features]</code> 表中定义一组命名特性，启用或禁用每个特性。
+构建包时，可以在命令行中用 <code>--features</code> 标志启用特性。可以在 <code>Cargo.toml</code> 的依赖声明中启用其依赖的特性。</p>
+<p>参阅 <a href="features-examples.html">特性实例</a> 章节，有关于如何使用特性的一些例子。</p>
 <h3 id="features-部分"><a class="header" href="#features-部分"><code>[features]</code> 部分</a></h3>
 <p>特性在 <code>Cargo.toml</code> 的 <code>[features]</code> 表中定义。
 每个特性都指定了一个其他特性的数组，或者它所启用的可选依赖。
 下面的例子说明了如何将特性应用于二维图像处理库，其中对不同图像格式的支持可以选择性地包含在内:</p>
 <pre><code class="language-toml">[features]
-# 定义了一个名为 `webp` 的特性，它不会启用任何其他特性。
+# 定义了一个名为 `webp` 的特性，未传递启用其他特性。
 webp = []
 </code></pre>
-<p>有了这个特性的定义，[<code>cfg</code> 表达式] 可以用来在编译时，通过条件来包含代码，以支持所要求的特性。例如，在包的 <code>lib.rs</code> 里面可以这样:</p>
+<p>有了这个特性的定义，可以用 <a href="../../reference/conditional-compilation.html"><code>cfg</code> 表达式</a> ，在编译时有条件的包含代码，以支持所要求的特性。例如，在包的 <code>lib.rs</code> 里面可以这样:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>// 以条件性包含实现WEBP支持的模块。
+</span>// 有条件的包含模块源码，以支持实现WEBP特性。
 #[cfg(feature = &quot;webp&quot;)]
 pub mod webp;
 <span class="boring">}</span></code></pre></pre>
-<p>Cargo使用 <code>rustc</code> <a href="../../rustc/command-line-arguments.html#option-cfg"><code>--cfg</code> flag</a> 在包中设置特性，代码可以用[<code>cfg</code> 属性]或[<code>cfg</code> 宏]测试它们的存在。</p>
-<p>特性可以列出要启用的其他特性。例如，ICO图像格式可以包含BMP和PNG图像，所以当它被启用时，应该确保其他这些特性也被启用:</p>
+<p>Cargo使用 <code>rustc</code> <a href="../../rustc/command-line-arguments.html#option-cfg"><code>--cfg</code> flag</a> 在包中设置特性，源代码中可以用 <a href="../../reference/conditional-compilation.html#the-cfg-attribute"><code>cfg</code> 属性</a> 或 <a href="../../std/macro.cfg.html"><code>cfg</code> 宏</a> 检测特性是否存在。</p>
+<p>特性可以列出需要关联启用的其他特性。例如，ICO格式关联包含BMP和PNG图像，当启用ico时，应该确保启用其他关联特性:</p>
 <pre><code class="language-toml">[features]
 bmp = []
 png = []
 ico = [&quot;bmp&quot;, &quot;png&quot;]
 webp = []
 </code></pre>
-<p>特性名称可以包括 <a href="https://unicode.org/reports/tr31/">Unicode XID standard</a> (包括大多数字母)中的字符，另外，允许以 <code>_</code> 或数字 <code>0</code> 到 <code>9</code> 开头，在第一个字符之后还可以包含 <code>-</code> 、 <code>+</code> 或 <code>.</code> 。</p>
+<p>特性名称可以包括 <a href="https://unicode.org/reports/tr31/">Unicode XID standard</a> (大多数文字)中的字符，并允许以 <code>_</code> 或数字 <code>0</code> 到 <code>9</code> 开头，在第一个字符之后还可以包含 <code>-</code> 、 <code>+</code> 或 <code>.</code> 。</p>
 <blockquote>
-<p><strong>注意</strong>: <a href="https://crates.io/">crates.io</a>对特性名称的语法有额外的限制，只能是<a href="../../std/primitive.char.html#method.is_ascii_alphanumeric">ASCII字母数字</a>字符或 <code>_</code> ， <code>-</code> ，或 <code>+</code> 。</p>
+<p><strong>注意</strong>: <a href="https://crates.io/">crates.io</a>对特性名称的语法有额外的限制，只能是 <a href="../../std/primitive.char.html#method.is_ascii_alphanumeric">ASCII字母数字</a> 字符或 <code>_</code> ， <code>-</code> ，或 <code>+</code> 。</p>
 </blockquote>
 <h3 id="default-特性"><a class="header" href="#default-特性"><code>default</code> 特性</a></h3>
-<p>默认情况下，所有特性都是禁用的，除非明确启用。这可以通过指定 <code>default</code> 特性来更改:</p>
+<p>默认情况下，除非明确启用，禁用所有特性。可以通过指定 <code>default</code> 特性来更改:</p>
 <pre><code class="language-toml">[features]
 default = [&quot;ico&quot;, &quot;webp&quot;]
 bmp = []
@@ -193,20 +193,20 @@ png = []
 ico = [&quot;bmp&quot;, &quot;png&quot;]
 webp = []
 </code></pre>
-<p>当包被构建时，启用 <code>default</code> 特性，从而又启用了所列出的特性。这种行为可以通过以下方式改变:</p>
+<p>当构建包时，将启用 <code>default</code> 特性，从而又启用了所列出的其他特性。可以通过以下方式来改变这种默认行为:</p>
 <ul>
-<li><code>--no-default-features</code><a href="#command-line-feature-options">command-line flag</a>禁用包的默认特性。</li>
-<li>可以在 <a href="#dependency-features">依赖声明</a> 中指定 <code>default-features = false</code> .</li>
+<li><code>--no-default-features</code> <a href="#command-line-feature-options">命令行标志</a> 禁用包的默认特性。</li>
+<li>可以在 <a href="#dependency-features">依赖声明</a> 中指定 <code>default-features = false</code> 。</li>
 </ul>
 <blockquote>
-<p><strong>注意</strong>: 选择默认特性要小心。默认特性让用户更容易使用包，而不需要强迫用户仔细选择启用哪些常用特性，但也有一些缺点。
+<p><strong>注意</strong>: 选择默认特性要小心。默认特性更容易让用户使用包，而不需要强迫用户仔细选择启用哪些常用特性，但也有一些缺点。
 除非指定 <code>default-features = false</code> ，否则依赖会自动启用默认特性。
-这可能会难以确保默认特性不被启用，特别是对于在依赖图中出现多次的依赖。
-每个包都必须确保指定 <code>default-features = false</code> 以避免启用它们。
-另一个问题是，从默认集合中删除特性可能是<a href="#semver-compatibility">语义版本不兼容的变化</a>，所以你应该有信心时才保留这些特性。</p>
+但这可能会难以确保默认特性不被启用，特别是对于在依赖图中出现多次的依赖。
+只有每个包都必须确保指定 <code>default-features = false</code> 才能避免启用它们。
+另一个问题是，从默认集合中删除特性将可能是<a href="#semver-compatibility">语义化不兼容的变化</a>，所以你应该有信心时才保留这些特性。</p>
 </blockquote>
 <h3 id="可选依赖"><a class="header" href="#可选依赖">可选依赖</a></h3>
-<p>依赖可以标记为 &quot;可选&quot;，这表示默认不会编译它们。
+<p>依赖可以标记为 &quot;optional&quot; &quot;可选的&quot;，这表示默认不会编译它们。
 例如，假设2D图像处理库使用一个外部包来处理GIF图像。可以这样表达:</p>
 <pre><code class="language-toml">[dependencies]
 gif = { version = &quot;0.11.1&quot;, optional = true }
@@ -215,15 +215,14 @@ gif = { version = &quot;0.11.1&quot;, optional = true }
 <pre><code class="language-toml">[features]
 gif = [&quot;dep:gif&quot;]
 </code></pre>
-<p>这意味着只有在启用了 <code>gif</code> 特性的情况下才会包含这个依赖。
-同样的 <code>cfg(feature = &quot;gif&quot;)</code> 语法可以在代码中使用，并且该依赖可以像任何特性一样被启用，
-例如 <code>--features gif</code> (见下面的<a href="#command-line-feature-options">命令行特性选项</a>)。</p>
-<p>在某些情况下，你可能不想公开与可选依赖同名的特性。
-例如，也许这个可选依赖是一个内部细节，或者你想把多个可选依赖组合在一起，或者你只是想使用一个更好的名字。
-如果你在 <code>[features]</code> 表中的任何地方用 <code>dep:</code> 前缀来指定可选依赖，将禁用该隐式特性。</p>
+<p>这表示只有启用 <code>gif</code> 特性时才会包含这个依赖。
+对应的，可以在代码中使用 <code>cfg(feature = &quot;gif&quot;)</code> 语法。可以像特性一样启用该依赖，
+例如 <code>--features gif</code> (参阅下面的 <a href="#command-line-feature-options">命令行特性选项</a>)。</p>
+<p>有时，你可能不想让特性与可选依赖同名。
+比如，这个可选依赖是一个内部的细节，或者你想把多个可选依赖组合在一起，或者想使用更好的名字。
+那么在 <code>[features]</code> 表中用 <code>dep:</code> 前缀来指定可选依赖，将禁用该隐式特性。</p>
 <blockquote>
-<p><strong>注意</strong>: <code>dep:</code> 语法仅从Rust 1.60开始可用。
-以前的版本只能使用隐式的特性名称。</p>
+<p><strong>注意</strong>: <code>dep:</code> 语法仅从Rust 1.60开始可用。以前的版本只能使用隐式的特性名称。</p>
 </blockquote>
 <p>例如，假设为了支持AVIF图像格式，库需要启用另外两个依赖项:</p>
 <pre><code class="language-toml">[dependencies]
@@ -234,13 +233,13 @@ rgb = { version = &quot;0.8.25&quot;, optional = true }
 avif = [&quot;dep:ravif&quot;, &quot;dep:rgb&quot;]
 </code></pre>
 <p>在这个例子中， <code>avif</code> 特性将启用两个列出的依赖。
-这也避免了创建隐式的 <code>ravif</code> 和 <code>rgb</code> 特性，因为不希望用户单独启用这些特性，它们是crate的内部细节。</p>
+这也避免了创建隐式的 <code>ravif</code> 和 <code>rgb</code> 特性，避免了单独启用这些特性，使其成为了crate的内部细节。</p>
 <blockquote>
-<p><strong>注意</strong>: 另一种可选的包含依赖的方法是使用<a href="specifying-dependencies.html#platform-specific-dependencies">特定平台依赖</a>。
-而不是使用特性，是基于目标平台为条件。</p>
+<p><strong>注意</strong>: 另一种可选的包含依赖的方法是使用 <a href="specifying-dependencies.html#platform-specific-dependencies">特定平台依赖</a> 。
+是以目标平台为条件，而不是特性。</p>
 </blockquote>
 <h3 id="依赖特性"><a class="header" href="#依赖特性">依赖特性</a></h3>
-<p>依赖特性可以在依赖声明中启用。 <code>features</code> 键表示要启用哪些特性。</p>
+<p>包的依赖项的特性可以在其依赖声明中启用。 <code>features</code> 键列出要启用的特性。</p>
 <pre><code class="language-toml">[dependencies]
 # 启用serde的 `derive` 特性。
 serde = { version = &quot;1.0.118&quot;, features = [&quot;derive&quot;] }
@@ -250,25 +249,25 @@ serde = { version = &quot;1.0.118&quot;, features = [&quot;derive&quot;] }
 flate2 = { version = &quot;1.0.3&quot;, default-features = false, features = [&quot;zlib&quot;] }
 </code></pre>
 <blockquote>
-<p><strong>注意</strong>: 这可能无法确保默认特性被禁用。
+<p><strong>注意</strong>: 这将无法确保禁用默认特性。
 如果另一个依赖包含 <code>flate2</code> 而没有指定 <code>default-features = false</code> ，那么将启用默认特性。
-更多细节请参见下面的<a href="#feature-unification">特性联合</a>。</p>
+更多细节请参阅下面的 <a href="#feature-unification">特性联合</a> 。</p>
 </blockquote>
-<p>依赖的特性也可以在 <code>[features]</code> 表中启用。
-语法是 <code>&quot;package-name/feature-name&quot;</code> 。例如:</p>
+<p>依赖项的特性也可以在 <code>[features]</code> 表中启用。
+语法为 <code>&quot;package-name/feature-name&quot;</code> ，例如:</p>
 <pre><code class="language-toml">[dependencies]
 jpeg-decoder = { version = &quot;0.1.20&quot;, default-features = false }
 
 [features]
-# 通过启用jpeg解码器的 &quot;rayon&quot; 特性来启用并行处理支持。
+# 通过启用 jpeg-decoder 的 &quot;rayon&quot; 特性来支持 parallel 。
 parallel = [&quot;jpeg-decoder/rayon&quot;]
 </code></pre>
-<p><code>&quot;package-name/feature-name&quot;</code> 语法也将启用 <code>package-name</code> ，如果它是一个可选的依赖。通常这不是你想要的。
-你可以在 <code>&quot;package-name?/feature-name&quot;</code> 中添加一个 <code>?</code> ，只有在其他内容启用了可选依赖时，才会启用给定的特性。</p>
+<p><code>&quot;package-name/feature-name&quot;</code> 语法将启用 <code>package-name</code> 这个可选的 &quot;依赖&quot; 包。并不想这样做，
+那么可以在 <code>&quot;package-name?/feature-name&quot;</code> 中添加一个 <code>?</code> ，使其只有在其他项启用了可选依赖时，才会启用其特性。</p>
 <blockquote>
 <p><strong>注意</strong>: <code>?</code> 语法仅从Rust 1.60开始可用。</p>
 </blockquote>
-<p>例如，假设在库中添加序列化支持，它需要在一些可选的依赖中启用相应的特性。
+<p>比如，假设在库中添加序列化支持，它需要在一些可选的依赖中启用相应的特性。
 可以像这样做:</p>
 <pre><code class="language-toml">[dependencies]
 serde = { version = &quot;1.0.133&quot;, optional = true }
@@ -278,34 +277,34 @@ rgb = { version = &quot;0.8.25&quot;, optional = true }
 serde = [&quot;dep:serde&quot;, &quot;rgb?/serde&quot;]
 </code></pre>
 <p>在这个例子中，启用 <code>serde</code> 特性将启用serde依赖。
-它也将启用 <code>rgb</code> 依赖的 <code>serde</code> 特性，但只有在其他内容已经启用了 <code>rgb</code> 依赖的情况下。</p>
-<h3 id="命令行可选特性"><a class="header" href="#命令行可选特性">命令行可选特性</a></h3>
-<p>以下命令行标志可以用来控制哪些特性被启用:</p>
+它也将启用 <code>rgb</code> 依赖的 <code>serde</code> 特性，但只有在其他项已经启用了 <code>rgb</code> 依赖的情况下。</p>
+<h3 id="命令行特性选项"><a class="header" href="#命令行特性选项">命令行特性选项</a></h3>
+<p>以下命令行标志可以用来控制启用哪些特性:</p>
 <ul>
 <li>
 <p><code>--features</code> <em>FEATURES</em>: 启用列出的特性。多个特性可以用逗号或空格分开。
 若使用空格，如果从shell中运行Cargo，请确保在所有特性周围使用引号(例如 <code>---features &quot;foo bar&quot;</code> )。
-如果在[工作空间]中构建多个包，可以使用 <code>package-name/feature-name</code> 语法来指定特定工作空间成员的特性。</p>
+如果在 <a href="workspaces.html">工作空间</a> 中构建多个包，可以使用 <code>package-name/feature-name</code> 语法来指定特定工作空间成员的特性。</p>
 </li>
 <li>
 <p><code>--all-features</code>: 激活在命令行上选择的所有包的所有特性。</p>
 </li>
 <li>
-<p><code>--no-default-features</code>: 不激活所选包的<a href="#the-default-feature"><code>default</code> 特性</a>。</p>
+<p><code>--no-default-features</code>: 不激活所选包的 <a href="#the-default-feature"><code>default</code> 特性</a>。</p>
 </li>
 </ul>
 <h3 id="特性联合"><a class="header" href="#特性联合">特性联合</a></h3>
 <p>特性对于定义它们的包来说是唯一的。在包上启用一个特性，不会在其他包上启用相同名称的特性。</p>
-<p>当依赖被多个包使用时，Cargo会在构建时使用该依赖上启用的所有特性的联合。
-这有助于确保只使用该依赖的一个副本。
-更多细节请参见解析器文档中的 [特性部分] 。</p>
-<p>例如，来看一下 <a href="https://crates.io/crates/winapi"><code>winapi</code></a> 包，它使用了 <a href="https://github.com/retep998/winapi-rs/blob/0.3.9/Cargo.toml#L25-L431">大量</a> 的特性。
-如果你的包依赖于包 <code>foo</code> ，它启用了 <code>winapi</code> 的 &quot;fileapi&quot; 和 &quot;handleapi&quot; 特性，
-而另一个依赖包 <code>bar</code> 启用了 <code>winapi</code> 的 &quot;std&quot; 和 &quot;winnt&quot; 特性，那么 <code>winapi</code> 将在启用所有这四种特性后被构建。</p>
+<p>当依赖被多个包使用时，Cargo会在构建时使用该依赖上联合启用特性。
+这有助于只使用该依赖的一个副本。
+更多细节请参阅解析器文档中的 <a href="resolver.html#features">特性部分</a> 。</p>
+<p>比如，查看 <a href="https://crates.io/crates/winapi"><code>winapi</code></a> 包，发现它使用了 <a href="https://github.com/retep998/winapi-rs/blob/0.3.9/Cargo.toml#L25-L431">大量</a> 的特性。
+如果你的包依赖于 <code>foo</code> ，它启用了 <code>winapi</code> 的 &quot;fileapi&quot; 和 &quot;handleapi&quot; 特性，
+而另一个依赖包 <code>bar</code> 启用了 <code>winapi</code> 的 &quot;std&quot; 和 &quot;winnt&quot; 特性，那么 <code>winapi</code> 包将在联合启用四种特性后构建。</p>
 <p><img src="../images/winapi-features.svg" alt="winapi features example" /></p>
-<p>这样做的效果是，特性应该是 <em>增加性</em> 的。也就是说，启用特性不应该禁用功能，
-而且启用任意特性的组合通常都是安全的。一个特性不应该引入 <a href="#semver-compatibility">不兼容语义化改变</a>。</p>
-<p>例如，如果你想选择性地支持 <a href="../../reference/names/preludes.html#the-no_std-attribute"><code>no_std</code></a> 环境，<strong>不要</strong>使用 <code>no_std</code> 特性。相反，使用 &quot;std&quot; 特性，<em>启用</em> <code>std</code> 。比如说:</p>
+<p>因而，特性表现出 <em>增加性</em> ，启用特性不应该有禁用功能的效果，
+而且启用任意特性的组合通常都是安全的。一个特性不应该引入 <a href="#semver-compatibility">语义化不兼容的改变</a>。</p>
+<p>例如，如果你想选择性地支持 <a href="../../reference/names/preludes.html#the-no_std-attribute"><code>no_std</code></a> ，那么 <strong>不要</strong> 使用 <code>no_std</code> 特性，而是应该使用 &quot;std&quot; 特性，以选择性 <em>启用</em> <code>std</code> 。比如说:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span>#![no_std]
 
@@ -319,25 +318,23 @@ pub fn function_that_requires_std() {
 }
 <span class="boring">}</span></code></pre></pre>
 <h4 id="互斥特性"><a class="header" href="#互斥特性">互斥特性</a></h4>
-<p>在极少数情况下，特性之间可能相互不兼容。
-如果可能的话，应该避免这种情况，因为这需要协调依赖图中包的所有使用，避免同时启用。
-如果不可能，可以考虑增加一个编译错误来检测这种情况。比如说:</p>
+<p>在极少数情况下，特性之间可能相互不兼容。那么协调依赖图中所有使用的包，以避免同时启用，
+如果作不到，可以考虑增加一个编译错误来检测。比如说:</p>
 <pre><code class="language-rust ignore">#[cfg(all(feature = &quot;foo&quot;, feature = &quot;bar&quot;))]
 compile_error!(&quot;feature \&quot;foo\&quot; and feature \&quot;bar\&quot; cannot be enabled at the same time&quot;);</code></pre>
 <p>与其使用相互排斥的特性，不如考虑一些其他选择:</p>
 <ul>
 <li>将功能分成独立的包。</li>
-<li>当有冲突时，<a href="features-examples.html#feature-precedence">选择其中之一</a>。<a href="https://crates.io/crates/cfg-if"><code>cfg-if</code></a> 包可以帮助编写更复杂的 <code>cfg</code> 表达式。</li>
-<li>构建代码以允许同时启用这些特性，并使用运行时选项来控制使用哪个特性。例如，使用一个配置文件、命令行参数或环境变量来选择启用哪种行为。</li>
+<li>当有冲突时，<a href="features-examples.html#feature-precedence">选择其中之一</a>。用 <a href="https://crates.io/crates/cfg-if"><code>cfg-if</code></a> 包帮助编写更复杂的 <code>cfg</code> 表达式。</li>
+<li>源代码允许同时启用这些特性，而使用运行时选项来控制使用哪个特性。比如，使用一个配置文件、命令行参数或环境变量来选择启用哪种行为。</li>
 </ul>
-<h4 id="检查解析特性"><a class="header" href="#检查解析特性">检查解析特性</a></h4>
-<p>在复杂的依赖图中，有时很难理解不同的特性是如何在不同的包上被启用的。
-<a href="../commands/cargo-tree.html"><code>cargo tree</code></a> 命令提供了几个选项来帮助检查和可视化哪些特性被启用。可以尝试:</p>
+<h4 id="检查特性解析"><a class="header" href="#检查特性解析">检查特性解析</a></h4>
+<p>在复杂的依赖图中，有时很难理解如何在不同的包上启用不同的特性。
+<a href="../commands/cargo-tree.html"><code>cargo tree</code></a> 命令提供了几个选项来帮助检查和可视化所启用特性。可以尝试:</p>
 <ul>
-<li><code>cargo tree -e features</code>: 这将显示依赖图中的特性。
-每个特性都会出现，显示哪个包启用了它。</li>
+<li><code>cargo tree -e features</code>: 这将显示依赖图中的特性。每个特性都会出现，显示哪个包启用了它。</li>
 <li><code>cargo tree -f &quot;{p} {f}&quot;</code>: 这是更紧凑的视图，显示每个包上启用的特性的逗号分隔的列表。</li>
-<li><code>cargo tree -e features -i foo</code>: 这将反转树形图，显示特性如何流入给定的包 &quot;foo&quot;。这可能很有用，因为查看整个图表可能相当大，而且令人不知所措。当你试图弄清楚哪些特性在特定的包上被启用以及为什么要这样做时，可以使用这个方法。请看<a href="../commands/cargo-tree.html"><code>cargo tree</code></a>页面底部的例子，了解阅读。</li>
+<li><code>cargo tree -e features -i foo</code>: 这将反转树形图，显示特性如何流入给定的包 &quot;foo&quot;。这可能很有用，因为查看整个图表可能相当大，而且令人不知所措。当你试图弄清楚哪些特性在特定的包上被启用以及为什么要这样做时，可以使用这个方法。请看 <a href="../commands/cargo-tree.html"><code>cargo tree</code></a> 页面底部的例子，了解阅读。</li>
 </ul>
 <h3 id="特性解析版本2"><a class="header" href="#特性解析版本2">特性解析版本2</a></h3>
 <p>可以用 <code>Cargo.toml</code> 中的 <code>resolver</code> 字段指定不同的特性解析器，像这样:</p>
@@ -350,18 +347,18 @@ resolver = &quot;2&quot;
 <p>版本 <code>&quot;2&quot;</code> 的解析器在一些不需要联合的情况下避免了联合的特性。
 具体的情况在 <a href="resolver.html#feature-resolver-version-2">解析器章节</a> 中有描述，简而言之，它避免在这些情况下进行联合。</p>
 <ul>
-<li>对于目前没有被构建的目标，在<a href="specifying-dependencies.html#platform-specific-dependencies">特定平台依赖</a>上启用的特性会被忽略。</li>
+<li>对于目前没有被构建的目标，会忽略在 <a href="specifying-dependencies.html#platform-specific-dependencies">特定平台依赖</a> 上启用的特性。</li>
 <li><a href="specifying-dependencies.html#build-dependencies">Build-dependencies</a> 和过程宏不与常规依赖共享特性。</li>
-<li><a href="specifying-dependencies.html#development-dependencies">Dev-dependencies</a> 不会激活特性，除非构建需要它们的目标(如测试或实例)。</li>
+<li><a href="specifying-dependencies.html#development-dependencies">Dev-dependencies</a> 不会激活特性，除非构建目标需要它们(如测试或实例)。</li>
 </ul>
-<p>在某些情况下，避免联合是必要的。
+<p>在某些情况下，有必要避免联合。
 例如，如果build-dependency启用了 <code>std</code> 特性，而同一个依赖被用作 <code>no_std</code> 环境的常规依赖，启用 <code>std</code> 会破坏构建。</p>
 <p>然而，一个缺点是，这可能会增加构建时间，因为依赖会被构建多次(每次都有不同的特性)。
 当使用版本 <code>&quot;2&quot;</code> 解析器时，建议检查那些被多次构建的依赖，以减少整体构建时间。
-如果不是 <em>必须</em> 要用单独的特性来构建这些重复的包，可以考虑在<a href="#dependency-features">依赖声明</a>中的 <code>特性</code> 列表中添加特性，
+如果不是 <em>必须</em> 要用单独的特性来构建这些重复的包，可以考虑在 <a href="#dependency-features">依赖声明</a> 中的 <code>features</code> 列表中添加特性，
 这样重复的包最后就会有相同的特性(因此Cargo只会构建一次)。
-你可以用 <a href="../commands/cargo-tree.html"><code>cargo tree --duplicates</code></a> 命令检测这些重复的依赖。它将显示哪些包被多次构建；
-寻找任何列出相同版本的条目。参见 <a href="#inspecting-resolved-features">Inspecting resolved features</a> 获取更多关于获取已解决特性的信息。
+你可以用 <a href="../commands/cargo-tree.html"><code>cargo tree --duplicates</code></a> 命令检测这些重复的依赖。它将显示哪些包被多次构建，寻找列出相同版本的条目。
+参阅 <a href="#inspecting-resolved-features">Inspecting resolved features</a> 获取更多关于解析特性的信息。
 对于构建依赖，如果你使用 <code>--target</code> 标志进行交叉编译，则没有必要这样做，因为在这种情况下，构建依赖总是与普通依赖分开构建。</p>
 <h4 id="解析器版本2命令行标记"><a class="header" href="#解析器版本2命令行标记">解析器版本2命令行标记</a></h4>
 <p><code>resolver = &quot;2&quot;</code> 的设置也改变了 <code>--features</code> 和 <code>--no-default-features</code> <a href="#command-line-feature-options">命令行选项</a> 的行为。</p>
@@ -378,28 +375,28 @@ cargo build -p foo -p bar --features foo/foo-feat,bar/bar-feat
 <p>此外，在 <code>resolver = &quot;1&quot;</code> 的情况下，<code>--no-default-features</code> 标志只停用当前目录下包的默认特性。
 如果版本为 &quot;2&quot; ，它将禁用所有工作空间成员的默认特性。</p>
 <h3 id="构建脚本"><a class="header" href="#构建脚本">构建脚本</a></h3>
-<p><a href="build-scripts.html">构建脚本</a>可以通过检查 <code>CARGO_FEATURE_&lt;name&gt;</code> 环境变量来检测包上启用了哪些特性，其中<code>&lt;name&gt;</code>是转换为大写的特性名称， <code>-</code> 转换为 <code>_</code> 。</p>
+<p><a href="build-scripts.html">构建脚本</a> 可以通过检查 <code>CARGO_FEATURE_&lt;name&gt;</code> 环境变量来检测包上启用了哪些特性，其中 <code>&lt;name&gt;</code> 是转换为大写的特性名称， <code>-</code> 转换为 <code>_</code> 。</p>
 <h3 id="必须特性"><a class="header" href="#必须特性">必须特性</a></h3>
-<p>如果某个特性没有被启用，<a href="cargo-targets.html#the-required-features-field"><code>required-features</code> 字段</a>可以用来禁用特定的<a href="cargo-targets.html">Cargo 目标</a>。
+<p>如果没有启用某个特性，可以用 <a href="cargo-targets.html#the-required-features-field"><code>required-features</code> 字段</a> 禁用特定的 <a href="cargo-targets.html">Cargo 目标</a> 。
 更多细节请参阅链接的文档。</p>
 <h3 id="语义化版本兼容"><a class="header" href="#语义化版本兼容">语义化版本兼容</a></h3>
 <p>启用特性不应该引入语义化不兼容的变化。
 例如，该特性不应该以可能破坏现有用途的方式改变现有的API。
-关于哪些变化是兼容的，可以在<a href="semver.html">语义化版本兼容性章节</a>中找到更多细节。</p>
+关于哪些变化是兼容的，可以在 <a href="semver.html">语义化版本兼容性章节</a> 中了解更多细节。</p>
 <p>在添加和删除特性定义和可选的依赖时应该小心，因为这些有时可能是向后不兼容的变化。
-更多细节可以在语义化版本兼容性章节的<a href="semver.html#cargo">Cargo 部分</a>中找到。简而言之，遵循这些规则:</p>
+更多细节可以在语义化版本兼容性章节的 <a href="semver.html#cargo">Cargo 部分</a> 中找到。简而言之，遵循这些规则:</p>
 <ul>
 <li>在次要版本中，以下做法通常是安全的:
 <ul>
-<li>添加 <a href="semver.html#cargo-feature-add">新特性</a> 或 <a href="semver.html#cargo-dep-add">可选依赖</a>。</li>
-<li><a href="semver.html#cargo-change-dep-feature">改变依赖上使用的特性</a>.</li>
+<li>添加 <a href="semver.html#cargo-feature-add">新特性</a> 或 <a href="semver.html#cargo-dep-add">可选依赖</a> 。</li>
+<li><a href="semver.html#cargo-change-dep-feature">改变依赖上使用的特性</a> 。</li>
 </ul>
 </li>
 <li>以下内容通常<strong>不</strong>应该在次要版本中去做:
 <ul>
-<li><a href="semver.html#cargo-feature-remove">移除特性</a> 或者 <a href="semver.html#cargo-remove-opt-dep">可选依赖</a>.</li>
-<li><a href="semver.html#item-remove">将现有的公共代码移到特性之后</a>.</li>
-<li><a href="semver.html#cargo-feature-remove-another">从特性列表中移除特性</a>.</li>
+<li><a href="semver.html#cargo-feature-remove">移除特性</a> 或者 <a href="semver.html#cargo-remove-opt-dep">可选依赖</a> 。</li>
+<li><a href="semver.html#item-remove">将现有的公共代码移到特性之后</a> 。</li>
+<li><a href="semver.html#cargo-feature-remove-another">从特性列表中移除特性</a> 。</li>
 </ul>
 </li>
 </ul>
@@ -407,27 +404,27 @@ cargo build -p foo -p bar --features foo/foo-feat,bar/bar-feat
 <h3 id="特征文档和发现"><a class="header" href="#特征文档和发现">特征文档和发现</a></h3>
 <p>我们鼓励你记录你的包中有哪些特性。
 这可以通过在 <code>lib.rs</code> 的顶部添加 <a href="../../rustdoc/how-to-write-documentation.html">doc comments</a> 来实现。
-请查看 <a href="https://github.com/rust-lang/regex/blob/1.4.2/src/lib.rs#L488-L583">regex crate source</a>例子，它被渲染后可以在 <a href="https://docs.rs/regex/1.4.2/regex/#crate-features">docs.rs</a> 上查看。
-如果你有其他的文档，比如用户指南，考虑将文档添加到那里(例如，参阅<a href="https://serde.rs/feature-flags.html">serde.rs</a>)。
-如果你有一个二进制项目，考虑在README或项目的其他文档中记录这些特性(例如，参阅<a href="https://github.com/mozilla/sccache/blob/0.2.13/README.md#build-requirements">sccache</a>)。</p>
-<p>明确记录特性可以为那些被认为是 &quot;不稳定&quot; 或不应该被使用的特性设定期望。
+请查看 <a href="https://github.com/rust-lang/regex/blob/1.4.2/src/lib.rs#L488-L583">regex crate source</a> 例子，它被渲染后可以在 <a href="https://docs.rs/regex/1.4.2/regex/#crate-features">docs.rs</a> 上查看。
+如果你有其他的文档，比如用户指南，考虑将文档添加到那里 (比如，参阅 <a href="https://serde.rs/feature-flags.html">serde.rs</a>) 。
+如果你有一个二进制项目，考虑在README或项目的其他文档中记录这些特性 (比如，参阅<a href="https://github.com/mozilla/sccache/blob/0.2.13/README.md#build-requirements">sccache</a>) 。</p>
+<p>明确记录特性的设计期望，记录那些认为是 &quot;不稳定&quot; 或不应该使用的特性。
 例如，如果有一个可选的依赖，但你不希望用户明确地把这个可选依赖列为特性，那么就把它从记录的列表中排除。</p>
-<p>在<a href="https://docs.rs/">docs.rs</a>上发布的文档可以使用 <code>Cargo.toml</code> 中的元数据来控制文档构建时启用哪些特性。
+<p>在 <a href="https://docs.rs/">docs.rs</a> 上发布的文档可以使用 <code>Cargo.toml</code> 中的元数据来控制文档构建时启用哪些特性。
 更多细节请参见 <a href="https://docs.rs/about/metadata">docs.rs metadata documentation</a> 。</p>
 <blockquote>
-<p><strong>注意</strong>: Rustdoc实验性地支持对文档进行注释，以表明使用某些API需要哪些特性。
-更多细节见 <a href="../../unstable-book/language-features/doc-cfg.html"><code>doc_cfg</code></a> 文档。一个例子是<a href="https://docs.rs/syn/1.0.54/syn/#modules"><code>syn</code> documentation</a>，你可以看到彩色的方框，其中指出使用哪些特性是需要的。</p>
+<p><strong>注意</strong>: Rustdoc 实验性地支持对文档进行注释，以表明使用某些API需要哪些特性。
+更多细节见 <a href="../../unstable-book/language-features/doc-cfg.html"><code>doc_cfg</code></a> 文档。一个例子是 <a href="https://docs.rs/syn/1.0.54/syn/#modules"><code>syn</code> documentation</a> ，你可以看到彩色的方框，其中指出需要使用哪些特性。</p>
 </blockquote>
 <h4 id="发现特性"><a class="header" href="#发现特性">发现特性</a></h4>
-<p>当特性被记录在库的API中时，这可以使你的用户更容易发现哪些特性是可用的以及它们的作用。
+<p>当特性被记录在库的API中时，这可以使用户更容易发现哪些特性是可用的以及它们的作用。
 如果一个包的特性文档不容易获得，你可以看看 <code>Cargo.toml</code> 文件，但有时会很难追踪到它。
-如果存在，<a href="https://crates.io/">crates.io</a>上的crate页面有一个指向源码库的链接。
+如果存在， <a href="https://crates.io/">crates.io</a> 上的 crate 页面有一个指向源码库的链接。
 像 <a href="../commands/cargo-vendor.html"><code>cargo vendor</code></a> 或 <a href="https://crates.io/crates/cargo-clone-crate">cargo-clone-crate</a> 这样的工具可以用来下载源码并检查它。</p>
 <h3 id="特性组合"><a class="header" href="#特性组合">特性组合</a></h3>
 <p>因为特性是一种条件编译的形式，它们需要指数级的配置和测试案例才能100%覆盖。
-默认情况下，测试、文档和其他工具，如<a href="https://github.com/rust-lang/rust-clippy">Clippy</a>将只在默认的特性集下运行。</p>
-<p>我们鼓励你考虑你的策略和工具在不同的特性组合方面 - 每个项目将有不同的要求，结合时间、资源和覆盖特定场景的成本效益。
-常见的配置可能是有/无默认特性，特定的特性组合，或所有的特性组合。</p>
+默认情况下，测试、文档和其他工具，如 <a href="https://github.com/rust-lang/rust-clippy">Clippy</a> 将只在默认的特性集下运行。</p>
+<p>我们鼓励充分考虑策略及工具对于不同特性的组合: 每个项目将有不同的需求，结合时间、资源和覆盖特定场景的成本效益。
+常见的配置考虑可能是有/无默认特性，特定的特性组合，或所有的特性组合。</p>
 
                     </main>
 
@@ -477,5 +474,6 @@ cargo build -p foo -p bar --features foo/foo-feat,bar/bar-feat
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>
