@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>预定义 - The Rust Reference</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/reference.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">介绍</a></li><li class="chapter-item expanded "><a href="../notation.html"><strong aria-hidden="true">1.</strong> 符号约定</a></li><li class="chapter-item expanded "><a href="../lexical-structure.html"><strong aria-hidden="true">2.</strong> 词法结构</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../input-format.html"><strong aria-hidden="true">2.1.</strong> 输入格式</a></li><li class="chapter-item expanded "><a href="../keywords.html"><strong aria-hidden="true">2.2.</strong> 关键字</a></li><li class="chapter-item expanded "><a href="../identifiers.html"><strong aria-hidden="true">2.3.</strong> 标识符</a></li><li class="chapter-item expanded "><a href="../comments.html"><strong aria-hidden="true">2.4.</strong> 注释</a></li><li class="chapter-item expanded "><a href="../whitespace.html"><strong aria-hidden="true">2.5.</strong> 空白</a></li><li class="chapter-item expanded "><a href="../tokens.html"><strong aria-hidden="true">2.6.</strong> 记号</a></li></ol></li><li class="chapter-item expanded "><a href="../macros.html"><strong aria-hidden="true">3.</strong> 宏</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../macros-by-example.html"><strong aria-hidden="true">3.1.</strong> 实例宏</a></li><li class="chapter-item expanded "><a href="../procedural-macros.html"><strong aria-hidden="true">3.2.</strong> 过程宏</a></li></ol></li><li class="chapter-item expanded "><a href="../crates-and-source-files.html"><strong aria-hidden="true">4.</strong> Crate和源文件</a></li><li class="chapter-item expanded "><a href="../conditional-compilation.html"><strong aria-hidden="true">5.</strong> 条件编译</a></li><li class="chapter-item expanded "><a href="../items.html"><strong aria-hidden="true">6.</strong> 条目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../items/modules.html"><strong aria-hidden="true">6.1.</strong> 模块</a></li><li class="chapter-item expanded "><a href="../items/extern-crates.html"><strong aria-hidden="true">6.2.</strong> 外部Crate</a></li><li class="chapter-item expanded "><a href="../items/use-declarations.html"><strong aria-hidden="true">6.3.</strong> Use 声明</a></li><li class="chapter-item expanded "><a href="../items/functions.html"><strong aria-hidden="true">6.4.</strong> 函数</a></li><li class="chapter-item expanded "><a href="../items/type-aliases.html"><strong aria-hidden="true">6.5.</strong> 类型别名</a></li><li class="chapter-item expanded "><a href="../items/structs.html"><strong aria-hidden="true">6.6.</strong> 结构体</a></li><li class="chapter-item expanded "><a href="../items/enumerations.html"><strong aria-hidden="true">6.7.</strong> 枚举</a></li><li class="chapter-item expanded "><a href="../items/unions.html"><strong aria-hidden="true">6.8.</strong> 联合体</a></li><li class="chapter-item expanded "><a href="../items/constant-items.html"><strong aria-hidden="true">6.9.</strong> 常量条目</a></li><li class="chapter-item expanded "><a href="../items/static-items.html"><strong aria-hidden="true">6.10.</strong> 静态条目</a></li><li class="chapter-item expanded "><a href="../items/traits.html"><strong aria-hidden="true">6.11.</strong> Trait</a></li><li class="chapter-item expanded "><a href="../items/implementations.html"><strong aria-hidden="true">6.12.</strong> 实现</a></li><li class="chapter-item expanded "><a href="../items/external-blocks.html"><strong aria-hidden="true">6.13.</strong> 外部块</a></li><li class="chapter-item expanded "><a href="../items/generics.html"><strong aria-hidden="true">6.14.</strong> 泛型参数</a></li><li class="chapter-item expanded "><a href="../items/associated-items.html"><strong aria-hidden="true">6.15.</strong> 关联条目</a></li></ol></li><li class="chapter-item expanded "><a href="../attributes.html"><strong aria-hidden="true">7.</strong> 属性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../attributes/testing.html"><strong aria-hidden="true">7.1.</strong> 测试</a></li><li class="chapter-item expanded "><a href="../attributes/derive.html"><strong aria-hidden="true">7.2.</strong> 派生</a></li><li class="chapter-item expanded "><a href="../attributes/diagnostics.html"><strong aria-hidden="true">7.3.</strong> 诊断</a></li><li class="chapter-item expanded "><a href="../attributes/codegen.html"><strong aria-hidden="true">7.4.</strong> 代码生成</a></li><li class="chapter-item expanded "><a href="../attributes/limits.html"><strong aria-hidden="true">7.5.</strong> 约束</a></li><li class="chapter-item expanded "><a href="../attributes/type_system.html"><strong aria-hidden="true">7.6.</strong> 类型系统</a></li></ol></li><li class="chapter-item expanded "><a href="../statements-and-expressions.html"><strong aria-hidden="true">8.</strong> 语句和表达式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../statements.html"><strong aria-hidden="true">8.1.</strong> 语句</a></li><li class="chapter-item expanded "><a href="../expressions.html"><strong aria-hidden="true">8.2.</strong> 表达式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../expressions/literal-expr.html"><strong aria-hidden="true">8.2.1.</strong> 字面值表达式</a></li><li class="chapter-item expanded "><a href="../expressions/path-expr.html"><strong aria-hidden="true">8.2.2.</strong> 路径表达式</a></li><li class="chapter-item expanded "><a href="../expressions/block-expr.html"><strong aria-hidden="true">8.2.3.</strong> 块表达式</a></li><li class="chapter-item expanded "><a href="../expressions/operator-expr.html"><strong aria-hidden="true">8.2.4.</strong> 运算符表达式</a></li><li class="chapter-item expanded "><a href="../expressions/grouped-expr.html"><strong aria-hidden="true">8.2.5.</strong> 分组表达式</a></li><li class="chapter-item expanded "><a href="../expressions/array-expr.html"><strong aria-hidden="true">8.2.6.</strong> 数组和索引表达式</a></li><li class="chapter-item expanded "><a href="../expressions/tuple-expr.html"><strong aria-hidden="true">8.2.7.</strong> 元组和索引表达式</a></li><li class="chapter-item expanded "><a href="../expressions/struct-expr.html"><strong aria-hidden="true">8.2.8.</strong> 结构体表达式</a></li><li class="chapter-item expanded "><a href="../expressions/call-expr.html"><strong aria-hidden="true">8.2.9.</strong> 调用表达式</a></li><li class="chapter-item expanded "><a href="../expressions/method-call-expr.html"><strong aria-hidden="true">8.2.10.</strong> 方法调用表达式</a></li><li class="chapter-item expanded "><a href="../expressions/field-expr.html"><strong aria-hidden="true">8.2.11.</strong> 字段访问表达式</a></li><li class="chapter-item expanded "><a href="../expressions/closure-expr.html"><strong aria-hidden="true">8.2.12.</strong> 闭包表达式</a></li><li class="chapter-item expanded "><a href="../expressions/loop-expr.html"><strong aria-hidden="true">8.2.13.</strong> 循环表达式</a></li><li class="chapter-item expanded "><a href="../expressions/range-expr.html"><strong aria-hidden="true">8.2.14.</strong> 区间表达式</a></li><li class="chapter-item expanded "><a href="../expressions/if-expr.html"><strong aria-hidden="true">8.2.15.</strong> if 和 if let 表达式</a></li><li class="chapter-item expanded "><a href="../expressions/match-expr.html"><strong aria-hidden="true">8.2.16.</strong> 匹配表达式</a></li><li class="chapter-item expanded "><a href="../expressions/return-expr.html"><strong aria-hidden="true">8.2.17.</strong> 返回表达式</a></li><li class="chapter-item expanded "><a href="../expressions/await-expr.html"><strong aria-hidden="true">8.2.18.</strong> 等待表达式</a></li><li class="chapter-item expanded "><a href="../expressions/underscore-expr.html"><strong aria-hidden="true">8.2.19.</strong> 下划线表达式</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../patterns.html"><strong aria-hidden="true">9.</strong> 模式</a></li><li class="chapter-item expanded "><a href="../type-system.html"><strong aria-hidden="true">10.</strong> 类型系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../types.html"><strong aria-hidden="true">10.1.</strong> 类型</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../types/boolean.html"><strong aria-hidden="true">10.1.1.</strong> 布尔类型</a></li><li class="chapter-item expanded "><a href="../types/numeric.html"><strong aria-hidden="true">10.1.2.</strong> 数字类型</a></li><li class="chapter-item expanded "><a href="../types/textual.html"><strong aria-hidden="true">10.1.3.</strong> 文本类型</a></li><li class="chapter-item expanded "><a href="../types/never.html"><strong aria-hidden="true">10.1.4.</strong> 永远不存在的类型</a></li><li class="chapter-item expanded "><a href="../types/tuple.html"><strong aria-hidden="true">10.1.5.</strong> 元组类型</a></li><li class="chapter-item expanded "><a href="../types/array.html"><strong aria-hidden="true">10.1.6.</strong> 数组类型</a></li><li class="chapter-item expanded "><a href="../types/slice.html"><strong aria-hidden="true">10.1.7.</strong> 切片类型</a></li><li class="chapter-item expanded "><a href="../types/struct.html"><strong aria-hidden="true">10.1.8.</strong> 结构体类型</a></li><li class="chapter-item expanded "><a href="../types/enum.html"><strong aria-hidden="true">10.1.9.</strong> 枚举类型</a></li><li class="chapter-item expanded "><a href="../types/union.html"><strong aria-hidden="true">10.1.10.</strong> 联合类型</a></li><li class="chapter-item expanded "><a href="../types/function-item.html"><strong aria-hidden="true">10.1.11.</strong> 函数条目类型</a></li><li class="chapter-item expanded "><a href="../types/closure.html"><strong aria-hidden="true">10.1.12.</strong> 闭包类型</a></li><li class="chapter-item expanded "><a href="../types/pointer.html"><strong aria-hidden="true">10.1.13.</strong> 指针类型</a></li><li class="chapter-item expanded "><a href="../types/function-pointer.html"><strong aria-hidden="true">10.1.14.</strong> 函数指针类型</a></li><li class="chapter-item expanded "><a href="../types/trait-object.html"><strong aria-hidden="true">10.1.15.</strong> Trait 对象类型</a></li><li class="chapter-item expanded "><a href="../types/impl-trait.html"><strong aria-hidden="true">10.1.16.</strong> 实现 Trait 的类型</a></li><li class="chapter-item expanded "><a href="../types/parameters.html"><strong aria-hidden="true">10.1.17.</strong> 类型参数</a></li><li class="chapter-item expanded "><a href="../types/inferred.html"><strong aria-hidden="true">10.1.18.</strong> 推导出的类型</a></li></ol></li><li class="chapter-item expanded "><a href="../dynamically-sized-types.html"><strong aria-hidden="true">10.2.</strong> 动态大小类型</a></li><li class="chapter-item expanded "><a href="../type-layout.html"><strong aria-hidden="true">10.3.</strong> 类型布局</a></li><li class="chapter-item expanded "><a href="../interior-mutability.html"><strong aria-hidden="true">10.4.</strong> 内部可变性</a></li><li class="chapter-item expanded "><a href="../subtyping.html"><strong aria-hidden="true">10.5.</strong> 子类型和协变</a></li><li class="chapter-item expanded "><a href="../trait-bounds.html"><strong aria-hidden="true">10.6.</strong> Trait 和生命周期边界</a></li><li class="chapter-item expanded "><a href="../type-coercions.html"><strong aria-hidden="true">10.7.</strong> 类型强制转换</a></li><li class="chapter-item expanded "><a href="../destructors.html"><strong aria-hidden="true">10.8.</strong> 析构函数</a></li><li class="chapter-item expanded "><a href="../lifetime-elision.html"><strong aria-hidden="true">10.9.</strong> 生命周期省略</a></li></ol></li><li class="chapter-item expanded "><a href="../special-types-and-traits.html"><strong aria-hidden="true">11.</strong> 特殊类型和Trait</a></li><li class="chapter-item expanded "><a href="../names.html"><strong aria-hidden="true">12.</strong> 名称</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../names/namespaces.html"><strong aria-hidden="true">12.1.</strong> 命名空间</a></li><li class="chapter-item expanded "><a href="../names/scopes.html"><strong aria-hidden="true">12.2.</strong> 作用域</a></li><li class="chapter-item expanded "><a href="../names/preludes.html" class="active"><strong aria-hidden="true">12.3.</strong> 预定义</a></li><li class="chapter-item expanded "><a href="../paths.html"><strong aria-hidden="true">12.4.</strong> 路径</a></li><li class="chapter-item expanded "><a href="../names/name-resolution.html"><strong aria-hidden="true">12.5.</strong> 名称解析</a></li><li class="chapter-item expanded "><a href="../visibility-and-privacy.html"><strong aria-hidden="true">12.6.</strong> 可见性和私有性</a></li></ol></li><li class="chapter-item expanded "><a href="../memory-model.html"><strong aria-hidden="true">13.</strong> 内存模型</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../memory-allocation-and-lifetime.html"><strong aria-hidden="true">13.1.</strong> 内存分配和生命周期</a></li><li class="chapter-item expanded "><a href="../variables.html"><strong aria-hidden="true">13.2.</strong> 变量</a></li></ol></li><li class="chapter-item expanded "><a href="../linkage.html"><strong aria-hidden="true">14.</strong> 链接</a></li><li class="chapter-item expanded "><a href="../inline-assembly.html"><strong aria-hidden="true">15.</strong> 内联汇编</a></li><li class="chapter-item expanded "><a href="../unsafety.html"><strong aria-hidden="true">16.</strong> Unsafety</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../unsafe-keyword.html"><strong aria-hidden="true">16.1.</strong> unsafe 关键字</a></li><li class="chapter-item expanded "><a href="../behavior-considered-undefined.html"><strong aria-hidden="true">16.2.</strong> 被视为未定义行为的行为</a></li><li class="chapter-item expanded "><a href="../behavior-not-considered-unsafe.html"><strong aria-hidden="true">16.3.</strong> 不被视为不安全的行为</a></li></ol></li><li class="chapter-item expanded "><a href="../const_eval.html"><strong aria-hidden="true">17.</strong> 常量求值</a></li><li class="chapter-item expanded "><a href="../abi.html"><strong aria-hidden="true">18.</strong> 应用程序二进制接口</a></li><li class="chapter-item expanded "><a href="../runtime.html"><strong aria-hidden="true">19.</strong> Rust 运行时</a></li><li class="chapter-item expanded "><a href="../appendices.html"><strong aria-hidden="true">20.</strong> 附录</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../macro-ambiguity.html"><strong aria-hidden="true">20.1.</strong> 宏 Follow-Set 歧义正式规范</a></li><li class="chapter-item expanded "><a href="../influences.html"><strong aria-hidden="true">20.2.</strong> 影响</a></li><li class="chapter-item expanded "><a href="../glossary.html"><strong aria-hidden="true">20.3.</strong> 术语表</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Rust Reference</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/reference/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/reference/edit/master/src/names/preludes.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="preludes"><a class="header" href="#preludes">Preludes</a></h1>
+<p><em>预定义</em> 是一组自动引入到一个 crate 中每个模块作用域的名称。</p>
+<p>这些预定义名称不是模块本身的一部分: 它们在 <a href="name-resolution.html">命名解析</a> 期间隐式查询。例如，即使像 <a href="../../std/boxed/struct.Box.html"><code>Box</code></a> 这样的内容在每个模块中都处于作用域中，但您无法将其称为 <code>self::Box</code> ，因为它不是当前模块的成员。</p>
+<p>有几个不同的预定义:</p>
+<ul>
+<li><a href="#standard-library-prelude">标准库预定义</a></li>
+<li><a href="#extern-prelude">外部预定义</a></li>
+<li><a href="#language-prelude">语言预定义</a></li>
+<li><a href="#macro_use-prelude"><code>macro_use</code> 预定义</a></li>
+<li><a href="#tool-prelude">工具预定义</a></li>
+</ul>
+<h2 id="标准库预定义"><a class="header" href="#标准库预定义">标准库预定义</a></h2>
+<p>每个crate都有一个标准库预定义，其中包括来自单个标准库模块的名称。所使用的模块取决于 crate 的版本，以及是否应用了 <a href="#the-no_std-attribute"><code>no_std</code>属性</a> ：</p>
+<div class="table-wrapper"><table><thead><tr><th>版本</th><th>未应用<code>no_std</code></th><th>应用<code>no_std</code></th></tr></thead><tbody>
+<tr><td>2015</td><td><a href="../../std/prelude/rust_2015/index.html"><code>std::prelude::rust_2015</code></a></td><td><a href="../../core/prelude/rust_2015/index.html"><code>core::prelude::rust_2015</code></a></td></tr>
+<tr><td>2018</td><td><a href="../../std/prelude/rust_2018/index.html"><code>std::prelude::rust_2018</code></a></td><td><a href="../../core/prelude/rust_2018/index.html"><code>core::prelude::rust_2018</code></a></td></tr>
+<tr><td>2021</td><td><a href="../../std/prelude/rust_2021/index.html"><code>std::prelude::rust_2021</code></a></td><td><a href="../../core/prelude/rust_2021/index.html"><code>core::prelude::rust_2021</code></a></td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<p><a href="../../std/prelude/rust_2015/index.html"><code>std::prelude::rust_2015</code></a> 和 <a href="../../std/prelude/rust_2018/index.html"><code>std::prelude::rust_2018</code></a> 的内容与 <a href="../../std/prelude/v1/index.html"><code>std::prelude::v1</code></a> 相同。</p>
+<p><a href="../../core/prelude/rust_2015/index.html"><code>core::prelude::rust_2015</code></a> 和 <a href="../../core/prelude/rust_2018/index.html"><code>core::prelude::rust_2018</code></a> 的内容与 <a href="../../core/prelude/v1/index.html"><code>core::prelude::v1</code></a> 相同。</p>
+</blockquote>
+<h2 id="外部预定义"><a class="header" href="#外部预定义">外部预定义</a></h2>
+<p>在根模块中使用 <a href="../items/extern-crates.html"><code>extern crate</code></a> 导入的外部 crate 或提供给编译器的 crate (例如使用 <code>rustc</code> 的 <code>--extern</code> 标志) 将被添加到 <em>外部定义</em> 中。如果使用别名导入，例如 <code>extern crate orig_name as new_name</code> ，则符号  <code>new_name</code> 将添加到预定义中。</p>
+<p><a href="../../core/index.html"><code>core</code></a> crate 始终会被添加到外部预定义中。只要在 crate 根中未指定 [<code>no_std</code>属性] ， <a href="../../std/index.html"><code>std</code></a> crate 也会被添加到预定义中。</p>
+<blockquote>
+<p><strong>版本差异</strong>: 在 2015 版中，外部预定义中的 crate 不能通过 <a href="../items/use-declarations.html">use 声明</a> 引用，因此通常的做法是使用<code>extern crate</code>声明将它们引入作用域。</p>
+<p>从 2018 年版开始， <a href="../items/use-declarations.html">use声明</a> 可以引用外部预定义中的 crate ，因此使用 <code>extern crate</code> 被认为不符合惯例。</p>
+</blockquote>
+<blockquote>
+<p><strong>注意</strong>: 随 <code>rustc</code> 一起提供的其他 crate ，例如 <a href="../../alloc/index.html"><code>alloc</code></a> 和 <a href="../../test/index.html"><code>test</code></a> ，在使用 Cargo 时不会自动包含在 <code>--extern</code> 标志中。它们必须通过 <code>extern crate</code> 声明引入作用域，即使在 2018 年版中也是如此。</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>extern crate alloc;
+use alloc::rc::Rc;
+<span class="boring">}</span></code></pre></pre>
+<p>对于 proc-macro crate ， Cargo 会将 <code>proc_macro</code> 自动添加到外部预定义中。</p>
+</blockquote>
+<!--
+有关alloc/test限制的更多信息，请参见https://github.com/rust-lang/rust/issues/57288。
+-->
+<h3 id="no_std-属性"><a class="header" href="#no_std-属性"><code>no_std</code> 属性</a></h3>
+<p>默认情况下，标准库会自动包含在 crate 的根模块中。<a href="../../std/index.html"><code>std</code></a> crate 与一个隐式的 <a href="../macros-by-example.html#the-macro_use-attribute"><code>macro_use</code> 属性</a> 一同添加到根模块，将 <code>std</code> 导出的所有宏都添加到 <a href="#macro_use-prelude"><code>macro_use</code> 预定义模块</a> 中。同时，<a href="../../core/index.html"><code>core</code></a> 和 <a href="../../std/index.html"><code>std</code></a> 也会添加到 <a href="#extern-prelude">extern prelude</a> 中。</p>
+<p>可以在 crate 级别应用 <em><code>no_std</code> <a href="../attributes.html">属性</a></em> 来阻止自动将 <a href="../../std/index.html"><code>std</code></a> crate 添加到作用域中。它会做三件事情：</p>
+<ul>
+<li>防止 <code>std</code> 添加到 <a href="#extern-prelude">extern prelude</a> 中。</li>
+<li>影响用于构建 <a href="#standard-library-prelude">standard library prelude</a> 的模块 (如上所述) 。</li>
+<li>将 <a href="../../core/index.html"><code>core</code></a> crate 注入到 crate 根模块中，而不是 <a href="../../std/index.html"><code>std</code></a>，并将所有从 <code>core</code> 导出的宏添加到 <a href="#macro_use-prelude"><code>macro_use</code> 预定义模块</a> 中。</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong>: 当 crate 目标平台不支持标准库或有意不使用标准库的功能时，使用核心预定义 (core prelude) 而不是标准预定义 (standard prelude) 很有用。
+这些功能主要包括动态内存分配 (例如 <code>Box</code> 和 <code>Vec</code> ) 以及文件和网络功能 (例如 <code>std::fs</code> 和 <code>std::io</code> ) 。</p>
+</blockquote>
+<div class="warning">
+<p>警告: 使用 <code>no_std</code> 不会防止标准库被链接。在 crate 中放置 <code>extern crate std;</code> 是有效的，依赖项也可以链接它。</p>
+</div>
+<h2 id="语言预定义"><a class="header" href="#语言预定义">语言预定义</a></h2>
+<p>语言预定义包括内置于语言中的类型和属性名称。语言预定义始终在作用域内。它包括以下内容：</p>
+<ul>
+<li><a href="namespaces.html">类型命名空间</a>
+<ul>
+<li><a href="../types/boolean.html">布尔类型</a> — <code>bool</code></li>
+<li><a href="../types/textual.html">文本类型</a> — <code>char</code> 和 <code>str</code></li>
+<li><a href="../types/numeric.html#integer-types">整数类型</a> — <code>i8</code>、<code>i16</code>、<code>i32</code>、<code>i64</code>、<code>i128</code>、<code>u8</code>、<code>u16</code>、<code>u32</code>、<code>u64</code>、<code>u128</code></li>
+<li><a href="../types/numeric.html#machine-dependent-integer-types">与机器相关的整数类型</a> — <code>usize</code> 和 <code>isize</code></li>
+<li><a href="../types/numeric.html#floating-point-types">浮点数类型</a> — <code>f32</code> 和 <code>f64</code></li>
+</ul>
+</li>
+<li><a href="namespaces.html">宏命名空间</a>
+<ul>
+<li><a href="../attributes.html#built-in-attributes-index">内置属性</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="macro_use-预定义"><a class="header" href="#macro_use-预定义"><code>macro_use</code> 预定义</a></h2>
+<p><code>macro_use</code> 预定义包括来自外部 crate 的宏，这些宏是通过 [<code>macro_use</code>] 属性定义的。</p>
+<h2 id="工具预定义"><a class="header" href="#工具预定义">工具预定义</a></h2>
+<p>工具预定义包括外部工具的工具名称，位于 <a href="namespaces.html">类型命名空间</a> 中。有关详细信息，请参见 <a href="../attributes.html#tool-attributes">工具属性</a> 部分。</p>
+<h2 id="no_implicit_prelude-属性"><a class="header" href="#no_implicit_prelude-属性"><code>no_implicit_prelude</code> 属性</a></h2>
+<p><em><code>no_implicit_prelude</code> <a href="../attributes.html">attribute</a></em> 可以应用于 crate 级别或模块上，表示它不应自动为该模块或其任何子级引入 <a href="#standard-library-prelude">标准库预定义</a>、 <a href="#extern-prelude">extern 预定义</a> 或 <a href="#tool-prelude">工具预定义</a> 。</p>
+<p>该属性不影响 <a href="#language-prelude">语言预定义</a> 。</p>
+<blockquote>
+<p><strong>版本差异</strong>：在 2015 版中，<code>no_implicit_prelude</code> 属性不影响 <a href="#macro_use-prelude"><code>macro_use</code> 预定义</a> ，并且标准库导出的所有宏仍包含在 <code>macro_use</code> 预定义中。从 2018 版开始，将删除 <code>macro_use</code> 预定义。</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../names/scopes.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../paths.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../names/scopes.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../paths.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

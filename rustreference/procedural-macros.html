@@ -1,0 +1,430 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>过程宏 - The Rust Reference</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/reference.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">介绍</a></li><li class="chapter-item expanded "><a href="notation.html"><strong aria-hidden="true">1.</strong> 符号约定</a></li><li class="chapter-item expanded "><a href="lexical-structure.html"><strong aria-hidden="true">2.</strong> 词法结构</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="input-format.html"><strong aria-hidden="true">2.1.</strong> 输入格式</a></li><li class="chapter-item expanded "><a href="keywords.html"><strong aria-hidden="true">2.2.</strong> 关键字</a></li><li class="chapter-item expanded "><a href="identifiers.html"><strong aria-hidden="true">2.3.</strong> 标识符</a></li><li class="chapter-item expanded "><a href="comments.html"><strong aria-hidden="true">2.4.</strong> 注释</a></li><li class="chapter-item expanded "><a href="whitespace.html"><strong aria-hidden="true">2.5.</strong> 空白</a></li><li class="chapter-item expanded "><a href="tokens.html"><strong aria-hidden="true">2.6.</strong> 记号</a></li></ol></li><li class="chapter-item expanded "><a href="macros.html"><strong aria-hidden="true">3.</strong> 宏</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="macros-by-example.html"><strong aria-hidden="true">3.1.</strong> 实例宏</a></li><li class="chapter-item expanded "><a href="procedural-macros.html" class="active"><strong aria-hidden="true">3.2.</strong> 过程宏</a></li></ol></li><li class="chapter-item expanded "><a href="crates-and-source-files.html"><strong aria-hidden="true">4.</strong> Crate和源文件</a></li><li class="chapter-item expanded "><a href="conditional-compilation.html"><strong aria-hidden="true">5.</strong> 条件编译</a></li><li class="chapter-item expanded "><a href="items.html"><strong aria-hidden="true">6.</strong> 条目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="items/modules.html"><strong aria-hidden="true">6.1.</strong> 模块</a></li><li class="chapter-item expanded "><a href="items/extern-crates.html"><strong aria-hidden="true">6.2.</strong> 外部Crate</a></li><li class="chapter-item expanded "><a href="items/use-declarations.html"><strong aria-hidden="true">6.3.</strong> Use 声明</a></li><li class="chapter-item expanded "><a href="items/functions.html"><strong aria-hidden="true">6.4.</strong> 函数</a></li><li class="chapter-item expanded "><a href="items/type-aliases.html"><strong aria-hidden="true">6.5.</strong> 类型别名</a></li><li class="chapter-item expanded "><a href="items/structs.html"><strong aria-hidden="true">6.6.</strong> 结构体</a></li><li class="chapter-item expanded "><a href="items/enumerations.html"><strong aria-hidden="true">6.7.</strong> 枚举</a></li><li class="chapter-item expanded "><a href="items/unions.html"><strong aria-hidden="true">6.8.</strong> 联合体</a></li><li class="chapter-item expanded "><a href="items/constant-items.html"><strong aria-hidden="true">6.9.</strong> 常量条目</a></li><li class="chapter-item expanded "><a href="items/static-items.html"><strong aria-hidden="true">6.10.</strong> 静态条目</a></li><li class="chapter-item expanded "><a href="items/traits.html"><strong aria-hidden="true">6.11.</strong> Trait</a></li><li class="chapter-item expanded "><a href="items/implementations.html"><strong aria-hidden="true">6.12.</strong> 实现</a></li><li class="chapter-item expanded "><a href="items/external-blocks.html"><strong aria-hidden="true">6.13.</strong> 外部块</a></li><li class="chapter-item expanded "><a href="items/generics.html"><strong aria-hidden="true">6.14.</strong> 泛型参数</a></li><li class="chapter-item expanded "><a href="items/associated-items.html"><strong aria-hidden="true">6.15.</strong> 关联条目</a></li></ol></li><li class="chapter-item expanded "><a href="attributes.html"><strong aria-hidden="true">7.</strong> 属性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="attributes/testing.html"><strong aria-hidden="true">7.1.</strong> 测试</a></li><li class="chapter-item expanded "><a href="attributes/derive.html"><strong aria-hidden="true">7.2.</strong> 派生</a></li><li class="chapter-item expanded "><a href="attributes/diagnostics.html"><strong aria-hidden="true">7.3.</strong> 诊断</a></li><li class="chapter-item expanded "><a href="attributes/codegen.html"><strong aria-hidden="true">7.4.</strong> 代码生成</a></li><li class="chapter-item expanded "><a href="attributes/limits.html"><strong aria-hidden="true">7.5.</strong> 约束</a></li><li class="chapter-item expanded "><a href="attributes/type_system.html"><strong aria-hidden="true">7.6.</strong> 类型系统</a></li></ol></li><li class="chapter-item expanded "><a href="statements-and-expressions.html"><strong aria-hidden="true">8.</strong> 语句和表达式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="statements.html"><strong aria-hidden="true">8.1.</strong> 语句</a></li><li class="chapter-item expanded "><a href="expressions.html"><strong aria-hidden="true">8.2.</strong> 表达式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="expressions/literal-expr.html"><strong aria-hidden="true">8.2.1.</strong> 字面值表达式</a></li><li class="chapter-item expanded "><a href="expressions/path-expr.html"><strong aria-hidden="true">8.2.2.</strong> 路径表达式</a></li><li class="chapter-item expanded "><a href="expressions/block-expr.html"><strong aria-hidden="true">8.2.3.</strong> 块表达式</a></li><li class="chapter-item expanded "><a href="expressions/operator-expr.html"><strong aria-hidden="true">8.2.4.</strong> 运算符表达式</a></li><li class="chapter-item expanded "><a href="expressions/grouped-expr.html"><strong aria-hidden="true">8.2.5.</strong> 分组表达式</a></li><li class="chapter-item expanded "><a href="expressions/array-expr.html"><strong aria-hidden="true">8.2.6.</strong> 数组和索引表达式</a></li><li class="chapter-item expanded "><a href="expressions/tuple-expr.html"><strong aria-hidden="true">8.2.7.</strong> 元组和索引表达式</a></li><li class="chapter-item expanded "><a href="expressions/struct-expr.html"><strong aria-hidden="true">8.2.8.</strong> 结构体表达式</a></li><li class="chapter-item expanded "><a href="expressions/call-expr.html"><strong aria-hidden="true">8.2.9.</strong> 调用表达式</a></li><li class="chapter-item expanded "><a href="expressions/method-call-expr.html"><strong aria-hidden="true">8.2.10.</strong> 方法调用表达式</a></li><li class="chapter-item expanded "><a href="expressions/field-expr.html"><strong aria-hidden="true">8.2.11.</strong> 字段访问表达式</a></li><li class="chapter-item expanded "><a href="expressions/closure-expr.html"><strong aria-hidden="true">8.2.12.</strong> 闭包表达式</a></li><li class="chapter-item expanded "><a href="expressions/loop-expr.html"><strong aria-hidden="true">8.2.13.</strong> 循环表达式</a></li><li class="chapter-item expanded "><a href="expressions/range-expr.html"><strong aria-hidden="true">8.2.14.</strong> 区间表达式</a></li><li class="chapter-item expanded "><a href="expressions/if-expr.html"><strong aria-hidden="true">8.2.15.</strong> if 和 if let 表达式</a></li><li class="chapter-item expanded "><a href="expressions/match-expr.html"><strong aria-hidden="true">8.2.16.</strong> 匹配表达式</a></li><li class="chapter-item expanded "><a href="expressions/return-expr.html"><strong aria-hidden="true">8.2.17.</strong> 返回表达式</a></li><li class="chapter-item expanded "><a href="expressions/await-expr.html"><strong aria-hidden="true">8.2.18.</strong> 等待表达式</a></li><li class="chapter-item expanded "><a href="expressions/underscore-expr.html"><strong aria-hidden="true">8.2.19.</strong> 下划线表达式</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="patterns.html"><strong aria-hidden="true">9.</strong> 模式</a></li><li class="chapter-item expanded "><a href="type-system.html"><strong aria-hidden="true">10.</strong> 类型系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="types.html"><strong aria-hidden="true">10.1.</strong> 类型</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="types/boolean.html"><strong aria-hidden="true">10.1.1.</strong> 布尔类型</a></li><li class="chapter-item expanded "><a href="types/numeric.html"><strong aria-hidden="true">10.1.2.</strong> 数字类型</a></li><li class="chapter-item expanded "><a href="types/textual.html"><strong aria-hidden="true">10.1.3.</strong> 文本类型</a></li><li class="chapter-item expanded "><a href="types/never.html"><strong aria-hidden="true">10.1.4.</strong> 永远不存在的类型</a></li><li class="chapter-item expanded "><a href="types/tuple.html"><strong aria-hidden="true">10.1.5.</strong> 元组类型</a></li><li class="chapter-item expanded "><a href="types/array.html"><strong aria-hidden="true">10.1.6.</strong> 数组类型</a></li><li class="chapter-item expanded "><a href="types/slice.html"><strong aria-hidden="true">10.1.7.</strong> 切片类型</a></li><li class="chapter-item expanded "><a href="types/struct.html"><strong aria-hidden="true">10.1.8.</strong> 结构体类型</a></li><li class="chapter-item expanded "><a href="types/enum.html"><strong aria-hidden="true">10.1.9.</strong> 枚举类型</a></li><li class="chapter-item expanded "><a href="types/union.html"><strong aria-hidden="true">10.1.10.</strong> 联合类型</a></li><li class="chapter-item expanded "><a href="types/function-item.html"><strong aria-hidden="true">10.1.11.</strong> 函数条目类型</a></li><li class="chapter-item expanded "><a href="types/closure.html"><strong aria-hidden="true">10.1.12.</strong> 闭包类型</a></li><li class="chapter-item expanded "><a href="types/pointer.html"><strong aria-hidden="true">10.1.13.</strong> 指针类型</a></li><li class="chapter-item expanded "><a href="types/function-pointer.html"><strong aria-hidden="true">10.1.14.</strong> 函数指针类型</a></li><li class="chapter-item expanded "><a href="types/trait-object.html"><strong aria-hidden="true">10.1.15.</strong> Trait 对象类型</a></li><li class="chapter-item expanded "><a href="types/impl-trait.html"><strong aria-hidden="true">10.1.16.</strong> 实现 Trait 的类型</a></li><li class="chapter-item expanded "><a href="types/parameters.html"><strong aria-hidden="true">10.1.17.</strong> 类型参数</a></li><li class="chapter-item expanded "><a href="types/inferred.html"><strong aria-hidden="true">10.1.18.</strong> 推导出的类型</a></li></ol></li><li class="chapter-item expanded "><a href="dynamically-sized-types.html"><strong aria-hidden="true">10.2.</strong> 动态大小类型</a></li><li class="chapter-item expanded "><a href="type-layout.html"><strong aria-hidden="true">10.3.</strong> 类型布局</a></li><li class="chapter-item expanded "><a href="interior-mutability.html"><strong aria-hidden="true">10.4.</strong> 内部可变性</a></li><li class="chapter-item expanded "><a href="subtyping.html"><strong aria-hidden="true">10.5.</strong> 子类型和协变</a></li><li class="chapter-item expanded "><a href="trait-bounds.html"><strong aria-hidden="true">10.6.</strong> Trait 和生命周期边界</a></li><li class="chapter-item expanded "><a href="type-coercions.html"><strong aria-hidden="true">10.7.</strong> 类型强制转换</a></li><li class="chapter-item expanded "><a href="destructors.html"><strong aria-hidden="true">10.8.</strong> 析构函数</a></li><li class="chapter-item expanded "><a href="lifetime-elision.html"><strong aria-hidden="true">10.9.</strong> 生命周期省略</a></li></ol></li><li class="chapter-item expanded "><a href="special-types-and-traits.html"><strong aria-hidden="true">11.</strong> 特殊类型和Trait</a></li><li class="chapter-item expanded "><a href="names.html"><strong aria-hidden="true">12.</strong> 名称</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="names/namespaces.html"><strong aria-hidden="true">12.1.</strong> 命名空间</a></li><li class="chapter-item expanded "><a href="names/scopes.html"><strong aria-hidden="true">12.2.</strong> 作用域</a></li><li class="chapter-item expanded "><a href="names/preludes.html"><strong aria-hidden="true">12.3.</strong> 预定义</a></li><li class="chapter-item expanded "><a href="paths.html"><strong aria-hidden="true">12.4.</strong> 路径</a></li><li class="chapter-item expanded "><a href="names/name-resolution.html"><strong aria-hidden="true">12.5.</strong> 名称解析</a></li><li class="chapter-item expanded "><a href="visibility-and-privacy.html"><strong aria-hidden="true">12.6.</strong> 可见性和私有性</a></li></ol></li><li class="chapter-item expanded "><a href="memory-model.html"><strong aria-hidden="true">13.</strong> 内存模型</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="memory-allocation-and-lifetime.html"><strong aria-hidden="true">13.1.</strong> 内存分配和生命周期</a></li><li class="chapter-item expanded "><a href="variables.html"><strong aria-hidden="true">13.2.</strong> 变量</a></li></ol></li><li class="chapter-item expanded "><a href="linkage.html"><strong aria-hidden="true">14.</strong> 链接</a></li><li class="chapter-item expanded "><a href="inline-assembly.html"><strong aria-hidden="true">15.</strong> 内联汇编</a></li><li class="chapter-item expanded "><a href="unsafety.html"><strong aria-hidden="true">16.</strong> Unsafety</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="unsafe-keyword.html"><strong aria-hidden="true">16.1.</strong> unsafe 关键字</a></li><li class="chapter-item expanded "><a href="behavior-considered-undefined.html"><strong aria-hidden="true">16.2.</strong> 被视为未定义行为的行为</a></li><li class="chapter-item expanded "><a href="behavior-not-considered-unsafe.html"><strong aria-hidden="true">16.3.</strong> 不被视为不安全的行为</a></li></ol></li><li class="chapter-item expanded "><a href="const_eval.html"><strong aria-hidden="true">17.</strong> 常量求值</a></li><li class="chapter-item expanded "><a href="abi.html"><strong aria-hidden="true">18.</strong> 应用程序二进制接口</a></li><li class="chapter-item expanded "><a href="runtime.html"><strong aria-hidden="true">19.</strong> Rust 运行时</a></li><li class="chapter-item expanded "><a href="appendices.html"><strong aria-hidden="true">20.</strong> 附录</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="macro-ambiguity.html"><strong aria-hidden="true">20.1.</strong> 宏 Follow-Set 歧义正式规范</a></li><li class="chapter-item expanded "><a href="influences.html"><strong aria-hidden="true">20.2.</strong> 影响</a></li><li class="chapter-item expanded "><a href="glossary.html"><strong aria-hidden="true">20.3.</strong> 术语表</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Rust Reference</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/reference/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/reference/edit/master/src/procedural-macros.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="过程宏"><a class="header" href="#过程宏">过程宏</a></h2>
+<p><em>Procedural macros</em> &quot;过程宏&quot;允许创建语法扩展，作为函数执行。
+过程宏有三种添加形式:</p>
+<ul>
+<li><a href="#function-like-procedural-macros">Function-like macros</a> - <code>custom!(...)</code>       &quot;函数宏&quot;</li>
+<li><a href="#derive-macros">Derive macros</a> - <code>#[derive(CustomDerive)]</code>   &quot;衍生宏&quot;</li>
+<li><a href="#attribute-macros">Attribute macros</a> - <code>#[CustomAttribute]</code>     &quot;属性宏&quot;</li>
+</ul>
+<p>过程宏允许你在编译时运行代码，对 Rust 句法进行操作，既消耗并产生 Rust 句法。
+你可以把过程宏想象成从一个 AST 到另一个 AST 的函数。</p>
+<p>过程宏必须定义在一个 <a href="linkage.html">crate 类型</a> 为 <code>proc-macro</code> 的 crate 中。</p>
+<blockquote>
+<p><strong>注意</strong>: 在使用 Cargo 时，过程宏 crate 是用配置清单中的 <code>proc-macro</code> 键来定义的。</p>
+<pre><code class="language-toml">[lib]
+proc-macro = true
+</code></pre>
+</blockquote>
+<p>作为函数，其必须要么返回句法，要么恐慌，要么无休止地循环。
+返回的句法要么替换要么增加句法，这取决于过程宏的种类。
+编译器会捕获恐慌，并变成编译器错误。
+编译器不会捕捉无休止循环，从而会挂起编译器。</p>
+<p>过程宏在编译过程中运行，由此拥有与编译器相同的资源。
+例如，标准输入、错误和输出与编译器所能访问的相同。
+同样地，文件访问也是一样的。因为如此，过程宏与 <a href="../cargo/reference/build-scripts.html">Cargo 构建脚本</a> 有同样的安全问题。</p>
+<p>过程宏有两种报告错误的方式。第一种是恐慌。
+第二种是触发 <a href="../std/macro.compile_error.html"><code>compile_error</code></a> 宏调用。</p>
+<h3 id="the-proc_macro-crate"><a class="header" href="#the-proc_macro-crate">The <code>proc_macro</code> crate</a></h3>
+<p>过程宏 crate 几乎总是链接编译器提供的 <a href="../proc_macro/index.html"><code>proc_macro</code> crate</a> 。
+<code>proc_macro</code> crate 提供了编写过程宏所需的类型和功能，使其更加容易。</p>
+<p>这个 crate 主要包含一个 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 类型。
+过程宏在 <em>token streams</em> 流上操作，而不是 AST 节点，这对编译器和过程宏来说是更稳定的接口。
+<em>token streams</em> 大致相当于 <code>Vec&lt;TokenTree&gt;</code> ，其中 <code>TokenTree</code> 可以大致认为是词法 Token 。
+例如 <code>foo</code> 是 <code>Ident</code> 标记， <code>.</code> 是 <code>Punct</code> 标记，而 <code>1.2</code> 是 <code>Literal</code> 标记。与 <code>Vec&lt;TokenTree&gt;</code> 不同，<code>TokenStream</code> 类型克隆更轻便。</p>
+<p>所有 Token 都有一个相关的 <code>Span</code> 。
+<code>Span</code> 是一个不透明的值，不能被修改，但可以被制造。
+<code>Span</code> 表示程序中源码的一个作用域，主要用于错误报告。
+虽然你不能修改 <code>Span</code> 本身，但总是可以改变与任何 Token <em>相关</em> 的 <code>Span</code> ，比如通过从另一个 Token 获得 <code>Span</code> 。</p>
+<h3 id="过程宏卫生"><a class="header" href="#过程宏卫生">过程宏卫生</a></h3>
+<p>过程宏是 <em>unhygienic</em> &quot;非卫生&quot; 的，行为简单，像是直接把输出 Token 流写入到其旁边的代码中一样。
+意味着，它会受到外部条目的影响，也会影响到外部导入。</p>
+<p>因为有这个限制，宏作者需要非常小心，以确保宏能在更多情况下工作。
+这通常包括: 使用库中条目的绝对路径 (例如 <code>::std::option::Option</code> 而不是 <code>Option</code> ) ，
+或者确保生成的函数名称不太可能与其他函数冲突 (例如 <code>__internal_foo</code> 而不是 <code>foo</code> ) 。</p>
+<h3 id="函数式过程宏"><a class="header" href="#函数式过程宏">函数式过程宏</a></h3>
+<p><em>Function-like procedural macros</em> 函数式过程宏使用宏调用操作符 (<code>!</code>) 来调用。</p>
+<p>这些宏是由一个具有 <code>proc_macro</code> <a href="attributes.html">attribute</a> 和 <code>(TokenStream) -&gt; TokenStream</code> 签名的 <a href="visibility-and-privacy.html">public</a> <a href="items/functions.html">function</a> 定义的。
+输入 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 是宏调用式的定界符号内的内容，输出 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 则是整个宏调用式的内容。</p>
+<p>例如，下面的宏定义忽略其输入，并将一个函数 <code>answer</code> 输出到它的作用域。</p>
+<!-- ignore: test doesn't support proc-macro -->
+<pre><code class="language-rust ignore"><span class="boring">#![crate_type = &quot;proc-macro&quot;]
+</span>extern crate proc_macro;
+use proc_macro::TokenStream;
+
+#[proc_macro]
+pub fn make_answer(_item: TokenStream) -&gt; TokenStream {
+    &quot;fn answer() -&gt; u32 { 42 }&quot;.parse().unwrap()
+}</code></pre>
+<p>然后我们在二进制 crate 中使用它来打印 &quot;42&quot; 到标准输出。</p>
+<!-- ignore: requires external crates -->
+<pre><code class="language-rust ignore">extern crate proc_macro_examples;
+use proc_macro_examples::make_answer;
+
+make_answer!();
+
+fn main() {
+    println!(&quot;{}&quot;, answer());
+}</code></pre>
+<p>函数式过程宏可以在任何宏调用式位置被调用，其中包括 <a href="statements.html">statements</a> 语句、 <a href="expressions.html">expressions</a> 表达式、 <a href="patterns.html">patterns</a> 模式、 <a href="types.html#type-expressions">type expressions</a> 类型表达式、 <a href="items.html">item</a> 条目，
+包括 <a href="items/external-blocks.html"><code>extern</code> blocks</a> 中的条目，inherent 和 trait <a href="items/implementations.html">implementations</a> ，以及 <a href="items/traits.html">trait definitions</a> 。</p>
+<h3 id="衍生宏"><a class="header" href="#衍生宏">衍生宏</a></h3>
+<p><em>Derive macros</em> &quot;衍生宏&quot; 为 <a href="attributes/derive.html"><code>derive</code> attribute</a> 定义新输入。
+这些宏可以根据 <a href="items/structs.html">struct</a> 、 <a href="items/enumerations.html">enum</a> 或 <a href="items/unions.html">union</a> 的 token 流创建新的 <a href="items.html">items</a> 。
+它们也可以定义 <a href="#derive-macro-helper-attributes">derive macro helper attributes</a> 衍生宏辅助属性。</p>
+<p>自定义衍生宏是由一个 <a href="visibility-and-privacy.html">public</a> <a href="items/functions.html">function</a> 定义的，其属性为 <code>proc_macro_derive</code> ，签名为 <code>(TokenStream) -&gt; TokenStream</code> 。</p>
+<p>输入 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 是具有 <code>derive</code> 属性条目的 token 流。
+输出 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 必须是一组条目，然后附加到输入 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 的条目所在的 <a href="items/modules.html">module</a> 或 <a href="expressions/block-expr.html">block</a> 。</p>
+<p>下面是一个衍生宏的例子。它没有对其输入做任何有用的事情，而只是附加了一个函数 <code>answer</code> 。</p>
+<!-- ignore: test doesn't support proc-macro -->
+<pre><code class="language-rust ignore"><span class="boring">#![crate_type = &quot;proc-macro&quot;]
+</span>extern crate proc_macro;
+use proc_macro::TokenStream;
+
+#[proc_macro_derive(AnswerFn)]
+pub fn derive_answer_fn(_item: TokenStream) -&gt; TokenStream {
+    &quot;fn answer() -&gt; u32 { 42 }&quot;.parse().unwrap()
+}</code></pre>
+<p>然后使用所述的衍生宏:</p>
+<!-- ignore: requires external crates -->
+<pre><code class="language-rust ignore">extern crate proc_macro_examples;
+use proc_macro_examples::AnswerFn;
+
+#[derive(AnswerFn)]
+struct Struct;
+
+fn main() {
+    assert_eq!(42, answer());
+}</code></pre>
+<h4 id="衍生宏辅助属性"><a class="header" href="#衍生宏辅助属性">衍生宏辅助属性</a></h4>
+<p>衍生宏可以在它们所在的 <a href="items.html">item</a> &quot;条目&quot; 的作用域内添加额外的 <a href="attributes.html">attributes</a> 。
+这些属性被称为 <em>衍生宏辅助属性</em> 。
+这些属性是 <a href="attributes.html#active-and-inert-attributes">inert</a> 惰性的，其唯一目的是嵌入到定义它们的衍生宏中。
+也就是说，让所有的宏可以看到它们。</p>
+<p>定义辅助属性的方法是在 <code>proc_macro_derive</code> 宏中置入一个 <code>attributes</code> 键，用逗号分隔的标识符列表，即辅助属性的名称。</p>
+<p>例如，下面这个衍生宏定义了一个辅助属性 <code>helper</code> ，但最终没有对它做任何事情。</p>
+<!-- ignore: test doesn't support proc-macro -->
+<pre><code class="language-rust ignore"><span class="boring">#![crate_type=&quot;proc-macro&quot;]
+</span><span class="boring">extern crate proc_macro;
+</span><span class="boring">use proc_macro::TokenStream;
+</span>
+#[proc_macro_derive(HelperAttr, attributes(helper))]
+pub fn derive_helper_attr(_item: TokenStream) -&gt; TokenStream {
+    TokenStream::new()
+}</code></pre>
+<p>然后在结构上使用衍生宏:</p>
+<!-- ignore: requires external crates -->
+<pre><code class="language-rust ignore">#[derive(HelperAttr)]
+struct Struct {
+    #[helper] field: ()
+}</code></pre>
+<h3 id="属性宏"><a class="header" href="#属性宏">属性宏</a></h3>
+<p><em>Attribute macros</em> 属性宏定义了新的 <a href="attributes.html">outer attributes</a> ，可以附加到 <a href="items.html">items</a> 条目上，
+包括 <a href="items/external-blocks.html"><code>extern</code> blocks</a> 外部块中的条目，inherent 和 trait的 <a href="items/implementations.html">implementations</a> 实现，以及 <a href="items/traits.html">trait definitions</a> 。</p>
+<p>属性宏是由带有 <code>proc_macro_attribute</code> <a href="attributes.html">attribute</a> 的 <a href="visibility-and-privacy.html">public</a> <a href="items/functions.html">function</a> 定义的，其签名为 <code>(TokenStream, TokenStream) -&gt; TokenStream</code> 。
+第一个 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 是属性名称后面的分隔的token树，不包括外部分隔符号。
+如果属性被写成裸属性名，则属性 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 是空的。
+第二个 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 是 <a href="items.html">item</a> 的其他部分，包括 <a href="items.html">item</a> 上的其他 <a href="attributes.html">attributes</a> 。
+返回的 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 用任意数量的 <a href="items.html">item</a> 替换 <a href="items.html">item</a> 。</p>
+<p>例如，这个属性宏接收输入流并按原样返回，实际上是对于属性的空操作。</p>
+<!-- ignore: test doesn't support proc-macro -->
+<pre><code class="language-rust ignore"><span class="boring">#![crate_type = &quot;proc-macro&quot;]
+</span><span class="boring">extern crate proc_macro;
+</span><span class="boring">use proc_macro::TokenStream;
+</span>
+#[proc_macro_attribute]
+pub fn return_as_is(_attr: TokenStream, item: TokenStream) -&gt; TokenStream {
+    item
+}</code></pre>
+<p>下面这个例子显示了属性宏得到的字符串化的 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code>s</a> 。
+该输出将其显示在编译器的输出中。输出内容显示在以 &quot;out:&quot; 为前缀的函数后的注释中。</p>
+<!-- ignore: test doesn't support proc-macro -->
+<pre><code class="language-rust ignore">// my-macro/src/lib.rs
+<span class="boring">extern crate proc_macro;
+</span><span class="boring">use proc_macro::TokenStream;
+</span>
+#[proc_macro_attribute]
+pub fn show_streams(attr: TokenStream, item: TokenStream) -&gt; TokenStream {
+    println!(&quot;attr: \&quot;{}\&quot;&quot;, attr.to_string());
+    println!(&quot;item: \&quot;{}\&quot;&quot;, item.to_string());
+    item
+}</code></pre>
+<!-- ignore: requires external crates -->
+<pre><code class="language-rust ignore">// src/lib.rs
+extern crate my_macro;
+
+use my_macro::show_streams;
+
+// Example: Basic function
+#[show_streams]
+fn invoke1() {}
+// out: attr: &quot;&quot;
+// out: item: &quot;fn invoke1() { }&quot;
+
+// Example: Attribute with input
+#[show_streams(bar)]
+fn invoke2() {}
+// out: attr: &quot;bar&quot;
+// out: item: &quot;fn invoke2() {}&quot;
+
+// Example: Multiple tokens in the input
+#[show_streams(multiple =&gt; tokens)]
+fn invoke3() {}
+// out: attr: &quot;multiple =&gt; tokens&quot;
+// out: item: &quot;fn invoke3() {}&quot;
+
+// Example:
+#[show_streams { delimiters }]
+fn invoke4() {}
+// out: attr: &quot;delimiters&quot;
+// out: item: &quot;fn invoke4() {}&quot;</code></pre>
+<h3 id="声明宏-token-和过程宏-token"><a class="header" href="#声明宏-token-和过程宏-token">声明宏 Token 和过程宏 Token</a></h3>
+<p>声明 <code>macro_rules</code> 宏和过程宏使用是类似的，但是不同的 Token (或者说 [`TokenTree's] ) 定义。</p>
+<p>在 <code>macro_rules</code> 中的 Token 树 (对应于 <code>tt</code> matcher) 被定义为</p>
+<ul>
+<li>限定的组 (<code>(...)</code>, <code>{...}</code>, 等) 。</li>
+<li>语言支持的所有运算符，包括单字符和多字符的运算符 (<code>+</code>, <code>+=</code>) 。
+<ul>
+<li>请注意，这个集合不包括单引号 <code>'</code> 。</li>
+</ul>
+</li>
+<li>字面值 (<code>&quot;string&quot;</code>, <code>1</code>, 等) 。
+<ul>
+<li>请注意，负 (如 <code>-1</code>) 从来不是这种字面值 Token 的一部分，而是单独的操作符 Token 。</li>
+</ul>
+</li>
+<li>标识符，包括关键字 (<code>ident</code>, <code>r#ident</code>, <code>fn</code>)</li>
+<li>生命周期 (<code>'ident</code>)</li>
+<li>在 <code>macro_rules</code> 中元变量替换 (如 <code>$my_expr</code> 在 <code>macro_rules! mac { ($my_expr: expr) =&gt; { $my_expr } }</code> 在 <code>mac</code> 的展开之后，无论传递的表达式是什么，都会被认为是单一的 Token 树 )</li>
+</ul>
+<p>过程宏中的 Token 树被定义为</p>
+<ul>
+<li>限定的组 (<code>(...)</code>, <code>{...}</code>, 等)</li>
+<li>语言支持的运算符中使用的所有标点符号 (<code>+</code> ，但不是 <code>+=</code>)，还有单引号 <code>'</code> 字符 (通常用在生命周期上，关于生命周期的分割和连接行为见下文)</li>
+<li>字面值 (<code>&quot;string&quot;</code>, <code>1</code>, 等)
+<ul>
+<li>支持负 (如<code>-1</code> ) 作为整数和浮点数字的一部分。</li>
+</ul>
+</li>
+<li>标识符，包括关键字 (<code>ident</code>, <code>r#ident</code>, <code>fn</code>)</li>
+</ul>
+<p>当 Token 流被传递到过程宏时，会考虑这两个定义之间不匹配的情况。
+请注意，下面的转换可能会产生惰性，所以如果没有实际检验 Token ，就可能不会发生。</p>
+<p>传递给过程宏时</p>
+<ul>
+<li>所有的多字符运算符都分解成单字符。</li>
+<li>生命周期分解成一个 <code>'</code> 字符和一个标识符。</li>
+<li>所有元变量的替换都表示为它们实际的 Token 流。
+<ul>
+<li>当需要保留语法分析的优先级时，这样的 Token 流可以被包装成带有隐含限定符号 ([Delimiter::None]) 的限定组 ([Group]) 。</li>
+<li><code>tt</code> 和 <code>ident</code> 的替换从来不会被包裹在这样的组中，而总是作为它们的实际的 Token 树来表示。</li>
+</ul>
+</li>
+</ul>
+<p>当从过程宏触发时</p>
+<ul>
+<li>在适用的情况下，标点符号被粘接在多字符运算符中。</li>
+<li>与标识符连接的单引号 <code>'</code> 被粘接在生命周期中。</li>
+<li>负字面值被转换为两个标记 ( <code>-</code> 和字面值 )，当需要保留语法分析的优先级时，可能会被包裹在一个带限定符号的组 (<a href="../proc_macro/struct.Group.html"><code>Group</code></a>) 中，并带有隐式限定符 (<a href="../proc_macro/enum.Delimiter.html#variant.None"><code>Delimiter::None</code></a>) 。</li>
+</ul>
+<p>请注意，无论是声明性的还是过程性的宏都不支持 doc 注释标记 (例如 <code>/// Doc</code> ) ，当其传递给宏时，总是转换为表示其等价的 <code>#[doc = r&quot;str&quot;]</code> 属性的 Token 流。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="macros-by-example.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="crates-and-source-files.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="macros-by-example.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="crates-and-source-files.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

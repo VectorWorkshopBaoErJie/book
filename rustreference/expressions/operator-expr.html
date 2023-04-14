@@ -1,0 +1,747 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>运算符表达式 - The Rust Reference</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/reference.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">介绍</a></li><li class="chapter-item expanded "><a href="../notation.html"><strong aria-hidden="true">1.</strong> 符号约定</a></li><li class="chapter-item expanded "><a href="../lexical-structure.html"><strong aria-hidden="true">2.</strong> 词法结构</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../input-format.html"><strong aria-hidden="true">2.1.</strong> 输入格式</a></li><li class="chapter-item expanded "><a href="../keywords.html"><strong aria-hidden="true">2.2.</strong> 关键字</a></li><li class="chapter-item expanded "><a href="../identifiers.html"><strong aria-hidden="true">2.3.</strong> 标识符</a></li><li class="chapter-item expanded "><a href="../comments.html"><strong aria-hidden="true">2.4.</strong> 注释</a></li><li class="chapter-item expanded "><a href="../whitespace.html"><strong aria-hidden="true">2.5.</strong> 空白</a></li><li class="chapter-item expanded "><a href="../tokens.html"><strong aria-hidden="true">2.6.</strong> 记号</a></li></ol></li><li class="chapter-item expanded "><a href="../macros.html"><strong aria-hidden="true">3.</strong> 宏</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../macros-by-example.html"><strong aria-hidden="true">3.1.</strong> 实例宏</a></li><li class="chapter-item expanded "><a href="../procedural-macros.html"><strong aria-hidden="true">3.2.</strong> 过程宏</a></li></ol></li><li class="chapter-item expanded "><a href="../crates-and-source-files.html"><strong aria-hidden="true">4.</strong> Crate和源文件</a></li><li class="chapter-item expanded "><a href="../conditional-compilation.html"><strong aria-hidden="true">5.</strong> 条件编译</a></li><li class="chapter-item expanded "><a href="../items.html"><strong aria-hidden="true">6.</strong> 条目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../items/modules.html"><strong aria-hidden="true">6.1.</strong> 模块</a></li><li class="chapter-item expanded "><a href="../items/extern-crates.html"><strong aria-hidden="true">6.2.</strong> 外部Crate</a></li><li class="chapter-item expanded "><a href="../items/use-declarations.html"><strong aria-hidden="true">6.3.</strong> Use 声明</a></li><li class="chapter-item expanded "><a href="../items/functions.html"><strong aria-hidden="true">6.4.</strong> 函数</a></li><li class="chapter-item expanded "><a href="../items/type-aliases.html"><strong aria-hidden="true">6.5.</strong> 类型别名</a></li><li class="chapter-item expanded "><a href="../items/structs.html"><strong aria-hidden="true">6.6.</strong> 结构体</a></li><li class="chapter-item expanded "><a href="../items/enumerations.html"><strong aria-hidden="true">6.7.</strong> 枚举</a></li><li class="chapter-item expanded "><a href="../items/unions.html"><strong aria-hidden="true">6.8.</strong> 联合体</a></li><li class="chapter-item expanded "><a href="../items/constant-items.html"><strong aria-hidden="true">6.9.</strong> 常量条目</a></li><li class="chapter-item expanded "><a href="../items/static-items.html"><strong aria-hidden="true">6.10.</strong> 静态条目</a></li><li class="chapter-item expanded "><a href="../items/traits.html"><strong aria-hidden="true">6.11.</strong> Trait</a></li><li class="chapter-item expanded "><a href="../items/implementations.html"><strong aria-hidden="true">6.12.</strong> 实现</a></li><li class="chapter-item expanded "><a href="../items/external-blocks.html"><strong aria-hidden="true">6.13.</strong> 外部块</a></li><li class="chapter-item expanded "><a href="../items/generics.html"><strong aria-hidden="true">6.14.</strong> 泛型参数</a></li><li class="chapter-item expanded "><a href="../items/associated-items.html"><strong aria-hidden="true">6.15.</strong> 关联条目</a></li></ol></li><li class="chapter-item expanded "><a href="../attributes.html"><strong aria-hidden="true">7.</strong> 属性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../attributes/testing.html"><strong aria-hidden="true">7.1.</strong> 测试</a></li><li class="chapter-item expanded "><a href="../attributes/derive.html"><strong aria-hidden="true">7.2.</strong> 派生</a></li><li class="chapter-item expanded "><a href="../attributes/diagnostics.html"><strong aria-hidden="true">7.3.</strong> 诊断</a></li><li class="chapter-item expanded "><a href="../attributes/codegen.html"><strong aria-hidden="true">7.4.</strong> 代码生成</a></li><li class="chapter-item expanded "><a href="../attributes/limits.html"><strong aria-hidden="true">7.5.</strong> 约束</a></li><li class="chapter-item expanded "><a href="../attributes/type_system.html"><strong aria-hidden="true">7.6.</strong> 类型系统</a></li></ol></li><li class="chapter-item expanded "><a href="../statements-and-expressions.html"><strong aria-hidden="true">8.</strong> 语句和表达式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../statements.html"><strong aria-hidden="true">8.1.</strong> 语句</a></li><li class="chapter-item expanded "><a href="../expressions.html"><strong aria-hidden="true">8.2.</strong> 表达式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../expressions/literal-expr.html"><strong aria-hidden="true">8.2.1.</strong> 字面值表达式</a></li><li class="chapter-item expanded "><a href="../expressions/path-expr.html"><strong aria-hidden="true">8.2.2.</strong> 路径表达式</a></li><li class="chapter-item expanded "><a href="../expressions/block-expr.html"><strong aria-hidden="true">8.2.3.</strong> 块表达式</a></li><li class="chapter-item expanded "><a href="../expressions/operator-expr.html" class="active"><strong aria-hidden="true">8.2.4.</strong> 运算符表达式</a></li><li class="chapter-item expanded "><a href="../expressions/grouped-expr.html"><strong aria-hidden="true">8.2.5.</strong> 分组表达式</a></li><li class="chapter-item expanded "><a href="../expressions/array-expr.html"><strong aria-hidden="true">8.2.6.</strong> 数组和索引表达式</a></li><li class="chapter-item expanded "><a href="../expressions/tuple-expr.html"><strong aria-hidden="true">8.2.7.</strong> 元组和索引表达式</a></li><li class="chapter-item expanded "><a href="../expressions/struct-expr.html"><strong aria-hidden="true">8.2.8.</strong> 结构体表达式</a></li><li class="chapter-item expanded "><a href="../expressions/call-expr.html"><strong aria-hidden="true">8.2.9.</strong> 调用表达式</a></li><li class="chapter-item expanded "><a href="../expressions/method-call-expr.html"><strong aria-hidden="true">8.2.10.</strong> 方法调用表达式</a></li><li class="chapter-item expanded "><a href="../expressions/field-expr.html"><strong aria-hidden="true">8.2.11.</strong> 字段访问表达式</a></li><li class="chapter-item expanded "><a href="../expressions/closure-expr.html"><strong aria-hidden="true">8.2.12.</strong> 闭包表达式</a></li><li class="chapter-item expanded "><a href="../expressions/loop-expr.html"><strong aria-hidden="true">8.2.13.</strong> 循环表达式</a></li><li class="chapter-item expanded "><a href="../expressions/range-expr.html"><strong aria-hidden="true">8.2.14.</strong> 区间表达式</a></li><li class="chapter-item expanded "><a href="../expressions/if-expr.html"><strong aria-hidden="true">8.2.15.</strong> if 和 if let 表达式</a></li><li class="chapter-item expanded "><a href="../expressions/match-expr.html"><strong aria-hidden="true">8.2.16.</strong> 匹配表达式</a></li><li class="chapter-item expanded "><a href="../expressions/return-expr.html"><strong aria-hidden="true">8.2.17.</strong> 返回表达式</a></li><li class="chapter-item expanded "><a href="../expressions/await-expr.html"><strong aria-hidden="true">8.2.18.</strong> 等待表达式</a></li><li class="chapter-item expanded "><a href="../expressions/underscore-expr.html"><strong aria-hidden="true">8.2.19.</strong> 下划线表达式</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../patterns.html"><strong aria-hidden="true">9.</strong> 模式</a></li><li class="chapter-item expanded "><a href="../type-system.html"><strong aria-hidden="true">10.</strong> 类型系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../types.html"><strong aria-hidden="true">10.1.</strong> 类型</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../types/boolean.html"><strong aria-hidden="true">10.1.1.</strong> 布尔类型</a></li><li class="chapter-item expanded "><a href="../types/numeric.html"><strong aria-hidden="true">10.1.2.</strong> 数字类型</a></li><li class="chapter-item expanded "><a href="../types/textual.html"><strong aria-hidden="true">10.1.3.</strong> 文本类型</a></li><li class="chapter-item expanded "><a href="../types/never.html"><strong aria-hidden="true">10.1.4.</strong> 永远不存在的类型</a></li><li class="chapter-item expanded "><a href="../types/tuple.html"><strong aria-hidden="true">10.1.5.</strong> 元组类型</a></li><li class="chapter-item expanded "><a href="../types/array.html"><strong aria-hidden="true">10.1.6.</strong> 数组类型</a></li><li class="chapter-item expanded "><a href="../types/slice.html"><strong aria-hidden="true">10.1.7.</strong> 切片类型</a></li><li class="chapter-item expanded "><a href="../types/struct.html"><strong aria-hidden="true">10.1.8.</strong> 结构体类型</a></li><li class="chapter-item expanded "><a href="../types/enum.html"><strong aria-hidden="true">10.1.9.</strong> 枚举类型</a></li><li class="chapter-item expanded "><a href="../types/union.html"><strong aria-hidden="true">10.1.10.</strong> 联合类型</a></li><li class="chapter-item expanded "><a href="../types/function-item.html"><strong aria-hidden="true">10.1.11.</strong> 函数条目类型</a></li><li class="chapter-item expanded "><a href="../types/closure.html"><strong aria-hidden="true">10.1.12.</strong> 闭包类型</a></li><li class="chapter-item expanded "><a href="../types/pointer.html"><strong aria-hidden="true">10.1.13.</strong> 指针类型</a></li><li class="chapter-item expanded "><a href="../types/function-pointer.html"><strong aria-hidden="true">10.1.14.</strong> 函数指针类型</a></li><li class="chapter-item expanded "><a href="../types/trait-object.html"><strong aria-hidden="true">10.1.15.</strong> Trait 对象类型</a></li><li class="chapter-item expanded "><a href="../types/impl-trait.html"><strong aria-hidden="true">10.1.16.</strong> 实现 Trait 的类型</a></li><li class="chapter-item expanded "><a href="../types/parameters.html"><strong aria-hidden="true">10.1.17.</strong> 类型参数</a></li><li class="chapter-item expanded "><a href="../types/inferred.html"><strong aria-hidden="true">10.1.18.</strong> 推导出的类型</a></li></ol></li><li class="chapter-item expanded "><a href="../dynamically-sized-types.html"><strong aria-hidden="true">10.2.</strong> 动态大小类型</a></li><li class="chapter-item expanded "><a href="../type-layout.html"><strong aria-hidden="true">10.3.</strong> 类型布局</a></li><li class="chapter-item expanded "><a href="../interior-mutability.html"><strong aria-hidden="true">10.4.</strong> 内部可变性</a></li><li class="chapter-item expanded "><a href="../subtyping.html"><strong aria-hidden="true">10.5.</strong> 子类型和协变</a></li><li class="chapter-item expanded "><a href="../trait-bounds.html"><strong aria-hidden="true">10.6.</strong> Trait 和生命周期边界</a></li><li class="chapter-item expanded "><a href="../type-coercions.html"><strong aria-hidden="true">10.7.</strong> 类型强制转换</a></li><li class="chapter-item expanded "><a href="../destructors.html"><strong aria-hidden="true">10.8.</strong> 析构函数</a></li><li class="chapter-item expanded "><a href="../lifetime-elision.html"><strong aria-hidden="true">10.9.</strong> 生命周期省略</a></li></ol></li><li class="chapter-item expanded "><a href="../special-types-and-traits.html"><strong aria-hidden="true">11.</strong> 特殊类型和Trait</a></li><li class="chapter-item expanded "><a href="../names.html"><strong aria-hidden="true">12.</strong> 名称</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../names/namespaces.html"><strong aria-hidden="true">12.1.</strong> 命名空间</a></li><li class="chapter-item expanded "><a href="../names/scopes.html"><strong aria-hidden="true">12.2.</strong> 作用域</a></li><li class="chapter-item expanded "><a href="../names/preludes.html"><strong aria-hidden="true">12.3.</strong> 预定义</a></li><li class="chapter-item expanded "><a href="../paths.html"><strong aria-hidden="true">12.4.</strong> 路径</a></li><li class="chapter-item expanded "><a href="../names/name-resolution.html"><strong aria-hidden="true">12.5.</strong> 名称解析</a></li><li class="chapter-item expanded "><a href="../visibility-and-privacy.html"><strong aria-hidden="true">12.6.</strong> 可见性和私有性</a></li></ol></li><li class="chapter-item expanded "><a href="../memory-model.html"><strong aria-hidden="true">13.</strong> 内存模型</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../memory-allocation-and-lifetime.html"><strong aria-hidden="true">13.1.</strong> 内存分配和生命周期</a></li><li class="chapter-item expanded "><a href="../variables.html"><strong aria-hidden="true">13.2.</strong> 变量</a></li></ol></li><li class="chapter-item expanded "><a href="../linkage.html"><strong aria-hidden="true">14.</strong> 链接</a></li><li class="chapter-item expanded "><a href="../inline-assembly.html"><strong aria-hidden="true">15.</strong> 内联汇编</a></li><li class="chapter-item expanded "><a href="../unsafety.html"><strong aria-hidden="true">16.</strong> Unsafety</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../unsafe-keyword.html"><strong aria-hidden="true">16.1.</strong> unsafe 关键字</a></li><li class="chapter-item expanded "><a href="../behavior-considered-undefined.html"><strong aria-hidden="true">16.2.</strong> 被视为未定义行为的行为</a></li><li class="chapter-item expanded "><a href="../behavior-not-considered-unsafe.html"><strong aria-hidden="true">16.3.</strong> 不被视为不安全的行为</a></li></ol></li><li class="chapter-item expanded "><a href="../const_eval.html"><strong aria-hidden="true">17.</strong> 常量求值</a></li><li class="chapter-item expanded "><a href="../abi.html"><strong aria-hidden="true">18.</strong> 应用程序二进制接口</a></li><li class="chapter-item expanded "><a href="../runtime.html"><strong aria-hidden="true">19.</strong> Rust 运行时</a></li><li class="chapter-item expanded "><a href="../appendices.html"><strong aria-hidden="true">20.</strong> 附录</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../macro-ambiguity.html"><strong aria-hidden="true">20.1.</strong> 宏 Follow-Set 歧义正式规范</a></li><li class="chapter-item expanded "><a href="../influences.html"><strong aria-hidden="true">20.2.</strong> 影响</a></li><li class="chapter-item expanded "><a href="../glossary.html"><strong aria-hidden="true">20.3.</strong> 术语表</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Rust Reference</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/reference/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/reference/edit/master/src/expressions/operator-expr.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="运算符表达式"><a class="header" href="#运算符表达式">运算符表达式</a></h1>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>OperatorExpression</em> :<br />
+      <a href="#borrow-operators"><em>BorrowExpression</em></a><br />
+   | <a href="#the-dereference-operator"><em>DereferenceExpression</em></a><br />
+   | <a href="#the-question-mark-operator"><em>ErrorPropagationExpression</em></a><br />
+   | <a href="#negation-operators"><em>NegationExpression</em></a><br />
+   | <a href="#arithmetic-and-logical-binary-operators"><em>ArithmeticOrLogicalExpression</em></a><br />
+   | <a href="#comparison-operators"><em>ComparisonExpression</em></a><br />
+   | <a href="#lazy-boolean-operators"><em>LazyBooleanExpression</em></a><br />
+   | <a href="#type-cast-expressions"><em>TypeCastExpression</em></a><br />
+   | <a href="#assignment-expressions"><em>AssignmentExpression</em></a><br />
+   | <a href="#compound-assignment-expressions"><em>CompoundAssignmentExpression</em></a></p>
+</blockquote>
+<p>在 Rust 语言中，内置类型的运算符已经被定义好了。
+许多下面提到的运算符也可以通过 <code>std::ops</code> 或 <code>std::cmp</code> 中的 trait 进行重载。</p>
+<h2 id="溢出"><a class="header" href="#溢出">溢出</a></h2>
+<p>在调试模式下编译的整数运算符会在溢出时触发 panic。
+可以使用 <code>-C debug-assertions</code> 和 <code>-C overflow-checks</code> 编译器标志来更直接地控制这个行为。下列情况被视为溢出：</p>
+<ul>
+<li>当 <code>+</code>、<code>*</code> 或二元 <code>-</code> 创建的值大于可以存储的最大值或小于最小值。</li>
+<li>对任何有符号整数类型的最小值应用一元 <code>-</code> ，除非操作数是 <a href="https://doc.rust-lang.org/reference/expressions/literal-expr.html">字面值表达式</a>
+(或在一个或多个 <a href="https://doc.rust-lang.org/reference/expressions/grouped-expr.html">分组表达式</a> 中单独使用的字面值表达式) 。</li>
+<li>在左操作数是有符号整数类型的最小整数且右操作数是 <code>-1</code> 时，使用 <code>/</code> 或 <code>%</code> 。 出于兼容性原因，即使禁用了 <code>-C overflow-checks</code> ，这些检查也会发生。</li>
+<li>在右操作数大于或等于左操作数类型的位数或为负时，使用 <code>&lt;&lt;</code> 或 <code>&gt;&gt;</code> 。</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong>: 对于一元 <code>-</code> 后面的字面值表达式，这意味着类似 <code>-128_i8</code> 或 <code>let j: i8 = -(128)</code> 的形式永远不会导致 panic，并且其期望值为 -128 。</p>
+<p>在这些情况下，字面值表达式已经具有其类型的最小值 (例如， <code>128_i8</code> 的值为 -128) ，因为整数字面值按照 <a href="literal-expr.html#integer-literal-expressions">整数字面值表达式</a> 中的描述被截断为其类型。</p>
+<p>这些最小值的否定不会改变值，因为采用了二进制补码的溢出约定。</p>
+<p>在 <code>rustc</code> 中，这些最小值表达式也被 <code>overflowing_literals</code> lint 检查忽略。</p>
+</blockquote>
+<h2 id="借用运算符"><a class="header" href="#借用运算符">借用运算符</a></h2>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>BorrowExpression</em> :<br />
+      (<code>&amp;</code>|<code>&amp;&amp;</code>) <a href="../expressions.html"><em>Expression</em></a><br />
+   | (<code>&amp;</code>|<code>&amp;&amp;</code>) <code>mut</code> <a href="../expressions.html"><em>Expression</em></a></p>
+</blockquote>
+<p><code>&amp;</code> (共享借用) 和 <code>&amp;mut</code> (可变借用) 运算符是一元前缀运算符。
+当应用于一个 <a href="../expressions.html#place-expressions-and-value-expressions">占位表达式</a> 时，该表达式产生一个指向该值引用的位置的引用 (指针) 。
+在引用的持续时间内，该内存位置也被置于借用状态。对于共享借用 ( <code>&amp;</code> ) ，这意味着该位置可能不能被修改，但可以被读取或再次共享。
+对于可变借用 ( <code>&amp;mut</code> ) ，在借用过期之前，该位置可能不能以任何方式访问。
+<code>&amp;mut</code> 在可变位置表达式上下文中评估其操作数。如果 <code>&amp;</code> 或 <code>&amp;mut</code> 运算符应用于一个 <a href="../expressions.html#place-expressions-and-value-expressions">值表达式</a> ，则将创建一个 <a href="../expressions.html#temporaries">临时值</a>。</p>
+<p>这些运算符不能被重载。</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>{
+    // 创建一个值为 7 的临时值，它只在当前作用域有效。
+    let shared_reference = &amp;7;
+}
+let mut array = [-2, 3, 9];
+{
+    // 对 `array` 进行可变借用，这个作用域内 `array` 只能通过 `mutable_reference` 使用。
+    let mutable_reference = &amp;mut array;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>即使 <code>&amp;&amp;</code> 是单个标记 (<a href="#lazy-boolean-operators">惰性 'and' 运算符</a>) ，但在借用表达式的上下文中使用时，它的作用相当于两个借用:</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// same meanings:
+let a = &amp;&amp;  10;
+let a = &amp; &amp; 10;
+
+// same meanings:
+let a = &amp;&amp;&amp;&amp;  mut 10;
+let a = &amp;&amp; &amp;&amp; mut 10;
+let a = &amp; &amp; &amp; &amp; mut 10;
+<span class="boring">}</span></code></pre></pre>
+<h3 id="原始地址运算符"><a class="header" href="#原始地址运算符">原始地址运算符</a></h3>
+<p>与借用运算符相关的是 <em>原始地址运算符</em> ，它们没有一级语法，但通过宏 <a href="../../std/ptr/macro.addr_of.html"><code>ptr::addr_of!(expr)</code></a> 和 <a href="../../std/ptr/macro.addr_of_mut.html"><code>ptr::addr_of_mut!(expr)</code></a> 暴露出来。
+表达式 <code>expr</code> 在占位表达式上下文中进行评估。
+<code>ptr::addr_of!(expr)</code> 然后创建一个类型为 <code>*const T</code> 的常量原始指针指向给定的位置，而 <code>ptr::addr_of_mut!(expr)</code> 则创建一个类型为 <code>*mut T</code> 的可变原始指针。</p>
+<p>必须使用原始地址运算符而不是借用运算符，每当占位表达式可以评估为未正确对齐或不存储有效值 (根据其类型确定) ，或者每当创建引用会引入不正确的别名假设时。
+在这些情况下，使用借用运算符将通过创建无效引用导致 <a href="../behavior-considered-undefined.html">未定义行为</a> ，但仍可以使用地址运算符构造原始指针。</p>
+<p>以下是通过 <code>packed</code> 结构创建指向未对齐位置的原始指针的示例：</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::ptr;
+
+// 定义一个 packed 结构体
+#[repr(packed)]
+struct Packed {
+    f1: u8,
+    f2: u16,
+}
+
+// 创建一个 packed 实例
+let packed = Packed { f1: 1, f2: 2 };
+// `&amp;packed.f2` 会创建一个不对齐的引用，因此是未定义行为！
+// 使用 `ptr::addr_of!` 创建一个指向 `packed.f2` 的不可变原始指针
+let raw_f2 = ptr::addr_of!(packed.f2);
+// 读取 `raw_f2` 指向的值，并断言其值等于2
+assert_eq!(unsafe { raw_f2.read_unaligned() }, 2);
+<span class="boring">}</span></code></pre></pre>
+<p>以下是创建指向不包含有效值的位置的原始指针的示例:</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::{ptr, mem::MaybeUninit};
+
+struct Demo {
+    field: bool,
+}
+
+let mut uninit = MaybeUninit::&lt;Demo&gt;::uninit();
+// &amp;uninit.as_mut().field将创建对未初始化的'bool'的引用，因此为Undefined Behavior!
+let f1_ptr = unsafe { ptr::addr_of_mut!((*uninit.as_mut_ptr()).field) };
+// 将'true'写入先前未初始化的字段。
+unsafe { f1_ptr.write(true); }
+// 因为'uninit'已在上面初始化，所以是安全的。
+let init = unsafe { uninit.assume_init() };
+<span class="boring">}</span></code></pre></pre>
+<h2 id="解引用操作符"><a class="header" href="#解引用操作符">解引用操作符</a></h2>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>DereferenceExpression</em> :<br />
+   <code>*</code> <a href="../expressions.html"><em>Expression</em></a></p>
+</blockquote>
+<p>解引用运算符 <code>*</code> 也是一个一元前缀运算符。
+当应用于 <a href="../types/pointer.html">指针</a> 时，表示指向的地址。
+如果表达式的类型为 <code>&amp;mut T</code> 或 <code>*mut T</code>，并且是一个局部变量、局部变量的 (嵌套) 字段或可变的 <a href="../expressions.html#place-expressions-and-value-expressions">占位表达式</a> ，则可以将结果的内存位置分配给其它变量。
+对一个裸指针进行解引用需要使用 <code>unsafe</code> 。</p>
+<p>对于非指针类型， <code>*x</code> 在不可变的 <a href="../expressions.html#mutability">占位表达式上下文</a> 中等同于 <code>*std::ops::Deref::deref(&amp;x)</code> ，在可变的占位表达式上下文中等同于 <code>*std::ops::DerefMut::deref_mut(&amp;mut x)</code>。</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x = &amp;7;
+assert_eq!(*x, 7);
+let y = &amp;mut 9;
+*y = 11;
+assert_eq!(*y, 11);
+<span class="boring">}</span></code></pre></pre>
+<h2 id="问号操作符"><a class="header" href="#问号操作符">问号操作符</a></h2>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>ErrorPropagationExpression</em> :<br />
+   <a href="../expressions.html"><em>Expression</em></a> <code>?</code></p>
+</blockquote>
+<p>问号运算符 (<code>?</code>) 可以展开有效的值或返回错误值，并将它们传播到调用函数中。
+它是一个一元后缀运算符，只能应用于 <code>Result&lt;T, E&gt;</code> 和 <code>Option&lt;T&gt;</code> 类型。</p>
+<p>当应用于 <code>Result&lt;T, E&gt;</code> 类型的值时，它会传播错误。
+如果该值是 <code>Err(e)</code> ，则它将从包含的函数或闭包返回 <code>Err(From::from(e))</code> 。如果应用于 <code>Ok(x)</code> ，则它将展开该值以求值为 <code>x</code> 。</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::num::ParseIntError;
+</span>fn try_to_parse() -&gt; Result&lt;i32, ParseIntError&gt; {
+    let x: i32 = &quot;123&quot;.parse()?; // x = 123
+    let y: i32 = &quot;24a&quot;.parse()?; // 立即返回一个 Err()
+    Ok(x + y)                    // 不会被执行
+}
+
+let res = try_to_parse();
+println!(&quot;{:?}&quot;, res);
+<span class="boring">assert!(res.is_err())
+</span><span class="boring">}</span></code></pre></pre>
+<p>当应用于类型为 <code>Option&lt;T&gt;</code> 的值时，它会传播 <code>None</code> 。如果值为 <code>None</code> ，则它将返回 <code>None</code> 。如果应用于 <code>Some(x)</code> ，则它将展开该值以求值为 <code>x</code> 。</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn try_option_some() -&gt; Option&lt;u8&gt; {
+    let val = Some(1)?;
+    Some(val)
+}
+assert_eq!(try_option_some(), Some(1));
+
+fn try_option_none() -&gt; Option&lt;u8&gt; {
+    let val = None?;
+    Some(val)
+}
+assert_eq!(try_option_none(), None);
+<span class="boring">}</span></code></pre></pre>
+<p><code>?</code> 不能被重载。</p>
+<h2 id="取反运算符"><a class="header" href="#取反运算符">取反运算符</a></h2>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>NegationExpression</em> :<br />
+      <code>-</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <code>!</code> <a href="../expressions.html"><em>Expression</em></a></p>
+</blockquote>
+<p>这是最后两个一元操作符。
+这张表总结了它们在原始类型上的行为以及用于重载其他类型的这些操作符的 trait 。
+请记住，有符号整数总是使用二进制补码表示。所有这些操作符的操作数都在 <a href="../expressions.html#place-expressions-and-value-expressions">值表达式上下文</a> 中评估，因此它们会被移动或复制。</p>
+<div class="table-wrapper"><table><thead><tr><th>Symbol</th><th>Integer</th><th><code>bool</code></th><th>Floating Point</th><th>Overloading Trait</th></tr></thead><tbody>
+<tr><td><code>-</code></td><td>Negation*</td><td></td><td>Negation</td><td><code>std::ops::Neg</code></td></tr>
+<tr><td><code>!</code></td><td>Bitwise NOT</td><td><a href="../types/boolean.html#logical-not">Logical NOT</a></td><td></td><td><code>std::ops::Not</code></td></tr>
+</tbody></table>
+</div>
+<p>* 仅适用于有符号整数类型。</p>
+<p>下面是这些运算符的一些示例</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x = 6;
+assert_eq!(-x, -6);
+assert_eq!(!x, -7);
+assert_eq!(true, !false);
+<span class="boring">}</span></code></pre></pre>
+<h2 id="算术和逻辑二元操作符"><a class="header" href="#算术和逻辑二元操作符">算术和逻辑二元操作符</a></h2>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>ArithmeticOrLogicalExpression</em> :<br />
+      <a href="../expressions.html"><em>Expression</em></a> <code>+</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>-</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>*</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>/</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>%</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>&amp;</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>|</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>^</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>&lt;&lt;</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>&gt;&gt;</code> <a href="../expressions.html"><em>Expression</em></a></p>
+</blockquote>
+<p>二元运算符表达式均以中缀表示。此表总结了原始类型上算术和逻辑二元运算符的行为，以及用于重载其他类型的这些运算符的特性。
+请记住，有符号整数始终使用二进制补码表示。所有这些运算符的操作数都在值表达式上下文中计算，因此会被移动或复制。</p>
+<div class="table-wrapper"><table><thead><tr><th>Symbol</th><th>Integer</th><th><code>bool</code></th><th>Floating Point</th><th>Overloading Trait</th><th>Overloading Compound Assignment Trait</th></tr></thead><tbody>
+<tr><td><code>+</code></td><td>Addition</td><td></td><td>Addition</td><td><code>std::ops::Add</code></td><td><code>std::ops::AddAssign</code></td></tr>
+<tr><td><code>-</code></td><td>Subtraction</td><td></td><td>Subtraction</td><td><code>std::ops::Sub</code></td><td><code>std::ops::SubAssign</code></td></tr>
+<tr><td><code>*</code></td><td>Multiplication</td><td></td><td>Multiplication</td><td><code>std::ops::Mul</code></td><td><code>std::ops::MulAssign</code></td></tr>
+<tr><td><code>/</code></td><td>Division*</td><td></td><td>Division</td><td><code>std::ops::Div</code></td><td><code>std::ops::DivAssign</code></td></tr>
+<tr><td><code>%</code></td><td>Remainder**</td><td></td><td>Remainder</td><td><code>std::ops::Rem</code></td><td><code>std::ops::RemAssign</code></td></tr>
+<tr><td><code>&amp;</code></td><td>Bitwise AND</td><td><a href="../types/boolean.html#logical-and">Logical AND</a></td><td></td><td><code>std::ops::BitAnd</code></td><td><code>std::ops::BitAndAssign</code></td></tr>
+<tr><td><code>|</code></td><td>Bitwise OR</td><td><a href="../types/boolean.html#logical-or">Logical OR</a></td><td></td><td><code>std::ops::BitOr</code></td><td><code>std::ops::BitOrAssign</code></td></tr>
+<tr><td><code>^</code></td><td>Bitwise XOR</td><td><a href="../types/boolean.html#logical-xor">Logical XOR</a></td><td></td><td><code>std::ops::BitXor</code></td><td><code>std::ops::BitXorAssign</code></td></tr>
+<tr><td><code>&lt;&lt;</code></td><td>Left Shift</td><td></td><td></td><td><code>std::ops::Shl</code></td><td><code>std::ops::ShlAssign</code></td></tr>
+<tr><td><code>&gt;&gt;</code></td><td>Right Shift***</td><td></td><td></td><td><code>std::ops::Shr</code></td><td><code>std::ops::ShrAssign</code></td></tr>
+</tbody></table>
+</div>
+<p>* 整数除法向零取整。
+** Rust使用的余数采用 <a href="https://en.wikipedia.org/wiki/Modulo_operation#Variants_of_the_definition">截断除法</a> 定义。
+给定 <code>remainder = dividend % divisor</code> ，余数将与被除数具有相同的符号。
+*** 在有符号整数类型上进行算术右移，无符号整数类型上进行逻辑右移。</p>
+<p>以下是使用这些运算符的示例：</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert_eq!(3 + 6, 9);
+assert_eq!(5.5 - 1.25, 4.25);
+assert_eq!(-5 * 14, -70);
+assert_eq!(14 / 3, 4);
+assert_eq!(100 % 7, 2);
+assert_eq!(0b1010 &amp; 0b1100, 0b1000);
+assert_eq!(0b1010 | 0b1100, 0b1110);
+assert_eq!(0b1010 ^ 0b1100, 0b110);
+assert_eq!(13 &lt;&lt; 3, 104);
+assert_eq!(-10 &gt;&gt; 2, -3);
+<span class="boring">}</span></code></pre></pre>
+<h2 id="比较运算符"><a class="header" href="#比较运算符">比较运算符</a></h2>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>ComparisonExpression</em> :<br />
+      <a href="../expressions.html"><em>Expression</em></a> <code>==</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>!=</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>&gt;</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>&lt;</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>&gt;=</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>&lt;=</code> <a href="../expressions.html"><em>Expression</em></a></p>
+</blockquote>
+<p>比较运算符也被定义在基本类型和标准库的许多类型上。当链接比较运算符时，需要使用括号。
+例如，表达式 <code>a == b == c</code> 是无效的，可以写成 <code>(a == b) == c</code> 。</p>
+<p>与算术和逻辑运算符不同，用于重载这些运算符的 trait 通常更普遍地用于表明类型如何进行比较，并且可能会被假定为函数定义实际比较的条件。
+标准库中的许多函数和宏可以利用这个假设 (虽然不能确保安全性) 。
+与上面的算术和逻辑运算符不同，这些运算符隐式地获取其操作数的共享借用，以 <a href="../expressions.html#place-expressions-and-value-expressions">占位表达式上下文</a> 中的方式进行评估：</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">let a = 1;
+</span><span class="boring">let b = 1;
+</span>a == b;
+// 等价于
+::std::cmp::PartialEq::eq(&amp;a, &amp;b);
+<span class="boring">}</span></code></pre></pre>
+<p>这意味着操作数不必移动出去。</p>
+<div class="table-wrapper"><table><thead><tr><th>Symbol</th><th>Meaning</th><th>Overloading method</th></tr></thead><tbody>
+<tr><td><code>==</code></td><td>Equal</td><td><code>std::cmp::PartialEq::eq</code></td></tr>
+<tr><td><code>!=</code></td><td>Not equal</td><td><code>std::cmp::PartialEq::ne</code></td></tr>
+<tr><td><code>&gt;</code></td><td>Greater than</td><td><code>std::cmp::PartialOrd::gt</code></td></tr>
+<tr><td><code>&lt;</code></td><td>Less than</td><td><code>std::cmp::PartialOrd::lt</code></td></tr>
+<tr><td><code>&gt;=</code></td><td>Greater than or equal to</td><td><code>std::cmp::PartialOrd::ge</code></td></tr>
+<tr><td><code>&lt;=</code></td><td>Less than or equal to</td><td><code>std::cmp::PartialOrd::le</code></td></tr>
+</tbody></table>
+</div>
+<p>这里是使用比较运算符的示例：</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(123 == 123);
+assert!(23 != -12);
+assert!(12.5 &gt; 12.2);
+assert!([1, 2, 3] &lt; [1, 3, 4]);
+assert!('A' &lt;= 'B');
+assert!(&quot;World&quot; &gt;= &quot;Hello&quot;);
+<span class="boring">}</span></code></pre></pre>
+<h2 id="惰性布尔运算符"><a class="header" href="#惰性布尔运算符">惰性布尔运算符</a></h2>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>LazyBooleanExpression</em> :<br />
+      <a href="../expressions.html"><em>Expression</em></a> <code>||</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>&amp;&amp;</code> <a href="../expressions.html"><em>Expression</em></a></p>
+</blockquote>
+<p>运算符 <code>||</code> 和 <code>&amp;&amp;</code> 可以用于布尔类型的操作数。 <code>||</code> 运算符表示逻辑或， <code>&amp;&amp;</code> 运算符表示逻辑与。
+它们与 <code>|</code> 和 <code>&amp;</code> 的区别在于，只有当左操作数不能确定表达式结果时才会对右操作数进行求值。
+也就是说，只有当左操作数求值结果为 <code>false</code> 时 <code>||</code> 才会对右操作数进行求值，只有当左操作数求值结果为 <code>true</code> 时 <code>&amp;&amp;</code> 才会对右操作数进行求值。</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x = false || true; // true
+let y = false &amp;&amp; panic!(); // false 不会对右侧的操作数进行求值，因此 `panic!()` 表达式不会被执行。
+<span class="boring">}</span></code></pre></pre>
+<h2 id="类型转换表达式"><a class="header" href="#类型转换表达式">类型转换表达式</a></h2>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>TypeCastExpression</em> :<br />
+   <a href="../expressions.html"><em>Expression</em></a> <code>as</code> <a href="../types.html#type-expressions"><em>TypeNoBounds</em></a></p>
+</blockquote>
+<p>类型转换表达式使用二元运算符 <code>as</code> 表示。</p>
+<p>执行一个 <code>as</code> 表达式会将左侧的值转换为右侧的类型。</p>
+<p>以下是一个 <code>as</code> 表达式的例子:</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">fn sum(values: &amp;[f64]) -&gt; f64 { 0.0 }
+</span><span class="boring">fn len(values: &amp;[f64]) -&gt; i32 { 0 }
+</span>fn average(values: &amp;[f64]) -&gt; f64 {
+    let sum: f64 = sum(values);
+    let size: f64 = len(values) as f64;
+    sum / size
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>as</code> 可以用于显式执行 <a href="../type-coercions.html">coercions</a> ，以及以下附加转换。
+任何不符合 coercion 规则或表中条目的转换都是编译器错误。
+这里的 <code>*T</code> 表示 <code>*const T</code> 或 <code>*mut T</code>。
+在引用类型中， <code>m</code> 表示可选的 <code>mut</code> ，在指针类型中表示 <code>mut</code> 或 <code>const</code> 。</p>
+<div class="table-wrapper"><table><thead><tr><th>Type of <code>e</code></th><th><code>U</code></th><th>Cast performed by <code>e as U</code></th></tr></thead><tbody>
+<tr><td>Integer or Float type</td><td>Integer or Float type</td><td>Numeric cast</td></tr>
+<tr><td>Enumeration</td><td>Integer type</td><td>Enum cast</td></tr>
+<tr><td><code>bool</code> or <code>char</code></td><td>Integer type</td><td>Primitive to integer cast</td></tr>
+<tr><td><code>u8</code></td><td><code>char</code></td><td><code>u8</code> to <code>char</code> cast</td></tr>
+<tr><td><code>*T</code></td><td><code>*V</code> where <code>V: Sized</code> *</td><td>Pointer to pointer cast</td></tr>
+<tr><td><code>*T</code> where <code>T: Sized</code></td><td>Integer type</td><td>Pointer to address cast</td></tr>
+<tr><td>Integer type</td><td><code>*V</code> where <code>V: Sized</code></td><td>Address to pointer cast</td></tr>
+<tr><td><code>&amp;m₁ T</code></td><td><code>*m₂ T</code> **</td><td>Reference to pointer cast</td></tr>
+<tr><td><code>&amp;m₁ [T; n]</code></td><td><code>*m₂ T</code> **</td><td>Array to pointer cast</td></tr>
+<tr><td><a href="../types/function-item.html">Function item</a></td><td><a href="../types/function-pointer.html">Function pointer</a></td><td>Function item to function pointer cast</td></tr>
+<tr><td><a href="../types/function-item.html">Function item</a></td><td><code>*V</code> where <code>V: Sized</code></td><td>Function item to pointer cast</td></tr>
+<tr><td><a href="../types/function-item.html">Function item</a></td><td>Integer</td><td>Function item to address cast</td></tr>
+<tr><td><a href="../types/function-pointer.html">Function pointer</a></td><td><code>*V</code> where <code>V: Sized</code></td><td>Function pointer to pointer cast</td></tr>
+<tr><td><a href="../types/function-pointer.html">Function pointer</a></td><td>Integer</td><td>Function pointer to address cast</td></tr>
+<tr><td>Closure ***</td><td>Function pointer</td><td>Closure to function pointer cast</td></tr>
+</tbody></table>
+</div>
+<p>* 当 <code>T</code> 和 <code>V</code> 都是不定大小类型但类型相同时，例如都是切片类型，它们之间是兼容的。
+** 当且仅当 <code>m₁</code> 为 <code>mut</code> 或 <code>m₂</code> 为 <code>const</code> 时。允许将 <code>mut</code> 引用转换为 <code>const</code> 指针。
+*** 仅适用于没有捕获 (关闭) 任何局部变量的闭包。</p>
+<h3 id="语义"><a class="header" href="#语义">语义</a></h3>
+<h4 id="数值转换"><a class="header" href="#数值转换">数值转换</a></h4>
+<ul>
+<li>两个大小相同的整数之间的转换 (例如i32 -&gt; u32) 是无操作的 (Rust对于固定整数的负值使用 2 的补码) </li>
+<li>从较大的整数转换为较小的整数 (例如u32 -&gt; u8) 会截断</li>
+<li>从较小的整数转换为较大的整数 (例如u8 -&gt; u32) 将：
+<ul>
+<li>如果源是无符号的，则用零填充</li>
+<li>如果源是有符号的，则使用符号扩展</li>
+</ul>
+</li>
+<li>将浮点数转换为整数会将浮点数向零舍入 
+<ul>
+<li><code>NaN</code> 将返回 <code>0</code> </li>
+<li>大于最大整数值的值，包括 <code>INFINITY</code> ，将饱和到整数类型的最大值。</li>
+<li>小于最小整数值的值，包括 <code>NEG_INFINITY</code> ，将饱和到整数类型的最小值。</li>
+</ul>
+</li>
+<li>将整数转换为浮点数将产生可能最接近的浮点数 *
+<ul>
+<li>如有必要，舍入按照 <code>roundTiesToEven</code> 模式进行  *** </li>
+<li>溢出时，将生成无限大 (与输入相同的符号) </li>
+<li>注意：对于当前的数字类型集，只有在 <code>u128 as f32</code> 的值大于或等于 <code>f32::MAX + (0.5 ULP)</code> 时才会发生溢出</li>
+</ul>
+</li>
+<li>从f32转换为f64是完美的和无损的</li>
+<li>从f64转换为f32将产生可能最接近的f32 **
+<ul>
+<li>如有必要，舍入按照 <code>roundTiesToEven</code> 模式进行 *** </li>
+<li>溢出时，将生成无限大 (与输入相同的符号) </li>
+</ul>
+</li>
+</ul>
+<p>* 如果硬件不支持此舍入模式和溢出行为的整数到浮点数的转换，则此类转换可能比预期的慢。</p>
+<p>** 如果硬件不支持此舍入模式和溢出行为的 f64 到 f32 的转换，则此类转换可能比预期的慢。</p>
+<p>*** 正如 IEEE 754-2008 §4.3.1: 中所定义的那样：选择最接近的浮点数，如果恰好介于两个浮点数之间，则优先选择带有偶数最低位数字的数字。</p>
+<h4 id="枚举转换"><a class="header" href="#枚举转换">枚举转换</a></h4>
+<p>将枚举转换为其判别式，然后根据需要使用数值转换。转换仅限于以下种类的枚举:</p>
+<ul>
+<li><a href="../items/enumerations.html#unit-only-enum">仅单元元素的枚举</a></li>
+<li><a href="../items/enumerations.html#field-less-enum">没有字段的枚举</a> 且没有 <a href="../items/enumerations.html#explicit-discriminants">显式判别式</a> ，或者只有单元元素有显式判别式</li>
+</ul>
+<h4 id="原始类型到整数的转换"><a class="header" href="#原始类型到整数的转换">原始类型到整数的转换</a></h4>
+<ul>
+<li><code>false</code> 转换为 <code>0</code> ， <code>true</code> 转换为 <code>1</code></li>
+<li><code>char</code> 转换为其码点值，然后如果需要则使用数字转换。</li>
+</ul>
+<h4 id="u8-到-char-的类型转换"><a class="header" href="#u8-到-char-的类型转换"><code>u8</code> 到 <code>char</code> 的类型转换</a></h4>
+<p>将 <code>u8</code> 类型的值转换为相应的 Unicode 编码对应的字符类型 <code>char</code> 。</p>
+<h4 id="指针到地址转换"><a class="header" href="#指针到地址转换">指针到地址转换</a></h4>
+<p>将一个裸指针转换为整数类型会产生指向内存的机器地址。
+如果整数类型比指针类型小，地址可能会被截断；使用 <code>usize</code> 可以避免这种情况。</p>
+<h4 id="地址到指针的强制类型转换"><a class="header" href="#地址到指针的强制类型转换">地址到指针的强制类型转换</a></h4>
+<p>将整数强制类型转换为原始指针会将该整数解释为内存地址，并产生一个指向该内存的指针。</p>
+<div class="warning">
+<p>警告:
+这会与 Rust 内存模型产生交互，而该模型仍在开发中。
+即使一个通过此类型转换获得的指针在比特位上等同于一个有效指针，它也可能受到额外的限制
+。如果未遵循别名规则，则解引用此类指针可能会导致 <a href="../behavior-considered-undefined.html">未定义行为</a> 。</p>
+</div>
+<p>一些简单正确的地址解算的示例:</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut values: [i32; 2] = [1, 2];
+let p1: *mut i32 = values.as_mut_ptr();
+let first_address = p1 as usize;
+let second_address = first_address + 4; // 4 == size_of::&lt;i32&gt;()
+let p2 = second_address as *mut i32;
+unsafe {
+    *p2 += 1;
+}
+assert_eq!(values[1], 3);
+<span class="boring">}</span></code></pre></pre>
+<h2 id="赋值表达式"><a class="header" href="#赋值表达式">赋值表达式</a></h2>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>AssignmentExpression</em> :<br />
+   <a href="../expressions.html"><em>Expression</em></a> <code>=</code> <a href="../expressions.html"><em>Expression</em></a></p>
+</blockquote>
+<p>一个 <em>赋值表达式</em> 将一个值移动到一个指定的位置。</p>
+<p>一个赋值表达式由一个 <a href="../expressions.html#place-expressions-and-value-expressions">可变的</a> ，即 <em>赋值运算符</em> ，后面跟一个等于号 (<code>=</code>) 和一个 <a href="../expressions.html#place-expressions-and-value-expressions">值表达式</a> ，即 <em>被赋的值操作数</em> 组成。
+在最基本的形式中，一个赋值运算符是一个 <a href="../expressions.html#place-expressions-and-value-expressions">占位表达式</a> ，我们首先讨论这种情况。
+下面讨论更一般的解构赋值情况，但是这种情况总是分解为对占位表达式的顺序赋值，这可能被视为更基本的情况。</p>
+<h3 id="基本赋值语句"><a class="header" href="#基本赋值语句">基本赋值语句</a></h3>
+<p>对赋值表达式求值，需要先对操作数进行求值。先对被赋值操作数进行求值，然后是赋值操作数表达式。对于解构赋值，被赋值表达式的子表达式从左到右进行求值。</p>
+<blockquote>
+<p><strong>注意</strong>：与其他表达式不同的是，右操作数在左操作数之前进行求值。该表达式首先有一个效果：删除被赋值位置的值，除非被赋值的地方是未初始化的本地变量或本地变量的未初始化字段。然后将赋值的值复制或移动到被赋值的地方。</p>
+</blockquote>
+<p>赋值表达式总是生成 <a href="../types/tuple.html">单元值</a> 。</p>
+<p>Example:</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut x = 0;
+let y = 0;
+x = y;
+<span class="boring">}</span></code></pre></pre>
+<h3 id="解构赋值"><a class="header" href="#解构赋值">解构赋值</a></h3>
+<p>解构赋值是变量声明解构模式匹配的一种对应物，允许对复杂的值进行赋值，例如元组或结构体。
+例如，我们可以交换两个可变变量:</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let (mut a, mut b) = (0, 1);
+// 使用解构赋值交换 `a` 和 `b`。
+(b, a) = (a, b);
+<span class="boring">}</span></code></pre></pre>
+<p>与使用 <code>let</code> 进行解构声明不同，由于语法歧义，模式不能出现在赋值语句的左侧。
+相反，一组对应模式的表达式被指定为 <a href="../expressions.html#place-expressions-and-value-expressions">assignee expressions</a> ，并允许出现在赋值语句的左侧。
+然后，将赋值表达式展开为模式匹配，然后进行顺序赋值。
+展开后的模式必须是不可反驳的：特别地，这意味着仅允许具有在编译时已知长度的切片模式以及简单的切片 <code>[..]</code> 用于解构赋值。</p>
+<p>展开的方法很简单，最好通过示例来说明。</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Struct { x: u32, y: u32 }
+</span><span class="boring">let (mut a, mut b) = (0, 0);
+</span>(a, b) = (3, 4);
+
+[a, b] = [3, 4];
+
+Struct { x: a, y: b } = Struct { x: 3, y: 4};
+
+// desugars to:
+
+{
+    let (_a, _b) = (3, 4);
+    a = _a;
+    b = _b;
+}
+
+{
+    let [_a, _b] = [3, 4];
+    a = _a;
+    b = _b;
+}
+
+{
+    let Struct { x: _a, y: _b } = Struct { x: 3, y: 4};
+    a = _a;
+    b = _b;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>在单个赋值表达式中，标识符不禁止被多次使用。</p>
+<p><a href="./underscore-expr.html">下划线表达式</a> 和空 <a href="./range-expr.html">区间表达式</a> 可用于忽略某些值，而不将它们绑定到变量上。</p>
+<p>注意，对于展开后的表达式，不适用默认绑定模式。</p>
+<h2 id="复合赋值表达式"><a class="header" href="#复合赋值表达式">复合赋值表达式</a></h2>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>CompoundAssignmentExpression</em> :<br />
+      <a href="../expressions.html"><em>Expression</em></a> <code>+=</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>-=</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>*=</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>/=</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>%=</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>&amp;=</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>|=</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>^=</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>&lt;&lt;=</code> <a href="../expressions.html"><em>Expression</em></a><br />
+   | <a href="../expressions.html"><em>Expression</em></a> <code>&gt;&gt;=</code> <a href="../expressions.html"><em>Expression</em></a></p>
+</blockquote>
+<p><em>复合赋值表达式</em> 将算术和逻辑二元运算符与赋值表达式结合在一起。</p>
+<p>例如:</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut x = 5;
+x += 1;
+assert!(x == 6);
+<span class="boring">}</span></code></pre></pre>
+<p>复合赋值语法是一个 <a href="../expressions.html#mutability">可变的</a> <a href="../expressions.html#place-expressions-and-value-expressions">占位表达式</a>，紧接着是 <em>被赋值的操作数</em> ，然后是其中一个运算符，后面跟着一个 <code>=</code> 符号 (无空格) ，最后是一个 <a href="../expressions.html#place-expressions-and-value-expressions">value 表达式</a> ，即 <em>修改操作数</em> 。</p>
+<p>与其他占位操作数不同，被赋值的占位操作数必须是一个占位表达式。尝试使用值表达式会导致编译错误，而不是将其升级为临时值。</p>
+<p>复合赋值表达式的求值取决于操作符的类型。</p>
+<p>如果两个类型都是原始类型，则将先计算修改操作数，然后是被赋值的操作数。
+然后它将使用执行该运算符操作的被赋值操作数和修改操作数的值来设置被赋值操作数的占位的值。</p>
+<blockquote>
+<p><strong>注意</strong>: 这与其他表达式不同，因为右操作数在左操作数之前被评估。</p>
+</blockquote>
+<p>否则，这个表达式是语法糖，用于调用运算符的重载复合赋值特性的函数 (参见本章前面的表格) 。
+被赋值的操作数会自动被可变地借用。</p>
+<p>例如，在 <code>example</code> 中，以下表达式语句是等价的：</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Addable;
+</span><span class="boring">use std::ops::AddAssign;
+</span>
+impl AddAssign&lt;Addable&gt; for Addable {
+    /* */
+<span class="boring">fn add_assign(&amp;mut self, other: Addable) {}
+</span>}
+
+fn example() {
+<span class="boring">let (mut a1, a2) = (Addable, Addable);
+</span>  a1 += a2;
+
+<span class="boring">let (mut a1, a2) = (Addable, Addable);
+</span>  AddAssign::add_assign(&amp;mut a1, a2);
+}
+<span class="boring">}</span></code></pre></pre>
+<p>与赋值表达式一样，复合赋值表达式始终生成 <a href="../types/tuple.html">单元值</a> 。</p>
+<div class="warning">
+<p>警告：操作数的求值顺序根据操作数的类型而交换：对于原始类型，右操作数将首先得到评估，而对于非原始类型，左操作数将首先得到评估。
+尽量不要编写依赖于复合赋值表达式中操作数的求值顺序的代码。参见 <a href="https://github.com/rust-lang/rust/blob/1.58.0/src/test/ui/expr/compound-assignment/eval-order.rs">这个测试</a> ，了解使用此依赖性的示例。</p>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../expressions/block-expr.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../expressions/grouped-expr.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../expressions/block-expr.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../expressions/grouped-expr.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

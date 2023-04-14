@@ -1,0 +1,461 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>宏 Follow-Set 歧义正式规范 - The Rust Reference</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/reference.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">介绍</a></li><li class="chapter-item expanded "><a href="notation.html"><strong aria-hidden="true">1.</strong> 符号约定</a></li><li class="chapter-item expanded "><a href="lexical-structure.html"><strong aria-hidden="true">2.</strong> 词法结构</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="input-format.html"><strong aria-hidden="true">2.1.</strong> 输入格式</a></li><li class="chapter-item expanded "><a href="keywords.html"><strong aria-hidden="true">2.2.</strong> 关键字</a></li><li class="chapter-item expanded "><a href="identifiers.html"><strong aria-hidden="true">2.3.</strong> 标识符</a></li><li class="chapter-item expanded "><a href="comments.html"><strong aria-hidden="true">2.4.</strong> 注释</a></li><li class="chapter-item expanded "><a href="whitespace.html"><strong aria-hidden="true">2.5.</strong> 空白</a></li><li class="chapter-item expanded "><a href="tokens.html"><strong aria-hidden="true">2.6.</strong> 记号</a></li></ol></li><li class="chapter-item expanded "><a href="macros.html"><strong aria-hidden="true">3.</strong> 宏</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="macros-by-example.html"><strong aria-hidden="true">3.1.</strong> 实例宏</a></li><li class="chapter-item expanded "><a href="procedural-macros.html"><strong aria-hidden="true">3.2.</strong> 过程宏</a></li></ol></li><li class="chapter-item expanded "><a href="crates-and-source-files.html"><strong aria-hidden="true">4.</strong> Crate和源文件</a></li><li class="chapter-item expanded "><a href="conditional-compilation.html"><strong aria-hidden="true">5.</strong> 条件编译</a></li><li class="chapter-item expanded "><a href="items.html"><strong aria-hidden="true">6.</strong> 条目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="items/modules.html"><strong aria-hidden="true">6.1.</strong> 模块</a></li><li class="chapter-item expanded "><a href="items/extern-crates.html"><strong aria-hidden="true">6.2.</strong> 外部Crate</a></li><li class="chapter-item expanded "><a href="items/use-declarations.html"><strong aria-hidden="true">6.3.</strong> Use 声明</a></li><li class="chapter-item expanded "><a href="items/functions.html"><strong aria-hidden="true">6.4.</strong> 函数</a></li><li class="chapter-item expanded "><a href="items/type-aliases.html"><strong aria-hidden="true">6.5.</strong> 类型别名</a></li><li class="chapter-item expanded "><a href="items/structs.html"><strong aria-hidden="true">6.6.</strong> 结构体</a></li><li class="chapter-item expanded "><a href="items/enumerations.html"><strong aria-hidden="true">6.7.</strong> 枚举</a></li><li class="chapter-item expanded "><a href="items/unions.html"><strong aria-hidden="true">6.8.</strong> 联合体</a></li><li class="chapter-item expanded "><a href="items/constant-items.html"><strong aria-hidden="true">6.9.</strong> 常量条目</a></li><li class="chapter-item expanded "><a href="items/static-items.html"><strong aria-hidden="true">6.10.</strong> 静态条目</a></li><li class="chapter-item expanded "><a href="items/traits.html"><strong aria-hidden="true">6.11.</strong> Trait</a></li><li class="chapter-item expanded "><a href="items/implementations.html"><strong aria-hidden="true">6.12.</strong> 实现</a></li><li class="chapter-item expanded "><a href="items/external-blocks.html"><strong aria-hidden="true">6.13.</strong> 外部块</a></li><li class="chapter-item expanded "><a href="items/generics.html"><strong aria-hidden="true">6.14.</strong> 泛型参数</a></li><li class="chapter-item expanded "><a href="items/associated-items.html"><strong aria-hidden="true">6.15.</strong> 关联条目</a></li></ol></li><li class="chapter-item expanded "><a href="attributes.html"><strong aria-hidden="true">7.</strong> 属性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="attributes/testing.html"><strong aria-hidden="true">7.1.</strong> 测试</a></li><li class="chapter-item expanded "><a href="attributes/derive.html"><strong aria-hidden="true">7.2.</strong> 派生</a></li><li class="chapter-item expanded "><a href="attributes/diagnostics.html"><strong aria-hidden="true">7.3.</strong> 诊断</a></li><li class="chapter-item expanded "><a href="attributes/codegen.html"><strong aria-hidden="true">7.4.</strong> 代码生成</a></li><li class="chapter-item expanded "><a href="attributes/limits.html"><strong aria-hidden="true">7.5.</strong> 约束</a></li><li class="chapter-item expanded "><a href="attributes/type_system.html"><strong aria-hidden="true">7.6.</strong> 类型系统</a></li></ol></li><li class="chapter-item expanded "><a href="statements-and-expressions.html"><strong aria-hidden="true">8.</strong> 语句和表达式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="statements.html"><strong aria-hidden="true">8.1.</strong> 语句</a></li><li class="chapter-item expanded "><a href="expressions.html"><strong aria-hidden="true">8.2.</strong> 表达式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="expressions/literal-expr.html"><strong aria-hidden="true">8.2.1.</strong> 字面值表达式</a></li><li class="chapter-item expanded "><a href="expressions/path-expr.html"><strong aria-hidden="true">8.2.2.</strong> 路径表达式</a></li><li class="chapter-item expanded "><a href="expressions/block-expr.html"><strong aria-hidden="true">8.2.3.</strong> 块表达式</a></li><li class="chapter-item expanded "><a href="expressions/operator-expr.html"><strong aria-hidden="true">8.2.4.</strong> 运算符表达式</a></li><li class="chapter-item expanded "><a href="expressions/grouped-expr.html"><strong aria-hidden="true">8.2.5.</strong> 分组表达式</a></li><li class="chapter-item expanded "><a href="expressions/array-expr.html"><strong aria-hidden="true">8.2.6.</strong> 数组和索引表达式</a></li><li class="chapter-item expanded "><a href="expressions/tuple-expr.html"><strong aria-hidden="true">8.2.7.</strong> 元组和索引表达式</a></li><li class="chapter-item expanded "><a href="expressions/struct-expr.html"><strong aria-hidden="true">8.2.8.</strong> 结构体表达式</a></li><li class="chapter-item expanded "><a href="expressions/call-expr.html"><strong aria-hidden="true">8.2.9.</strong> 调用表达式</a></li><li class="chapter-item expanded "><a href="expressions/method-call-expr.html"><strong aria-hidden="true">8.2.10.</strong> 方法调用表达式</a></li><li class="chapter-item expanded "><a href="expressions/field-expr.html"><strong aria-hidden="true">8.2.11.</strong> 字段访问表达式</a></li><li class="chapter-item expanded "><a href="expressions/closure-expr.html"><strong aria-hidden="true">8.2.12.</strong> 闭包表达式</a></li><li class="chapter-item expanded "><a href="expressions/loop-expr.html"><strong aria-hidden="true">8.2.13.</strong> 循环表达式</a></li><li class="chapter-item expanded "><a href="expressions/range-expr.html"><strong aria-hidden="true">8.2.14.</strong> 区间表达式</a></li><li class="chapter-item expanded "><a href="expressions/if-expr.html"><strong aria-hidden="true">8.2.15.</strong> if 和 if let 表达式</a></li><li class="chapter-item expanded "><a href="expressions/match-expr.html"><strong aria-hidden="true">8.2.16.</strong> 匹配表达式</a></li><li class="chapter-item expanded "><a href="expressions/return-expr.html"><strong aria-hidden="true">8.2.17.</strong> 返回表达式</a></li><li class="chapter-item expanded "><a href="expressions/await-expr.html"><strong aria-hidden="true">8.2.18.</strong> 等待表达式</a></li><li class="chapter-item expanded "><a href="expressions/underscore-expr.html"><strong aria-hidden="true">8.2.19.</strong> 下划线表达式</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="patterns.html"><strong aria-hidden="true">9.</strong> 模式</a></li><li class="chapter-item expanded "><a href="type-system.html"><strong aria-hidden="true">10.</strong> 类型系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="types.html"><strong aria-hidden="true">10.1.</strong> 类型</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="types/boolean.html"><strong aria-hidden="true">10.1.1.</strong> 布尔类型</a></li><li class="chapter-item expanded "><a href="types/numeric.html"><strong aria-hidden="true">10.1.2.</strong> 数字类型</a></li><li class="chapter-item expanded "><a href="types/textual.html"><strong aria-hidden="true">10.1.3.</strong> 文本类型</a></li><li class="chapter-item expanded "><a href="types/never.html"><strong aria-hidden="true">10.1.4.</strong> 永远不存在的类型</a></li><li class="chapter-item expanded "><a href="types/tuple.html"><strong aria-hidden="true">10.1.5.</strong> 元组类型</a></li><li class="chapter-item expanded "><a href="types/array.html"><strong aria-hidden="true">10.1.6.</strong> 数组类型</a></li><li class="chapter-item expanded "><a href="types/slice.html"><strong aria-hidden="true">10.1.7.</strong> 切片类型</a></li><li class="chapter-item expanded "><a href="types/struct.html"><strong aria-hidden="true">10.1.8.</strong> 结构体类型</a></li><li class="chapter-item expanded "><a href="types/enum.html"><strong aria-hidden="true">10.1.9.</strong> 枚举类型</a></li><li class="chapter-item expanded "><a href="types/union.html"><strong aria-hidden="true">10.1.10.</strong> 联合类型</a></li><li class="chapter-item expanded "><a href="types/function-item.html"><strong aria-hidden="true">10.1.11.</strong> 函数条目类型</a></li><li class="chapter-item expanded "><a href="types/closure.html"><strong aria-hidden="true">10.1.12.</strong> 闭包类型</a></li><li class="chapter-item expanded "><a href="types/pointer.html"><strong aria-hidden="true">10.1.13.</strong> 指针类型</a></li><li class="chapter-item expanded "><a href="types/function-pointer.html"><strong aria-hidden="true">10.1.14.</strong> 函数指针类型</a></li><li class="chapter-item expanded "><a href="types/trait-object.html"><strong aria-hidden="true">10.1.15.</strong> Trait 对象类型</a></li><li class="chapter-item expanded "><a href="types/impl-trait.html"><strong aria-hidden="true">10.1.16.</strong> 实现 Trait 的类型</a></li><li class="chapter-item expanded "><a href="types/parameters.html"><strong aria-hidden="true">10.1.17.</strong> 类型参数</a></li><li class="chapter-item expanded "><a href="types/inferred.html"><strong aria-hidden="true">10.1.18.</strong> 推导出的类型</a></li></ol></li><li class="chapter-item expanded "><a href="dynamically-sized-types.html"><strong aria-hidden="true">10.2.</strong> 动态大小类型</a></li><li class="chapter-item expanded "><a href="type-layout.html"><strong aria-hidden="true">10.3.</strong> 类型布局</a></li><li class="chapter-item expanded "><a href="interior-mutability.html"><strong aria-hidden="true">10.4.</strong> 内部可变性</a></li><li class="chapter-item expanded "><a href="subtyping.html"><strong aria-hidden="true">10.5.</strong> 子类型和协变</a></li><li class="chapter-item expanded "><a href="trait-bounds.html"><strong aria-hidden="true">10.6.</strong> Trait 和生命周期边界</a></li><li class="chapter-item expanded "><a href="type-coercions.html"><strong aria-hidden="true">10.7.</strong> 类型强制转换</a></li><li class="chapter-item expanded "><a href="destructors.html"><strong aria-hidden="true">10.8.</strong> 析构函数</a></li><li class="chapter-item expanded "><a href="lifetime-elision.html"><strong aria-hidden="true">10.9.</strong> 生命周期省略</a></li></ol></li><li class="chapter-item expanded "><a href="special-types-and-traits.html"><strong aria-hidden="true">11.</strong> 特殊类型和Trait</a></li><li class="chapter-item expanded "><a href="names.html"><strong aria-hidden="true">12.</strong> 名称</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="names/namespaces.html"><strong aria-hidden="true">12.1.</strong> 命名空间</a></li><li class="chapter-item expanded "><a href="names/scopes.html"><strong aria-hidden="true">12.2.</strong> 作用域</a></li><li class="chapter-item expanded "><a href="names/preludes.html"><strong aria-hidden="true">12.3.</strong> 预定义</a></li><li class="chapter-item expanded "><a href="paths.html"><strong aria-hidden="true">12.4.</strong> 路径</a></li><li class="chapter-item expanded "><a href="names/name-resolution.html"><strong aria-hidden="true">12.5.</strong> 名称解析</a></li><li class="chapter-item expanded "><a href="visibility-and-privacy.html"><strong aria-hidden="true">12.6.</strong> 可见性和私有性</a></li></ol></li><li class="chapter-item expanded "><a href="memory-model.html"><strong aria-hidden="true">13.</strong> 内存模型</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="memory-allocation-and-lifetime.html"><strong aria-hidden="true">13.1.</strong> 内存分配和生命周期</a></li><li class="chapter-item expanded "><a href="variables.html"><strong aria-hidden="true">13.2.</strong> 变量</a></li></ol></li><li class="chapter-item expanded "><a href="linkage.html"><strong aria-hidden="true">14.</strong> 链接</a></li><li class="chapter-item expanded "><a href="inline-assembly.html"><strong aria-hidden="true">15.</strong> 内联汇编</a></li><li class="chapter-item expanded "><a href="unsafety.html"><strong aria-hidden="true">16.</strong> Unsafety</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="unsafe-keyword.html"><strong aria-hidden="true">16.1.</strong> unsafe 关键字</a></li><li class="chapter-item expanded "><a href="behavior-considered-undefined.html"><strong aria-hidden="true">16.2.</strong> 被视为未定义行为的行为</a></li><li class="chapter-item expanded "><a href="behavior-not-considered-unsafe.html"><strong aria-hidden="true">16.3.</strong> 不被视为不安全的行为</a></li></ol></li><li class="chapter-item expanded "><a href="const_eval.html"><strong aria-hidden="true">17.</strong> 常量求值</a></li><li class="chapter-item expanded "><a href="abi.html"><strong aria-hidden="true">18.</strong> 应用程序二进制接口</a></li><li class="chapter-item expanded "><a href="runtime.html"><strong aria-hidden="true">19.</strong> Rust 运行时</a></li><li class="chapter-item expanded "><a href="appendices.html"><strong aria-hidden="true">20.</strong> 附录</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="macro-ambiguity.html" class="active"><strong aria-hidden="true">20.1.</strong> 宏 Follow-Set 歧义正式规范</a></li><li class="chapter-item expanded "><a href="influences.html"><strong aria-hidden="true">20.2.</strong> 影响</a></li><li class="chapter-item expanded "><a href="glossary.html"><strong aria-hidden="true">20.3.</strong> 术语表</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Rust Reference</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/reference/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/reference/edit/master/src/macro-ambiguity.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="附录-宏的follow-set歧义性形式化规范"><a class="header" href="#附录-宏的follow-set歧义性形式化规范">附录: 宏的Follow-Set歧义性形式化规范</a></h1>
+<p>该规范是为了帮助理解 Rust 宏展开期间的 Follow-Set 歧义性而设计的。 Follow-Set 是指给定上下文环境下宏可能展开的所有可能性集合。在某些情况下，这些集合可能会有歧义，这会导致宏展开出现问题。</p>
+<p>本页面记录了 [示例宏] 的正式规范，其中包括以下规则。
+这些规则最初在 <a href="https://github.com/rust-lang/rfcs/blob/master/text/0550-macro-future-proofing.md">RFC 550</a> 中进行了规定，本文大部分内容均来自该规范，并在随后的 RFC 中进行了扩展。</p>
+<h2 id="定义和约定"><a class="header" href="#定义和约定">定义和约定</a></h2>
+<ul>
+<li><code>macro</code>: 在源代码中作为 <code>foo!(...)</code> 可调用的任何内容。</li>
+<li><code>MBE</code>: 由 <code>macro_rules</code> 定义的实例宏。</li>
+<li><code>matcher</code>: <code>macro_rules</code> 调用中规则的左侧或其子部分。</li>
+<li><code>macro parser</code>: Rust 解析器中将使用从所有匹配器派生的语法分析输入的代码部分。</li>
+<li><code>fragment</code>: 给定匹配器将接受 (或 &quot;匹配&quot; 的) Rust 语法类别。</li>
+<li><code>repetition</code>: 遵循规律重复模式的片段。</li>
+<li><code>NT</code>: 非终端，可以出现在匹配器中的各种 &quot;元变量&quot; 或重复匹配器，在 MBE 语法中使用前缀 $ 字符指定。</li>
+<li><code>simple NT</code>: 一种 &quot;元变量&quot; 非终端符 (下面会进一步讨论)。</li>
+<li><code>complex NT</code>: 通过重复运算符 (<code>*</code> 、 <code>+</code> 、 <code>?</code> ) 指定的重复匹配非终端符。</li>
+<li><code>token</code>: 匹配器的原子元素，即标识符、运算符、开/闭定界符、 <em>以及</em> 简单 NT 。</li>
+<li><code>token tree</code>: 由标记 (叶子)、复杂 NT 和标记树的有限序列形成的树结构。</li>
+<li><code>delimiter token</code>: 用于分隔一个片段的结尾和下一个片段的开头的标记。</li>
+<li><code>separator token</code>: 复杂 NT 中的可选分隔符标记，用于分隔匹配重复中每对元素。</li>
+<li><code>separated complex NT</code>: 具有自己的分隔符标记的复杂 NT 。</li>
+<li><code>delimited sequence</code>: 带有适当的开/闭定界符的标记树序列。</li>
+<li><code>empty fragment</code>: Rust 语言中分隔标记的无形语法类，即空格或 (在某些词法上下文中) 空标记序列。</li>
+<li><code>fragment specifier</code>: 简单 NT 中指定 NT 接受的片段的标识符。</li>
+<li><code>language</code>: 无上下文的语言。</li>
+</ul>
+<p>Example:</p>
+<pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>macro_rules! i_am_an_mbe {
+    (start $foo:expr $($i:ident),* end) =&gt; ($foo)
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>(start $foo:expr $($i:ident),* end)</code> 是一个匹配器。
+整个匹配器是一个带有开/闭定界符 <code>(</code> 和 <code>)</code> 的定界序列， <code>$foo</code> 和 <code>$i</code> 是具有 <code>expr</code> 和 <code>ident</code> 作为它们各自的片段指示符的简单 NT 。</p>
+<p><code>$(i:ident),*</code> 也是一个 NT ; 它是一个复杂 NT ，用于匹配逗号分隔的标识符的重复。
+<code>,</code> 是复杂 NT 的分隔符标记；它出现在匹配片段的每一对元素 (如果有的话) 之间。</p>
+<p><code>$(hi $e:expr ;)+</code> 是一个复杂的非终端符(NT)的例子，它匹配形式为 <code>hi &lt;expr&gt;; hi &lt;expr&gt;; ...</code> 的片段，其中至少包含一次 <code>hi &lt;expr&gt;;</code> 。请注意，这个复杂的非终端符并没有专用的分隔符令牌。</p>
+<p>(注意， Rust 的解析器确保定界序列始终具有正确嵌套的标记树结构和正确匹配的开/闭定界符。)</p>
+<p>我们通常使用变量 &quot;M&quot; 代表一个匹配器，变量 &quot;t&quot; 和 &quot;u&quot; 代表任意单个标记，变量 &quot;tt&quot; 和 &quot;uu&quot; 代表任意标记树。( &quot;tt&quot; 的使用可能存在潜在的歧义，因为它还作为片段指示符的额外角色；但从上下文中可以清楚地知道意思。)</p>
+<p>&quot;SEP&quot; 将遍历分隔符标记， &quot;OP&quot; 将遍历重复运算符 <code>*</code> 、 <code>+</code> 和 <code>?</code> ， &quot;OPEN&quot;/&quot;CLOSE&quot; 将遍历匹配定界序列的标记对 (例如 <code>[</code> 和 <code>]</code> )。</p>
+<p>希腊字母 &quot;α&quot; &quot;β&quot; &quot;γ&quot; &quot;δ&quot; 表示可能为空的标记树序列。
+(然而，希腊字母 &quot;ε&quot; (epsilon) 在表述中具有特殊作用，不代表标记树序列。)</p>
+<ul>
+<li>这种希腊字母约定通常只在序列的存在是技术细节时使用；特别地，当我们希望 <em>强调</em> 我们正在操作标记树序列时，我们将使用符号 &quot;tt ...&quot; 表示序列，而不是希腊字母。</li>
+</ul>
+<p>请注意，匹配器仅仅是一个标记树。如上所述，&quot;简单 NT&quot; 是一个元变量 NT；因此它是一个非重复项。例如， <code>$foo:ty</code> 是一个简单的 NT ，但 <code>$($foo:ty)+</code> 是一个复杂的 NT。</p>
+<p>还请注意，在这种形式化语境下，术语 &quot;token&quot; 通常包括简单的 NT。</p>
+<p>最后，读者应该记住，根据这个形式化的定义，没有简单的 NT 匹配空片段，同样，没有 token 匹配 Rust 语法的空片段。(因此，唯一可以匹配空片段的 NT 是复杂的 NT。) 这实际上并不正确，因为 <code>vis</code> 匹配器可以匹配空片段。因此，为了形式化的目的，我们将把 <code>$v:vis</code> 实际上视为 <code>$($v:vis)?</code> ，并要求匹配器匹配一个空片段。</p>
+<h3 id="匹配器的不变性"><a class="header" href="#匹配器的不变性">匹配器的不变性</a></h3>
+<p>要有效，匹配器必须符合以下三个不变量。FIRST 和 FOLLOW 的定义将在后面描述。</p>
+<ol>
+<li>对于匹配器 <code>M</code> 中的任意两个连续的标记树序列 (即 <code>M = ... tt uu ...</code>，其中 <code>uu ...</code> 非空) ，我们必须有 FOLLOW(<code>... tt</code>) ∪ {ε} ⊇ FIRST(<code>uu ...</code>)。</li>
+<li>对于匹配器中的任何分隔的复杂 NT，<code>M = ... $(tt ...) SEP OP ...</code>，我们必须有 <code>SEP</code> ∈ FOLLOW(<code>tt ...</code>)。</li>
+<li>对于匹配器中的未分隔的复杂 NT，<code>M = ... $(tt ...) OP ...</code>，如果 OP = <code>*</code> 或 <code>+</code>，则我们必须有 FOLLOW(<code>tt ...</code>) ⊇ FIRST(<code>tt ...</code>)。</li>
+</ol>
+<p>第一个不变量表示，无论匹配器后面有什么实际标记 (如果有的话) ，它都必须在预定的 FOLLOW 集中的某个位置。这确保了一个合法的宏定义将继续分配相同的决定，即 <code>... tt</code> 结束并且 <code>uu ...</code> 开始的位置，即使语言中添加了新的语法形式。</p>
+<p>第二个不变量表示，分隔的复杂 NT 必须使用作为 NT 内部内容预定 FOLLOW 集的分隔符标记。这确保了一个合法的宏定义将继续将输入片段解析为相同的 <code>tt ...</code> 的定界序列，即使语言中添加了新的语法形式。</p>
+<p>第三个不变量表示，当我们有一个复杂的 NT 可以匹配两个或多个连续的相同元素而不需要分隔符时，根据第一个不变量，这些元素必须可以被放在一起。该不变量还要求它们必须是非空的，这消除了可能的歧义。</p>
+<p><strong>注意: 由于历史遗漏和对该行为的重要依赖，目前未执行第三个不变量。目前尚未决定如何继续处理此问题。不遵守此行为的宏在 Rust 的未来版本中可能会变得无效。请参见 <a href="https://github.com/rust-lang/rust/issues/56575">问题跟踪</a>。</strong></p>
+<h3 id="first-和-follow非正式描述"><a class="header" href="#first-和-follow非正式描述">FIRST 和 FOLLOW，非正式描述</a></h3>
+<p>一个给定的匹配器 M 映射到三个集合: FIRST(M)、LAST(M) 和 FOLLOW(M)。</p>
+<p>这三个集合都由标记组成。 FIRST(M) 和 LAST(M) 还可能包含一个特殊的非标记元素 ε (&quot;epsilon&quot;) ，它表示 M 可以匹配空片段。(但 FOLLOW(M) 总是由一组标记组成。)</p>
+<p>非正式地说：</p>
+<ul>
+<li>
+<p>FIRST(M)：在将片段与 M 匹配时，收集可能首先使用的标记。</p>
+</li>
+<li>
+<p>LAST(M)：在将片段与 M 匹配时，收集可能最后使用的标记。</p>
+</li>
+<li>
+<p>FOLLOW(M)：在 M 匹配某个片段之后立即允许其后面紧跟的标记集合。</p>
+<p>换句话说：当且仅当存在 (可能为空的) 标记序列 α β γ δ 时，t ∈ FOLLOW(M)，其中：</p>
+</li>
+<li>
+<p>M 匹配 β，</p>
+</li>
+<li>
+<p>t 匹配 γ ，以及</p>
+</li>
+<li>
+<p>连接 α β γ δ 是一个可解析的 Rust 程序。 </p>
+</li>
+</ul>
+<p>我们使用简写 ANYTOKEN 来表示所有标记 (包括简单的 NT )。例如，如果在匹配器 M 之后任何标记都是合法的，则 FOLLOW(M) = ANYTOKEN 。</p>
+<p>(为了回顾对上述非正式描述的理解，读者此时可能希望跳转到 <a href="#examples-of-first-and-last">FIRST/LAST的示例</a> ，然后再阅读它们的正式定义。) </p>
+<h3 id="first-last"><a class="header" href="#first-last">FIRST, LAST</a></h3>
+<p>以下是 FIRST 和 LAST 的正式归纳定义。</p>
+<p>&quot;A ∪ B&quot; 表示并集， &quot;A ∩ B&quot; 表示交集， &quot;A \ B&quot; 表示差集 (即 A 中所有在 B 中不存在的元素)。</p>
+<h4 id="first"><a class="header" href="#first">FIRST</a></h4>
+<p>对于序列 M 及其第一个标记树的结构 (如果有) ，对 FIRST(M) 进行情况分析定义：</p>
+<ul>
+<li>
+<p>如果 M 是空序列，则 FIRST(M) = { ε }，</p>
+</li>
+<li>
+<p>如果 M 以一个标记 t 开头，则 FIRST(M) = { t } ，</p>
+<p>(注意：这涵盖了 M 以定界的标记树序列开头的情况， <code>M = OPEN tt ... CLOSE ...</code> ，在这种情况下，<code>t = OPEN</code>，因此 FIRST(M) = { <code>OPEN</code> }。)</p>
+<p>(注意：这主要依赖于一个属性，即没有简单的 NT 可以匹配空片段。)</p>
+</li>
+<li>
+<p>否则， M 是以复杂的 NT 开头的标记树序列： <code>M = $( tt ... ) OP α</code> 或 <code>M = $( tt ... ) SEP OP α</code> ， (其中 <code>α</code> 是匹配器的其余部分的 (可能为空的) 标记树序列)。</p>
+<ul>
+<li>如果 SEP 存在且 ε ∈ FIRST(<code>tt ...</code>) ，则让 SEP_SET(M) = { SEP }; 否则，SEP_SET(M) = {}。</li>
+</ul>
+</li>
+<li>
+<p>如果 OP = <code>*</code> 或 <code>?</code> ，则让 ALPHA_SET(M) = FIRST(<code>α</code>) ，如果 OP = <code>+</code>，则 ALPHA_SET(M) = {}。</p>
+</li>
+<li>
+<p>FIRST(M) = (FIRST(<code>tt ...</code>) \ {ε}) ∪ SEP_SET(M) ∪ ALPHA_SET(M) 。</p>
+</li>
+</ul>
+<p>复杂非终端符的定义需要一些解释。 SEP_SET (M) 定义了分隔符可能是 M 的有效首个符号的可能性，当定义了分隔符并且重复片段可能为空时会发生这种情况。 ALPHA_SET (M) 定义了复杂非终端符可以为空的可能性，这意味着 M 的有效首个符号是以下 token-tree 序列 <code>α</code> 中的符号。当使用 <code>*</code> 或 <code>?</code> 时会发生这种情况，此时可能没有重复。理论上，如果使用 <code>+</code> 并带有潜在为空的重复片段，则也可能发生这种情况，但这被第三个不变量禁止。</p>
+<p>从这里开始，显然 FIRST(M) 可以包括来自 SEP_SET(M) 或 ALPHA_SET(M) 的任何令牌，如果复合 NT 匹配非空，则任何以 FIRST(<code>tt ...</code>) 开头的令牌也可以使用。考虑的最后一个部分是 ε 。 SEP_SET(M) 和 FIRST(<code>tt ...</code>) \ {ε}不能包含 ε，但 ALPHA_SET(M) 可能会包含。
+因此，这个定义允许 M 接受 ε ，当且仅当 ε∈ALPHA_SET(M) 。这是正确的，因为对于 M 在复合 NT 情况下接受 ε ，复合 NT 和 α 都必须接受它。
+如果 OP = <code>+</code> ，意味着复合 NT 不能为空，根据定义， ε∉ALPHA_SET(M) 。
+否则，复合 NT 可以接受零次重复，然后 ALPHA_SET(M)=FOLLOW(<code>α</code>) 。因此，这个定义在 ε 方面是正确的。 </p>
+<h4 id="last"><a class="header" href="#last">LAST</a></h4>
+<p>LAST(M) 是根据 M 本身 (一个令牌树序列) 的情况分析定义的。</p>
+<ul>
+<li>
+<p>如果 M 是空序列，则 LAST(M) = { ε } 。</p>
+</li>
+<li>
+<p>如果 M 是单个令牌 t ，则 LAST(M) = { t } 。</p>
+</li>
+<li>
+<p>如果 M 是单一的复合 NT ，重复出现零次或多次，如 <code>M = $( tt ... ) *</code> 或 <code>M = $( tt ... ) SEP *</code>，则 LAST(M)={LAST('tt ...')}。</p>
+<ul>
+<li>如果存在 SEP ，则令 sep_set = { SEP } ；否则，令 sep_set = {} 。</li>
+<li>如果 ε ∈ LAST(<code>tt ...</code>) ，则 LAST(M) = LAST(<code>tt ...</code>) ∪ sep_set 。</li>
+<li>否则，序列'tt ...'必须是非空的；LAST(M) = LAST(<code>tt ...</code>) ∪ {ε} 。</li>
+</ul>
+</li>
+<li>
+<p>如果 M 是重复出现一次或多次的单一复合 NT ，如 <code>M = $( tt ... ) +</code> 或 <code>M = $( tt ... ) SEP +</code> ，</p>
+<ul>
+<li>如果存在 SEP ，则令 sep_set = { SEP } ；否则，令s ep_set = {} 。</li>
+<li>如果 ε ∈ LAST(<code>tt ...</code>) ，则 LAST(M) = LAST(<code>tt ...</code>) ∪ sep_set 。</li>
+<li>否则，序列 <code>tt ...</code> 必须是非空的；LAST(M) = LAST('tt ...')。</li>
+</ul>
+</li>
+<li>
+<p>如果 M 是重复出现零次或一次的单一复合 NT ，如 <code>M = $( tt ...) ?</code>，则 LAST(M) = LAST(<code>tt ...</code>) ∪ {ε} 。</p>
+</li>
+<li>
+<p>如果 M 是一个定界的标记树序列 <code>OPEN tt ... CLOSE</code> ，则 LAST(M) = { <code>CLOSE</code> }。</p>
+</li>
+<li>
+<p>如果 M 是一个非空的令牌树的序列 <code>tt uu ...</code> ，</p>
+<ul>
+<li>
+<p>如果 ε ∈ LAST(<code>uu ...</code>) ，那么 LAST(M) = LAST(<code>tt</code>) ∪ (LAST(<code>uu ...</code>) \ { ε }) .</p>
+</li>
+<li>
+<p>否则，序列 <code>uu ...</code> 必须是非空的；那么 LAST(M) = LAST(<code>uu ...</code>) 。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="first和last的例子"><a class="header" href="#first和last的例子">FIRST和LAST的例子</a></h3>
+<p>以下是一些 FIRST 和 LAST 的例子。
+(特别注意，基于输入的不同部分之间的交互，特殊元素 ε 是如何被引入和消除的。)</p>
+<p>我们的第一个例子以树形结构呈现，以详细阐述匹配器的分析是如何组合的。 (一些简单的子树已省略。)</p>
+<pre><code class="language-text">INPUT:  $(  $d:ident   $e:expr   );*    $( $( h )* );*    $( f ; )+   g
+            ~~~~~~~~   ~~~~~~~                ~
+                |         |                   |
+FIRST:   { $d:ident }  { $e:expr }          { h }
+
+
+INPUT:  $(  $d:ident   $e:expr   );*    $( $( h )* );*    $( f ; )+
+            ~~~~~~~~~~~~~~~~~~             ~~~~~~~           ~~~
+                        |                      |               |
+FIRST:          { $d:ident }               { h, ε }         { f }
+
+INPUT:  $(  $d:ident   $e:expr   );*    $( $( h )* );*    $( f ; )+   g
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~    ~~~~~~~~~~~~~~    ~~~~~~~~~   ~
+                        |                       |              |       |
+FIRST:        { $d:ident, ε }            {  h, ε, ;  }      { f }   { g }
+
+
+INPUT:  $(  $d:ident   $e:expr   );*    $( $( h )* );*    $( f ; )+   g
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                        |
+FIRST:                       { $d:ident, h, ;,  f }
+</code></pre>
+<p>因此:</p>
+<ul>
+<li>FIRST(<code>$($d:ident $e:expr );* $( $(h)* );* $( f ;)+ g</code>) = { <code>$d:ident</code>, <code>h</code>, <code>;</code>, <code>f</code> }</li>
+</ul>
+<p>值得注意:</p>
+<ul>
+<li>FIRST(<code>$($d:ident $e:expr );* $( $(h)* );* $($( f ;)+ g)*</code>) = { <code>$d:ident</code>, <code>h</code>, <code>;</code>, <code>f</code>, ε }</li>
+</ul>
+<p>以下是类似的例子，但现在是关于 LAST 的。</p>
+<ul>
+<li>LAST(<code>$d:ident $e:expr</code>) = { <code>$e:expr</code> }</li>
+<li>LAST(<code>$( $d:ident $e:expr );*</code>) = { <code>$e:expr</code>, ε }</li>
+<li>LAST(<code>$( $d:ident $e:expr );* $(h)*</code>) = { <code>$e:expr</code>, ε, <code>h</code> }</li>
+<li>LAST(<code>$( $d:ident $e:expr );* $(h)* $( f ;)+</code>) = { <code>;</code> }</li>
+<li>LAST(<code>$( $d:ident $e:expr );* $(h)* $( f ;)+ g</code>) = { <code>g</code> }</li>
+</ul>
+<h3 id="followm"><a class="header" href="#followm">FOLLOW(M)</a></h3>
+<p>最后， FOLLOW(M) 的定义如下构建。 pat ， expr 等表示具有给定片段说明符的简单非终端符。</p>
+<ul>
+<li>
+<p>FOLLOW(pat) = {<code>=&gt;</code>, <code>,</code>, <code>=</code>, <code>|</code>, <code>if</code>, <code>in</code>}`.</p>
+</li>
+<li>
+<p>FOLLOW(expr) = FOLLOW(stmt) =  {<code>=&gt;</code>, <code>,</code>, <code>;</code>}`.</p>
+</li>
+<li>
+<p>FOLLOW(ty) = FOLLOW(path) = {<code>{</code>, <code>[</code>, <code>,</code>, <code>=&gt;</code>, <code>:</code>, <code>=</code>, <code>&gt;</code>, <code>&gt;&gt;</code>, <code>;</code>,<code>|</code>, <code>as</code>, <code>where</code>, 块非终端符}。</p>
+</li>
+<li>
+<p>FOLLOW(vis) = { <code>,</code> l 除非是非原始的 <code>priv</code> ，任何关键字或标识符; 可以开始类型的任何令牌; ident ， ty 和 path 非终端符}。</p>
+</li>
+<li>
+<p>对于任何其他简单的 token ，包括 block 、 ident 、 tt 、 item 、 lifetime 、 literal 和 meta 的简单非终端符以及所有终端符， FOLLOW(t) = ANYTOKEN 。</p>
+</li>
+<li>
+<p>对于任何其他 M ， FOLLOW(M) 的定义是对 (LAST(M){ε}) 的所有 t 的 FOLLOW(t) 的交集，其中 t 在终端符中范围。</p>
+</li>
+</ul>
+<p>可以开始类型的令牌是，截至本写作时，为 {<code>(</code>、<code>[</code>、<code>!</code>、<code>*</code>、<code>&amp;</code>、<code>&amp;&amp;</code>、<code>?</code>、lifetime、<code>&gt;</code>、<code>&gt;&gt;</code>、<code>::</code>、任何非关键字标识符、<code>super</code>、<code>self</code>、<code>Self</code>、<code>extern</code>、<code>crate</code>、<code>$crate</code>、<code>_</code>、<code>for</code>、<code>impl</code>、<code>fn</code>、<code>unsafe</code>、<code>typeof</code>、<code>dyn</code>}，尽管此列表可能不完整，因为人们不会总是记得在添加新令牌时更新附录。</p>
+<p>复杂 M 的 FOLLOW 的例子:</p>
+<ul>
+<li>FOLLOW(<code>$( $d:ident $e:expr )*</code>) = FOLLOW(<code>$e:expr</code>)</li>
+<li>FOLLOW(<code>$( $d:ident $e:expr )* $(;)*</code>) = FOLLOW(<code>$e:expr</code>) ∩ ANYTOKEN = FOLLOW(<code>$e:expr</code>)</li>
+<li>FOLLOW(<code>$( $d:ident $e:expr )* $(;)* $( f |)+</code>) = ANYTOKEN</li>
+</ul>
+<h3 id="有效和无效匹配器的示例"><a class="header" href="#有效和无效匹配器的示例">有效和无效匹配器的示例</a></h3>
+<p>有了上述规范，我们可以提出为什么特定匹配器合法而其他匹配器不合法的论据。</p>
+<ul>
+<li>
+<p><code>($ty:ty &lt; foo ,)</code> : 不合法, 因为 FIRST(<code>&lt; foo ,</code>) = { <code>&lt;</code> } ⊈ FOLLOW(<code>ty</code>)</p>
+</li>
+<li>
+<p><code>($ty:ty , foo &lt;)</code> : 合法, 因为 FIRST(<code>, foo &lt;</code>) = { <code>,</code> }  is ⊆ FOLLOW(<code>ty</code>).</p>
+</li>
+<li>
+<p><code>($pa:pat $pb:pat $ty:ty ,)</code> : 不合法, 因为 FIRST(<code>$pb:pat $ty:ty ,</code>) = { <code>$pb:pat</code> } ⊈ FOLLOW(<code>pat</code>), 而且 FIRST(<code>$ty:ty ,</code>) = { <code>$ty:ty</code> } ⊈ FOLLOW(<code>pat</code>).</p>
+</li>
+<li>
+<p><code>( $($a:tt $b:tt)* ; )</code> : 合法, 因为 FIRST(<code>$b:tt</code>) = { <code>$b:tt</code> } is ⊆ FOLLOW(<code>tt</code>) = ANYTOKEN, as is FIRST(<code>;</code>) = { <code>;</code> }.</p>
+</li>
+<li>
+<p><code>( $($t:tt),* , $(t:tt),* )</code> : 合法,  (尽管任何尝试实际使用此宏都将在扩展期间发出本地歧义错误的信号。).</p>
+</li>
+<li>
+<p><code>($ty:ty $(; not sep)* -)</code> : 不合法，因为 FIRST(<code>$(; not sep)* -</code>) = { <code>;</code>, <code>-</code> } 不在 FOLLOW(<code>ty</code>) 中。</p>
+</li>
+<li>
+<p><code>($($ty:ty)-+)</code>：不合法，因为分隔符 <code>-</code> 不在 FOLLOW(<code>ty</code>) 中。</p>
+</li>
+<li>
+<p><code>($($e:expr)*)</code>：不合法，因为表达式 NT 不在 FOLLOW(expr NT) 中。</p>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="appendices.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="influences.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="appendices.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="influences.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

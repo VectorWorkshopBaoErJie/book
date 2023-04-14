@@ -1,0 +1,820 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>内联汇编 - The Rust Reference</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/reference.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">介绍</a></li><li class="chapter-item expanded "><a href="notation.html"><strong aria-hidden="true">1.</strong> 符号约定</a></li><li class="chapter-item expanded "><a href="lexical-structure.html"><strong aria-hidden="true">2.</strong> 词法结构</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="input-format.html"><strong aria-hidden="true">2.1.</strong> 输入格式</a></li><li class="chapter-item expanded "><a href="keywords.html"><strong aria-hidden="true">2.2.</strong> 关键字</a></li><li class="chapter-item expanded "><a href="identifiers.html"><strong aria-hidden="true">2.3.</strong> 标识符</a></li><li class="chapter-item expanded "><a href="comments.html"><strong aria-hidden="true">2.4.</strong> 注释</a></li><li class="chapter-item expanded "><a href="whitespace.html"><strong aria-hidden="true">2.5.</strong> 空白</a></li><li class="chapter-item expanded "><a href="tokens.html"><strong aria-hidden="true">2.6.</strong> 记号</a></li></ol></li><li class="chapter-item expanded "><a href="macros.html"><strong aria-hidden="true">3.</strong> 宏</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="macros-by-example.html"><strong aria-hidden="true">3.1.</strong> 实例宏</a></li><li class="chapter-item expanded "><a href="procedural-macros.html"><strong aria-hidden="true">3.2.</strong> 过程宏</a></li></ol></li><li class="chapter-item expanded "><a href="crates-and-source-files.html"><strong aria-hidden="true">4.</strong> Crate和源文件</a></li><li class="chapter-item expanded "><a href="conditional-compilation.html"><strong aria-hidden="true">5.</strong> 条件编译</a></li><li class="chapter-item expanded "><a href="items.html"><strong aria-hidden="true">6.</strong> 条目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="items/modules.html"><strong aria-hidden="true">6.1.</strong> 模块</a></li><li class="chapter-item expanded "><a href="items/extern-crates.html"><strong aria-hidden="true">6.2.</strong> 外部Crate</a></li><li class="chapter-item expanded "><a href="items/use-declarations.html"><strong aria-hidden="true">6.3.</strong> Use 声明</a></li><li class="chapter-item expanded "><a href="items/functions.html"><strong aria-hidden="true">6.4.</strong> 函数</a></li><li class="chapter-item expanded "><a href="items/type-aliases.html"><strong aria-hidden="true">6.5.</strong> 类型别名</a></li><li class="chapter-item expanded "><a href="items/structs.html"><strong aria-hidden="true">6.6.</strong> 结构体</a></li><li class="chapter-item expanded "><a href="items/enumerations.html"><strong aria-hidden="true">6.7.</strong> 枚举</a></li><li class="chapter-item expanded "><a href="items/unions.html"><strong aria-hidden="true">6.8.</strong> 联合体</a></li><li class="chapter-item expanded "><a href="items/constant-items.html"><strong aria-hidden="true">6.9.</strong> 常量条目</a></li><li class="chapter-item expanded "><a href="items/static-items.html"><strong aria-hidden="true">6.10.</strong> 静态条目</a></li><li class="chapter-item expanded "><a href="items/traits.html"><strong aria-hidden="true">6.11.</strong> Trait</a></li><li class="chapter-item expanded "><a href="items/implementations.html"><strong aria-hidden="true">6.12.</strong> 实现</a></li><li class="chapter-item expanded "><a href="items/external-blocks.html"><strong aria-hidden="true">6.13.</strong> 外部块</a></li><li class="chapter-item expanded "><a href="items/generics.html"><strong aria-hidden="true">6.14.</strong> 泛型参数</a></li><li class="chapter-item expanded "><a href="items/associated-items.html"><strong aria-hidden="true">6.15.</strong> 关联条目</a></li></ol></li><li class="chapter-item expanded "><a href="attributes.html"><strong aria-hidden="true">7.</strong> 属性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="attributes/testing.html"><strong aria-hidden="true">7.1.</strong> 测试</a></li><li class="chapter-item expanded "><a href="attributes/derive.html"><strong aria-hidden="true">7.2.</strong> 派生</a></li><li class="chapter-item expanded "><a href="attributes/diagnostics.html"><strong aria-hidden="true">7.3.</strong> 诊断</a></li><li class="chapter-item expanded "><a href="attributes/codegen.html"><strong aria-hidden="true">7.4.</strong> 代码生成</a></li><li class="chapter-item expanded "><a href="attributes/limits.html"><strong aria-hidden="true">7.5.</strong> 约束</a></li><li class="chapter-item expanded "><a href="attributes/type_system.html"><strong aria-hidden="true">7.6.</strong> 类型系统</a></li></ol></li><li class="chapter-item expanded "><a href="statements-and-expressions.html"><strong aria-hidden="true">8.</strong> 语句和表达式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="statements.html"><strong aria-hidden="true">8.1.</strong> 语句</a></li><li class="chapter-item expanded "><a href="expressions.html"><strong aria-hidden="true">8.2.</strong> 表达式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="expressions/literal-expr.html"><strong aria-hidden="true">8.2.1.</strong> 字面值表达式</a></li><li class="chapter-item expanded "><a href="expressions/path-expr.html"><strong aria-hidden="true">8.2.2.</strong> 路径表达式</a></li><li class="chapter-item expanded "><a href="expressions/block-expr.html"><strong aria-hidden="true">8.2.3.</strong> 块表达式</a></li><li class="chapter-item expanded "><a href="expressions/operator-expr.html"><strong aria-hidden="true">8.2.4.</strong> 运算符表达式</a></li><li class="chapter-item expanded "><a href="expressions/grouped-expr.html"><strong aria-hidden="true">8.2.5.</strong> 分组表达式</a></li><li class="chapter-item expanded "><a href="expressions/array-expr.html"><strong aria-hidden="true">8.2.6.</strong> 数组和索引表达式</a></li><li class="chapter-item expanded "><a href="expressions/tuple-expr.html"><strong aria-hidden="true">8.2.7.</strong> 元组和索引表达式</a></li><li class="chapter-item expanded "><a href="expressions/struct-expr.html"><strong aria-hidden="true">8.2.8.</strong> 结构体表达式</a></li><li class="chapter-item expanded "><a href="expressions/call-expr.html"><strong aria-hidden="true">8.2.9.</strong> 调用表达式</a></li><li class="chapter-item expanded "><a href="expressions/method-call-expr.html"><strong aria-hidden="true">8.2.10.</strong> 方法调用表达式</a></li><li class="chapter-item expanded "><a href="expressions/field-expr.html"><strong aria-hidden="true">8.2.11.</strong> 字段访问表达式</a></li><li class="chapter-item expanded "><a href="expressions/closure-expr.html"><strong aria-hidden="true">8.2.12.</strong> 闭包表达式</a></li><li class="chapter-item expanded "><a href="expressions/loop-expr.html"><strong aria-hidden="true">8.2.13.</strong> 循环表达式</a></li><li class="chapter-item expanded "><a href="expressions/range-expr.html"><strong aria-hidden="true">8.2.14.</strong> 区间表达式</a></li><li class="chapter-item expanded "><a href="expressions/if-expr.html"><strong aria-hidden="true">8.2.15.</strong> if 和 if let 表达式</a></li><li class="chapter-item expanded "><a href="expressions/match-expr.html"><strong aria-hidden="true">8.2.16.</strong> 匹配表达式</a></li><li class="chapter-item expanded "><a href="expressions/return-expr.html"><strong aria-hidden="true">8.2.17.</strong> 返回表达式</a></li><li class="chapter-item expanded "><a href="expressions/await-expr.html"><strong aria-hidden="true">8.2.18.</strong> 等待表达式</a></li><li class="chapter-item expanded "><a href="expressions/underscore-expr.html"><strong aria-hidden="true">8.2.19.</strong> 下划线表达式</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="patterns.html"><strong aria-hidden="true">9.</strong> 模式</a></li><li class="chapter-item expanded "><a href="type-system.html"><strong aria-hidden="true">10.</strong> 类型系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="types.html"><strong aria-hidden="true">10.1.</strong> 类型</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="types/boolean.html"><strong aria-hidden="true">10.1.1.</strong> 布尔类型</a></li><li class="chapter-item expanded "><a href="types/numeric.html"><strong aria-hidden="true">10.1.2.</strong> 数字类型</a></li><li class="chapter-item expanded "><a href="types/textual.html"><strong aria-hidden="true">10.1.3.</strong> 文本类型</a></li><li class="chapter-item expanded "><a href="types/never.html"><strong aria-hidden="true">10.1.4.</strong> 永远不存在的类型</a></li><li class="chapter-item expanded "><a href="types/tuple.html"><strong aria-hidden="true">10.1.5.</strong> 元组类型</a></li><li class="chapter-item expanded "><a href="types/array.html"><strong aria-hidden="true">10.1.6.</strong> 数组类型</a></li><li class="chapter-item expanded "><a href="types/slice.html"><strong aria-hidden="true">10.1.7.</strong> 切片类型</a></li><li class="chapter-item expanded "><a href="types/struct.html"><strong aria-hidden="true">10.1.8.</strong> 结构体类型</a></li><li class="chapter-item expanded "><a href="types/enum.html"><strong aria-hidden="true">10.1.9.</strong> 枚举类型</a></li><li class="chapter-item expanded "><a href="types/union.html"><strong aria-hidden="true">10.1.10.</strong> 联合类型</a></li><li class="chapter-item expanded "><a href="types/function-item.html"><strong aria-hidden="true">10.1.11.</strong> 函数条目类型</a></li><li class="chapter-item expanded "><a href="types/closure.html"><strong aria-hidden="true">10.1.12.</strong> 闭包类型</a></li><li class="chapter-item expanded "><a href="types/pointer.html"><strong aria-hidden="true">10.1.13.</strong> 指针类型</a></li><li class="chapter-item expanded "><a href="types/function-pointer.html"><strong aria-hidden="true">10.1.14.</strong> 函数指针类型</a></li><li class="chapter-item expanded "><a href="types/trait-object.html"><strong aria-hidden="true">10.1.15.</strong> Trait 对象类型</a></li><li class="chapter-item expanded "><a href="types/impl-trait.html"><strong aria-hidden="true">10.1.16.</strong> 实现 Trait 的类型</a></li><li class="chapter-item expanded "><a href="types/parameters.html"><strong aria-hidden="true">10.1.17.</strong> 类型参数</a></li><li class="chapter-item expanded "><a href="types/inferred.html"><strong aria-hidden="true">10.1.18.</strong> 推导出的类型</a></li></ol></li><li class="chapter-item expanded "><a href="dynamically-sized-types.html"><strong aria-hidden="true">10.2.</strong> 动态大小类型</a></li><li class="chapter-item expanded "><a href="type-layout.html"><strong aria-hidden="true">10.3.</strong> 类型布局</a></li><li class="chapter-item expanded "><a href="interior-mutability.html"><strong aria-hidden="true">10.4.</strong> 内部可变性</a></li><li class="chapter-item expanded "><a href="subtyping.html"><strong aria-hidden="true">10.5.</strong> 子类型和协变</a></li><li class="chapter-item expanded "><a href="trait-bounds.html"><strong aria-hidden="true">10.6.</strong> Trait 和生命周期边界</a></li><li class="chapter-item expanded "><a href="type-coercions.html"><strong aria-hidden="true">10.7.</strong> 类型强制转换</a></li><li class="chapter-item expanded "><a href="destructors.html"><strong aria-hidden="true">10.8.</strong> 析构函数</a></li><li class="chapter-item expanded "><a href="lifetime-elision.html"><strong aria-hidden="true">10.9.</strong> 生命周期省略</a></li></ol></li><li class="chapter-item expanded "><a href="special-types-and-traits.html"><strong aria-hidden="true">11.</strong> 特殊类型和Trait</a></li><li class="chapter-item expanded "><a href="names.html"><strong aria-hidden="true">12.</strong> 名称</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="names/namespaces.html"><strong aria-hidden="true">12.1.</strong> 命名空间</a></li><li class="chapter-item expanded "><a href="names/scopes.html"><strong aria-hidden="true">12.2.</strong> 作用域</a></li><li class="chapter-item expanded "><a href="names/preludes.html"><strong aria-hidden="true">12.3.</strong> 预定义</a></li><li class="chapter-item expanded "><a href="paths.html"><strong aria-hidden="true">12.4.</strong> 路径</a></li><li class="chapter-item expanded "><a href="names/name-resolution.html"><strong aria-hidden="true">12.5.</strong> 名称解析</a></li><li class="chapter-item expanded "><a href="visibility-and-privacy.html"><strong aria-hidden="true">12.6.</strong> 可见性和私有性</a></li></ol></li><li class="chapter-item expanded "><a href="memory-model.html"><strong aria-hidden="true">13.</strong> 内存模型</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="memory-allocation-and-lifetime.html"><strong aria-hidden="true">13.1.</strong> 内存分配和生命周期</a></li><li class="chapter-item expanded "><a href="variables.html"><strong aria-hidden="true">13.2.</strong> 变量</a></li></ol></li><li class="chapter-item expanded "><a href="linkage.html"><strong aria-hidden="true">14.</strong> 链接</a></li><li class="chapter-item expanded "><a href="inline-assembly.html" class="active"><strong aria-hidden="true">15.</strong> 内联汇编</a></li><li class="chapter-item expanded "><a href="unsafety.html"><strong aria-hidden="true">16.</strong> Unsafety</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="unsafe-keyword.html"><strong aria-hidden="true">16.1.</strong> unsafe 关键字</a></li><li class="chapter-item expanded "><a href="behavior-considered-undefined.html"><strong aria-hidden="true">16.2.</strong> 被视为未定义行为的行为</a></li><li class="chapter-item expanded "><a href="behavior-not-considered-unsafe.html"><strong aria-hidden="true">16.3.</strong> 不被视为不安全的行为</a></li></ol></li><li class="chapter-item expanded "><a href="const_eval.html"><strong aria-hidden="true">17.</strong> 常量求值</a></li><li class="chapter-item expanded "><a href="abi.html"><strong aria-hidden="true">18.</strong> 应用程序二进制接口</a></li><li class="chapter-item expanded "><a href="runtime.html"><strong aria-hidden="true">19.</strong> Rust 运行时</a></li><li class="chapter-item expanded "><a href="appendices.html"><strong aria-hidden="true">20.</strong> 附录</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="macro-ambiguity.html"><strong aria-hidden="true">20.1.</strong> 宏 Follow-Set 歧义正式规范</a></li><li class="chapter-item expanded "><a href="influences.html"><strong aria-hidden="true">20.2.</strong> 影响</a></li><li class="chapter-item expanded "><a href="glossary.html"><strong aria-hidden="true">20.3.</strong> 术语表</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Rust Reference</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/reference/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/reference/edit/master/src/inline-assembly.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="内联汇编"><a class="header" href="#内联汇编">内联汇编</a></h1>
+<p>通过 <a href="../core/arch/macro.asm.html"><code>asm!</code></a> 和 <a href="../core/arch/macro.global_asm.html"><code>global_asm!</code></a> 宏提供对内联汇编的支持。可以使用它来嵌入手写汇编到编译器生成的汇编输出中。</p>
+<p>以下体系结构上的内联汇编支持已经稳定：</p>
+<ul>
+<li>x86 和 x86-64</li>
+<li>ARM</li>
+<li>AArch64</li>
+<li>RISC-V</li>
+</ul>
+<p>如果在不支持的目标上使用 <code>asm!</code> ，编译器会发出错误。</p>
+<h2 id="示例"><a class="header" href="#示例">示例</a></h2>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::arch::asm;
+
+// 使用移位和加法将 x 乘以 6
+let mut x: u64 = 4;
+unsafe {
+    asm!(
+        &quot;mov {tmp}, {x}&quot;,
+        &quot;shl {tmp}, 1&quot;,
+        &quot;shl {x}, 2&quot;,
+        &quot;add {x}, {tmp}&quot;,
+        x = inout(reg) x,
+        tmp = out(reg) _,
+    );
+}
+assert_eq!(x, 4 * 6);
+<span class="boring">}</span></code></pre></pre>
+<h2 id="语法"><a class="header" href="#语法">语法</a></h2>
+<p>以下 ABNF 规定了通用语法：</p>
+<pre><code class="language-text">format_string := STRING_LITERAL / RAW_STRING_LITERAL
+dir_spec := &quot;in&quot; / &quot;out&quot; / &quot;lateout&quot; / &quot;inout&quot; / &quot;inlateout&quot;
+reg_spec := &lt;register class&gt; / &quot;\&quot;&quot; &lt;explicit register&gt; &quot;\&quot;&quot;
+operand_expr := expr / &quot;_&quot; / expr &quot;=&gt;&quot; expr / expr &quot;=&gt;&quot; &quot;_&quot;
+reg_operand := dir_spec &quot;(&quot; reg_spec &quot;)&quot; operand_expr
+operand := reg_operand
+clobber_abi := &quot;clobber_abi(&quot; &lt;abi&gt; *(&quot;,&quot; &lt;abi&gt;) [&quot;,&quot;] &quot;)&quot;
+option := &quot;pure&quot; / &quot;nomem&quot; / &quot;readonly&quot; / &quot;preserves_flags&quot; / &quot;noreturn&quot; / &quot;nostack&quot; / &quot;att_syntax&quot; / &quot;raw&quot;
+options := &quot;options(&quot; option *(&quot;,&quot; option) [&quot;,&quot;] &quot;)&quot;
+asm := &quot;asm!(&quot; format_string *(&quot;,&quot; format_string) *(&quot;,&quot; [ident &quot;=&quot;] operand) *(&quot;,&quot; clobber_abi) *(&quot;,&quot; options) [&quot;,&quot;] &quot;)&quot;
+global_asm := &quot;global_asm!(&quot; format_string *(&quot;,&quot; format_string) *(&quot;,&quot; [ident &quot;=&quot;] operand) *(&quot;,&quot; options) [&quot;,&quot;] &quot;)&quot;
+</code></pre>
+<h2 id="作用域"><a class="header" href="#作用域">作用域</a></h2>
+<p>内联汇编有两种使用方式。</p>
+<p>使用 <code>asm!</code> 宏时，汇编代码在函数作用域中生成，并集成到函数的编译器生成的汇编代码中。这些汇编代码必须遵守 <a href="#rules-for-inline-assembly">严格规则</a> 以避免未定义行为。注意，在某些情况下，编译器可能会选择将汇编代码生成为一个单独的函数并生成对它的调用。</p>
+<p>使用 <code>global_asm!</code> 宏时，汇编代码在全局作用域中生成，不在函数内。这可以用于使用汇编代码手写整个函数，并且通常提供更多使用任意寄存器和汇编指令的自由。</p>
+<h2 id="模板字符串参数"><a class="header" href="#模板字符串参数">模板字符串参数</a></h2>
+<p>汇编器模板使用与 <a href="../std/fmt/index.html#syntax">格式字符串</a> 相同的语法 (花括号占位符) 。
+相应的参数按顺序、索引或名称访问。
+但是，不支持隐式命名参数 (由<a href="https://github.com/rust-lang/rfcs/pull/2795">RFC #2795</a>引入) 。</p>
+<p><code>asm!</code> 调用可能有一个或多个模板字符串参数；具有多个模板字符串参数的 <code>asm!</code> 被视为所有字符串在它们之间使用 <code>\n</code> 连接。
+预期的用法是每个模板字符串参数对应于汇编代码的一行。
+所有模板字符串参数必须出现在任何其他参数之前。</p>
+<p>与格式字符串一样，命名参数必须出现在位置参数之后。
+显式的 <a href="#register-operands">寄存器操作数</a> 必须出现在操作数列表的末尾，在任何命名参数之后。</p>
+<p>模板字符串中的占位符不能使用显式寄存器操作数。
+所有其他命名和位置操作数都必须至少在模板字符串中出现一次，否则将生成编译器错误。</p>
+<p>确切的汇编代码语法是特定于目标的，对编译器不透明，除了将操作数替换为模板字符串以形成传递给汇编器的代码的方式之外。</p>
+<p>目前，所有支持的目标都遵循 LLVM 内部汇编器使用的汇编代码语法，这通常对应于 GNU 汇编器 (GAS) 的语法。
+在 x86 上，默认使用 GAS 的 <code>.intel_syntax noprefix</code> 模式。
+在 ARM 上，使用 <code>.syntax unified</code> 模式。
+这些目标对汇编代码施加了一个额外的限制：任何汇编器状态 (例如，可以使用 <code>.section</code> 改变的当前节) 必须在 asm 字符串的末尾恢复到其原始值。
+不符合 GAS 语法的汇编代码将导致特定于汇编器的行为。
+有关内联汇编使用的指令的进一步限制在 <a href="#directives-support">指令支持</a> 中指定。</p>
+<h2 id="操作数类型"><a class="header" href="#操作数类型">操作数类型</a></h2>
+<p>支持几种操作数类型:</p>
+<ul>
+<li><code>in(&lt;reg&gt;) &lt;expr&gt;</code>
+<ul>
+<li><code>&lt;reg&gt;</code> 可以是寄存器类或显式寄存器。
+分配的寄存器名称将替换为 asm 模板字符串中的名称。</li>
+<li>分配的寄存器将在 asm 代码开始时包含 <code>&lt;expr&gt;</code> 的值。</li>
+<li>在 asm 代码结束时，分配的寄存器必须包含相同的值 (除非另一个 <code>lateout</code> 被分配到相同的寄存器) 。</li>
+</ul>
+</li>
+<li><code>out(&lt;reg&gt;) &lt;expr&gt;</code>
+<ul>
+<li><code>&lt;reg&gt;</code> 可以是寄存器类或显式寄存器。
+分配的寄存器名称将替换为 asm 模板字符串中的名称。</li>
+<li>分配的寄存器在 asm 代码开始时包含未定义的值。</li>
+<li><code>&lt;expr&gt;</code> 必须是一个 (可能未初始化的) place 表达式，分配的寄存器的内容在 asm 代码结束时写入该表达式。</li>
+<li>可以使用下划线 (<code>_</code>) 代替表达式，在 asm 代码结束时会丢弃寄存器的内容 (有效地作为 clobber) 。</li>
+</ul>
+</li>
+<li><code>lateout(&lt;reg&gt;) &lt;expr&gt;</code>
+<ul>
+<li>与 <code>out</code> 相同，但是寄存器分配器可以重新使用分配给 <code>in</code> 的寄存器。</li>
+<li>应在读取所有输入之后再写入寄存器，否则可能破坏输入。</li>
+</ul>
+</li>
+<li><code>inout(&lt;reg&gt;) &lt;expr&gt;</code>
+<ul>
+<li><code>&lt;reg&gt;</code>可以引用寄存器类或显式寄存器。
+分配的寄存器名称将替换为汇编模板字符串中。</li>
+<li>分配的寄存器将在汇编代码开始时包含 <code>&lt;expr&gt;</code> 的值。</li>
+<li><code>&lt;expr&gt;</code>必须是一个可变的初始化地点表达式，分配的寄存器的内容将在汇编代码结束时写入该表达式。</li>
+</ul>
+</li>
+<li><code>inout(&lt;reg&gt;) &lt;in expr&gt; =&gt; &lt;out expr&gt;</code>
+<ul>
+<li>与 <code>inout</code> 相同，但是寄存器的初始值取自 <code>&lt;in expr&gt;</code> 的值。</li>
+<li><code>&lt;out expr&gt;</code> 必须是一个 (可能未初始化的) 地点表达式，分配的寄存器的内容将在汇编代码结束时写入该表达式。</li>
+<li>可以为 <code>&lt;out expr&gt;</code> 指定下划线 (<code>_</code>) ，这将导致在汇编代码结束时丢弃寄存器的内容 (实际上起到破坏作用) 。</li>
+<li><code>&lt;in expr&gt;</code>和<code>&lt;out expr&gt;</code>可能具有不同的类型。</li>
+</ul>
+</li>
+<li><code>inlateout(&lt;reg&gt;) &lt;expr&gt;</code> / <code>inlateout(&lt;reg&gt;) &lt;in expr&gt; =&gt; &lt;out expr&gt;</code>
+<ul>
+<li>与 <code>inout</code> 相同，但是寄存器分配器可以重用分配给 <code>in</code> 的寄存器 (如果编译器知道 <code>in</code> 具有与 <code>inlateout</code> 相同的初始值，则可能会发生这种情况) 。</li>
+<li>只有在读取所有输入后才应写入寄存器，否则可能会破坏输入。</li>
+</ul>
+</li>
+<li><code>sym &lt;path&gt;</code>
+<ul>
+<li><code>&lt;path&gt;</code> 必须引用 <code>fn</code> 或 <code>static</code> 。</li>
+<li>指向该项的重命名符号名称将替换为汇编模板字符串中。</li>
+<li>替换的字符串不包括任何修改器 (例如 GOT 、 PLT 、重定位等) 。</li>
+<li><code>&lt;path&gt;</code> 允许指向 <code>#[thread_local]</code> 静态变量，在这种情况下，汇编代码可以将符号与重定位 (例如 <code>@plt</code> 、 <code>@TPOFF</code> ) 组合以从线程本地数据读取。</li>
+</ul>
+</li>
+</ul>
+<p>操作数表达式从左到右依次评估，就像函数调用参数一样。
+在 <code>asm!</code> 执行完成后，输出按照从左到右的顺序进行写入。
+如果两个输出指向同一个位置，则该位置将包含最右边输出的值。</p>
+<p>由于 <code>global_asm!</code> 存在于函数外部，因此它只能使用 <code>sym</code> 操作数。</p>
+<h2 id="寄存器操作数"><a class="header" href="#寄存器操作数">寄存器操作数</a></h2>
+<p>输入和输出操作数可以被指定为显式寄存器或者是寄存器类，从中寄存器分配器可以选择一个寄存器。
+显式寄存器以字符串字面量表示 (例如 <code>&quot;eax&quot;</code> ) ，而寄存器类则以标识符表示 (例如 <code>reg</code> ) 。</p>
+<p>需要注意的是，显式寄存器将寄存器别名 (例如 ARM 上的 <code>r14</code> vs <code>lr</code>) 和寄存器的较小视图 (例如<code>eax</code> vs <code>rax</code>) 视为等效于基础寄存器。
+在两个输入操作数或两个输出操作数中使用相同的显式寄存器是编译时错误。
+此外，在输入操作数或输出操作数中使用重叠的寄存器 (例如 ARM VFP) 也是编译时错误。</p>
+<p>只有以下类型的操作数被允许用于内联汇编：</p>
+<ul>
+<li>整数 (有符号和无符号) </li>
+<li>浮点数</li>
+<li>指针 (仅限thin) </li>
+<li>函数指针</li>
+<li>SIMD 向量 (用 <code>#[repr(simd)]</code> 定义的结构体，并且实现了 <code>Copy</code> ) 。其中包括在 <code>std::arch</code> 中定义的架构特定的向量类型，例如 <code>__m128</code> (x86) 或 <code>int8x16_t</code> (ARM) 。</li>
+</ul>
+<p>以下是当前支持的寄存器类的列表：</p>
+<div class="table-wrapper"><table><thead><tr><th>Architecture</th><th>Register class</th><th>Registers</th><th>LLVM constraint code</th></tr></thead><tbody>
+<tr><td>x86</td><td><code>reg</code></td><td><code>ax</code>, <code>bx</code>, <code>cx</code>, <code>dx</code>, <code>si</code>, <code>di</code>, <code>bp</code>, <code>r[8-15]</code> (x86-64 only)</td><td><code>r</code></td></tr>
+<tr><td>x86</td><td><code>reg_abcd</code></td><td><code>ax</code>, <code>bx</code>, <code>cx</code>, <code>dx</code></td><td><code>Q</code></td></tr>
+<tr><td>x86-32</td><td><code>reg_byte</code></td><td><code>al</code>, <code>bl</code>, <code>cl</code>, <code>dl</code>, <code>ah</code>, <code>bh</code>, <code>ch</code>, <code>dh</code></td><td><code>q</code></td></tr>
+<tr><td>x86-64</td><td><code>reg_byte</code>*</td><td><code>al</code>, <code>bl</code>, <code>cl</code>, <code>dl</code>, <code>sil</code>, <code>dil</code>, <code>bpl</code>, <code>r[8-15]b</code></td><td><code>q</code></td></tr>
+<tr><td>x86</td><td><code>xmm_reg</code></td><td><code>xmm[0-7]</code> (x86) <code>xmm[0-15]</code> (x86-64)</td><td><code>x</code></td></tr>
+<tr><td>x86</td><td><code>ymm_reg</code></td><td><code>ymm[0-7]</code> (x86) <code>ymm[0-15]</code> (x86-64)</td><td><code>x</code></td></tr>
+<tr><td>x86</td><td><code>zmm_reg</code></td><td><code>zmm[0-7]</code> (x86) <code>zmm[0-31]</code> (x86-64)</td><td><code>v</code></td></tr>
+<tr><td>x86</td><td><code>kreg</code></td><td><code>k[1-7]</code></td><td><code>Yk</code></td></tr>
+<tr><td>x86</td><td><code>kreg0</code></td><td><code>k0</code></td><td>Only clobbers</td></tr>
+<tr><td>x86</td><td><code>x87_reg</code></td><td><code>st([0-7])</code></td><td>Only clobbers</td></tr>
+<tr><td>x86</td><td><code>mmx_reg</code></td><td><code>mm[0-7]</code></td><td>Only clobbers</td></tr>
+<tr><td>x86-64</td><td><code>tmm_reg</code></td><td><code>tmm[0-7]</code></td><td>Only clobbers</td></tr>
+<tr><td>AArch64</td><td><code>reg</code></td><td><code>x[0-30]</code></td><td><code>r</code></td></tr>
+<tr><td>AArch64</td><td><code>vreg</code></td><td><code>v[0-31]</code></td><td><code>w</code></td></tr>
+<tr><td>AArch64</td><td><code>vreg_low16</code></td><td><code>v[0-15]</code></td><td><code>x</code></td></tr>
+<tr><td>AArch64</td><td><code>preg</code></td><td><code>p[0-15]</code>, <code>ffr</code></td><td>Only clobbers</td></tr>
+<tr><td>ARM (ARM/Thumb2)</td><td><code>reg</code></td><td><code>r[0-12]</code>, <code>r14</code></td><td><code>r</code></td></tr>
+<tr><td>ARM (Thumb1)</td><td><code>reg</code></td><td><code>r[0-7]</code></td><td><code>r</code></td></tr>
+<tr><td>ARM</td><td><code>sreg</code></td><td><code>s[0-31]</code></td><td><code>t</code></td></tr>
+<tr><td>ARM</td><td><code>sreg_low16</code></td><td><code>s[0-15]</code></td><td><code>x</code></td></tr>
+<tr><td>ARM</td><td><code>dreg</code></td><td><code>d[0-31]</code></td><td><code>w</code></td></tr>
+<tr><td>ARM</td><td><code>dreg_low16</code></td><td><code>d[0-15]</code></td><td><code>t</code></td></tr>
+<tr><td>ARM</td><td><code>dreg_low8</code></td><td><code>d[0-8]</code></td><td><code>x</code></td></tr>
+<tr><td>ARM</td><td><code>qreg</code></td><td><code>q[0-15]</code></td><td><code>w</code></td></tr>
+<tr><td>ARM</td><td><code>qreg_low8</code></td><td><code>q[0-7]</code></td><td><code>t</code></td></tr>
+<tr><td>ARM</td><td><code>qreg_low4</code></td><td><code>q[0-3]</code></td><td><code>x</code></td></tr>
+<tr><td>RISC-V</td><td><code>reg</code></td><td><code>x1</code>, <code>x[5-7]</code>, <code>x[9-15]</code>, <code>x[16-31]</code> (non-RV32E)</td><td><code>r</code></td></tr>
+<tr><td>RISC-V</td><td><code>freg</code></td><td><code>f[0-31]</code></td><td><code>f</code></td></tr>
+<tr><td>RISC-V</td><td><code>vreg</code></td><td><code>v[0-31]</code></td><td>Only clobbers</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p><strong>注</strong>：</p>
+<ul>
+<li>
+<p>在 x86 上，我们将 <code>reg_byte</code> 与 <code>reg</code> 区别对待，因为编译器可以分别分配 <code>al</code> 和 <code>ah</code>，而 <code>reg</code> 保留整个寄存器。</p>
+</li>
+<li>
+<p>在 x86-64 上，高字节寄存器 (例如 <code>ah</code>) 不可用于 <code>reg_byte</code> 寄存器类。</p>
+</li>
+<li>
+<p>一些寄存器类被标记为 &quot;仅占用&quot; ，这意味着这些类中的寄存器不能用作输入或输出，只能用作类似 <code>out(&lt;explicit register&gt;) _</code> 或 <code>lateout(&lt;explicit register&gt;) _</code> 的占用。</p>
+</li>
+</ul>
+</blockquote>
+<p>每个寄存器类对可以与其一起使用的值类型有约束。
+这是必要的，因为将值加载到寄存器中的方式取决于其类型。
+例如，在大端系统上，将 <code>i32x4</code> 和 <code>i8x16</code> 加载到 SIMD 寄存器中可能会导致不同的寄存器内容，即使这两个值的按字节的内存表示相同。
+支持特定寄存器类的类型的可用性可能取决于当前启用的目标特性。</p>
+<div class="table-wrapper"><table><thead><tr><th>Architecture</th><th>Register class</th><th>Target feature</th><th>Allowed types</th></tr></thead><tbody>
+<tr><td>x86-32</td><td><code>reg</code></td><td>None</td><td><code>i16</code>, <code>i32</code>, <code>f32</code></td></tr>
+<tr><td>x86-64</td><td><code>reg</code></td><td>None</td><td><code>i16</code>, <code>i32</code>, <code>f32</code>, <code>i64</code>, <code>f64</code></td></tr>
+<tr><td>x86</td><td><code>reg_byte</code></td><td>None</td><td><code>i8</code></td></tr>
+<tr><td>x86</td><td><code>xmm_reg</code></td><td><code>sse</code></td><td><code>i32</code>, <code>f32</code>, <code>i64</code>, <code>f64</code>, <br> <code>i8x16</code>, <code>i16x8</code>, <code>i32x4</code>, <code>i64x2</code>, <code>f32x4</code>, <code>f64x2</code></td></tr>
+<tr><td>x86</td><td><code>ymm_reg</code></td><td><code>avx</code></td><td><code>i32</code>, <code>f32</code>, <code>i64</code>, <code>f64</code>, <br> <code>i8x16</code>, <code>i16x8</code>, <code>i32x4</code>, <code>i64x2</code>, <code>f32x4</code>, <code>f64x2</code> <br> <code>i8x32</code>, <code>i16x16</code>, <code>i32x8</code>, <code>i64x4</code>, <code>f32x8</code>, <code>f64x4</code></td></tr>
+<tr><td>x86</td><td><code>zmm_reg</code></td><td><code>avx512f</code></td><td><code>i32</code>, <code>f32</code>, <code>i64</code>, <code>f64</code>, <br> <code>i8x16</code>, <code>i16x8</code>, <code>i32x4</code>, <code>i64x2</code>, <code>f32x4</code>, <code>f64x2</code> <br> <code>i8x32</code>, <code>i16x16</code>, <code>i32x8</code>, <code>i64x4</code>, <code>f32x8</code>, <code>f64x4</code> <br> <code>i8x64</code>, <code>i16x32</code>, <code>i32x16</code>, <code>i64x8</code>, <code>f32x16</code>, <code>f64x8</code></td></tr>
+<tr><td>x86</td><td><code>kreg</code></td><td><code>avx512f</code></td><td><code>i8</code>, <code>i16</code></td></tr>
+<tr><td>x86</td><td><code>kreg</code></td><td><code>avx512bw</code></td><td><code>i32</code>, <code>i64</code></td></tr>
+<tr><td>x86</td><td><code>mmx_reg</code></td><td>N/A</td><td>Only clobbers</td></tr>
+<tr><td>x86</td><td><code>x87_reg</code></td><td>N/A</td><td>Only clobbers</td></tr>
+<tr><td>x86</td><td><code>tmm_reg</code></td><td>N/A</td><td>Only clobbers</td></tr>
+<tr><td>AArch64</td><td><code>reg</code></td><td>None</td><td><code>i8</code>, <code>i16</code>, <code>i32</code>, <code>f32</code>, <code>i64</code>, <code>f64</code></td></tr>
+<tr><td>AArch64</td><td><code>vreg</code></td><td><code>neon</code></td><td><code>i8</code>, <code>i16</code>, <code>i32</code>, <code>f32</code>, <code>i64</code>, <code>f64</code>, <br> <code>i8x8</code>, <code>i16x4</code>, <code>i32x2</code>, <code>i64x1</code>, <code>f32x2</code>, <code>f64x1</code>, <br> <code>i8x16</code>, <code>i16x8</code>, <code>i32x4</code>, <code>i64x2</code>, <code>f32x4</code>, <code>f64x2</code></td></tr>
+<tr><td>AArch64</td><td><code>preg</code></td><td>N/A</td><td>Only clobbers</td></tr>
+<tr><td>ARM</td><td><code>reg</code></td><td>None</td><td><code>i8</code>, <code>i16</code>, <code>i32</code>, <code>f32</code></td></tr>
+<tr><td>ARM</td><td><code>sreg</code></td><td><code>vfp2</code></td><td><code>i32</code>, <code>f32</code></td></tr>
+<tr><td>ARM</td><td><code>dreg</code></td><td><code>vfp2</code></td><td><code>i64</code>, <code>f64</code>, <code>i8x8</code>, <code>i16x4</code>, <code>i32x2</code>, <code>i64x1</code>, <code>f32x2</code></td></tr>
+<tr><td>ARM</td><td><code>qreg</code></td><td><code>neon</code></td><td><code>i8x16</code>, <code>i16x8</code>, <code>i32x4</code>, <code>i64x2</code>, <code>f32x4</code></td></tr>
+<tr><td>RISC-V32</td><td><code>reg</code></td><td>None</td><td><code>i8</code>, <code>i16</code>, <code>i32</code>, <code>f32</code></td></tr>
+<tr><td>RISC-V64</td><td><code>reg</code></td><td>None</td><td><code>i8</code>, <code>i16</code>, <code>i32</code>, <code>f32</code>, <code>i64</code>, <code>f64</code></td></tr>
+<tr><td>RISC-V</td><td><code>freg</code></td><td><code>f</code></td><td><code>f32</code></td></tr>
+<tr><td>RISC-V</td><td><code>freg</code></td><td><code>d</code></td><td><code>f64</code></td></tr>
+<tr><td>RISC-V</td><td><code>vreg</code></td><td>N/A</td><td>Only clobbers</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p><strong>注意</strong>：为了上表的目的，指针、函数指针和 <code>isize</code>/<code>usize</code> 被视为相应整数类型的等效类型 (取决于目标的 <code>i16</code>/<code>i32</code>/<code>i64</code> ) 。</p>
+</blockquote>
+<p>如果一个值的大小比分配给它的寄存器小，那么对于输入，该寄存器的高位将具有未定义的值，对于输出，将被忽略。
+唯一的例外是 RISC-V 上的 <code>freg</code> 寄存器类，其中 <code>f32</code> 值作为 RISC-V 架构所需的 NaN 被封装在 <code>f64</code> 中。</p>
+<p>当为 <code>inout</code> 操作数指定分开的输入和输出表达式时，两个表达式必须具有相同的类型。
+唯一的例外是如果两个操作数都是指针或整数，则它们只需要具有相同的大小。
+这个限制存在是因为 LLVM 和 GCC 中的寄存器分配器有时无法处理具有不同类型的绑定操作数。</p>
+<h2 id="寄存器名称"><a class="header" href="#寄存器名称">寄存器名称</a></h2>
+<p>一些寄存器有多个名称，编译器会将这些名称都视为与基础寄存器名称相同。以下是所有支持的寄存器别名列表：</p>
+<div class="table-wrapper"><table><thead><tr><th>Architecture</th><th>Base register</th><th>Aliases</th></tr></thead><tbody>
+<tr><td>x86</td><td><code>ax</code></td><td><code>eax</code>, <code>rax</code></td></tr>
+<tr><td>x86</td><td><code>bx</code></td><td><code>ebx</code>, <code>rbx</code></td></tr>
+<tr><td>x86</td><td><code>cx</code></td><td><code>ecx</code>, <code>rcx</code></td></tr>
+<tr><td>x86</td><td><code>dx</code></td><td><code>edx</code>, <code>rdx</code></td></tr>
+<tr><td>x86</td><td><code>si</code></td><td><code>esi</code>, <code>rsi</code></td></tr>
+<tr><td>x86</td><td><code>di</code></td><td><code>edi</code>, <code>rdi</code></td></tr>
+<tr><td>x86</td><td><code>bp</code></td><td><code>bpl</code>, <code>ebp</code>, <code>rbp</code></td></tr>
+<tr><td>x86</td><td><code>sp</code></td><td><code>spl</code>, <code>esp</code>, <code>rsp</code></td></tr>
+<tr><td>x86</td><td><code>ip</code></td><td><code>eip</code>, <code>rip</code></td></tr>
+<tr><td>x86</td><td><code>st(0)</code></td><td><code>st</code></td></tr>
+<tr><td>x86</td><td><code>r[8-15]</code></td><td><code>r[8-15]b</code>, <code>r[8-15]w</code>, <code>r[8-15]d</code></td></tr>
+<tr><td>x86</td><td><code>xmm[0-31]</code></td><td><code>ymm[0-31]</code>, <code>zmm[0-31]</code></td></tr>
+<tr><td>AArch64</td><td><code>x[0-30]</code></td><td><code>w[0-30]</code></td></tr>
+<tr><td>AArch64</td><td><code>x29</code></td><td><code>fp</code></td></tr>
+<tr><td>AArch64</td><td><code>x30</code></td><td><code>lr</code></td></tr>
+<tr><td>AArch64</td><td><code>sp</code></td><td><code>wsp</code></td></tr>
+<tr><td>AArch64</td><td><code>xzr</code></td><td><code>wzr</code></td></tr>
+<tr><td>AArch64</td><td><code>v[0-31]</code></td><td><code>b[0-31]</code>, <code>h[0-31]</code>, <code>s[0-31]</code>, <code>d[0-31]</code>, <code>q[0-31]</code></td></tr>
+<tr><td>ARM</td><td><code>r[0-3]</code></td><td><code>a[1-4]</code></td></tr>
+<tr><td>ARM</td><td><code>r[4-9]</code></td><td><code>v[1-6]</code></td></tr>
+<tr><td>ARM</td><td><code>r9</code></td><td><code>rfp</code></td></tr>
+<tr><td>ARM</td><td><code>r10</code></td><td><code>sl</code></td></tr>
+<tr><td>ARM</td><td><code>r11</code></td><td><code>fp</code></td></tr>
+<tr><td>ARM</td><td><code>r12</code></td><td><code>ip</code></td></tr>
+<tr><td>ARM</td><td><code>r13</code></td><td><code>sp</code></td></tr>
+<tr><td>ARM</td><td><code>r14</code></td><td><code>lr</code></td></tr>
+<tr><td>ARM</td><td><code>r15</code></td><td><code>pc</code></td></tr>
+<tr><td>RISC-V</td><td><code>x0</code></td><td><code>zero</code></td></tr>
+<tr><td>RISC-V</td><td><code>x1</code></td><td><code>ra</code></td></tr>
+<tr><td>RISC-V</td><td><code>x2</code></td><td><code>sp</code></td></tr>
+<tr><td>RISC-V</td><td><code>x3</code></td><td><code>gp</code></td></tr>
+<tr><td>RISC-V</td><td><code>x4</code></td><td><code>tp</code></td></tr>
+<tr><td>RISC-V</td><td><code>x[5-7]</code></td><td><code>t[0-2]</code></td></tr>
+<tr><td>RISC-V</td><td><code>x8</code></td><td><code>fp</code>, <code>s0</code></td></tr>
+<tr><td>RISC-V</td><td><code>x9</code></td><td><code>s1</code></td></tr>
+<tr><td>RISC-V</td><td><code>x[10-17]</code></td><td><code>a[0-7]</code></td></tr>
+<tr><td>RISC-V</td><td><code>x[18-27]</code></td><td><code>s[2-11]</code></td></tr>
+<tr><td>RISC-V</td><td><code>x[28-31]</code></td><td><code>t[3-6]</code></td></tr>
+<tr><td>RISC-V</td><td><code>f[0-7]</code></td><td><code>ft[0-7]</code></td></tr>
+<tr><td>RISC-V</td><td><code>f[8-9]</code></td><td><code>fs[0-1]</code></td></tr>
+<tr><td>RISC-V</td><td><code>f[10-17]</code></td><td><code>fa[0-7]</code></td></tr>
+<tr><td>RISC-V</td><td><code>f[18-27]</code></td><td><code>fs[2-11]</code></td></tr>
+<tr><td>RISC-V</td><td><code>f[28-31]</code></td><td><code>ft[8-11]</code></td></tr>
+</tbody></table>
+</div>
+<p>有些寄存器不能用于输入或输出操作数：</p>
+<div class="table-wrapper"><table><thead><tr><th>架构</th><th>不支持的寄存器</th><th>原因</th></tr></thead><tbody>
+<tr><td>All</td><td><code>sp</code></td><td>栈指针必须在 asm 代码块结束时恢复为其原始值。</td></tr>
+<tr><td>All</td><td><code>bp</code> (x86), <code>x29</code> (AArch64), <code>x8</code> (RISC-V)</td><td>帧指针不能用作输入或输出。</td></tr>
+<tr><td>ARM</td><td><code>r7</code> 或 <code>r11</code></td><td>在 ARM 上，帧指针可以是 <code>r7</code> 或 <code>r11</code>，具体取决于目标。帧指针不能用作输入或输出。</td></tr>
+<tr><td>All</td><td><code>si</code> (x86-32), <code>bx</code> (x86-64), <code>r6</code> (ARM), <code>x19</code> (AArch64), <code>x9</code> (RISC-V)</td><td>LLVM 在函数具有复杂堆栈帧的情况下将其用作“基指针”。</td></tr>
+<tr><td>x86</td><td><code>ip</code></td><td>这是程序计数器，不是实际的寄存器。</td></tr>
+<tr><td>AArch64</td><td><code>xzr</code></td><td>这是一个无法修改的常量零寄存器。</td></tr>
+<tr><td>AArch64</td><td><code>x18</code></td><td>这是某些 AArch64 目标上保留的操作系统寄存器。</td></tr>
+<tr><td>ARM</td><td><code>pc</code></td><td>这是程序计数器，不是实际的寄存器。</td></tr>
+<tr><td>ARM</td><td><code>r9</code></td><td>这是某些 ARM 目标上保留的操作系统寄存器。</td></tr>
+<tr><td>RISC-V</td><td><code>x0</code></td><td>这是一个无法修改的常量零寄存器。</td></tr>
+<tr><td>RISC-V</td><td><code>gp</code>，<code>tp</code></td><td>这些寄存器是保留的，不能用作输入或输出。</td></tr>
+</tbody></table>
+</div>
+<p>帧指针和基指针寄存器被 LLVM 保留作为内部使用。虽然 <code>asm!</code> 语句不能显式地指定保留寄存器的使用，但在某些情况下，LLVM 将为 <code>reg</code> 操作数分配其中一个保留寄存器。
+使用保留寄存器的汇编代码应该小心，因为 <code>reg</code> 操作数可能会使用相同的寄存器。</p>
+<h2 id="模板修改器"><a class="header" href="#模板修改器">模板修改器</a></h2>
+<p>在花括号中的 <code>:</code> 后可以加上修改器，来改变插入模板字符串时操作数的格式，这些修改器不影响寄存器分配。每个模板占位符只能有一个修改器。</p>
+<p>这些修改器是 LLVM 和 GCC 的汇编模板参数修改器的子集，但使用的字母代码不同。</p>
+<div class="table-wrapper"><table><thead><tr><th>Architecture</th><th>Register class</th><th>Modifier</th><th>Example output</th><th>LLVM modifier</th></tr></thead><tbody>
+<tr><td>x86-32</td><td><code>reg</code></td><td>None</td><td><code>eax</code></td><td><code>k</code></td></tr>
+<tr><td>x86-64</td><td><code>reg</code></td><td>None</td><td><code>rax</code></td><td><code>q</code></td></tr>
+<tr><td>x86-32</td><td><code>reg_abcd</code></td><td><code>l</code></td><td><code>al</code></td><td><code>b</code></td></tr>
+<tr><td>x86-64</td><td><code>reg</code></td><td><code>l</code></td><td><code>al</code></td><td><code>b</code></td></tr>
+<tr><td>x86</td><td><code>reg_abcd</code></td><td><code>h</code></td><td><code>ah</code></td><td><code>h</code></td></tr>
+<tr><td>x86</td><td><code>reg</code></td><td><code>x</code></td><td><code>ax</code></td><td><code>w</code></td></tr>
+<tr><td>x86</td><td><code>reg</code></td><td><code>e</code></td><td><code>eax</code></td><td><code>k</code></td></tr>
+<tr><td>x86-64</td><td><code>reg</code></td><td><code>r</code></td><td><code>rax</code></td><td><code>q</code></td></tr>
+<tr><td>x86</td><td><code>reg_byte</code></td><td>None</td><td><code>al</code> / <code>ah</code></td><td>None</td></tr>
+<tr><td>x86</td><td><code>xmm_reg</code></td><td>None</td><td><code>xmm0</code></td><td><code>x</code></td></tr>
+<tr><td>x86</td><td><code>ymm_reg</code></td><td>None</td><td><code>ymm0</code></td><td><code>t</code></td></tr>
+<tr><td>x86</td><td><code>zmm_reg</code></td><td>None</td><td><code>zmm0</code></td><td><code>g</code></td></tr>
+<tr><td>x86</td><td><code>*mm_reg</code></td><td><code>x</code></td><td><code>xmm0</code></td><td><code>x</code></td></tr>
+<tr><td>x86</td><td><code>*mm_reg</code></td><td><code>y</code></td><td><code>ymm0</code></td><td><code>t</code></td></tr>
+<tr><td>x86</td><td><code>*mm_reg</code></td><td><code>z</code></td><td><code>zmm0</code></td><td><code>g</code></td></tr>
+<tr><td>x86</td><td><code>kreg</code></td><td>None</td><td><code>k1</code></td><td>None</td></tr>
+<tr><td>AArch64</td><td><code>reg</code></td><td>None</td><td><code>x0</code></td><td><code>x</code></td></tr>
+<tr><td>AArch64</td><td><code>reg</code></td><td><code>w</code></td><td><code>w0</code></td><td><code>w</code></td></tr>
+<tr><td>AArch64</td><td><code>reg</code></td><td><code>x</code></td><td><code>x0</code></td><td><code>x</code></td></tr>
+<tr><td>AArch64</td><td><code>vreg</code></td><td>None</td><td><code>v0</code></td><td>None</td></tr>
+<tr><td>AArch64</td><td><code>vreg</code></td><td><code>v</code></td><td><code>v0</code></td><td>None</td></tr>
+<tr><td>AArch64</td><td><code>vreg</code></td><td><code>b</code></td><td><code>b0</code></td><td><code>b</code></td></tr>
+<tr><td>AArch64</td><td><code>vreg</code></td><td><code>h</code></td><td><code>h0</code></td><td><code>h</code></td></tr>
+<tr><td>AArch64</td><td><code>vreg</code></td><td><code>s</code></td><td><code>s0</code></td><td><code>s</code></td></tr>
+<tr><td>AArch64</td><td><code>vreg</code></td><td><code>d</code></td><td><code>d0</code></td><td><code>d</code></td></tr>
+<tr><td>AArch64</td><td><code>vreg</code></td><td><code>q</code></td><td><code>q0</code></td><td><code>q</code></td></tr>
+<tr><td>ARM</td><td><code>reg</code></td><td>None</td><td><code>r0</code></td><td>None</td></tr>
+<tr><td>ARM</td><td><code>sreg</code></td><td>None</td><td><code>s0</code></td><td>None</td></tr>
+<tr><td>ARM</td><td><code>dreg</code></td><td>None</td><td><code>d0</code></td><td><code>P</code></td></tr>
+<tr><td>ARM</td><td><code>qreg</code></td><td>None</td><td><code>q0</code></td><td><code>q</code></td></tr>
+<tr><td>ARM</td><td><code>qreg</code></td><td><code>e</code> / <code>f</code></td><td><code>d0</code> / <code>d1</code></td><td><code>e</code> / <code>f</code></td></tr>
+<tr><td>RISC-V</td><td><code>reg</code></td><td>None</td><td><code>x1</code></td><td>None</td></tr>
+<tr><td>RISC-V</td><td><code>freg</code></td><td>None</td><td><code>f0</code></td><td>None</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p><strong>注</strong>：</p>
+<ul>
+<li>在 ARM 上， <code>e</code>/<code>f</code> ：打印 NEON 四重 (128 位) 寄存器的低位或高位双字寄存器名称。</li>
+<li>在 x86 上：我们对于没有修饰符的 <code>reg</code> 的行为与 GCC 不同。
+GCC 将根据操作数值类型推断修饰符，而我们默认使用完整的寄存器大小。</li>
+<li>在 x86 上， <code>xmm_reg</code> ：LLVM 修饰符 <code>x</code> 、 <code>t</code> 和 <code>g</code> 尚未在 LLVM 中实现 (仅由 GCC 支持) ，但这应该是一个简单的更改。</li>
+</ul>
+</blockquote>
+<p>如前一节所述，如果内联汇编传递的输入值比寄存器宽度小，则寄存器的上位比特将包含未定义的值。
+如果内联汇编只访问寄存器的低位，这不是一个问题，可以通过使用模板修饰符在汇编代码中使用子寄存器名称 (例如，使用 <code>ax</code> 代替 <code>rax</code>) 来实现。
+由于这是一个简单的错误，编译器将根据输入类型在适当的地方建议使用模板修饰符。
+如果对一个操作数的所有引用已经有修饰符，则该警告将对该操作数进行抑制。</p>
+<h2 id="abi破坏标记"><a class="header" href="#abi破坏标记">ABI破坏标记</a></h2>
+<p><code>clobber_abi</code> 关键字可用于将默认一组破坏标记应用于 <code>asm!</code> 块。这将根据特定调用约定自动插入必要的破坏标记：如果调用约定在函数调用时不能完全保留寄存器的值，则会在操作数列表中隐式添加 <code>lateout(&quot;...&quot;) _</code> (其中 <code>...</code> 替换为寄存器名称) 。</p>
+<p><code>clobber_abi</code> 可以指定任意次数。它将为所有指定的调用约定的并集中的所有唯一寄存器插入一个破坏标记。</p>
+<p>当使用 <code>clobber_abi</code> 时，编译器禁止使用通用寄存器类输出：所有输出都必须指定显式寄存器。显式寄存器输出优先于由 <code>clobber_abi</code> 插入的隐式破坏标记：仅当该寄存器未用作输出时，才会为该寄存器插入破坏标记。</p>
+<p>以下 ABIs 可与 <code>clobber_abi</code> 一起使用：</p>
+<div class="table-wrapper"><table><thead><tr><th>Architecture</th><th>ABI name</th><th>Clobbered registers</th></tr></thead><tbody>
+<tr><td>x86-32</td><td><code>&quot;C&quot;</code>, <code>&quot;system&quot;</code>, <code>&quot;efiapi&quot;</code>, <code>&quot;cdecl&quot;</code>, <code>&quot;stdcall&quot;</code>, <code>&quot;fastcall&quot;</code></td><td><code>ax</code>, <code>cx</code>, <code>dx</code>, <code>xmm[0-7]</code>, <code>mm[0-7]</code>, <code>k[0-7]</code>, <code>st([0-7])</code></td></tr>
+<tr><td>x86-64</td><td><code>&quot;C&quot;</code>, <code>&quot;system&quot;</code> (on Windows), <code>&quot;efiapi&quot;</code>, <code>&quot;win64&quot;</code></td><td><code>ax</code>, <code>cx</code>, <code>dx</code>, <code>r[8-11]</code>, <code>xmm[0-31]</code>, <code>mm[0-7]</code>, <code>k[0-7]</code>, <code>st([0-7])</code>, <code>tmm[0-7]</code></td></tr>
+<tr><td>x86-64</td><td><code>&quot;C&quot;</code>, <code>&quot;system&quot;</code> (on non-Windows), <code>&quot;sysv64&quot;</code></td><td><code>ax</code>, <code>cx</code>, <code>dx</code>, <code>si</code>, <code>di</code>, <code>r[8-11]</code>, <code>xmm[0-31]</code>, <code>mm[0-7]</code>, <code>k[0-7]</code>, <code>st([0-7])</code>, <code>tmm[0-7]</code></td></tr>
+<tr><td>AArch64</td><td><code>&quot;C&quot;</code>, <code>&quot;system&quot;</code>, <code>&quot;efiapi&quot;</code></td><td><code>x[0-17]</code>, <code>x18</code>*, <code>x30</code>, <code>v[0-31]</code>, <code>p[0-15]</code>, <code>ffr</code></td></tr>
+<tr><td>ARM</td><td><code>&quot;C&quot;</code>, <code>&quot;system&quot;</code>, <code>&quot;efiapi&quot;</code>, <code>&quot;aapcs&quot;</code></td><td><code>r[0-3]</code>, <code>r12</code>, <code>r14</code>, <code>s[0-15]</code>, <code>d[0-7]</code>, <code>d[16-31]</code></td></tr>
+<tr><td>RISC-V</td><td><code>&quot;C&quot;</code>, <code>&quot;system&quot;</code>, <code>&quot;efiapi&quot;</code></td><td><code>x1</code>, <code>x[5-7]</code>, <code>x[10-17]</code>, <code>x[28-31]</code>, <code>f[0-7]</code>, <code>f[10-17]</code>, <code>f[28-31]</code>, <code>v[0-31]</code></td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>注意：</p>
+<ul>
+<li>在 AArch64 上，仅当 <code>x18</code> 在目标上不被视为保留寄存器时，才将其包括在破坏列表中。</li>
+</ul>
+</blockquote>
+<p>每个 ABI 的受破坏寄存器列表会随着架构获取新寄存器而在 rustc 中更新：这确保了当 LLVM 在其生成的代码中开始使用这些新寄存器时， <code>asm！</code> 破坏项将继续正确。</p>
+<h2 id="选项"><a class="header" href="#选项">选项</a></h2>
+<p>标志用于进一步影响内联汇编块的行为。目前定义了以下选项：</p>
+<ul>
+<li><code>pure</code>: <code>asm!</code> 块没有副作用，其输出仅取决于其直接输入 (即值本身，而不是它们所指向的内容) 或从内存读取的值 (除非也设置了 <code>nomem</code> 选项) 。这使得编译器可以执行比程序中指定的更少的 <code>asm!</code> 块次数 (例如将其提升出循环) 或甚至完全消除它 (如果输出没有使用) 。</li>
+<li><code>nomem</code>: <code>asm!</code> 块不读取或写入任何内存。这使得编译器可以在 <code>asm!</code> 块之间缓存修改后的全局变量的值，因为它知道它们不会被 <code>asm!</code> 读取或写入。</li>
+<li><code>readonly</code>: <code>asm!</code> 块不写入任何内存。这使得编译器可以在 <code>asm!</code> 块之间缓存未修改的全局变量的值，因为它知道它们不会被 <code>asm!</code> 写入。</li>
+<li><code>preserves_flags</code>: <code>asm!</code> 块不修改标志寄存器 (在下面的规则中定义) 。这使得编译器可以在 <code>asm!</code> 块之后避免重新计算条件标志。</li>
+<li><code>noreturn</code>: <code>asm!</code> 块永远不会返回，其返回类型定义为 <code>!</code> (永远不会) 。如果执行超过 asm 代码的结尾，行为是未定义的。 <code>noreturn</code> asm 块的行为就像不返回的函数一样；特别是，作用域中的局部变量在调用之前不会被丢弃。</li>
+<li><code>nostack</code>: <code>asm!</code> 块不将数据推入栈，也不写入堆栈保护区域 (如果目标支持) 。如果未使用此选项，则栈指针保证根据目标 ABI 适当对齐，以用于函数调用。</li>
+<li><code>att_syntax</code>: 此选项仅在 x86 上有效，导致汇编程序使用 GNU 汇编程序的 <code>.att_syntax</code> 前缀模式。寄存器操作数将替换为带有前导 <code>%</code> 的操作数。</li>
+<li><code>raw</code>: 这将导致模板字符串被解析为原始汇编字符串，没有对 <code>{</code> 和 <code>}</code> 进行特殊处理。这在使用 <code>include_str!</code> 包含来自外部文件的原始汇编代码时非常有用。</li>
+</ul>
+<p>编译器对选项进行了一些额外的检查：</p>
+<ul>
+<li><code>nomem</code> 和 <code>readonly</code> 选项是互斥的：指定两者都会导致编译时错误。</li>
+<li><code>pure</code> 选项必须与 <code>nomem</code> 或 <code>readonly</code> 选项结合使用，否则会发出编译时错误。</li>
+<li>在没有输出或只有被丢弃的输出 (<code>_</code>) 的 <code>asm!</code> 块上指定 <code>pure</code> 是编译时错误。</li>
+<li>在带有输出的 <code>asm!</code> 块上指定 <code>noreturn</code> 是编译时错误。</li>
+</ul>
+<p><code>global_asm!</code> 只支持 <code>att_syntax</code> 和 <code>raw</code> 选项。
+其他选项在全局作用域内的内联汇编中没有意义。</p>
+<h2 id="函数内联汇编规则"><a class="header" href="#函数内联汇编规则">函数内联汇编规则</a></h2>
+<p>为了避免未定义的行为，在使用函数内联汇编 (<code>asm!</code>) 时必须遵守以下规则:</p>
+<ul>
+<li>任何未在输入中指定的寄存器，在进入汇编块时将包含未定义的值。
+<ul>
+<li>在内联汇编的上下文中， &quot;未定义的值&quot; 意味着该寄存器可以 (非确定性地) 具有体系结构允许的任何可能值。
+需要注意的是，它与 LLVM 中的 <code>undef</code> 不同，后者每次读取时都可以具有不同的值 (因为在汇编代码中不存在这样的概念) 。</li>
+</ul>
+</li>
+<li>任何未指定为输出的寄存器，在离开汇编块时必须具有与进入时相同的值，否则行为是未定义的。
+<ul>
+<li>这仅适用于可以指定为输入或输出的寄存器。
+其他寄存器遵循特定于目标的规则。</li>
+<li>需要注意的是，<code>lateout</code> 可能会分配到与 <code>in</code> 相同的寄存器中，此时此规则不适用。
+不过代码不应该依赖此规则，因为它取决于寄存器分配的结果。</li>
+</ul>
+</li>
+<li>如果执行从汇编块中退出，则行为是未定义的。
+<ul>
+<li>如果汇编代码调用一个函数，然后函数抛出异常也同样适用。</li>
+</ul>
+</li>
+<li>汇编代码被允许读取和写入的内存位置集合与 FFI 函数允许的位置集合相同。
+<ul>
+<li>参考不安全代码指南了解确切的规则。</li>
+<li>如果设置了 <code>readonly</code> 选项，则只允许内存读取。</li>
+<li>如果设置了 <code>nomem</code> 选项，则不允许读取或写入内存。</li>
+<li>这些规则不适用于汇编代码私有的内存，例如在汇编块中分配的栈空间。</li>
+</ul>
+</li>
+<li>编译器不能假设汇编中的指令实际上就是将要执行的指令。
+<ul>
+<li>这实际上意味着编译器必须将 <code>asm!</code> 视为黑匣子，并仅考虑接口规范，而不考虑指令本身。</li>
+<li>可以通过特定于目标的机制进行运行时代码修补。</li>
+</ul>
+</li>
+<li>除非设置了 <code>nostack</code> 选项，汇编代码可以使用堆栈指针下面的堆栈空间。
+<ul>
+<li>进入汇编块时，堆栈指针保证对于函数调用具有适当的对齐方式 (根据目标 ABI) 。</li>
+<li>你负责确保不会溢出堆栈 (例如，使用堆栈探测以确保触发警戒页) 。</li>
+<li>分配堆栈内存时，应根据目标 ABI 调整堆栈指针。</li>
+<li>在离开 asm 块之前，堆栈指针必须恢复到其原始值。</li>
+</ul>
+</li>
+<li>如果设置了 <code>noreturn</code> 选项，则执行控制流落到 <code>asm</code> 块末尾时的行为未定义。</li>
+<li>如果设置了 <code>pure</code> 选项，则执行除直接输出之外的副作用的 <code>asm!</code> 的行为是未定义的。 如果相同输入的两次 <code>asm!</code> 执行产生不同的输出，则行为也是未定义的。
+<ul>
+<li>在与 <code>nomem</code> 选项一起使用时，&quot;输入&quot; 只是 <code>asm!</code> 的直接输入。</li>
+<li>在与 <code>readonly</code> 选项一起使用时，&quot;输入&quot; 包括 <code>asm!</code> 的直接输入以及 <code>asm!</code> 块允许读取的任何内存。</li>
+</ul>
+</li>
+<li>如果设置了 <code>preserves_flags</code> 选项，则必须在退出 <code>asm</code> 块时还原这些标志寄存器：
+<ul>
+<li>x86
+<ul>
+<li><code>EFLAGS</code> 中的状态标志位 (CF、PF、AF、ZF、SF、OF) 。</li>
+<li>浮点状态字 (全部) 。</li>
+<li><code>MXCSR</code> 中的浮点异常标志 (PE、UE、OE、ZE、DE、IE) 。</li>
+</ul>
+</li>
+<li>ARM
+<ul>
+<li><code>CPSR</code> 中的条件标志 (N、Z、C、V) 。</li>
+<li><code>CPSR</code> 中的饱和标志 (Q) 。</li>
+<li><code>CPSR</code> 中的大于或等于标志 (GE) 。</li>
+<li><code>FPSCR</code> 中的条件标志 (N、Z、C、V) 。</li>
+<li><code>FPSCR</code> 中的饱和标志 (QC) 。</li>
+<li><code>FPSCR</code> 中的浮点异常标志 (IDC、IXC、UFC、OFC、DZC、IOC) 。</li>
+</ul>
+</li>
+<li>AArch64
+<ul>
+<li>条件标志 (<code>NZCV</code> 寄存器) 。</li>
+<li>浮点状态 (<code>FPSR</code> 寄存器) 。</li>
+</ul>
+</li>
+<li>RISC-V
+<ul>
+<li><code>fcsr</code> 中的浮点异常标志 (<code>fflags</code>) 。</li>
+<li>向量扩展状态 (<code>vtype</code>、<code>vl</code>、<code>vcsr</code>) 。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在 x86 上，进入 asm 块时方向标志 (<code>EFLAGS</code> 中的 DF) 被清除，并且在退出时必须保持清除状态。
+<ul>
+<li>如果在退出 asm 块时设置了方向标志，则行为未定义。</li>
+</ul>
+</li>
+<li>在 x86 上，除非所有的 <code>st([0-7])</code> 寄存器都被标记为被污染的，否则 x87 浮点寄存器堆栈必须保持不变，方法是使用 <code>out(&quot;st(0)&quot;) _，out(&quot;st(1)&quot;) _，...</code>。
+<ul>
+<li>如果所有 x87 寄存器都被污染，则在进入 <code>asm</code> 块时保证 x87 寄存器堆栈为空。汇编代码必须确保在退出 asm 块时 x87 寄存器堆栈也为空。</li>
+</ul>
+</li>
+<li>将栈指针和非输出寄存器恢复到其原始值的要求仅适用于退出 <code>asm!</code> 块时。
+<ul>
+<li>这意味着从不返回的 <code>asm!</code> 块 (即使没有标记为 <code>noreturn</code>) 不需要保留这些寄存器。</li>
+<li>当返回到与您进入的 <code>asm!</code> 块不同的 <code>asm!</code> 块时 (例如用于上下文切换) ，这些寄存器必须包含您正在 <em>退出</em> 的 <code>asm!</code> 块进入时的值。
+<ul>
+<li>您不能退出未进入的 <code>asm!</code> 块。也不能退出已经退出的 <code>asm!</code> 块 (除非首先再次进入它) 。</li>
+<li>您负责切换任何特定于目标的状态 (例如线程本地存储，堆栈边界) 。</li>
+<li>您不能从一个 <code>asm!</code> 块中的地址跳转到另一个 <code>asm!</code> 块中的地址，即使在同一个函数或块中，也必须将它们的上下文视为可能不同并要求进行上下文切换。您不能假设这些上下文中的任何特定值 (例如当前堆栈指针或堆栈指针下方的临时值) 在两个 <code>asm!</code> 块之间保持不变。</li>
+<li>您可以访问的内存位置集是您输入和退出的 <code>asm!</code> 块所允许的位置集的交集。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>您不能假设两个在源代码中相邻的 <code>asm!</code> 块，即使它们之间没有其他代码，也会在二进制代码中以连续的地址出现，而没有其他指令在它们之间。</li>
+<li>您不能假设 <code>asm!</code> 块将在输出二进制代码中出现一次。
+编译器可以实例化多个 <code>asm!</code> 块，例如当包含它的函数在多个位置内联时。</li>
+<li>在 x86 平台上，内联汇编不得以指令前缀 (如 <code>LOCK</code> ) 作为结尾，因为这将应用于编译器生成的指令。
+<ul>
+<li>目前，编译器无法检测到这种情况，但将来可能会检测并拒绝此类代码。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong>: 通常情况下，<code>preserves_flags</code> 覆盖的标志位是在函数调用时 <em>不会</em> 保留的标志位。</p>
+</blockquote>
+<h3 id="指令支持"><a class="header" href="#指令支持">指令支持</a></h3>
+<p>内联汇编支持一些 GNU AS 和 LLVM 内部汇编器支持的指令子集，具体如下。
+使用其他指令的结果是汇编器特定的 (可能会导致错误，也可能按原样接受) 。</p>
+<p>如果内联汇编包含任何 &quot;有状态&quot; 的指令，修改了后续汇编的处理方式，那么该块在内联汇编结束前必须撤销任何此类指令的影响。</p>
+<p>以下指令保证被汇编器支持：</p>
+<ul>
+<li><code>.2byte</code></li>
+<li><code>.4byte</code></li>
+<li><code>.8byte</code></li>
+<li><code>.align</code></li>
+<li><code>.ascii</code></li>
+<li><code>.asciz</code></li>
+<li><code>.alt_entry</code></li>
+<li><code>.balign</code></li>
+<li><code>.balignl</code></li>
+<li><code>.balignw</code></li>
+<li><code>.balign</code></li>
+<li><code>.balignl</code></li>
+<li><code>.balignw</code></li>
+<li><code>.bss</code></li>
+<li><code>.byte</code></li>
+<li><code>.comm</code></li>
+<li><code>.data</code></li>
+<li><code>.def</code></li>
+<li><code>.double</code></li>
+<li><code>.endef</code></li>
+<li><code>.equ</code></li>
+<li><code>.equiv</code></li>
+<li><code>.eqv</code></li>
+<li><code>.fill</code></li>
+<li><code>.float</code></li>
+<li><code>.globl</code></li>
+<li><code>.global</code></li>
+<li><code>.lcomm</code></li>
+<li><code>.inst</code></li>
+<li><code>.long</code></li>
+<li><code>.octa</code></li>
+<li><code>.option</code></li>
+<li><code>.private_extern</code></li>
+<li><code>.p2align</code></li>
+<li><code>.pushsection</code></li>
+<li><code>.popsection</code></li>
+<li><code>.quad</code></li>
+<li><code>.scl</code></li>
+<li><code>.section</code></li>
+<li><code>.set</code></li>
+<li><code>.short</code></li>
+<li><code>.size</code></li>
+<li><code>.skip</code></li>
+<li><code>.sleb128</code></li>
+<li><code>.space</code></li>
+<li><code>.string</code></li>
+<li><code>.text</code></li>
+<li><code>.type</code></li>
+<li><code>.uleb128</code></li>
+<li><code>.word</code></li>
+</ul>
+<h4 id="目标特定指令支持"><a class="header" href="#目标特定指令支持">目标特定指令支持</a></h4>
+<h5 id="dwarf-帧解构指令"><a class="header" href="#dwarf-帧解构指令">DWARF 帧解构指令</a></h5>
+<p>以下指令在支持 DWARF 帧解构信息的 ELF 目标上被支持：</p>
+<ul>
+<li><code>.cfi_adjust_cfa_offset</code></li>
+<li><code>.cfi_def_cfa</code></li>
+<li><code>.cfi_def_cfa_offset</code></li>
+<li><code>.cfi_def_cfa_register</code></li>
+<li><code>.cfi_endproc</code></li>
+<li><code>.cfi_escape</code></li>
+<li><code>.cfi_lsda</code></li>
+<li><code>.cfi_offset</code></li>
+<li><code>.cfi_personality</code></li>
+<li><code>.cfi_register</code></li>
+<li><code>.cfi_rel_offset</code></li>
+<li><code>.cfi_remember_state</code></li>
+<li><code>.cfi_restore</code></li>
+<li><code>.cfi_restore_state</code></li>
+<li><code>.cfi_return_column</code></li>
+<li><code>.cfi_same_value</code></li>
+<li><code>.cfi_sections</code></li>
+<li><code>.cfi_signal_frame</code></li>
+<li><code>.cfi_startproc</code></li>
+<li><code>.cfi_undefined</code></li>
+<li><code>.cfi_window_save</code></li>
+</ul>
+<h5 id="结构化异常处理"><a class="header" href="#结构化异常处理">结构化异常处理</a></h5>
+<p>对于具有结构化异常处理的目标，以下附加指令被保证受支持：</p>
+<ul>
+<li><code>.seh_endproc</code></li>
+<li><code>.seh_endprologue</code></li>
+<li><code>.seh_proc</code></li>
+<li><code>.seh_pushreg</code></li>
+<li><code>.seh_savereg</code></li>
+<li><code>.seh_setframe</code></li>
+<li><code>.seh_stackalloc</code></li>
+</ul>
+<h5 id="x86-32位和64位"><a class="header" href="#x86-32位和64位">x86 (32位和64位)</a></h5>
+<p>在 x86 目标上，无论是 32 位还是 64 位，保证支持以下附加指令：</p>
+<ul>
+<li><code>.nops</code></li>
+<li><code>.code16</code></li>
+<li><code>.code32</code></li>
+<li><code>.code64</code></li>
+</ul>
+<p>对于使用 <code>.code16</code>, <code>.code32</code> 和 <code>.code64</code> 指令的情况，只有在退出汇编块之前将状态重置为默认值才受支持。
+32 位 x86 默认使用 <code>.code32</code>，而 x86_64 默认使用 <code>.code64</code>。</p>
+<h5 id="arm-32-位"><a class="header" href="#arm-32-位">ARM (32 位)</a></h5>
+<p>在 ARM 上，以下其他指令保证得到支持：</p>
+<ul>
+<li><code>.even</code></li>
+<li><code>.fnstart</code></li>
+<li><code>.fnend</code></li>
+<li><code>.save</code></li>
+<li><code>.movsp</code></li>
+<li><code>.code</code></li>
+<li><code>.thumb</code></li>
+<li><code>.thumb_func</code></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="linkage.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="unsafety.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="linkage.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="unsafety.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
