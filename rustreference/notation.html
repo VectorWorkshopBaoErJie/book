@@ -157,17 +157,18 @@
 <tr><td><code>string</code></td><td><code>x</code>，<code>while</code>，<code>*</code></td><td>表示精确的字符</td></tr>
 <tr><td>\x</td><td>\n，\r，\t，\0</td><td>表示此转义字符所代表的字符</td></tr>
 <tr><td>x<sup>?</sup></td><td><code>pub</code><sup>?</sup></td><td>表示可选项</td></tr>
-<tr><td>x<sup>*</sup></td><td><em>OuterAttribute</em><sup>*</sup></td><td>表示 0 个或多个 x</td></tr>
-<tr><td>x<sup>+</sup></td><td><em>MacroMatch</em><sup>+</sup></td><td>表示 1 个或多个 x</td></tr>
-<tr><td>x<sup>a..b</sup></td><td>HEX_DIGIT<sup>1..6</sup></td><td>表示 x 重复 a 到 b 次</td></tr>
-<tr><td>|</td><td><code>u8</code> | <code>u16</code>，Block | Item</td><td>两个选项中的一个</td></tr>
+<tr><td>x<sup>*</sup></td><td><em>外部属性</em><sup>*</sup></td><td>表示 0 个或多个 x</td></tr>
+<tr><td>x<sup>+</sup></td><td><em>宏匹配</em><sup>+</sup></td><td>表示 1 个或多个 x</td></tr>
+<tr><td>x<sup>a..b</sup></td><td>十六进制数<sup>1..6</sup></td><td>表示 x 重复 a 到 b 次</td></tr>
+<tr><td>|</td><td><code>u8</code> | <code>u16</code>，块 | 条目</td><td>两个选项中的一个</td></tr>
 <tr><td>[ ]</td><td>[<code>b</code> <code>B</code>]</td><td>列举出中括号内的任意一个字符</td></tr>
 <tr><td>[ - ]</td><td>[<code>a</code>-<code>z</code>]</td><td>列举出指定范围内的任意一个字符</td></tr>
 <tr><td>~[ ]</td><td>~[<code>b</code> <code>B</code>]</td><td>列举除中括号内的任意一个字符之外的所有字符</td></tr>
 <tr><td>~<code>string</code></td><td>~<code>\n</code>，~<code>*/</code></td><td>列举除指定序列之外的所有字符</td></tr>
-<tr><td>( )</td><td>(<code>,</code> <em>Parameter</em>)<sup>?</sup></td><td>分组</td></tr>
+<tr><td>( )</td><td>(<code>,</code> <em>参数</em>)<sup>?</sup></td><td>分组</td></tr>
 </tbody></table>
 </div>
+<p>译注：中文翻译无法表达驼峰形式，仅用斜体表示。无法表达大小写形式。如有必要可查看翻译仓库中的条目。</p>
 <h2 id="string-符号"><a class="header" href="#string-符号"><code>string</code> 符号</a></h2>
 <p>语法中的一些规则，特别是 <a href="expressions/operator-expr.html#borrow-operators">一元运算符</a> 、 <a href="expressions/operator-expr.html#arithmetic-and-logical-binary-operators">二元运算符</a> 和 <a href="keywords.html">关键字</a> ，采用了简化形式，以可打印的字符串列表的形式给出。
 这些情况构成了与 <a href="tokens.html">token</a> 令牌规则相关的规则子集，假定其编译驱动为确定性有限自动机 <abbr title="Deterministic Finite Automaton">DFA</abbr>
