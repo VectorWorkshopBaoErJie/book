@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -155,20 +158,20 @@
       <code>//</code> (~[<code>/</code> <code>!</code> <code>\n</code>] | <code>//</code>) ~<code>\n</code><sup>*</sup><br />
    | <code>//</code></p>
 <p>块注释 :<br />
-      <code>/*</code> (~[<code>*</code> <code>!</code>] | <code>**</code> | <em>行注释或文档</em>)
-(<em>行注释或文档</em> | ~<code>*/</code>)<sup>*</sup> <code>*/</code><br />
+      <code>/*</code> (~[<code>*</code> <code>!</code>] | <code>**</code> | <em>块注释或文档</em>)
+(<em>块注释或文档</em> | ~<code>*/</code>)<sup>*</sup> <code>*/</code><br />
    | <code>/**/</code><br />
    | <code>/***/</code></p>
 <p>内部行文档 :<br />
    <code>//!</code> ~[<code>\n</code> <em>孤立CR</em>]<sup>*</sup></p>
 <p>内部块文档 :<br />
-   <code>/*!</code> ( <em>行注释或文档</em> | ~[<code>*/</code> <em>孤立CR</em>] )<sup>*</sup> <code>*/</code></p>
+   <code>/*!</code> ( <em>块注释或文档</em> | ~[<code>*/</code> <em>孤立CR</em>] )<sup>*</sup> <code>*/</code></p>
 <p>外部行文档 :<br />
    <code>///</code> (~<code>/</code> ~[<code>\n</code> <em>孤立CR</em>]<sup>*</sup>)<sup>?</sup></p>
 <p>外部块文档 :<br />
-   <code>/**</code> (~<code>*</code> | <em>行注释或文档</em> )
-(<em>行注释或文档</em> | ~[<code>*/</code> <em>孤立CR</em>])<sup>*</sup> <code>*/</code></p>
-<p><em>行注释或文档</em> :<br />
+   <code>/**</code> (~<code>*</code> | <em>块注释或文档</em> )
+(<em>块注释或文档</em> | ~[<code>*/</code> <em>孤立CR</em>])<sup>*</sup> <code>*/</code></p>
+<p><em>块注释或文档</em> :<br />
       块注释<br />
    | 外部块文档<br />
    | 内部块文档</p>
@@ -180,14 +183,14 @@
 <p>非文档注释被解释为空白的一种形式。</p>
 <h2 id="文档注释"><a class="header" href="#文档注释">文档注释</a></h2>
 <p>以三个斜线开始的行文档注释 (<code>///</code>)，以及块文档注释 (<code>/** ... */</code>)，都是内部文档注释，被解释为 <a href="../rustdoc/the-doc-attribute.html"><code>doc</code> 属性</a> 的特殊语法。
-也就是说，它们相当于在注释主体的周围写上 <code>#[doc=&quot;...&quot;]</code> ，即， <code>/// Foo</code> 转换成 <code>#[doc=&quot;Foo&quot;]</code> ， <code>/** Bar */</code> 转换成 <code>#[doc=&quot;Bar&quot;</code> 。</p>
-<p>以 <code>//!</code> 开头的行注释和 <code>/*! ... */</code> 块注释也是文档注释，应用于注释的父级，而不是之后条目。
-也就是说，它们相当于在注释主体的周围写上 <code>#![doc=&quot;...&quot;]</code> 。 <code>//!</code> 注释通常应用于记录拥有源文件的模块。</p>
+也就是说，它们相当于在注释主体的周围写上 <code>#[doc=&quot;...&quot;]</code> ，即， <code>/// Foo</code> 和 <code>/** Bar */</code> 转换成 <code>#[doc=&quot;Bar&quot;]</code> 。</p>
+<p>以 <code>//!</code> 开头的行注释和 <code>/*! ... */</code> 块注释也是文档注释，应用于父级，而不是之后条目。
+也就是说，相当于在注释位置写上 <code>#![doc=&quot;...&quot;]</code> 。 <code>//!</code> 注释通常用于拥有源文件的模块。</p>
 <p>在文档注释中不允许孤立的 CR (<code>\r</code>) ，即后面没有 LF (<code>\n</code>) 。</p>
 <h2 id="示例"><a class="header" href="#示例">示例</a></h2>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>//! 应用于这个 crate 的隐式匿名模块的文档注释
+</span>//! 应用于这个 crate 隐式匿名模块的文档注释
 
 pub mod outer_module {
 
@@ -297,5 +300,6 @@ pub mod outer_module {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

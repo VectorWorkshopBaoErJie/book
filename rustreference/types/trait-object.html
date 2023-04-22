@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -174,11 +177,11 @@
 </ul>
 <blockquote>
 <p><strong>版本差异</strong>: 在 2021 版之前，可以省略 <code>dyn</code> 关键字。</p>
-<p>注意: 为了清晰起见，建议在您的 trait 对象上始终使用 <code>dyn</code> 关键字，除非您的代码库支持使用 Rust 1.26 或更低版本进行编译。</p>
+<p>注意: 为了清晰起见，建议在你的 trait 对象上始终使用 <code>dyn</code> 关键字，除非你的代码库支持使用 Rust 1.26 或更低版本进行编译。</p>
 </blockquote>
 <blockquote>
-<p><strong>版本差异</strong>: 在 2015 版中，如果 trait 对象的第一个限定是以 <code>::</code> 开头的路径，那么 <code>dyn</code> 将被视为路径的一部分。您可以将第一个路径放在括号中来解决这个问题。
-因此，如果您想要一个带有 trait <code>::your_module::Trait</code> 的 trait 对象，您应该将其写为 <code>dyn (::your_module::Trait)</code> 。</p>
+<p><strong>版本差异</strong>: 在 2015 版中，如果 trait 对象的第一个限定是以 <code>::</code> 开头的路径，那么 <code>dyn</code> 将被视为路径的一部分。你可以将第一个路径放在括号中来解决这个问题。
+因此，如果你想要一个带有 trait <code>::your_module::Trait</code> 的 trait 对象，你应该将其写为 <code>dyn (::your_module::Trait)</code> 。</p>
 <p>从 2018 版开始， <code>dyn</code> 是一个真正的关键字，不允许在路径中使用，因此不需要括号。</p>
 </blockquote>
 <p>如果 base trait 相互为别名， auto trait 集相同且生命周期约束相同，则两个 trait 对象类型为别名。例如， <code>dyn Trait + Send + UnwindSafe</code> 与 <code>dyn Trait + UnwindSafe + Send</code> 是相同的。</p>
@@ -257,5 +260,6 @@ fn main() {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

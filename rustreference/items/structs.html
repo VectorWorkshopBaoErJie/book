@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -170,13 +173,13 @@
 <p><em>结构体字段组</em> :<br />
    <em>结构体字段</em> (<code>,</code> <em>结构体字段</em>)<sup>*</sup> <code>,</code><sup>?</sup></p>
 <p><em>结构体字段</em> :<br />
-   <a href="../attributes.html"><em>外部属性</em></a><sup>*</sup><br />
+   <a href="../attributes.html"><em>外围属性</em></a><sup>*</sup><br />
    <a href="../visibility-and-privacy.html"><em>可见性</em></a><sup>?</sup><br />
    <a href="../identifiers.html">标识符</a> <code>:</code> <a href="../types.html#type-expressions"><em>类型</em></a></p>
 <p><em>元组字段组</em> :<br />
    <em>元组字段</em> (<code>,</code> <em>元组字段</em>)<sup>*</sup> <code>,</code><sup>?</sup></p>
 <p><em>元组字段</em> :<br />
-   <a href="../attributes.html"><em>外部属性</em></a><sup>*</sup><br />
+   <a href="../attributes.html"><em>外围属性</em></a><sup>*</sup><br />
    <a href="../visibility-and-privacy.html"><em>可见性</em></a><sup>?</sup><br />
    <a href="../types.html#type-expressions"><em>类型</em></a></p>
 </blockquote>
@@ -258,5 +261,6 @@ let c = [Cookie, Cookie {}, Cookie, Cookie {}];
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

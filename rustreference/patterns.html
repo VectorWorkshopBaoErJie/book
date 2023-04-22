@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -215,7 +218,7 @@
 <li><a href="expressions/loop-expr.html#iterator-loops"><code>for</code> 表达式</a></li>
 </ul>
 <h2 id="解构"><a class="header" href="#解构">解构</a></h2>
-<p>解构模式可以用于解构 <a href="items/structs.html">structs</a> 、 <a href="items/enumerations.html">enums</a> 和 <a href="types/tuple.html">tuples</a> 。解构将一个值分解成其组成部分。
+<p>模式可以用于解构 <a href="items/structs.html">structs</a> 、 <a href="items/enumerations.html">enums</a> 和 <a href="types/tuple.html">tuples</a> 。解构将一个值分解成其组成部分。
 使用的语法与创建这些值时几乎相同。在一个模式中，其 <a href="glossary.html#scrutinee">被匹配项</a> 表达式具有 <code>struct</code>、<code>enum</code> 或 <code>tuple</code> 类型，占位符 (<code>_</code>) 代表 <em>单个</em> 数据字段，而通配符 <code>..</code> 代表 <em>特定变体的所有</em> 其余字段。
 当解构具有命名字段 (但未编号) 的数据结构时，允许将 <code>fieldname</code> 写成 <code>fieldname: fieldname</code> 的简写形式。
 在 Rust 中，解构是一种方便的工具，可用于从结构化数据类型中提取所需数据。</p>
@@ -469,44 +472,32 @@ match tuple {
 <blockquote>
 <p><strong><sup>语法</sup></strong><br />
 <em>区间模式</em> :<br />
-      <em>包含区间模式</em><br />
-   | <em>HalfOpenRangePattern</em><br />
-   | <em>ObsoleteRangePattern</em></p>
-<p><em>包含区间模式</em> :<br />
-      <em>区间模式边界</em> <code>..=</code> <em>区间模式边界</em></p>
-<p><em>半开区间模式</em> :<br />
-      <em>区间模式边界</em> <code>..</code>
-   | <code>..=</code> <em>区间模式边界</em></p>
+      <em>区间内部模式</em><br />
+   | <em>区间From模式</em><br />
+   | <em>区间To内部模式</em><br />
+   | <em>废弃区间模式</em></p>
+<p><em>区间内部模式</em> :<br />
+      <em>区间模式约束</em> <code>..=</code> <em>区间模式约束</em></p>
+<p><em>区间From模式</em> :<br />
+      <em>区间模式约束</em> <code>..</code></p>
+<p><em>区间To内部模式</em> :<br />
+      <code>..=</code> <em>区间模式约束</em></p>
 <p><em>废弃区间模式</em> :<br />
-   <em>区间模式边界</em> <code>...</code> <em>区间模式边界</em></p>
-<p><em>区间模式边界</em> :<br />
-      <a href="tokens.html#character-literals">CHAR_LITERAL</a><br />
-   | <a href="tokens.html#byte-literals">BYTE_LITERAL</a><br />
-   | <code>-</code><sup>?</sup> <a href="tokens.html#integer-literals">INTEGER_LITERAL</a><br />
-   | <code>-</code><sup>?</sup> <a href="tokens.html#floating-point-literals">FLOAT_LITERAL</a><br />
-   | <a href="expressions/path-expr.html"><em>PathExpression</em></a></p>
+   <em>区间模式约束</em> <code>...</code> <em>区间模式约束</em></p>
+<p><em>区间模式约束</em> :<br />
+      <a href="tokens.html#character-literals">字符字面值</a><br />
+   | <a href="tokens.html#byte-literals">字节字面值</a><br />
+   | <code>-</code><sup>?</sup> <a href="tokens.html#integer-literals">整数字面值</a><br />
+   | <code>-</code><sup>?</sup> <a href="tokens.html#floating-point-literals">浮点数字面值</a><br />
+   | <a href="expressions/path-expr.html"><em>路径表达式</em></a></p>
 </blockquote>
-<p><em>区间模式</em> 匹配在它的边界定义的标量值的区间。
-在符号左侧的边界是一个 <em>下界</em> 。
-右侧的边界是一个 <em>上界</em> 。
-区间模式可以是闭合或半开的。</p>
-<p>如果区间模式有下界和上界，那么它是 <em>闭合的</em> 区间模式。
-唯一的闭合区间模式是包含区间模式。</p>
-<p><em>包含区间模式</em> 匹配在它的边界之间和包括边界两侧的所有值。
-它由其下界、跟着 <code>..=</code> 符号、以及它的上界组成。
-它的类型是它的上界和下界的类型统一。</p>
-<p>例如，模式 <code>'m'..='p'</code> 将只匹配值 <code>'m'</code>、<code>'n'</code>、<code>'o'</code> 和 <code>'p'</code>。</p>
-<p>下边界不能大于上边界，即在 <code>a..=b</code> 中，必须满足 a ≤ b 。
-例如，有一个区间模式 <code>10..=0</code> 是错误的。</p>
-<p>当区间模式仅具有上限或下限时，它们是 <em>半开放的</em> 。
-它们的类型与其上限或下限相同。</p>
-<p>仅具有下限的半开放区间写为其下限后跟 <code>..</code> 。
-这些区间模式将匹配大于或等于下限的任何值。
-例如， <code>1..</code> 将匹配 1 、 9 或 9001 ，或 9007199254740991 (如果它是适当大小的) ，但不匹配 0，对于有符号整数不匹配负数。</p>
-<p>边界可以是字面值或指向常量值的路径。仅具有上限的半开放区间写为 <code>..=</code> 后跟其上限。
-这些区间模式将匹配小于或等于上限的任何值。
-例如，<code>..=10</code> 将匹配 10、1、0，对于有符号整数类型还会匹配所有负值。</p>
-<p>半开放的区间模式不能用作 <a href="#slice-patterns">切片模式</a> 中子模式的顶层模式。</p>
+<p><em>区间模式</em> 匹配由其边界定义的区间内的标量值。它们由一个 <em>符号</em> ( <code>..</code> 、 <code>..=</code> 或 <code>...</code> 中的一个) 和一个或两个边界组成。在符号左边的边界是 <em>下界</em> ，在右边的是 <em>上界</em> 。</p>
+<p>具有下界和上界的区间模式将匹配其两个边界之间及其包括的所有值。它由其下界、后跟 <code>..=</code> ，后跟其上界组成。区间模式的类型与其上界和下界的类型统一。</p>
+<p>例如，模式 <code>'m'..='p'</code> 将仅匹配值 <code>'m'</code>  <code>'n'</code>  <code>'o'</code> 和 <code>'p'</code>。</p>
+<p>下界不能大于上界。也就是说，在 <code>a..=b</code> 中，必须满足 $a ≤ b$。例如，拥有区间模式 <code>10..=0</code> 是错误的。</p>
+<p>只有下界的区间模式将匹配大于或等于下界的任何值。它由其下界后跟 <code>..</code> 组成，与其下界具有相同的类型。例如， <code>1..</code> 将匹配 1、9、9001 或 9007199254740991 (如果它是适当大小的) ，但不匹配 0 和有符号整数的负数。</p>
+<p>只有上界的区间模式将匹配小于或等于上界的任何值。它由 <code>..=</code> 后跟其上界组成，与其上界具有相同的类型。例如， <code>..=10</code> 将匹配 10、1、0 和有符号整数类型的所有负值。</p>
+<p>只有一个边界的区间模式不能用作 <a href="#slice-patterns">切片模式</a> 的子模式的顶级模式。</p>
 <p>边界值可以写作以下其中之一:</p>
 <ul>
 <li>字符、字节、整数或浮点数字面值。</li>
@@ -591,16 +582,18 @@ println!(&quot;{}&quot;, match 0xfacade {
     _ =&gt; &quot;too big&quot;,
 });
 <span class="boring">}</span></code></pre></pre>
-<p>固定宽度整数类型和 <code>char</code> 类型的区间模式在它们跨越类型的所有可能值时是不可反驳的。
-例如，<code>0u8..=255u8</code> 是不可反驳的。
-整数类型的值区间是从最小值到最大值的闭合区间。
-<code>char</code> 类型的值区间恰好包含所有 Unicode 标量值的区间：<code>'\U{0000}'..='\U{D7FF}'</code> 和 <code>'\U{E000}'..='\U{10FFFF}'</code>。</p>
-<p>浮点数区间模式已被弃用，并可能在未来的 Rust 版本中被移除。有关更多信息，请参见 <a href="https://github.com/rust-lang/rust/issues/41620">问题 #41620</a>。</p>
+<p>固定宽度整数和 <code>char</code> 类型的区间模式在它们 span 类型的所有可能值时是不可反驳的。
+例如， <code>0u8..=255u8</code> 是不可反驳的。
+整数类型的值区间是从其最小值到最大值的闭区间。
+<code>char</code> 类型的值区间恰好包含所有 Unicode 标量值的区间: <code>'\U{0000}'..='\U{D7FF}'</code> 和 <code>'\U{E000}'..='\U{10FFFF}'</code> 。</p>
+<p>浮点数区间模式已被弃用，可能会在未来的Rust版本中删除。
+有关更多信息，请参见 <a href="https://github.com/rust-lang/rust/issues/41620">issue #41620</a> 。</p>
 <blockquote>
-<p><strong>版次差异</strong>: 在 2021 版本之前，闭合区间模式也可以使用 <code>...</code> 作为 <code>..=</code> 的替代，具有相同的含义。</p>
+<p><strong>版本差异</strong>: 在 2021 版之前，带有下限和上限的区间模式也可以使用 <code>...</code> 代替 <code>..=</code> 进行编写，具有相同的含义。</p>
 </blockquote>
 <blockquote>
-<p><strong>注意</strong>：虽然区间模式使用与 <a href="https://doc.rust-lang.org/reference/expressions/range-expr.html">区间表达式</a> 相同的语法，但不存在独占区间模式。也就是说，<code>x .. y</code> 和 <code>.. x</code> 都不是有效的区间模式。</p>
+<p><strong>注意</strong>: 尽管区间模式使用与 <a href="expressions/range-expr.html">区间表达式</a> 相同的语法，但不存在独占区间模式。
+也就是说， <code>x .. y</code> 和 <code>.. x</code> 都不是有效的区间模式。</p>
 </blockquote>
 <h2 id="引用模式"><a class="header" href="#引用模式">引用模式</a></h2>
 <blockquote>
@@ -636,14 +629,14 @@ assert_eq!(a, b);
 <p><em>结构体模式字段组</em> :<br />
    <em>结构体模式字段</em> (<code>,</code> <em>结构体模式字段</em>) <sup>*</sup></p>
 <p><em>结构体模式字段</em> :<br />
-   <a href="attributes.html"><em>外部属性</em></a> <sup>*</sup><br />
+   <a href="attributes.html"><em>外围属性</em></a> <sup>*</sup><br />
    (<br />
          <a href="tokens.html#tuple-index">元组索引</a> <code>:</code> <a href="#patterns"><em>模式</em></a><br />
       | <a href="identifiers.html">标识符</a> <code>:</code> <a href="#patterns"><em>模式</em></a><br />
       | <code>ref</code><sup>?</sup> <code>mut</code><sup>?</sup> <a href="identifiers.html">标识符</a><br />
    )</p>
 <p><em>结构体模式符加</em> :<br />
-   <a href="attributes.html"><em>外部属性</em></a> <sup>*</sup><br />
+   <a href="attributes.html"><em>外围属性</em></a> <sup>*</sup><br />
    <code>..</code></p>
 </blockquote>
 <p>结构体模式匹配满足其子模式定义的所有条件的结构体值。
@@ -784,9 +777,10 @@ match v[..] {
     _ =&gt; { /* 这个通配符是必须的，因为长度不能在编译时确定 */ }
 };
 <span class="boring">}</span></code></pre></pre>
-<p>切片模式在匹配数组时是不可反驳的，只要每个元素都是不可反驳的即可。
-在匹配切片时，只有在使用单个 <code>..</code> <a href="#rest-patterns">剩余模式</a> 或使用 <code>..</code> 剩余模式作为子模式的 <a href="#identifier-patterns">标识符模式</a> 时才是不可反驳的。</p>
-<p>在一个切片内，半开区间模式如 <code>a..</code> 必须用括号括起来，例如 <code>(a..)</code>，以明确其意图是匹配单个值。</p>
+<p>切片模式在匹配数组时是不可反驳的，只要每个元素都是不可反驳的。
+在匹配切片时，只有在形式为单个 <code>..</code> 的 <a href="#rest-patterns">剩余模式</a> 或 <a href="#identifier-patterns">标识符模式</a> 时才是不可反驳的，其中 <code>..</code> 剩余模式作为子模式。</p>
+<p>在切片内，没有同时具有下限和上限的区间模式必须用括号括起来，例如 <code>(a..)</code>，以明确其意图是匹配单个切片元素。
+同时具有下限和上限的区间模式，例如 <code>a..=b</code> ，不需要用括号括起来。</p>
 <h2 id="路径模式"><a class="header" href="#路径模式">路径模式</a></h2>
 <blockquote>
 <p><strong><sup>语法</sup></strong><br />
@@ -882,5 +876,6 @@ match v[..] {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

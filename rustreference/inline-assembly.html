@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -178,41 +181,36 @@ unsafe {
 assert_eq!(x, 4 * 6);
 <span class="boring">}</span></code></pre></pre>
 <h2 id="语法"><a class="header" href="#语法">语法</a></h2>
-<p>以下 ABNF 规定了通用语法：</p>
+<p>以下是常规语法的 ABNF 规范：</p>
 <pre><code class="language-text">format_string := STRING_LITERAL / RAW_STRING_LITERAL
 dir_spec := &quot;in&quot; / &quot;out&quot; / &quot;lateout&quot; / &quot;inout&quot; / &quot;inlateout&quot;
 reg_spec := &lt;register class&gt; / &quot;\&quot;&quot; &lt;explicit register&gt; &quot;\&quot;&quot;
 operand_expr := expr / &quot;_&quot; / expr &quot;=&gt;&quot; expr / expr &quot;=&gt;&quot; &quot;_&quot;
-reg_operand := dir_spec &quot;(&quot; reg_spec &quot;)&quot; operand_expr
-operand := reg_operand
+reg_operand := [ident &quot;=&quot;] dir_spec &quot;(&quot; reg_spec &quot;)&quot; operand_expr
 clobber_abi := &quot;clobber_abi(&quot; &lt;abi&gt; *(&quot;,&quot; &lt;abi&gt;) [&quot;,&quot;] &quot;)&quot;
 option := &quot;pure&quot; / &quot;nomem&quot; / &quot;readonly&quot; / &quot;preserves_flags&quot; / &quot;noreturn&quot; / &quot;nostack&quot; / &quot;att_syntax&quot; / &quot;raw&quot;
 options := &quot;options(&quot; option *(&quot;,&quot; option) [&quot;,&quot;] &quot;)&quot;
-asm := &quot;asm!(&quot; format_string *(&quot;,&quot; format_string) *(&quot;,&quot; [ident &quot;=&quot;] operand) *(&quot;,&quot; clobber_abi) *(&quot;,&quot; options) [&quot;,&quot;] &quot;)&quot;
-global_asm := &quot;global_asm!(&quot; format_string *(&quot;,&quot; format_string) *(&quot;,&quot; [ident &quot;=&quot;] operand) *(&quot;,&quot; options) [&quot;,&quot;] &quot;)&quot;
+operand := reg_operand / clobber_abi / options
+asm := &quot;asm!(&quot; format_string *(&quot;,&quot; format_string) *(&quot;,&quot; operand) [&quot;,&quot;] &quot;)&quot;
+global_asm := &quot;global_asm!(&quot; format_string *(&quot;,&quot; format_string) *(&quot;,&quot; operand) [&quot;,&quot;] &quot;)&quot;
 </code></pre>
 <h2 id="作用域"><a class="header" href="#作用域">作用域</a></h2>
 <p>内联汇编有两种使用方式。</p>
 <p>使用 <code>asm!</code> 宏时，汇编代码在函数作用域中生成，并集成到函数的编译器生成的汇编代码中。这些汇编代码必须遵守 <a href="#rules-for-inline-assembly">严格规则</a> 以避免未定义行为。注意，在某些情况下，编译器可能会选择将汇编代码生成为一个单独的函数并生成对它的调用。</p>
 <p>使用 <code>global_asm!</code> 宏时，汇编代码在全局作用域中生成，不在函数内。这可以用于使用汇编代码手写整个函数，并且通常提供更多使用任意寄存器和汇编指令的自由。</p>
 <h2 id="模板字符串参数"><a class="header" href="#模板字符串参数">模板字符串参数</a></h2>
-<p>汇编器模板使用与 <a href="../std/fmt/index.html#syntax">格式字符串</a> 相同的语法 (花括号占位符) 。
-相应的参数按顺序、索引或名称访问。
-但是，不支持隐式命名参数 (由<a href="https://github.com/rust-lang/rfcs/pull/2795">RFC #2795</a>引入) 。</p>
-<p><code>asm!</code> 调用可能有一个或多个模板字符串参数；具有多个模板字符串参数的 <code>asm!</code> 被视为所有字符串在它们之间使用 <code>\n</code> 连接。
-预期的用法是每个模板字符串参数对应于汇编代码的一行。
-所有模板字符串参数必须出现在任何其他参数之前。</p>
-<p>与格式字符串一样，命名参数必须出现在位置参数之后。
-显式的 <a href="#register-operands">寄存器操作数</a> 必须出现在操作数列表的末尾，在任何命名参数之后。</p>
-<p>模板字符串中的占位符不能使用显式寄存器操作数。
-所有其他命名和位置操作数都必须至少在模板字符串中出现一次，否则将生成编译器错误。</p>
-<p>确切的汇编代码语法是特定于目标的，对编译器不透明，除了将操作数替换为模板字符串以形成传递给汇编器的代码的方式之外。</p>
-<p>目前，所有支持的目标都遵循 LLVM 内部汇编器使用的汇编代码语法，这通常对应于 GNU 汇编器 (GAS) 的语法。
-在 x86 上，默认使用 GAS 的 <code>.intel_syntax noprefix</code> 模式。
-在 ARM 上，使用 <code>.syntax unified</code> 模式。
-这些目标对汇编代码施加了一个额外的限制：任何汇编器状态 (例如，可以使用 <code>.section</code> 改变的当前节) 必须在 asm 字符串的末尾恢复到其原始值。
-不符合 GAS 语法的汇编代码将导致特定于汇编器的行为。
-有关内联汇编使用的指令的进一步限制在 <a href="#directives-support">指令支持</a> 中指定。</p>
+<p>汇编模板使用与 <a href="../std/fmt/index.html#syntax">格式化字符串</a> 相同的语法 (即由大括号指定占位符) 。
+相应的参数按顺序、索引或名称访问。但是，不支持隐式命名参数 (由 <a href="https://github.com/rust-lang/rfcs/pull/2795">RFC #2795</a> 引入) 。</p>
+<p><code>asm!</code> 调用可能有一个或多个模板字符串参数；具有多个模板字符串参数的 <code>asm!</code> 被视为所有字符串在它们之间用 <code>\n</code> 连接。
+预期的用法是，每个模板字符串参数对应于一个汇编代码行。所有模板字符串参数必须出现在任何其他参数之前。</p>
+<p>与格式化字符串一样，位置参数必须出现在命名参数和显式 <a href="#register-operands">寄存器操作数</a> 之前。</p>
+<p>模板字符串中的占位符不能使用显式寄存器操作数。所有其他命名和位置操作数必须至少在模板字符串中出现一次，否则会生成编译器错误。</p>
+<p>除了用于将操作数替换为传递给汇编器的代码的方式之外，确切的汇编代码语法是特定于目标的，并且对编译器不透明。</p>
+<p>目前，所有受支持的目标都遵循LLVM内部汇编器使用的汇编代码语法，这通常对应于GNU汇编器 (GAS)的语法。
+在x86上，默认情况下使用 GAS 的 <code>.intel_syntax noprefix</code> 模式。
+在ARM上，使用 <code>.syntax unified</code> 模式。</p>
+<p>这些目标对汇编代码施加了一个额外的限制: 必须在 asm 字符串的末尾将任何汇编器状态 (例如可以使用 <code>.section</code> 更改的当前部分) 恢复为其原始值。
+不符合 GAS 语法的汇编代码将导致汇编器特定的行为。关于内联汇编使用的指令的进一步约束在 <a href="#directives-support">指令支持</a> 中指示。</p>
 <h2 id="操作数类型"><a class="header" href="#操作数类型">操作数类型</a></h2>
 <p>支持几种操作数类型:</p>
 <ul>
@@ -629,18 +627,18 @@ GCC 将根据操作数值类型推断修饰符，而我们默认使用完整的�
 <li>将栈指针和非输出寄存器恢复到其原始值的要求仅适用于退出 <code>asm!</code> 块时。
 <ul>
 <li>这意味着从不返回的 <code>asm!</code> 块 (即使没有标记为 <code>noreturn</code>) 不需要保留这些寄存器。</li>
-<li>当返回到与您进入的 <code>asm!</code> 块不同的 <code>asm!</code> 块时 (例如用于上下文切换) ，这些寄存器必须包含您正在 <em>退出</em> 的 <code>asm!</code> 块进入时的值。
+<li>当返回到与你进入的 <code>asm!</code> 块不同的 <code>asm!</code> 块时 (例如用于上下文切换) ，这些寄存器必须包含你正在 <em>退出</em> 的 <code>asm!</code> 块进入时的值。
 <ul>
-<li>您不能退出未进入的 <code>asm!</code> 块。也不能退出已经退出的 <code>asm!</code> 块 (除非首先再次进入它) 。</li>
-<li>您负责切换任何特定于目标的状态 (例如线程本地存储，堆栈边界) 。</li>
-<li>您不能从一个 <code>asm!</code> 块中的地址跳转到另一个 <code>asm!</code> 块中的地址，即使在同一个函数或块中，也必须将它们的上下文视为可能不同并要求进行上下文切换。您不能假设这些上下文中的任何特定值 (例如当前堆栈指针或堆栈指针下方的临时值) 在两个 <code>asm!</code> 块之间保持不变。</li>
-<li>您可以访问的内存位置集是您输入和退出的 <code>asm!</code> 块所允许的位置集的交集。</li>
+<li>你不能退出未进入的 <code>asm!</code> 块。也不能退出已经退出的 <code>asm!</code> 块 (除非首先再次进入它) 。</li>
+<li>你负责切换任何特定于目标的状态 (例如线程本地存储，堆栈边界) 。</li>
+<li>你不能从一个 <code>asm!</code> 块中的地址跳转到另一个 <code>asm!</code> 块中的地址，即使在同一个函数或块中，也必须将它们的上下文视为可能不同并要求进行上下文切换。你不能假设这些上下文中的任何特定值 (例如当前堆栈指针或堆栈指针下方的临时值) 在两个 <code>asm!</code> 块之间保持不变。</li>
+<li>你可以访问的内存位置集是你输入和退出的 <code>asm!</code> 块所允许的位置集的交集。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>您不能假设两个在源代码中相邻的 <code>asm!</code> 块，即使它们之间没有其他代码，也会在二进制代码中以连续的地址出现，而没有其他指令在它们之间。</li>
-<li>您不能假设 <code>asm!</code> 块将在输出二进制代码中出现一次。
+<li>你不能假设两个在源代码中相邻的 <code>asm!</code> 块，即使它们之间没有其他代码，也会在二进制代码中以连续的地址出现，而没有其他指令在它们之间。</li>
+<li>你不能假设 <code>asm!</code> 块将在输出二进制代码中出现一次。
 编译器可以实例化多个 <code>asm!</code> 块，例如当包含它的函数在多个位置内联时。</li>
 <li>在 x86 平台上，内联汇编不得以指令前缀 (如 <code>LOCK</code> ) 作为结尾，因为这将应用于编译器生成的指令。
 <ul>
@@ -651,6 +649,19 @@ GCC 将根据操作数值类型推断修饰符，而我们默认使用完整的�
 <blockquote>
 <p><strong>注意</strong>: 通常情况下，<code>preserves_flags</code> 覆盖的标志位是在函数调用时 <em>不会</em> 保留的标志位。</p>
 </blockquote>
+<h3 id="正确性和有效性"><a class="header" href="#正确性和有效性">正确性和有效性</a></h3>
+<p>除了之前的所有规则之外， <code>asm!</code> 的字符串参数在所有其他参数求值、格式化和操作数翻译后，必须最终成为对于目标架构既具有语法正确性又具有语义有效性的汇编代码。
+格式化规则允许编译器生成正确语法的汇编代码。有关操作数的规则允许 Rust 操作数与 <code>asm!</code> 中的操作数之间有效的转换。
+遵循这些规则是必要的，但不足以保证最终扩展的汇编代码是正确且有效的。例如：</p>
+<ul>
+<li>参数可能被放置在格式化后语法上不正确的位置。</li>
+<li>一个指令可能被正确书写，但给定不符合架构的操作数。</li>
+<li>一个架构未指定的指令可能会被汇编成未指定的代码。</li>
+<li>一组指令，每个指令都正确且有效，如果放置在紧接着的位置，可能会导致未定义行为。</li>
+</ul>
+<p>因此，这些规则是 &quot;非穷尽&quot; 的。编译器不需要检查最终汇编代码的正确性和有效性。汇编器可以检查正确性和有效性，但并不是必需的。
+当使用 <code>asm!</code> 时，一个排版错误就足以使程序不安全，并且汇编规则可能包括数千页的架构参考手册。
+程序员应该谨慎使用，因为使用这种 &quot;不安全&quot; 功能意味着承担不违反编译器或架构规则的责任。</p>
 <h3 id="指令支持"><a class="header" href="#指令支持">指令支持</a></h3>
 <p>内联汇编支持一些 GNU AS 和 LLVM 内部汇编器支持的指令子集，具体如下。
 使用其他指令的结果是汇编器特定的 (可能会导致错误，也可能按原样接受) 。</p>
@@ -661,12 +672,9 @@ GCC 将根据操作数值类型推断修饰符，而我们默认使用完整的�
 <li><code>.4byte</code></li>
 <li><code>.8byte</code></li>
 <li><code>.align</code></li>
+<li><code>.alt_entry</code></li>
 <li><code>.ascii</code></li>
 <li><code>.asciz</code></li>
-<li><code>.alt_entry</code></li>
-<li><code>.balign</code></li>
-<li><code>.balignl</code></li>
-<li><code>.balignw</code></li>
 <li><code>.balign</code></li>
 <li><code>.balignl</code></li>
 <li><code>.balignw</code></li>
@@ -682,17 +690,17 @@ GCC 将根据操作数值类型推断修饰符，而我们默认使用完整的�
 <li><code>.eqv</code></li>
 <li><code>.fill</code></li>
 <li><code>.float</code></li>
-<li><code>.globl</code></li>
 <li><code>.global</code></li>
-<li><code>.lcomm</code></li>
+<li><code>.globl</code></li>
 <li><code>.inst</code></li>
+<li><code>.lcomm</code></li>
 <li><code>.long</code></li>
 <li><code>.octa</code></li>
 <li><code>.option</code></li>
-<li><code>.private_extern</code></li>
 <li><code>.p2align</code></li>
-<li><code>.pushsection</code></li>
 <li><code>.popsection</code></li>
+<li><code>.private_extern</code></li>
+<li><code>.pushsection</code></li>
 <li><code>.quad</code></li>
 <li><code>.scl</code></li>
 <li><code>.section</code></li>
@@ -816,5 +824,6 @@ GCC 将根据操作数值类型推断修饰符，而我们默认使用完整的�
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -245,13 +248,13 @@
       <em>无约束类型组</em><br />
    | <a href="types/impl-trait.html"><em>ImplTrait类型</em></a><br />
    | <a href="types/trait-object.html"><em>Trait对象类型</em></a></p>
-<p><em>无边界类型组</em> :<br />
+<p><em>无约束类型组</em> :<br />
       <a href="types.html#parenthesized-types"><em>括号类型</em></a><br />
    | <a href="types/impl-trait.html"><em>ImplTrait类型1约束</em></a><br />
    | <a href="types/trait-object.html"><em>Trait对象类型1约束</em></a><br />
    | <a href="paths.html#paths-in-types"><em>类型路径</em></a><br />
    | <a href="types/tuple.html#tuple-types"><em>元组类型</em></a><br />
-   | <a href="types/never.html"><em>空类型</em></a><br />
+   | <a href="types/never.html"><em>永不类型</em></a><br />
    | <a href="types/pointer.html#raw-pointers-const-and-mut"><em>原始指针类型</em></a><br />
    | <a href="types/pointer.html#shared-references-"><em>引用类型</em></a><br />
    | <a href="types/array.html"><em>数组类型</em></a><br />
@@ -263,21 +266,21 @@
 </blockquote>
 <p>在上面的 <em>类型</em> 语法规则中定义的 <em>类型表达式</em> 是指引用类型的语法。它可以引用以下内容：</p>
 <ul>
-<li>序列类型 ( <a href="types/tuple.html">tuple</a> <a href="types/array.html">array</a> <a href="types/slice.html">slice</a> ) 。</li>
+<li>序列类型 ( <a href="types/tuple.html">元组</a> <a href="types/array.html">数组</a> <a href="types/slice.html">切片</a> ) 。</li>
 <li><a href="paths.html#paths-in-types">类型路径</a> 可以引用：
 <ul>
-<li>原始类型 ( <a href="types/boolean.html">boolean</a> <a href="types/numeric.html">numeric</a> <a href="types/textual.html">textual</a> ) 。</li>
-<li>对 <a href="items.html">条目</a> 的引用 ( <a href="types/struct.html">struct</a> <a href="types/enum.html">enum</a>  <a href="types/union.html">union</a> <a href="items/type-aliases.html">type alias</a>  <a href="types/trait-object.html">trait</a> ) 。</li>
+<li>原始类型 ( <a href="types/boolean.html">布尔</a> <a href="types/numeric.html">数值</a> <a href="types/textual.html">文本</a> ) 。</li>
+<li>对 <a href="items.html">条目</a> 的引用 ( <a href="types/struct.html">结构体</a> <a href="types/enum.html">枚举</a> <a href="types/union.html">联合体</a> <a href="items/type-aliases.html">类型别名</a> <a href="types/trait-object.html">trait</a> ) 。</li>
 <li><a href="paths.html#self-1">Self 路径</a> ，其中 Self 是实现类型。</li>
 <li>泛型 <a href="types/parameters.html">类型参数</a> 。</li>
 </ul>
 </li>
-<li>指针类型 ( <a href="types/pointer.html#shared-references-">reference</a> <a href="types/pointer.html#raw-pointers-const-and-mut">raw pointer</a> <a href="types/function-pointer.html">function pointer</a> ) 。</li>
-<li><a href="types/inferred.html">inferred type</a> ，请求编译器确定类型。</li>
-<li>用于消除歧义的 <a href="#parenthesized-types">Parentheses</a> 。</li>
-<li>Trait 类型: <a href="types/trait-object.html">Trait objects</a> 和 <a href="types/impl-trait.html">impl trait</a> 。</li>
-<li><a href="types/never.html">never</a> 类型。</li>
-<li><a href="macros.html">Macros</a> ，它们展开为类型表达式。</li>
+<li>指针类型 ( <a href="types/pointer.html#shared-references-">引用</a> <a href="types/pointer.html#raw-pointers-const-and-mut">原始指针</a> <a href="types/function-pointer.html">函数指针</a> ) 。</li>
+<li><a href="types/inferred.html">推断类型</a> ，请求编译器确定类型。</li>
+<li>用于消除歧义的 <a href="#parenthesized-types">括号</a> 。</li>
+<li>Trait 类型: <a href="types/trait-object.html">Trait 对象</a> 和 <a href="types/impl-trait.html">impl trait</a> 。</li>
+<li><a href="types/never.html">永不类型</a> 类型。</li>
+<li><a href="macros.html">宏</a> ，它们展开为类型表达式。</li>
 </ul>
 <h3 id="括号类型"><a class="header" href="#括号类型">括号类型</a></h3>
 <blockquote>
@@ -293,12 +296,12 @@
 </span>type T&lt;'a&gt; = &amp;'a (dyn Any + Send);
 <span class="boring">}</span></code></pre></pre>
 <h2 id="递归类型"><a class="header" href="#递归类型">递归类型</a></h2>
-<p>名义类型 - <a href="types/struct.html">structs</a> 、 <a href="types/enum.html">enumerations</a> 和 <a href="types/union.html">unions</a> - 可以是递归的。
+<p>用户定义类型 - <a href="types/struct.html">结构体</a> 、 <a href="types/enum.html">枚举</a> 和 <a href="types/union.html">联合体</a> - 可以是递归的。
 也就是说，每个 <code>enum</code> 变量或 <code>struct</code> 或 <code>union</code> 字段可以直接或间接地引用封闭的 <code>enum</code> 或 <code>struct</code> 类型本身。
 这种递归有限制:</p>
 <ul>
 <li>
-<p>递归类型必须包含在递归中的名义类型 (不是仅仅是 <a href="items/type-aliases.html">类型别名</a> ，或其他结构类型，例如 <a href="types/array.html">数组</a> 或 <a href="types/tuple.html">元组</a> ) 。因此， <code>type Rec = &amp;'static [Rec]</code> 是不允许的。</p>
+<p>递归类型必须包含在递归中的命名类型 (不是仅仅是 <a href="items/type-aliases.html">类型别名</a> ，或其他结构类型，例如 <a href="types/array.html">数组</a> 或 <a href="types/tuple.html">元组</a> ) 。因此， <code>type Rec = &amp;'static [Rec]</code> 是不允许的。</p>
 </li>
 <li>
 <p>递归类型的大小必须是有限的；换句话说，类型的递归字段必须是 <a href="types/pointer.html">指针</a> 。</p>
@@ -363,5 +366,6 @@ let a: List&lt;i32&gt; = List::Cons(7, Box::new(List::Cons(13, Box::new(List::Ni
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

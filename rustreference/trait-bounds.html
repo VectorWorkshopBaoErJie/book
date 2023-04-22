@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -157,9 +160,9 @@
       <em>生命周期</em> | <em>Trait约束</em></p>
 <p><em>Trait约束</em> :<br />
       <code>?</code><sup>?</sup>
-<a href="#higher-ranked-trait-bounds"><em>对于生命周期</em></a><sup>?</sup> <a href="paths.html#paths-in-types"><em>类型路径</em></a><br />
+<a href="#higher-ranked-trait-bounds"><em>For生命周期</em></a><sup>?</sup> <a href="paths.html#paths-in-types"><em>类型路径</em></a><br />
    | <code>(</code> <code>?</code><sup>?</sup>
-<a href="#higher-ranked-trait-bounds"><em>对于生命周期</em></a><sup>?</sup> <a href="paths.html#paths-in-types"><em>类型路径</em></a> <code>)</code></p>
+<a href="#higher-ranked-trait-bounds"><em>For生命周期</em></a><sup>?</sup> <a href="paths.html#paths-in-types"><em>类型路径</em></a> <code>)</code></p>
 <p><em>生命周期约束</em> :<br />
    ( <em>生命周期</em> <code>+</code> )<sup>*</sup> <em>生命周期</em><sup>?</sup></p>
 <p><em>生命周期</em> :<br />
@@ -209,17 +212,17 @@ fn name_figure&lt;U: Shape&gt;(
     );
 }
 <span class="boring">}</span></code></pre></pre>
-<p>不涉及该条目参数或 <a href="#higher-ranked-trait-bounds">高层生命周期</a> 的约束在定义该条目时进行检查。如果这样的约束为假，就会出现错误。</p>
+<p>不涉及该条目参数或 <a href="#higher-ranked-trait-bounds">高阶生命周期</a> 的约束在定义该条目时进行检查。如果这样的约束为假，就会出现错误。</p>
 <p>对于某些泛型类型，即使使用时不提供具体类型，也会对 <a href="special-types-and-traits.html#copy"><code>Copy</code></a> ， <a href="special-types-and-traits.html#clone"><code>Clone</code></a> 和 <a href="special-types-and-traits.html#sized"><code>Sized</code></a> 约束进行检查。
-在可变引用， <a href="types/trait-object.html">trait 对象</a> 或 <a href="types/slice.html">slice</a> 上使用 <code>Copy</code> 或 <code>Clone</code>  作为约束是错误的。在 <a href="types/trait-object.html">trait 对象</a> 或 <a href="types/slice.html">slice</a> 上使用 <code>Sized</code> 作为限制也是错误的。</p>
+在可变引用， <a href="types/trait-object.html">trait 对象</a> 或 <a href="types/slice.html">slice</a> 上使用 <code>Copy</code> 或 <code>Clone</code>  作为约束是错误的。在 <a href="types/trait-object.html">trait 对象</a> 或 <a href="types/slice.html">切片</a> 上使用 <code>Sized</code> 作为限制也是错误的。</p>
 <pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct A&lt;'a, T&gt;
 where
     i32: Default,           // 允许，但不实用
     i32: Iterator,          // 错误： `i32` 不是迭代器
-    &amp;'a mut T: Copy,        // （在使用时）错误：无法满足 trait 约束
-    [T]: Sized,             // （在使用时）错误：大小无法在编译时确定
+    &amp;'a mut T: Copy,        // (在使用时) 错误：无法满足 trait 约束
+    [T]: Sized,             // (在使用时) 错误：大小无法在编译时确定
 {
     f: &amp;'a T,
 }
@@ -242,7 +245,7 @@ struct UsesA&lt;'a, T&gt;(A&lt;'a, T&gt;);
 例如，如果 <code>'a</code> 是一个未约束的生命周期参数，那么 <code>i32: 'static</code> 和 <code>&amp;'static str: 'a</code> 是符合条件的，但是 <code>Vec&lt;&amp;'a ()&gt;: 'static</code> 不符合条件。</p>
 <h2 id="高阶-trait-约束"><a class="header" href="#高阶-trait-约束">高阶 trait 约束</a></h2>
 <blockquote>
-<p><em>for生命周期</em> :<br />
+<p><em>For生命周期</em> :<br />
    <code>for</code> <a href="items/generics.html"><em>泛型参数组</em></a></p>
 </blockquote>
 <p>Trait 约束可以对生命周期进行 <em>提阶</em> ，这些约束指定了一个对于 <em>所有</em> 生命周期都成立的约束。
@@ -256,7 +259,7 @@ struct UsesA&lt;'a, T&gt;(A&lt;'a, T&gt;);
 </span>}
 <span class="boring">}</span></code></pre></pre>
 <p>可以用它来将一个 <code>&amp;'a T</code> 的生命周期与任意的 <code>i32</code> 进行比较。</p>
-<p>只有一个更高层的约束可以在这里使用，因为引用的生命周期比函数上可能存在的任何生命周期参数都要短：</p>
+<p>只有一个更高阶的约束可以在这里使用，因为引用的生命周期比函数上可能存在的任何生命周期参数都要短：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn call_on_ref_zero&lt;F&gt;(f: F) where for&lt;'a&gt; F: Fn(&amp;'a i32) {
@@ -264,7 +267,7 @@ struct UsesA&lt;'a, T&gt;(A&lt;'a, T&gt;);
     f(&amp;zero);
 }
 <span class="boring">}</span></code></pre></pre>
-<p>更高层的生命周期也可以在 trait 前面指定: 唯一的区别是生命周期参数的作用范围仅限于后面 trait 的末尾，而不是整个约束。这个函数与上一个函数是等价的。</p>
+<p>更高阶的生命周期也可以在 trait 前面指定: 唯一的区别是生命周期参数的作用范围仅限于后面 trait 的末尾，而不是整个约束。这个函数与上一个函数是等价的。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn call_on_ref_zero&lt;F&gt;(f: F) where F: for&lt;'a&gt; Fn(&amp;'a i32) {
@@ -321,5 +324,6 @@ struct UsesA&lt;'a, T&gt;(A&lt;'a, T&gt;);
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

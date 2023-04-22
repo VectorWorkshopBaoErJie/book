@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -244,7 +247,7 @@ KW_TRY   : <code>try</code></p>
 <p><code>macro_rules</code> 用于创建自定义 <a href="macros.html">宏</a> 。</p>
 </li>
 <li>
-<p><code>union</code> 用于声明 <a href="items/unions.html">联合体</a> ，只有在使用 union 声明时才是一个关键字。</p>
+<p><code>union</code> 用于声明 <a href="items/unions.html">联合体</a> ，只有在使用联合体声明时 union 才是一个关键字。</p>
 </li>
 <li>
 <p><code>'static</code> 用于静态生命周期，不能作为 <a href="items/generics.html">泛型生命周期参数</a> 或 <a href="expressions/loop-expr.html#loop-labels">循环标签</a> 使用。</p>
@@ -313,5 +316,6 @@ KW_DYN            : <code>dyn</code></p>
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

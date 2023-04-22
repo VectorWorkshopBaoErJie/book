@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -195,31 +198,33 @@ unsafe fn foo_avx2() {}
 <h4 id="x86-或-x86_64"><a class="header" href="#x86-或-x86_64"><code>x86</code> 或 <code>x86_64</code></a></h4>
 <p>在此平台上执行不支持的特性是未定义的行为。
 因此，该平台要求 <code>#[target_feature]</code> 仅应用于 <a href="../unsafe-keyword.html"><code>unsafe</code> 函数</a> 。</p>
-<div class="table-wrapper"><table><thead><tr><th>特性</th><th>隐式启用</th><th>描述</th></tr></thead><tbody>
-<tr><td><code>adx</code></td><td></td><td><a href="https://en.wikipedia.org/wiki/Intel_ADX">ADX</a> — 多精度加进位指令扩展</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>特征</th><th>隐式启用</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>adx</code></td><td></td><td><a href="https://en.wikipedia.org/wiki/Intel_ADX">ADX</a> — 多精度加法进位指令扩展</td></tr>
 <tr><td><code>aes</code></td><td><code>sse2</code></td><td><a href="https://en.wikipedia.org/wiki/AES_instruction_set">AES</a> — 高级加密标准</td></tr>
 <tr><td><code>avx</code></td><td><code>sse4.2</code></td><td><a href="https://en.wikipedia.org/wiki/Advanced_Vector_Extensions">AVX</a> — 高级矢量扩展</td></tr>
 <tr><td><code>avx2</code></td><td><code>avx</code></td><td><a href="https://en.wikipedia.org/wiki/Advanced_Vector_Extensions#AVX2">AVX2</a> — 高级矢量扩展 2</td></tr>
 <tr><td><code>bmi1</code></td><td></td><td><a href="https://en.wikipedia.org/wiki/Bit_Manipulation_Instruction_Sets">BMI1</a> — 位操作指令集</td></tr>
 <tr><td><code>bmi2</code></td><td></td><td><a href="https://en.wikipedia.org/wiki/Bit_Manipulation_Instruction_Sets#BMI2">BMI2</a> — 位操作指令集 2</td></tr>
+<tr><td><code>cmpxchg16b</code></td><td></td><td><a href="https://www.felixcloutier.com/x86/cmpxchg8b:cmpxchg16b"><code>cmpxchg16b</code></a> — 原子比较并交换 16 字节 (128 位) 数据</td></tr>
 <tr><td><code>fma</code></td><td><code>avx</code></td><td><a href="https://en.wikipedia.org/wiki/FMA_instruction_set">FMA3</a> — 三操作数融合乘加</td></tr>
 <tr><td><code>fxsr</code></td><td></td><td><a href="https://www.felixcloutier.com/x86/fxsave"><code>fxsave</code></a> 和 <a href="https://www.felixcloutier.com/x86/fxrstor"><code>fxrstor</code></a> — 保存和恢复 x87 FPU、MMX 技术和 SSE 状态</td></tr>
-<tr><td><code>lzcnt</code></td><td></td><td><a href="https://www.felixcloutier.com/x86/lzcnt"><code>lzcnt</code></a> — 领先的零数目</td></tr>
-<tr><td><code>pclmulqdq</code></td><td><code>sse2</code></td><td><a href="https://www.felixcloutier.com/x86/pclmulqdq"><code>pclmulqdq</code></a> — 打包无进位乘法的乘积四倍字</td></tr>
-<tr><td><code>popcnt</code></td><td></td><td><a href="https://www.felixcloutier.com/x86/popcnt"><code>popcnt</code></a> — 位值为 1 的位数</td></tr>
+<tr><td><code>lzcnt</code></td><td></td><td><a href="https://www.felixcloutier.com/x86/lzcnt"><code>lzcnt</code></a> — 前导零计数</td></tr>
+<tr><td><code>movbe</code></td><td></td><td><a href="https://www.felixcloutier.com/x86/movbe"><code>movbe</code></a> - 字节交换后移动数据</td></tr>
+<tr><td><code>pclmulqdq</code></td><td><code>sse2</code></td><td><a href="https://www.felixcloutier.com/x86/pclmulqdq"><code>pclmulqdq</code></a> — 打包无进位乘法 quadword</td></tr>
+<tr><td><code>popcnt</code></td><td></td><td><a href="https://www.felixcloutier.com/x86/popcnt"><code>popcnt</code></a> — 计算置 1 的位数</td></tr>
 <tr><td><code>rdrand</code></td><td></td><td><a href="https://en.wikipedia.org/wiki/RdRand"><code>rdrand</code></a> — 读取随机数</td></tr>
 <tr><td><code>rdseed</code></td><td></td><td><a href="https://en.wikipedia.org/wiki/RdRand"><code>rdseed</code></a> — 读取随机种子</td></tr>
 <tr><td><code>sha</code></td><td><code>sse2</code></td><td><a href="https://en.wikipedia.org/wiki/Intel_SHA_extensions">SHA</a> — 安全哈希算法</td></tr>
-<tr><td><code>sse</code></td><td></td><td><a href="https://en.wikipedia.org/wiki/Streaming_SIMD_Extensions">SSE</a> — 流处理 SIMD 扩展</td></tr>
-<tr><td><code>sse2</code></td><td><code>sse</code></td><td><a href="https://en.wikipedia.org/wiki/SSE2">SSE2</a> — 流处理 SIMD 扩展 2</td></tr>
-<tr><td><code>sse3</code></td><td><code>sse2</code></td><td><a href="https://en.wikipedia.org/wiki/SSE3">SSE3</a> — 流处理 SIMD 扩展 3</td></tr>
-<tr><td><code>sse4.1</code></td><td><code>ssse3</code></td><td><a href="https://en.wikipedia.org/wiki/SSE4#SSE4.1">SSE4.1</a> — 流处理 SIMD 扩展 4.1</td></tr>
-<tr><td><code>sse4.2</code></td><td><code>sse4.1</code></td><td><a href="https://en.wikipedia.org/wiki/SSE4#SSE4.2">SSE4.2</a> — 流处理 SIMD 扩展 4.2</td></tr>
-<tr><td><code>ssse3</code></td><td><code>sse3</code></td><td><a href="https://en.wikipedia.org/wiki/SSSE3">SSSE3</a> — 补充流处理 SIMD 扩展 3</td></tr>
+<tr><td><code>sse</code></td><td></td><td><a href="https://en.wikipedia.org/wiki/Streaming_SIMD_Extensions">SSE</a> — 流式 SIMD 扩展</td></tr>
+<tr><td><code>sse2</code></td><td><code>sse</code></td><td><a href="https://en.wikipedia.org/wiki/SSE2">SSE2</a> — 流式 SIMD 扩展 2</td></tr>
+<tr><td><code>sse3</code></td><td><code>sse2</code></td><td><a href="https://en.wikipedia.org/wiki/SSE3">SSE3</a> — 流式 SIMD 扩展 3</td></tr>
+<tr><td><code>sse4.1</code></td><td><code>ssse3</code></td><td><a href="https://en.wikipedia.org/wiki/SSE4#SSE4.1">SSE4.1</a> — 流式 SIMD 扩展 4.1</td></tr>
+<tr><td><code>sse4.2</code></td><td><code>sse4.1</code></td><td><a href="https://en.wikipedia.org/wiki/SSE4#SSE4.2">SSE4.2</a> — 流式 SIMD 扩展 4.2</td></tr>
+<tr><td><code>ssse3</code></td><td><code>sse3</code></td><td><a href="https://en.wikipedia.org/wiki/SSSE3">SSSE3</a> — 补充流式 SIMD 扩展 3</td></tr>
 <tr><td><code>xsave</code></td><td></td><td><a href="https://www.felixcloutier.com/x86/xsave"><code>xsave</code></a> — 保存处理器扩展状态</td></tr>
-<tr><td><code>xsavec</code></td><td></td><td><a href="https://www.felixcloutier.com/x86/xsavec"><code>xsavec</code></a> — 保存带压缩的处理器扩展状态</td></tr>
+<tr><td><code>xsavec</code></td><td></td><td><a href="https://www.felixcloutier.com/x86/xsavec"><code>xsavec</code></a> — 压缩保存处理器扩展状态</td></tr>
 <tr><td><code>xsaveopt</code></td><td></td><td><a href="https://www.felixcloutier.com/x86/xsaveopt"><code>xsaveopt</code></a> — 优化保存处理器扩展状态</td></tr>
-<tr><td><code>xsaves</code></td><td></td><td><a href="https://www.felixcloutier.com/x86/xsaves"><code>xsaves</code></a> — 以管理模式保存处理器扩展状态</td></tr>
+<tr><td><code>xsaves</code></td><td></td><td><a href="https://www.felixcloutier.com/x86/xsaves"><code>xsaves</code></a> — 管理模式保存处理器扩展状态</td></tr>
 </tbody></table>
 </div><!-- Keep links near each table to make it easier to move and update. -->
 <h4 id="aarch64"><a class="header" href="#aarch64"><code>aarch64</code></a></h4>
@@ -435,5 +440,6 @@ fn bar_thumb_code() {}</code></pre>
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

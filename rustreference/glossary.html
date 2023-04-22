@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -154,8 +157,8 @@
 <h3 id="对齐"><a class="header" href="#对齐">对齐</a></h3>
 <p>值的对齐方式指定了值的首选地址。始终是 2 的幂次方。值的引用必须对齐。
 <a href="type-layout.html#size-and-alignment">更多</a>。</p>
-<h3 id="函数的元数"><a class="header" href="#函数的元数">函数的元数</a></h3>
-<p>元数是指函数或操作符接受的参数数量。例如， <code>f(2, 3)</code> 和 <code>g(4, 6)</code> 的元数为 2 ，而 <code>h(8, 2, 6)</code> 的元数为 3 。<code>!</code> 操作符的元数为 1 。 </p>
+<h3 id="参数数量"><a class="header" href="#参数数量">参数数量</a></h3>
+<p>参数数量是指函数或操作符接受的参数数量。例如， <code>f(2, 3)</code> 和 <code>g(4, 6)</code> 的参数数量为 2 ，而 <code>h(8, 2, 6)</code> 的参数数量为 3 。<code>!</code> 操作符的参数数量为 1 。 </p>
 <h3 id="数组"><a class="header" href="#数组">数组</a></h3>
 <p>数组有时也称为固定大小数组或内联数组，是一个值，描述了一个由元素组成的集合，每个元素都可以由程序在运行时计算的索引所选择。它占用了一段连续的内存区域。</p>
 <h3 id="关联条目"><a class="header" href="#关联条目">关联条目</a></h3>
@@ -213,37 +216,37 @@
 <h3 id="名义类型"><a class="header" href="#名义类型">名义类型</a></h3>
 <p>可直接通过路径引用的类型。具体而言，包括 <a href="items/enumerations.html">枚举</a> 、 <a href="items/structs.html">结构体</a> 、 <a href="items/unions.html">联合体</a> 和 <a href="types/trait-object.html">trait 对象</a> 。</p>
 <h3 id="对象安全trait"><a class="header" href="#对象安全trait">对象安全trait</a></h3>
-<p>可以用作 <a href="types/trait-object.html">trait objects</a> 的 <a href="items/traits.html">Traits</a> 。只有符合特定 <a href="items/traits.html#object-safety">规则</a> 的 Trait 才是对象安全。</p>
+<p>可以用作 <a href="types/trait-object.html">trait 对象</a> 的 <a href="items/traits.html">Traits</a> 。只有符合特定 <a href="items/traits.html#object-safety">规则</a> 的 Trait 才是对象安全。</p>
 <h3 id="路径"><a class="header" href="#路径">路径</a></h3>
 <p><a href="paths.html"><em>Path</em></a> 是一个由一个或多个路径段组成的序列，用于引用当前作用域或其他层级的 <a href="#namespace">命名空间</a> 中的 <a href="#entity">实体</a> 。</p>
 <h3 id="预导入"><a class="header" href="#预导入">预导入</a></h3>
 <p>预导入模块，或称为 Rust 预导入库，是一个小集合的项目，主要是 Trait ，被导入到每个 crate 的每个模块中。预导入库中的 Trait 是普遍适用的。</p>
 <h3 id="作用域"><a class="header" href="#作用域">作用域</a></h3>
-<p>作用域 <a href="names/scopes.html"><em>scope</em></a> 是源代码文本中的一个区域，在此区域内的命名实体 <a href="#entity">entity</a> 可以使用其名称引用。</p>
-<h3 id="被匹配对象"><a class="header" href="#被匹配对象">被匹配对象</a></h3>
-<p>被匹配对象 [<em>Scrutinee</em>] 是在 <code>match</code> 表达式和类似的模式匹配结构中被匹配的表达式。例如，在 <code>match x { A =&gt; 1, B =&gt; 2 }</code> 中，表达式 <code>x</code> 是被匹配对象。</p>
-<h3 id="size"><a class="header" href="#size">Size</a></h3>
-<p>一个值的 [<em>Size</em>] 有两个定义:</p>
+<p><a href="names/scopes.html"><em>作用域</em></a> 是源代码文本中的一个区域，在此区域内的命名实体 <a href="#entity">entity</a> 可以使用其名称引用。</p>
+<h3 id="被匹配项"><a class="header" href="#被匹配项">被匹配项</a></h3>
+<p>被匹配项是在 <code>match</code> 表达式和类似的模式匹配结构中被匹配的表达式。例如，在 <code>match x { A =&gt; 1, B =&gt; 2 }</code> 中，表达式 <code>x</code> 是被匹配对象。</p>
+<h3 id="值大小"><a class="header" href="#值大小">值大小</a></h3>
+<p>一个值的大小有两个定义:</p>
 <p>第一个定义是该值所需的内存量。</p>
 <p>第二个定义是具有该项类型的数组中，相邻元素之间的偏移量 (以字节为单位) 。</p>
 <p>大小是对齐的倍数，包括零。大小可以根据编译器版本 (随着新的优化) 和目标平台而变化 (类似于<code>usize</code>因平台而异) 。</p>
 <p>请参考 <a href="type-layout.html#size-and-alignment">Rust文档</a> 以了解更多信息。</p>
 <h3 id="切片"><a class="header" href="#切片">切片</a></h3>
-<p>切片 [<em>Slice</em>] 是对连续序列的动态大小视图，写作 <code>[T]</code> 。</p>
+<p>切片是对连续序列的动态大小视图，写作 <code>[T]</code> 。</p>
 <p>它经常以其借用形式出现，可以是可变的或共享的。共享切片类型是 <code>&amp;[T]</code> ，而可变切片类型是 <code>&amp;mut [T]</code> ，其中 <code>T</code> 表示元素类型。</p>
 <h3 id="语句"><a class="header" href="#语句">语句</a></h3>
-<p>语句 [<em>Statement</em>] 语句是编程语言中最小的独立元素，它命令计算机执行一个操作。</p>
+<p>语句是编程语言中最小的独立元素，它命令计算机执行一个操作。</p>
 <h3 id="字符串字面值"><a class="header" href="#字符串字面值">字符串字面值</a></h3>
-<p>字符串字面值 [<em>String literal</em>] 是直接存储在最终二进制文件中的字符串，因此将对 <code>'static</code> 持续时间有效。</p>
+<p>字符串字面值是直接存储在最终二进制文件中的字符串，因此将对 <code>'static</code> 持续时间有效。</p>
 <p>它的类型是 <code>'static</code> 持续时间借用字符串切片， <code>&amp;'static str</code> 。</p>
 <h3 id="字符串切片"><a class="header" href="#字符串切片">字符串切片</a></h3>
-<p>字符串切片 [<em>String slice</em>] 是 Rust 中最原始的字符串类型，写作<code>str</code>。它经常以其借用形式出现，可以是可变的或共享的。共享字符串切片类型是<code>&amp;str</code>，而可变字符串切片类型是<code>&amp;mut str</code>。</p>
+<p>字符串切片是 Rust 中最原始的字符串类型，写作 <code>str</code> 。它经常以其借用形式出现，可以是可变的或共享的。共享字符串切片类型是 <code>&amp;str</code> ，而可变字符串切片类型是 <code>&amp;mut str</code> 。</p>
 <p>字符串切片始终有效的UTF-8。</p>
 <h3 id="trait"><a class="header" href="#trait">Trait</a></h3>
-<p>[<em>Trait</em>]是一种语言条目，用于描述类型必须提供的功能。它允许类型对其行为做出某些承诺。</p>
+<p>[<em>Trait</em>] 是一种语言条目，用于描述类型必须提供的功能。它允许类型对其行为做出某些承诺。</p>
 <p>通用函数和通用结构可以使用特征来约束或限制它们接受的类型。</p>
-<h3 id="turbofish"><a class="header" href="#turbofish">Turbofish</a></h3>
-<p>在表达式中具有通用参数的路径必须在开括号前加上 <code>::</code> 。与通用角括号结合使用，看起来像鱼形符号 <code>::&lt;&gt;</code> 。因此，这种语法俗称为 turbofish 语法。</p>
+<h3 id="鱼形符号"><a class="header" href="#鱼形符号">鱼形符号</a></h3>
+<p>在表达式中具有通用参数的路径必须在开括号前加上 <code>::</code> 。与通用角括号结合使用，看起来像鱼形符号 <code>::&lt;&gt;</code> 。因此，这种语法俗称为鱼形语法。</p>
 <p>例如:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -251,13 +254,13 @@
 let vec = [1, 2, 3].iter().map(|n| n * 2).collect::&lt;Vec&lt;_&gt;&gt;();
 <span class="boring">}</span></code></pre></pre>
 <p>这个 <code>::</code> 前缀是为了消除在逗号分隔列表中有多个类型参数的泛型路径的歧义。
-请参见 <a href="https://github.com/rust-lang/rust/blob/1.58.0/src/test/ui/parser/bastion-of-the-turbofish.rs">turbofish test</a> ，其中有一个在没有前缀时产生歧义的例子。</p>
+请参见 <a href="https://github.com/rust-lang/rust/blob/1.58.0/src/test/ui/parser/bastion-of-the-turbofish.rs">鱼形符号测试</a> ，其中有一个在没有前缀时产生歧义的例子。</p>
 <h3 id="未涵盖的类型"><a class="header" href="#未涵盖的类型">未涵盖的类型</a></h3>
 <p>一个未出现为另一个类型的参数的类型。例如， <code>T</code> 是未涵盖的类型，而 <code>Vec&lt;T&gt;</code> 中的 <code>T</code> 是涵盖的。这仅与类型参数有关。</p>
 <h3 id="未定义行为"><a class="header" href="#未定义行为">未定义行为</a></h3>
 <p>未指定的编译时或运行时行为。这可能导致但不限于：进程终止或破坏；不适当、不正确或意外的计算；或平台特定的结果。<a href="behavior-considered-undefined.html">更多信息</a>。</p>
 <h3 id="无法驻留的"><a class="header" href="#无法驻留的">无法驻留的</a></h3>
-<p>如果一个类型没有构造函数，因此永远无法被实例化，则该类型是无法驻留的。一个无法驻留的类型在某种意义上是 &quot;空的&quot; ，因为该类型没有值。无法居住类型的典型示例是 <a href="types/never.html">永不类型</a> <code>!</code> ，或者没有变体的枚举 <code>enum Never { }</code> 。与 <a href="#inhabited">Inhabited</a> 相对。</p>
+<p>如果一个类型没有构造函数，因此永远无法被实例化，则该类型是无法驻留的。一个无法驻留的类型在某种意义上是 &quot;空的&quot; ，因为该类型没有值。无法居住类型的典型示例是 <a href="types/never.html">永不类型</a> <code>!</code> ，或者没有变体的枚举 <code>enum Never { }</code> 。与 <a href="#inhabited">驻留</a> 相对。</p>
 
                     </main>
 
@@ -301,5 +304,6 @@ let vec = [1, 2, 3].iter().map(|n| n * 2).collect::&lt;Vec&lt;_&gt;&gt;();
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

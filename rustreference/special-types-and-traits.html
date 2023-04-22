@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -167,7 +170,7 @@
 <p><a href="../std/cell/struct.UnsafeCell.html"><code>std::cell::UnsafeCell&lt;T&gt;</code></a> 用于 <a href="interior-mutability.html">内部可变性</a> 。它确保编译器不会为此类类型执行不正确的优化。
 它还确保带有内部可变性的类型的 <a href="items/static-items.html"><code>static</code> 条目</a> 不会被放置在标记为只读的内存中。</p>
 <h2 id="phantomdatat"><a class="header" href="#phantomdatat"><code>PhantomData&lt;T&gt;</code></a></h2>
-<p><a href="../std/marker/struct.PhantomData.html"><code>std::marker::PhantomData&lt;T&gt;</code></a> 是一种零大小、最小对齐方式的类型。从 <a href="subtyping.html#variance">variance</a>、<a href="../nomicon/dropck.html">drop check</a> 和 <a href="#auto-traits">auto traits</a> 的角度来看，它被视为拥有一个类型为 <code>T</code> 的实例。</p>
+<p><a href="../std/marker/struct.PhantomData.html"><code>std::marker::PhantomData&lt;T&gt;</code></a> 是一种零大小、最小对齐方式的类型。从 <a href="subtyping.html#variance">协变性</a>、<a href="../nomicon/dropck.html">丢弃检查</a> 和 [自动 trait]<a href="#auto-traits">auto traits</a> 的角度来看，它被视为拥有一个类型为 <code>T</code> 的实例。</p>
 <h2 id="运算符-trait"><a class="header" href="#运算符-trait">运算符 trait</a></h2>
 <p><a href="../std/ops/index.html"><code>std::ops</code></a> 和 <a href="../std/cmp/index.html"><code>std::cmp</code></a> 中的 trait 用于重载 <a href="expressions/operator-expr.html">运算符</a> 、 <a href="expressions/array-expr.html#array-and-slice-indexing-expressions">索引表达式</a> 和 <a href="expressions/call-expr.html">调用表达式</a> 。</p>
 <h2 id="deref-和-derefmut"><a class="header" href="#deref-和-derefmut"><code>Deref</code> 和 <code>DerefMut</code></a></h2>
@@ -262,5 +265,6 @@
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

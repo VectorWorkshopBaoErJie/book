@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -220,6 +223,18 @@ m!(const _: () = (););
 // const _: () = ();
 // const _: () = ();
 <span class="boring">}</span></code></pre></pre>
+<h2 id="评估"><a class="header" href="#评估">评估</a></h2>
+<p><a href="../glossary.html#free-item">自由</a> 常量总是在编译时被 <a href="../const_eval.html">计算</a>，以便暴露 panic。即使在未使用的函数中，也会发生这种情况:</p>
+<pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 编译时 panic
+const PANIC: () = std::unimplemented!();
+
+fn unused_generic_function&lt;T&gt;() {
+    // 一个失败的编译时断言
+    const _: () = assert!(usize::BITS == 0);
+}
+<span class="boring">}</span></code></pre></pre>
 
                     </main>
 
@@ -269,5 +284,6 @@ m!(const _: () = (););
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

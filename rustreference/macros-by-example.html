@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -152,29 +155,29 @@
 <blockquote>
 <p><strong><sup>语法</sup></strong><br />
 <em>宏规则定义</em> :<br />
-   <code>macro_rules</code> <code>!</code> [标识符] <em>实例宏规则定义</em></p>
-<p><em>实例宏规则定义</em> :<br />
-      <code>(</code> <em>实例宏规则组</em> <code>)</code> <code>;</code><br />
-   | <code>[</code> <em>实例宏规则组</em> <code>]</code> <code>;</code><br />
-   | <code>{</code> <em>实例宏规则组</em> <code>}</code></p>
-<p><em>实例宏规则组</em> :<br />
-   <em>实例宏规则</em> ( <code>;</code> <em>实例宏规则</em> )<sup>*</sup> <code>;</code><sup>?</sup></p>
-<p><em>实例宏规则</em> :<br />
+   <code>macro_rules</code> <code>!</code> <a href="identifiers.html">标识符</a> <em>宏规则组定界</em></p>
+<p><em>宏规则组定界</em> :<br />
+      <code>(</code> <em>宏规则组</em> <code>)</code> <code>;</code><br />
+   | <code>[</code> <em>宏规则组</em> <code>]</code> <code>;</code><br />
+   | <code>{</code> <em>宏规则组</em> <code>}</code></p>
+<p><em>宏规则组</em> :<br />
+   <em>宏规则</em> ( <code>;</code> <em>宏规则</em> )<sup>*</sup> <code>;</code><sup>?</sup></p>
+<p><em>宏规则</em> :<br />
    <em>宏匹配器</em> <code>=&gt;</code> <em>宏转录器</em></p>
 <p><em>宏匹配器</em> :<br />
       <code>(</code> <em>宏匹配</em><sup>*</sup> <code>)</code><br />
    | <code>[</code> <em>宏匹配</em><sup>*</sup> <code>]</code><br />
    | <code>{</code> <em>宏匹配</em><sup>*</sup> <code>}</code></p>
 <p><em>宏匹配</em> :<br />
-      <a href="tokens.html"><em>Token</em></a><sub><em>除了 <code>$</code> 和 <a href="tokens.html#delimiters">分隔符</a> 之外的任意 token</em></sub><br />
+      <a href="tokens.html"><em>Token</em></a><sub><em>不包括 <code>$</code> 和 <a href="tokens.html#delimiters">定界符号</a> 之外的任意 token</em></sub><br />
    | <em>宏匹配器</em><br />
-   | <code>$</code> ( <a href="identifiers.html">标识符或关键字</a> <sub><em>除了 <code>crate</code> 之外的任意标识符或关键字</em></sub> | <a href="identifiers.html">原始标识符</a> | <code>_</code> ) <code>:</code> <em>宏片段规格</em><br />
+   | <code>$</code> ( <a href="identifiers.html">标识符或关键字</a> <sub><em>不包括 <code>crate</code> 之外的任意标识符或关键字</em></sub> | <a href="identifiers.html">原始标识符</a> | <code>_</code> ) <code>:</code> <em>宏片段规格</em><br />
    | <code>$</code> <code>(</code> <em>宏匹配</em><sup>+</sup> <code>)</code> <em>宏表示分割</em><sup>?</sup> <em>宏表示操作符</em></p>
 <p><em>宏片段规格</em> :<br />
       <code>block</code> | <code>expr</code> | <code>ident</code> | <code>item</code> | <code>lifetime</code> | <code>literal</code><br />
    | <code>meta</code> | <code>pat</code> | <code>pat_param</code> | <code>path</code> | <code>stmt</code> | <code>tt</code> | <code>ty</code> | <code>vis</code></p>
 <p><em>宏表示分割</em> :<br />
-   <a href="tokens.html"><em>Token</em></a><sub><em>除了 <a href="tokens.html#delimiters">分隔符</a> 和 宏表示操作符</em> 之外的任意 token_</sub></p>
+   <a href="tokens.html"><em>Token</em></a><sub><em>不包括 <a href="tokens.html#delimiters">定界符号</a> 和 宏表示操作符</em> 之外的任意 token_</sub></p>
 <p><em>宏表示操作符</em> :<br />
    <code>*</code> | <code>+</code> | <code>?</code></p>
 <p><em>宏转录器</em> :<br />
@@ -184,7 +187,7 @@
 我们把这样的扩展称为 &quot;宏&quot; 或者 &quot;实例宏&quot; 。</p>
 <p>每个宏定义都有一个名称和一个或多个 <em>规则</em> 。
 每个规则都有两个部分：一个 <em>匹配器</em> ，用于描述它匹配的语法，以及一个 <em>转录器</em> ，用于描述成功匹配调用后将替换的语法。
-匹配器和转录器都必须被包含在分隔符中。
+匹配器和转录器都必须被包含在定界符号中。
 宏可以扩展为表达式、语句、条目 (包括 trait 、实现和外部条目) 、类型或模式。</p>
 <h2 id="转录"><a class="header" href="#转录">转录</a></h2>
 <p>当宏被调用时，宏展开器通过名称查找宏调用，并依次尝试每个宏规则。
@@ -205,8 +208,8 @@ ambiguity!(error); // Error: 局部歧义
 因此，例如，匹配器 <code>(())</code> 将匹配 <code>{()}</code> 但不匹配 <code>{{}}</code>。字符 <code>$</code> 不能按字面匹配或转录。</p>
 <h3 id="转发匹配片段"><a class="header" href="#转发匹配片段">转发匹配片段</a></h3>
 <p>在将匹配的片段转发到另一个实例宏时，第二个宏中的匹配器将看到片段类型的不透明 AST 。
-第二个宏不能使用文本标记来匹配匹配器中的片段，只能使用相同类型的片段指定符。
-<code>ident</code> 、 <code>lifetime</code> 和 <code>tt</code> 片段类型例外，可以用文本标记匹配。以下是这个限制的示例：</p>
+第二个宏不能使用字面 token 来匹配匹配器中的片段，只能使用相同类型的片段规格。
+<code>ident</code> 、 <code>lifetime</code> 和 <code>tt</code> 片段类型例外，可以用字面 token 匹配。以下是这个限制的示例：</p>
 <pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>macro_rules! foo {
@@ -223,7 +226,7 @@ foo!(3);
 <p>以下是演示如何在匹配 <code>tt</code> 片段后直接匹配 Token 的示例：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>// compiles OK
+</span>// 编译成功
 macro_rules! foo {
     ($l:tt) =&gt; { bar!($l); }
 }
@@ -260,11 +263,11 @@ foo!(3);
 <blockquote>
 <p><strong>版次差异</strong>: 从 2021 版本开始，<code>pat</code> 片段匹配符匹配顶层或模式 (即它们接受 <a href="patterns.html"><em>模式</em></a>) 。</p>
 <p>在 2021 版本之前，它们完全匹配与 <code>pat_param</code> 相同的片段 (即它们接受 <a href="patterns.html"><em>模式非顶层选项</em></a> ) 。</p>
-<p>相关版本指 <code>macro_rules!</code> 定义生效的版本。</p>
+<p>相关版次指 <code>macro_rules!</code> 定义生效的版次。</p>
 </blockquote>
 <h2 id="重复"><a class="header" href="#重复">重复</a></h2>
-<p>在匹配器和转录器中，重复的标志是通过将要重复的标记放在 <code>$(</code>…<code>)</code> 中，后跟重复运算符，可选地包括分隔符标记。
-分隔符标记可以是任何标记，除了定界符或重复运算符，但常用的是 <code>;</code> 和 <code>,</code> 。
+<p>在匹配器和转录器中，重复的标志是通过将要重复的 token 放在 <code>$(</code>…<code>)</code> 中，后跟重复运算符，可选地包括分隔符 token 。
+分隔符 token 可以是任何 token ，除了定界符或重复运算符，但常用的是 <code>;</code> 和 <code>,</code> 。
 例如，<code>$( $i:ident ),*</code> 表示由逗号分隔的任意数量的标识符。允许嵌套重复。</p>
 <p>重复运算符是:</p>
 <ul>
@@ -365,7 +368,7 @@ m!(1);
 // m!(); // Error: m 不在作用域内。
 <span class="boring">}</span></code></pre></pre>
 <h3 id="macro_use-属性"><a class="header" href="#macro_use-属性"><code>macro_use</code> 属性</a></h3>
-<p><em><code>macro_use</code> 属性</em> 有两个目的。首先，它可用于使模块的宏作用域在模块关闭后不结束，通过将其应用于一个模块：</p>
+<p><em><code>macro_use</code> 属性</em> 有两个目的。首先，通过将其应用于一个模块，使模块的宏作用域在模块关闭后不结束：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[macro_use]
@@ -378,9 +381,9 @@ mod inner {
 m!();
 <span class="boring">}</span></code></pre></pre>
 <p>第二个作用是将它应用于出现在 crate 的根模块中的 <code>extern crate</code> 声明，从而从另一个 crate 导入宏。
-以这种方式导入的宏被导入到 <a href="names/preludes.html#macro_use-prelude"><code>macro_use</code> 预定义</a> ，而不是文本上导入，这意味着它们可以被任何其他名称隐藏。
+以这种方式导入的宏被导入到 <a href="names/preludes.html#macro_use-prelude"><code>macro_use</code> 预定义</a> ，而不是文本中导入，这意味着它们可以被任何其他名称隐藏。
 虽然 <code>#[macro_use]</code> 导入的宏可以在导入语句之前使用，但在冲突的情况下，最后导入的宏优先。
-可选地，可以使用 [MetaListIdents] 语法指定要导入的宏列表；当将 <code>#[macro_use]</code> 应用于模块时，不支持此功能。</p>
+可选地，可以使用 [元列表ID组][MetaListIdents] 语法指定要导入的宏列表；当将 <code>#[macro_use]</code> 应用于模块时，不支持此功能。</p>
 <!-- ignore: requires external crates -->
 <pre><code class="language-rust ignore">#[macro_use(lazy_static)] // 或 #[macro_use] 导入所有宏。
 extern crate lazy_static;
@@ -549,5 +552,6 @@ macro_rules! helper {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

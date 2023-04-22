@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -197,7 +200,7 @@ mod m {
    <a href="identifiers.html">标识符</a><code>=</code> <a href="types.html#type-expressions"><em>类型</em></a></p>
 </blockquote>
 <p>表达式中的路径允许指定带有泛型参数的路径。它们在表达式和模式的各种位置使用。</p>
-<p>在泛型参数的左括号 <code>&lt;</code> 前面需要添加 <code>::</code> 标记以避免与小于号操作符产生歧义。这通常被称为 &quot;turbofish&quot; 语法。</p>
+<p>在泛型参数的左括号 <code>&lt;</code> 前面需要添加 <code>::</code> 标记以避免与小于号操作符产生歧义。这通常被称为 &quot;鱼形&quot; 语法。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>(0..10).collect::&lt;Vec&lt;_&gt;&gt;();
@@ -270,7 +273,7 @@ type G = std::boxed::Box&lt;dyn std::ops::FnOnce(isize) -&gt; isize&gt;;
 <h3 id=""><a class="header" href="#"><code>::</code></a></h3>
 <p>以 <code>::</code> 开头的路径被认为是 <em>全局路径</em> ，路径中的段从不同的起点开始解析，这个起点是根据版本不同而不同。路径中的每个标识符都必须解析为一个条目。</p>
 <blockquote>
-<p><strong>版本差异</strong>：在 2015 版本中，标识符从 “crate root” 开始解析 (在 2018 版本中是 <code>crate::</code>) ，其中包含各种不同的项，包括外部 crate、默认的 crate (如 <code>std</code> 或 <code>core</code>) 以及 crate 顶级的项 (包括 <code>use</code> 导入) 。</p>
+<p><strong>版本差异</strong>：在 2015 版本中，标识符从 &quot;crate root&quot; 开始解析 (在 2018 版本中是 <code>crate::</code>) ，其中包含各种不同的项，包括外部 crate、默认的 crate (如 <code>std</code> 或 <code>core</code>) 以及 crate 顶级的条目 (包括 <code>use</code> 导入) 。</p>
 <p>从 2018 版本开始，以 <code>::</code> 开头的路径从 <a href="names/preludes.html#extern-prelude">extern prelude</a> 中的 crate 解析。也就是说，它们必须跟随一个 crate 的名称。</p>
 </blockquote>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -467,5 +470,6 @@ mod without { // crate::without
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

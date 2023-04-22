@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -158,7 +161,7 @@
 <p><em>闭包参数组</em> :<br />
    <em>闭包参数</em> (<code>,</code> <em>闭包参数</em>)<sup>*</sup> <code>,</code><sup>?</sup></p>
 <p><em>闭包参数</em> :<br />
-   <a href="../attributes.html"><em>外部属性</em></a><sup>*</sup> <a href="../patterns.html"><em>模式无顶层选项</em></a> ( <code>:</code> <a href="../types.html#type-expressions"><em>类型</em></a> )<sup>?</sup></p>
+   <a href="../attributes.html"><em>外围属性</em></a><sup>*</sup> <a href="../patterns.html"><em>模式无顶层选项</em></a> ( <code>:</code> <a href="../types.html#type-expressions"><em>类型</em></a> )<sup>?</sup></p>
 </blockquote>
 <p><em>闭包表达式</em> ，也称为 lambda 表达式或 lambda ，定义一个 <a href="../types/closure.html">闭包类型</a> 并求值为该类型的值。
 闭包表达式的语法是一个可选的 <code>move</code> 关键字，然后是一个由管道符号分隔 (<code>|</code>) 的逗号分隔的 <a href="../patterns.html">模式</a> 列表，称为<em>闭包参数</em>，每个参数后面可选地跟随一个 <code>:</code> 和一个类型，然后是一个可选的 <code>-&gt;</code> 和类型，称为 <em>返回类型</em> ，然后是一个表达式，称为 <em>闭包体操作数</em> 。每个模式后面的可选类型是该模式的类型注解。如果存在返回类型，则闭包体必须是一个 <a href="block-expr.html">块</a> 。</p>
@@ -246,5 +249,6 @@ ten_times(move |j| println!(&quot;{}, {}&quot;, word, j));
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

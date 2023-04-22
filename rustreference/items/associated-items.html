@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -152,7 +155,7 @@
 <blockquote>
 <p><strong><sup>语法</sup></strong><br />
 <em>关联条目</em> :<br />
-   <a href="../attributes.html"><em>外部属性</em></a><sup>*</sup> (<br />
+   <a href="../attributes.html"><em>外围属性</em></a><sup>*</sup> (<br />
          <a href="../macros.html#macro-invocation"><em>宏调用语句</em></a><br />
       | ( <a href="../visibility-and-privacy.html"><em>可见性</em></a><sup>?</sup> ( <a href="type-aliases.html"><em>类型别名</em></a> | <a href="constant-items.html"><em>常量条目</em></a> | <a href="functions.html"><em>函数</em></a> ) )<br />
    )</p>
@@ -574,5 +577,6 @@ fn main() {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

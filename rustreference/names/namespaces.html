@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -204,6 +207,7 @@
 <li>标签命名空间
 <ul>
 <li><a href="../expressions/loop-expr.html#loop-labels">循环标签</a></li>
+<li><a href="../expressions/loop-expr.html#labelled-block-expressions">块标签</a></li>
 </ul>
 </li>
 </ul>
@@ -297,5 +301,6 @@ fn example&lt;'Foo&gt;(f: Foo) {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

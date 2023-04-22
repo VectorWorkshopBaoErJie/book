@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -186,7 +189,7 @@
 <blockquote>
 <p><strong><sup>语法</sup></strong><br />
 <em>Let语句</em> :<br />
-   <a href="attributes.html"><em>外部属性</em></a><sup>*</sup> <code>let</code> <a href="patterns.html"><em>模式非顶层选项</em></a>
+   <a href="attributes.html"><em>外围属性</em></a><sup>*</sup> <code>let</code> <a href="patterns.html"><em>模式非顶层选项</em></a>
 ( <code>:</code> <a href="types.html"><em>类型</em></a> )<sup>?</sup> (<code>=</code> <a href="expressions.html"><em>表达式</em></a> <a href="#let-else-restriction">†</a>
 ( <code>else</code> <a href="expressions/block-expr.html"><em>块表达式</em></a>) <sup>?</sup> ) <sup>?</sup> <code>;</code></p>
 <p><span id="let-else-restriction">† 当指定了 <code>else</code> 块时，表达式不能是 <a href="expressions/operator-expr.html#lazy-boolean-operators"><em>惰性布尔表达式</em></a> ，也不能以 <code>}</code> 结尾。</span></p>
@@ -206,7 +209,7 @@
 let Some(t) = v.pop() else { // 可反驳的模式需要一个 else 块
     panic!(); // else 块必须发散
 };
-let [u, v] = [v[0], v[1]] else { // 这个模式是不可反驳的，所以编译器会作为 else 块是冗余的进行 Lint 检查
+let [u, v] = [v[0], v[1]] else { // 这个模式是不可反驳的，所以编译器会作为 else 块是冗余的进行代码分析检查
     panic!();
 };
 <span class="boring">}</span></code></pre></pre>
@@ -249,8 +252,8 @@ if true {
 };
 <span class="boring">}</span></code></pre></pre>
 <h2 id="语句上的属性"><a class="header" href="#语句上的属性">语句上的属性</a></h2>
-<p>语句可以接受 <a href="attributes.html">外部属性</a> 。
-在语句上具有意义的属性包括 <a href="conditional-compilation.html"><code>cfg</code></a> 和 <a href="attributes/diagnostics.html#lint-check-attributes">lint 检查属性</a> 。</p>
+<p>语句可以接受 <a href="attributes.html">外围属性</a> 。
+在语句上具有意义的属性包括 <a href="conditional-compilation.html"><code>cfg</code></a> 和 <a href="attributes/diagnostics.html#lint-check-attributes">代码分析检查属性</a> 。</p>
 
                     </main>
 
@@ -300,5 +303,6 @@ if true {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

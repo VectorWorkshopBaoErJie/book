@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -212,7 +215,7 @@ fn frob(s: &amp;str, t: &amp;str) -&gt; &amp;str;                    // ILLEGAL
 <span class="boring">}
 </span><span class="boring">}</span></code></pre></pre>
 <h2 id="默认trait对象生命周期"><a class="header" href="#默认trait对象生命周期">默认trait对象生命周期</a></h2>
-<p>由 [trait 对象] 持有的引用的假定生命周期称为其 &quot;默认对象生命周期限制&quot; 。这些在 <a href="https://github.com/rust-lang/rfcs/blob/master/text/0599-default-object-bound.md">RFC 599</a> 中定义并在 <a href="https://github.com/rust-lang/rfcs/blob/master/text/1156-adjust-default-object-bounds.md">RFC 1156</a> 中进行了修改。</p>
+<p>由 <a href="types/trait-object.html">trait 对象</a> 持有的引用的假定生命周期称为其 &quot;默认对象生命周期限制&quot; 。这些在 <a href="https://github.com/rust-lang/rfcs/blob/master/text/0599-default-object-bound.md">RFC 599</a> 中定义并在 <a href="https://github.com/rust-lang/rfcs/blob/master/text/1156-adjust-default-object-bounds.md">RFC 1156</a> 中进行了修改。</p>
 <p>这些默认对象生命周期限制在完全省略生命周期限制时使用，而不是使用上述省略生命周期参数的规则。如果将 <code>'_</code> 用作生命周期限制，则该限制遵循通常的省略规则。</p>
 <p>如果 trait 对象用作泛型类型的类型参数，则首先使用包含类型来尝试推断约束。</p>
 <ul>
@@ -291,7 +294,7 @@ const BITS_N_STRINGS: BitsNStrings&lt;'_&gt; = BitsNStrings {
     mystring: STRING,
 };
 <span class="boring">}</span></code></pre></pre>
-<p>请注意，如果 <code>static</code> 或 <code>const</code> 项包含函数或闭包引用，这些引用本身又包含引用，编译器将首先尝试标准省略规则。
+<p>请注意，如果 <code>static</code> 或 <code>const</code> 条目包含函数或闭包引用，这些引用本身又包含引用，编译器将首先尝试标准省略规则。
 如果它无法通过通常的规则解析生命周期，则会出现错误。以以下示例说明：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -366,5 +369,6 @@ const RESOLVED_STATIC: &amp;dyn Fn(&amp;Foo, &amp;Bar) -&gt; &amp;Baz = &amp;som
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -160,7 +163,7 @@
 <p><em>枚举条目组</em> :<br />
    <em>枚举条目</em> ( <code>,</code> <em>枚举条目</em> )<sup>*</sup> <code>,</code><sup>?</sup></p>
 <p><em>枚举条目</em> :<br />
-   <em>外部属性</em><sup>*</sup> <a href="../visibility-and-privacy.html"><em>可见性</em></a><sup>?</sup><br />
+   <em>外围属性</em><sup>*</sup> <a href="../visibility-and-privacy.html"><em>可见性</em></a><sup>?</sup><br />
    <a href="../identifiers.html">标识符</a> ( <em>枚举条目元组</em> | <em>枚举条目结构体</em> )<sup>?</sup>
 <em>枚举条目判别式</em><sup>?</sup></p>
 <p><em>枚举条目元组</em> :<br />
@@ -445,5 +448,6 @@ enum E {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

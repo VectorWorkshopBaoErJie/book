@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -165,7 +168,7 @@
 )<sup>*</sup><br />
    <em>Match分支</em> <code>=&gt;</code> <a href="../expressions.html"><em>表达式</em></a> <code>,</code><sup>?</sup></p>
 <p><em>Match分支</em> :<br />
-   <a href="../attributes.html"><em>外部属性</em></a><sup>*</sup> <a href="../patterns.html"><em>模式</em></a> <em>Match分支守卫</em><sup>?</sup></p>
+   <a href="../attributes.html"><em>外围属性</em></a><sup>*</sup> <a href="../patterns.html"><em>模式</em></a> <em>Match分支守卫</em><sup>?</sup></p>
 <p><em>Match分支守卫</em> :<br />
    <code>if</code> <a href="../expressions.html"><em>表达式</em></a></p>
 </blockquote>
@@ -252,7 +255,7 @@ assert_eq!(i.get(), 2);
 这允许在守卫中使用共享借用，如果守卫不匹配，则不会移出待匹配项。
 此外，通过在评估守卫时保持共享引用，还可以防止在守卫内进行修改。</p>
 <h2 id="匹配分支上的属性"><a class="header" href="#匹配分支上的属性">匹配分支上的属性</a></h2>
-<p>可以在匹配分支上使用外部属性。
+<p>可以在匹配分支上使用外围属性。
 在匹配分支上具有意义的属性只有 <a href="../conditional-compilation.html"><code>cfg</code></a> 和 <a href="../attributes/diagnostics.html#lint-check-attributes">代码分析检查属性</a> 。
 <a href="../attributes.html">内部属性</a> 可以直接放置在匹配表达式的左括号后面，在与 <a href="block-expr.html#attributes-on-block-expressions">块表达式上的属性</a> 相同的表达式上下文中。</p>
 
@@ -304,5 +307,6 @@ assert_eq!(i.get(), 2);
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -184,20 +187,20 @@
 <p>以下示例展示了如何使用 <code>allow</code> 和 <code>warn</code> 来打开和关闭特定检查:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>#[warn(missing_docs)]
+</span>#[warn(missing_docs)] // 发出警告：缺失文档注释
 pub mod m2 {
-    #[allow(missing_docs)]
+    #[allow(missing_docs)] // 忽略警告：缺失文档注释
     pub mod nested {
-        // 忽略这里缺失的文档
+        // 缺失文档注释，被忽略
         pub fn undocumented_one() -&gt; i32 { 1 }
 
-        // 这里缺失的文档会产生警告，
-        // 即使之前有一个允许缺失文档的 #[allow(missing_docs)]
+        // 缺失文档注释，发出警告
+        // 尽管上面有 allow 指示忽略警告
         #[warn(missing_docs)]
         pub fn undocumented_two() -&gt; i32 { 2 }
     }
 
-    // 这里缺失的文档会产生警告
+    // 缺失文档注释，发出警告
     pub fn undocumented_too() -&gt; i32 { 3 }
 }
 <span class="boring">}</span></code></pre></pre>
@@ -432,5 +435,6 @@ let _ = five();
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

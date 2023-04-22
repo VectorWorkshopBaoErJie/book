@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -163,7 +166,7 @@
 那些不是 <a href="../std/marker/trait.Sized.html"><code>Sized</code></a> 的类型称为 <a href="dynamically-sized-types.html">动态大小类型</a> 。由于所有 <code>Sized</code> 类型的值都共享相同的大小和对齐，因此我们将这些共享值称为类型的大小和类型的对齐值。</p>
 <h2 id="原始数据布局"><a class="header" href="#原始数据布局">原始数据布局</a></h2>
 <p>这张表格给出了大多数原始类型的大小。</p>
-<div class="table-wrapper"><table><thead><tr><th>Type</th><th><code>size_of::&lt;Type&gt;()</code></th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>类型</th><th><code>size_of::&lt;Type&gt;()</code></th></tr></thead><tbody>
 <tr><td><code>bool</code></td><td>1</td></tr>
 <tr><td><code>u8</code> / <code>i8</code></td><td>1</td></tr>
 <tr><td><code>u16</code> / <code>i16</code></td><td>2</td></tr>
@@ -181,7 +184,7 @@
 <p>指针和引用具有相同的布局。指针或引用的可变性不会改变其布局。指向有大小的类型的指针与 <code>usize</code> 具有相同的大小和对齐方式。
 指向无大小的类型的指针是有大小的。其大小和对齐方式保证至少等于一个指针的大小和对齐方式。</p>
 <blockquote>
-<p>注意: 虽然您不应该依赖此信息，但是所有指向动态大小类型的指针目前都是 <code>usize</code> 大小的两倍，并具有相同的对齐方式。</p>
+<p>注意: 虽然你不应该依赖此信息，但是所有指向动态大小类型的指针目前都是 <code>usize</code> 大小的两倍，并具有相同的对齐方式。</p>
 </blockquote>
 <h2 id="数组布局"><a class="header" href="#数组布局">数组布局</a></h2>
 <p>一个 <code>[T; N]</code> 的数组大小为 <code>size_of::&lt;T&gt;() * N</code> ，并且具有与 <code>T</code> 相同的对齐方式。
@@ -196,12 +199,12 @@
 <h2 id="元组布局"><a class="header" href="#元组布局">元组布局</a></h2>
 <p>元组的布局遵循 <a href="#the-default-representation">默认表示</a> 。</p>
 <p>例外情况是空元组 (<code>()</code>) ，它被保证作为零大小的类型，大小为 0 ，对齐为 1 。</p>
-<h2 id="trait-object-布局"><a class="header" href="#trait-object-布局">Trait Object 布局</a></h2>
+<h2 id="trait-对象布局"><a class="header" href="#trait-对象布局">Trait 对象布局</a></h2>
 <p>Trait 对象的布局与其包含的值相同。</p>
 <blockquote>
-<p>注意: 这里是指原始的 Trait Object 类型，而不是指指针 (如 <code>&amp;dyn Trait</code> 、 <code>Box&lt;dyn Trait&gt;</code> 等) 到 Trait Object 的类型。</p>
+<p>注意: 这里是指原始的 Trait 对象类型，而不是指指针 (如 <code>&amp;dyn Trait</code> 、 <code>Box&lt;dyn Trait&gt;</code> 等) 到 Trait 对象的类型。</p>
 </blockquote>
-<h2 id="闭包的布局"><a class="header" href="#闭包的布局">闭包的布局</a></h2>
+<h2 id="闭包布局"><a class="header" href="#闭包布局">闭包布局</a></h2>
 <p>闭包没有布局的保证。</p>
 <h2 id="表示形式"><a class="header" href="#表示形式">表示形式</a></h2>
 <p>所有用户定义的复合类型 ( <code>struct</code> 、 <code>enum</code> 和 <code>union</code> ) 都有一个 <em>表示形式</em> ，用于指定类型的布局。
@@ -249,7 +252,7 @@ struct AlignedStruct {
 <h3 id="默认表示形式"><a class="header" href="#默认表示形式">默认表示形式</a></h3>
 <p>没有 <code>repr</code> 属性的名义类型采用默认表示形式。非正式地说，这个表示形式也被称为 <code>rust</code> 表示形式。此表示形式所做的唯一数据布局保证是为了保持正确性。它们是:</p>
 <ol>
-<li>字段对齐正确。</li>
+<li>字段正确对齐。</li>
 <li>字段不重叠。</li>
 <li>类型的对齐方式至少是其字段的最大对齐方式。</li>
 </ol>
@@ -396,7 +399,7 @@ struct MyBFields(f32, u64);
 #[derive(Copy, Clone)]
 struct MyCFields { x: u32, y: u8 }
 
-// 这个结构体可以省略 (它是零大小的类型) ，并且它必须在C/C++头文件中。
+// 这个结构体可以省略 (它是零大小的类型) ，并且它必须在 C/C++ 头文件中。
 #[repr(C)]
 #[derive(Copy, Clone)]
 struct MyDFields;
@@ -464,7 +467,7 @@ struct MyVariantD(MyEnumDiscriminant);
 </blockquote>
 <h4 id="将带字段的枚举的原始表示与-reprc-结合使用"><a class="header" href="#将带字段的枚举的原始表示与-reprc-结合使用">将带字段的枚举的原始表示与 <code>#[repr(C)]</code> 结合使用</a></h4>
 <p>对于带字段的枚举，还可以将 <code>repr(C)</code> 和原始表示 (例如 <code>repr(C, u8)</code>) 结合使用。这会修改 <a href="#reprc-enums-with-fields"><code>repr(C)</code></a> ，将鉴别器枚举的表示方式更改为所选择的原始表示。
-因此，如果您选择了 <code>u8</code> 表示方式，则鉴别器枚举的大小和对齐方式将为 1 字节。来自 <a href="#reprc-enums-with-fields">之前</a> 示例的鉴别器枚举如下：</p>
+因此，如果你选择了 <code>u8</code> 表示方式，则鉴别器枚举的大小和对齐方式将为 1 字节。来自 <a href="#reprc-enums-with-fields">之前</a> 示例的鉴别器枚举如下：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[repr(C, u8)] // 添加了 `u8`
@@ -587,5 +590,6 @@ assert_eq!(std::mem::size_of::&lt;Enum16&gt;(), 4);
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -166,7 +169,7 @@
    | <code>[</code> <em>Token树</em><sup>*</sup> <code>]</code><br />
    | <code>{</code> <em>Token树</em><sup>*</sup> <code>}</code></p>
 <p><em>Token树</em> :<br />
-   <a href="tokens.html"><em>Token</em></a><sub><em>不包括 <a href="tokens.html#delimiters">分隔符</a></em></sub> | <em>定界Token树</em></p>
+   <a href="tokens.html"><em>Token</em></a><sub><em>不包括 <a href="tokens.html#delimiters">定界符号</a></em></sub> | <em>定界Token树</em></p>
 <p><em>宏调用语句</em> :<br />
       <a href="paths.html#simple-paths"><em>简单路径</em></a> <code>!</code> <code>(</code> <em>Token树</em><sup>*</sup> <code>)</code> <code>;</code><br />
    | <a href="paths.html#simple-paths"><em>简单路径</em></a> <code>!</code> <code>[</code> <em>Token树</em><sup>*</sup> <code>]</code> <code>;</code><br />
@@ -178,10 +181,10 @@
 <li><a href="patterns.html">模式</a></li>
 <li><a href="types.html">类型</a></li>
 <li><a href="items.html">条目</a> 包括 <a href="items/associated-items.html">关联条目</a></li>
-<li><a href="macros-by-example.html"><code>macro_rules</code></a> 转换器</li>
+<li><a href="macros-by-example.html"><code>macro_rules</code></a> 转录器</li>
 <li><a href="items/external-blocks.html">外部块</a> </li>
 </ul>
-<p>当它被用作条目或语句时，使用 <code>_宏调用语句_</code> 形式，当不使用花括号时需要在末尾加上分号。
+<p>当它被用作条目或语句时，使用 <em>宏调用语句</em> 形式，当不使用花括号时需要在末尾加上分号。
 在宏调用或 <a href="macros-by-example.html"><code>macro_rules</code></a> 定义之前，不允许出现 <a href="visibility-and-privacy.html">可见性限定符</a> 。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -275,5 +278,6 @@ example!();
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -181,7 +184,7 @@ pub enum State {
 }</code></pre></pre>
 <p>在 Rust 中，通过将条目定义为公共或私有，允许在以下两种情况下访问条目：</p>
 <ol>
-<li>如果条目是公共的，则可以从一些模块 <code>m</code> 外部访问它，如果您可以从 <code>m</code> 访问所有条目的祖先模块，则还可以通过重新导出的方式命名该条目。</li>
+<li>如果条目是公共的，则可以从一些模块 <code>m</code> 外部访问它，如果你可以从 <code>m</code> 访问所有条目的祖先模块，则还可以通过重新导出的方式命名该条目。</li>
 <li>如果条目是私有的，则当前模块及其后代可以访问它。</li>
 </ol>
 <p>这两种情况对于创建公开 API 的模块层次结构并隐藏内部实现细节非常有用。以下是一些用例及其含义：</p>
@@ -358,5 +361,6 @@ mod implementation {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

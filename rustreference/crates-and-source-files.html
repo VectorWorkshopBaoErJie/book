@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -175,7 +178,7 @@ UTF8BOM : <code>\uFEFF</code><br />
 这个树的最高层是一个匿名模块，任何 crate 中的条目都有一个规范的 <a href="paths.html">模块路径</a> 来表示它在 crate 的模块树中的位置。</p>
 <p>Rust 编译器总是使用单个源文件作为输入，并始终产生单个输出 crate 。
 处理该源文件可能会导致其他源文件作为模块被加载。源文件的扩展名为<code>.rs</code>。</p>
-<p>一个 Rust 的源文件描述了一个模块，它的名称和位置是在源文件之外定义的，即通过引用源文件中的 <a href="items/modules.html">Module</a> 条目，或者通过 crate 自身的名称。
+<p>一个 Rust 的源文件描述了一个模块，它的名称和位置是在源文件之外定义的，即通过引用源文件中的 <a href="items/modules.html">模块</a> 条目，或者通过 crate 自身的名称。
 每个源文件都是一个模块，但不是每个模块都需要自己的源文件：<a href="items/modules.html">模块定义</a> 可以在一个文件中嵌套。</p>
 <p>每个源文件包含零个或多个 <a href="items.html"><em>条目</em></a> 定义，可以选择地以任意数量的 <a href="attributes.html">属性</a> 开头，这些属性适用于包含的模块，大多数属性都会影响编译器的行为。
 匿名的 crate 模块可以有适用于整个 crate 的附加属性。</p>
@@ -235,7 +238,7 @@ fn main() {
 <p><code>no_main</code> 属性可以应用于 crate 级别，用于禁用可执行二进制文件的 <code>main</code> 符号的输出。
 这在被链接到某个定义了 <code>main</code> 的其他对象时非常有用。</p>
 <h2 id="crate_name-属性"><a class="header" href="#crate_name-属性"><code>crate_name</code> 属性</a></h2>
-<p><code>crate_name</code> 属性可以应用于 crate 层级，使用 <a href="attributes.html#meta-item-attribute-syntax"><em>元名称值字符串</em></a> 语法指定 crate 名称。</p>
+<p><em><code>crate_name</code> <a href="attributes.html">属性</a></em> 可以应用于 crate 层级，使用 <a href="attributes.html#meta-item-attribute-syntax"><em>元名称值字符串</em></a> 语法指定 crate 名称。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span>#![crate_name = &quot;mycrate&quot;]
 <span class="boring">fn main() {
@@ -309,5 +312,6 @@ fn main() {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

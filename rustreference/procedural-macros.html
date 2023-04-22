@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -178,8 +181,8 @@ proc-macro = true
 <p>过程宏 crate 几乎总是链接编译器提供的 <a href="../proc_macro/index.html"><code>proc_macro</code> crate</a> 。
 <code>proc_macro</code> crate 提供了编写过程宏所需的类型和功能，使其更加容易。</p>
 <p>这个 crate 主要包含一个 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 类型。
-过程宏在 <em>token streams</em> 流上操作，而不是 AST 节点，这对编译器和过程宏来说是更稳定的接口。
-<em>token streams</em> 大致相当于 <code>Vec&lt;TokenTree&gt;</code> ，其中 <code>TokenTree</code> 可以大致认为是词法 Token 。
+过程宏在 <em>token 流</em> 上操作，而不是 AST 节点，这对编译器和过程宏来说是更稳定的接口。
+<em>token 流</em> 大致相当于 <code>Vec&lt;TokenTree&gt;</code> ，其中 <code>TokenTree</code> 可以大致认为是词法 Token 。
 例如 <code>foo</code> 是 <code>Ident</code> 标记， <code>.</code> 是 <code>Punct</code> 标记，而 <code>1.2</code> 是 <code>Literal</code> 标记。与 <code>Vec&lt;TokenTree&gt;</code> 不同，<code>TokenStream</code> 类型克隆更轻便。</p>
 <p>所有 Token 都有一个相关的 <code>Span</code> 。
 <code>Span</code> 是一个不透明的值，不能被修改，但可以被制造。
@@ -216,14 +219,14 @@ fn main() {
     println!(&quot;{}&quot;, answer());
 }</code></pre>
 <p>函数式过程宏可以在任何宏调用式位置被调用，其中包括 <a href="statements.html">语句</a> 、 <a href="expressions.html">表达式</a> 、 <a href="patterns.html">模式</a> 、 <a href="types.html#type-expressions">类型表达式</a> 、 <a href="items.html">条目</a> ，
-包括 <a href="items/external-blocks.html"><code>extern</code> blocks</a> 中的条目，内部 和 trait <a href="items/implementations.html">实现</a> ，以及 <a href="items/traits.html">trait 定义</a> 。</p>
+包括 <a href="items/external-blocks.html"><code>extern</code> 块</a> 中的条目，内部 和 trait <a href="items/implementations.html">实现</a> ，以及 <a href="items/traits.html">trait 定义</a> 。</p>
 <h3 id="衍生宏"><a class="header" href="#衍生宏">衍生宏</a></h3>
 <p><em>衍生宏</em> 为 <a href="attributes/derive.html"><code>derive</code> 属性</a> 定义新输入。
 这些宏可以根据 <a href="items/structs.html">struct</a> 、 <a href="items/enumerations.html">enum</a> 或 <a href="items/unions.html">union</a> 的 token 流创建新的 <a href="items.html">条目</a> 。
 它们也可以定义 <a href="#derive-macro-helper-attributes">衍生宏辅助属性</a> 。</p>
 <p>自定义衍生宏是由一个 <a href="visibility-and-privacy.html">public</a> <a href="items/functions.html">function</a> 定义的，其属性为 <code>proc_macro_derive</code> ，签名为 <code>(TokenStream) -&gt; TokenStream</code> 。</p>
 <p>输入 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 是具有 <code>derive</code> 属性条目的 token 流。
-输出 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 必须是一组条目，然后附加到输入 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 的条目所在的 <a href="items/modules.html">module</a> 或 <a href="expressions/block-expr.html">block</a> 。</p>
+输出 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 必须是一组条目，然后附加到输入 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 的条目所在的 <a href="items/modules.html">模块</a> 或 <a href="expressions/block-expr.html">块</a> 。</p>
 <p>下面是一个衍生宏的例子。它没有对其输入做任何有用的事情，而只是附加了一个函数 <code>answer</code> 。</p>
 <!-- ignore: test doesn't support proc-macro -->
 <pre><code class="language-rust ignore"><span class="boring">#![crate_type = &quot;proc-macro&quot;]
@@ -269,9 +272,9 @@ struct Struct {
 }</code></pre>
 <h3 id="属性宏"><a class="header" href="#属性宏">属性宏</a></h3>
 <p><em>属性宏</em> 定义了新的 <a href="attributes.html">外围属性</a> ，可以附加到 <a href="items.html">条目</a> 上，
-包括 <a href="items/external-blocks.html"><code>extern</code> blocks</a> 外部块中的条目，内部 和 trait的 <a href="items/implementations.html">实现</a> ，以及 <a href="items/traits.html">trait 定义</a> 。</p>
+包括 <a href="items/external-blocks.html"><code>extern</code> 块</a> 外部块中的条目，内部 和 trait的 <a href="items/implementations.html">实现</a> ，以及 <a href="items/traits.html">trait 定义</a> 。</p>
 <p>属性宏是由带有 <code>proc_macro_attribute</code> <a href="attributes.html">attribute</a> 的 <a href="visibility-and-privacy.html">public</a> <a href="items/functions.html">function</a> 定义的，其签名为 <code>(TokenStream, TokenStream) -&gt; TokenStream</code> 。
-第一个 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 是属性名称后面的分隔的 token 树，不包括外部分隔符号。
+第一个 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 是属性名称后面的分隔的 token 树，不包括外部定界符号。
 如果属性被写成裸属性名，则属性 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 是空的。
 第二个 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 是 <a href="items.html">条目</a> 的其他部分，包括 <a href="items.html">条目</a> 上的其他 <a href="attributes.html">属性</a> 。
 返回的 <a href="../proc_macro/struct.TokenStream.html"><code>TokenStream</code></a> 用任意数量的 <a href="items.html">条目</a> 替换 <a href="items.html">条目</a> 。</p>
@@ -329,7 +332,7 @@ fn invoke4() {}
 // out: item: &quot;fn invoke4() {}&quot;</code></pre>
 <h3 id="声明宏-token-和过程宏-token"><a class="header" href="#声明宏-token-和过程宏-token">声明宏 Token 和过程宏 Token</a></h3>
 <p>声明 <code>macro_rules</code> 宏和过程宏使用是类似的，但是不同的 Token (或者说 <a href="../proc_macro/enum.TokenTree.html"><code>TokenTree</code>s</a> ) 定义。</p>
-<p>在 <code>macro_rules</code> 中的 Token 树 (对应于 <code>tt</code> matcher) 被定义为</p>
+<p>在 <code>macro_rules</code> 中的 Token 树 (对应于 <code>tt</code> 匹配器) 被定义为</p>
 <ul>
 <li>限定的组 (<code>(...)</code>, <code>{...}</code>, 等) 。</li>
 <li>语言支持的所有运算符，包括单字符和多字符的运算符 (<code>+</code>, <code>+=</code>) 。
@@ -365,7 +368,7 @@ fn invoke4() {}
 <li>生命周期分解成一个 <code>'</code> 字符和一个标识符。</li>
 <li>所有元变量的替换都表示为它们实际的 Token 流。
 <ul>
-<li>当需要保留语法分析的优先级时，这样的 Token 流可以被包装成带有隐含限定符号 ([Delimiter::None]) 的限定组 ([Group]) 。</li>
+<li>当需要保留语法分析的优先级时，这样的 Token 流可以被包装成带有隐式定界符号 ([Delimiter::None]) 的限定组 ([Group]) 。</li>
 <li><code>tt</code> 和 <code>ident</code> 的替换从来不会被包裹在这样的组中，而总是作为它们的实际的 Token 树来表示。</li>
 </ul>
 </li>
@@ -374,7 +377,7 @@ fn invoke4() {}
 <ul>
 <li>在适用的情况下，标点符号被粘接在多字符运算符中。</li>
 <li>与标识符连接的单引号 <code>'</code> 被粘接在生命周期中。</li>
-<li>负字面值被转换为两个标记 ( <code>-</code> 和字面值 )，当需要保留语法分析的优先级时，可能会被包裹在一个带限定符号的组 (<a href="../proc_macro/struct.Group.html"><code>Group</code></a>) 中，并带有隐式限定符 (<a href="../proc_macro/enum.Delimiter.html#variant.None"><code>Delimiter::None</code></a>) 。</li>
+<li>负字面值被转换为两个标记 ( <code>-</code> 和字面值 )，当需要保留语法分析的优先级时，可能会被包裹在一个带限定符号的组 (<a href="../proc_macro/struct.Group.html"><code>Group</code></a>) 中，并带有隐式定界符号 (<a href="../proc_macro/enum.Delimiter.html#variant.None"><code>Delimiter::None</code></a>) 。</li>
 </ul>
 <p>请注意，无论是声明性的还是过程性的宏都不支持 doc 注释标记 (例如 <code>/// Doc</code> ) ，当其传递给宏时，总是转换为表示其等价的 <code>#[doc = r&quot;str&quot;]</code> 属性的 Token 流。</p>
 
@@ -426,5 +429,6 @@ fn invoke4() {}
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

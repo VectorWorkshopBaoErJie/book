@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -359,9 +362,28 @@ assert_eq!(last, 12);
 <em>标签块表达式</em> :<br />
    <a href="block-expr.html"><em>块表达式</em></a></p>
 </blockquote>
-<p>带标签的块表达式与普通块表达式完全相同，只不过它们允许在块内使用 <code>break</code> 表达式。
-与其他循环不同，带标签的块表达式中的 <code>break</code> 表达式 <em>必须</em> 有一个标签 (即标签不是可选的) 。
-此外，与其他循环不同，带标签的块表达式 <em>必须</em> 以标签开始。</p>
+<p>带标签的块表达式与普通的块表达式非常相似，但是允许在块中使用 <code>break</code> 表达式。
+与循环不同，标签块表达式中的 <code>break</code> 表达式必须有一个标签 (即标签是必须的)。
+同样地，标签块表达式 <em>必须</em> 以标签开始。</p>
+<pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">fn do_thing() {}
+</span><span class="boring">fn condition_not_met() -&gt; bool { true }
+</span><span class="boring">fn do_next_thing() {}
+</span><span class="boring">fn do_last_thing() {}
+</span>let result = 'block: {
+    do_thing();
+    if condition_not_met() {
+        break 'block 1;
+    }
+    do_next_thing();
+    if condition_not_met() {
+        break 'block 2;
+    }
+    do_last_thing();
+    3
+};
+<span class="boring">}</span></code></pre></pre>
 <h2 id="continue-表达式"><a class="header" href="#continue-表达式"><code>continue</code> 表达式</a></h2>
 <blockquote>
 <p><strong><sup>语法</sup></strong><br />
@@ -440,5 +462,6 @@ assert_eq!(result, 13);
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -157,12 +160,12 @@
       <em>外部条目</em><sup>*</sup><br />
    <code>}</code></p>
 <p><em>外部条目</em> :<br />
-   <a href="../attributes.html"><em>外部属性</em></a><sup>*</sup> (<br />
+   <a href="../attributes.html"><em>外围属性</em></a><sup>*</sup> (<br />
          <a href="../macros.html#macro-invocation"><em>宏调用语句</em></a><br />
       | ( <a href="../visibility-and-privacy.html"><em>可见性</em></a><sup>?</sup> ( <a href="static-items.html"><em>静态条目</em></a> | <a href="functions.html"><em>函数</em></a> ) )<br />
    )</p>
 </blockquote>
-<p>外部块提供了在当前 crate 中未定义的项的 <em>声明</em> ，并且是 Rust 实现外部函数接口 (FFI) 的基础。这类似于未经检查的导入。</p>
+<p>外部块提供了在当前 crate 中未定义的条目的 <em>声明</em> ，并且是 Rust 实现外部函数接口 (FFI) 的基础。这类似于未经检查的导入。</p>
 <p>在外部块中允许两种条目声明： <a href="functions.html">函数</a> 和 <a href="static-items.html">静态变量</a> 。
 仅在 <code>unsafe</code> 上下文中才允许调用外部块中声明的函数或访问静态变量。</p>
 <p><code>unsafe</code> 关键字在 <code>extern</code> 关键字之前语法上是被允许的，但是在语义层面上会被拒绝。
@@ -203,6 +206,7 @@ extern &quot;stdcall&quot; { }
 <li><code>extern &quot;aapcs&quot;</code> -- ARM 的默认 ABI。</li>
 <li><code>extern &quot;fastcall&quot;</code> -- <code>fastcall</code> ABI，对应于 MSVC 的 <code>__fastcall</code> 和 GCC 和 clang 的 <code>__attribute__((fastcall))</code> 。</li>
 <li><code>extern &quot;vectorcall&quot;</code>-- <code>vectorcall</code> ABI，对应于 MSVC 的 <code>__vectorcall</code> 和 clang 的 <code>__attribute__((vectorcall))</code> 。</li>
+<li><code>extern &quot;efiapi&quot;</code> -- 用于 <a href="https://uefi.org/specifications">UEFI</a> 函数的 ABI。</li>
 </ul>
 <h2 id="可变函数"><a class="header" href="#可变函数">可变函数</a></h2>
 <p>在外部块中的函数可以通过将 <code>...</code> 指定最后一个参数为变参。
@@ -249,7 +253,7 @@ extern {
     // …
 }</code></pre>
 <p>可以在空的外部块上添加 <code>link</code> 属性。
-您可以使用它来满足代码中其他地方 (包括上游 crates) 的 extern 块的链接要求，而不是为每个 extern 块都添加属性。</p>
+你可以使用它来满足代码中其他地方 (包括上游 crates) 的外部块的链接要求，而不是为每个外部块都添加属性。</p>
 <h4 id="链接修饰符-bundle"><a class="header" href="#链接修饰符-bundle">链接修饰符: <code>bundle</code></a></h4>
 <p>此修饰符仅与 <code>static</code> 链接类型兼容。使用任何其他类型都会导致编译器错误。</p>
 <p>在构建 rlib 或 staticlib 时， <code>+bundle</code> 表示本地静态库将被打包到 rlib 或 staticlib 归档中，然后在链接最终二进制文件时从其中检索出来。</p>
@@ -350,5 +354,6 @@ extern &quot;stdcall&quot; {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

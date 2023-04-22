@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -193,11 +196,11 @@ union MyUnion {
 </span>let f = unsafe { u.f1 };
 <span class="boring">}</span></code></pre></pre>
 <h2 id="读取和写入联合体字段"><a class="header" href="#读取和写入联合体字段">读取和写入联合体字段</a></h2>
-<p>联合体没有 &quot;活动字段&quot; 的概念。每次访问联合体时，只会解释用于访问的字段类型的存储。
-读取联合体字段按位读取字段类型。
-字段可能具有非零偏移量 (除非使用 <a href="../type-layout.html#reprc-unions">C表示法</a>) ；在这种情况下，从字段偏移处开始读取位。程序员有责任确保数据在字段类型上是有效的。
-未能这样做会导致 <a href="../behavior-considered-undefined.html">未定义行为</a> 。例如，通过 <a href="../types/boolean.html">布尔类型</a> 字段读取值 <code>3</code> 是未定义行为。
-实际上，使用 <a href="../type-layout.html#reprc-unions">C表示法</a> 写入并然后读取联合体类似于从用于写入的类型到用于读取的类型的 <a href="../../std/mem/fn.transmute.html"><code>transmute</code></a>  &quot;质变&quot;。</p>
+<p>联合体没有 &quot;活动字段&quot; 的概念。相反，每次联合体访问只是将存储解释为用于访问的字段类型。
+读取联合体字段会读取字段类型的联合体的位。字段可能具有非零偏移量 (除非使用了 <a href="../type-layout.html#reprc-unions">C表示法</a>)；在这种情况下，从字段偏移处开始的位将被读取。
+程序员有责任确保数据在字段类型上是有效的。未能这样做会导致 <a href="../behavior-considered-undefined.html">未定义的行为</a> 。
+例如，从 <a href="../types/boolean.html">布尔类型</a> 的字段读取值 <code>3</code> 是未定义行为。
+实际上，使用 <a href="../type-layout.html#reprc-unions">C表示法</a> 写入然后读取联合体类似于从用于写入的类型到用于读取的类型的 <a href="../../std/mem/fn.transmute.html"><code>形变</code></a> 。</p>
 <p>因此，所有对联合体字段的读取都必须放在 <code>unsafe</code> 块中:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -329,5 +332,6 @@ fn test() {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

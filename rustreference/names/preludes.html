@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -150,7 +153,7 @@
                     <main>
                         <h1 id="预定义"><a class="header" href="#预定义">预定义</a></h1>
 <p><em>预定义</em> 是一组自动引入到一个 crate 中每个模块作用域的名称。</p>
-<p>这些预定义名称不是模块本身的一部分: 它们在 <a href="name-resolution.html">命名解析</a> 期间隐式查询。例如，即使像 <a href="../../std/boxed/struct.Box.html"><code>Box</code></a> 这样的内容在每个模块中都处于作用域中，但您无法将其称为 <code>self::Box</code> ，因为它不是当前模块的成员。</p>
+<p>这些预定义名称不是模块本身的一部分: 它们在 <a href="name-resolution.html">命名解析</a> 期间隐式查询。例如，即使像 <a href="../../std/boxed/struct.Box.html"><code>Box</code></a> 这样的内容在每个模块中都处于作用域中，但你无法将其称为 <code>self::Box</code> ，因为它不是当前模块的成员。</p>
 <p>有几个不同的预定义:</p>
 <ul>
 <li><a href="#standard-library-prelude">标准库预定义</a></li>
@@ -283,5 +286,6 @@ use alloc::rc::Rc;
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

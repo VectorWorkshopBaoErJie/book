@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -160,7 +163,7 @@
 <p><em>结构体表达式字段组</em> :<br />
    <em>结构体表达式字段</em> (<code>,</code> <em>结构体表达式字段</em>)<sup>*</sup> (<code>,</code> <em>结构体省略</em> | <code>,</code><sup>?</sup>)</p>
 <p><em>结构体表达式字段</em> :<br />
-   <a href="../attributes.html"><em>外部属性</em></a> <sup>*</sup><br />
+   <a href="../attributes.html"><em>外围属性</em></a> <sup>*</sup><br />
    (<br />
          <a href="../identifiers.html">标识符</a><br />
       | (<a href="../identifiers.html">标识符</a> | <a href="../tokens.html#tuple-index">元组索引</a>) <code>:</code> <a href="../expressions.html"><em>表达式</em></a><br />
@@ -191,7 +194,7 @@ let u = game::User {name: &quot;Joe&quot;, age: 35, score: 100_000};
 some_fn::&lt;Cookie&gt;(Cookie);
 <span class="boring">}</span></code></pre></pre>
 <h2 id="字段结构体表达式"><a class="header" href="#字段结构体表达式">字段结构体表达式</a></h2>
-<p>带有花括号括起来的字段结构体表达式允许您以任何顺序指定每个单独字段的值。字段名称用冒号与其值分开。</p>
+<p>带有花括号括起来的字段结构体表达式允许你以任何顺序指定每个单独字段的值。字段名称用冒号与其值分开。</p>
 <p><a href="../items/unions.html">联合体</a> 类型的值只能使用此语法创建，并且必须指定一个字段。</p>
 <h2 id="函数式更新语法"><a class="header" href="#函数式更新语法">函数式更新语法</a></h2>
 <p>用于构造结构体类型值的结构体表达式可以以 <code>..</code> 语法结尾，后跟表达式，表示函数式更新。
@@ -206,9 +209,9 @@ let y_ref = &amp;mut base.y;
 Point3d {y: 0, z: 10, .. base}; // 成功, 仅 base.x 是被访问
 drop(y_ref);
 <span class="boring">}</span></code></pre></pre>
-<p>结构体表达式使用花括号括起来的字段，可以在 <a href="loop-expr.html">loop</a> 或 <a href="if-expr.html#if-expressions">if</a> 表达式的头部， <a href="if-expr.html#if-let-expressions">if let</a> 或 <a href="match-expr.html">match</a> 表达式的 <a href="../glossary.html#scrutinee">被匹配项</a> 中不能直接使用。
-但是，如果它们位于另一个表达式中，例如括号中，那么就可以在这些情况下使用结构体表达式。</p>
-<p>字段名可以是十进制整数值，用于构造元组结构体的索引。这可以与基础结构体一起使用，以填充未指定的其余索引:</p>
+<p>带大括号的结构体表达式不能直接用于 <a href="loop-expr.html">loop</a> 或 <a href="if-expr.html#if-expressions">if</a> 表达式头部，也不能用于 <a href="if-expr.html#if-let-expressions">if let</a> 或 <a href="match-expr.html">match</a> 表达式的 <a href="../glossary.html#scrutinee">被匹配项</a>。
+但是，如果结构体表达式在另一个表达式中，例如在 <a href="grouped-expr.html">括号</a> 中，它们就可以在这些情况下使用。</p>
+<p>字段名称可以是十进制整数值，用于指定用于构造元组结构体的索引。这可以与基础结构体一起使用，以填充未指定的其余索引:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>struct Color(u8, u8, u8); // 定义一个名为Color的元组结构体
@@ -299,5 +302,6 @@ let b = Gamma{};  // 与 `a` 完全相同的值。
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

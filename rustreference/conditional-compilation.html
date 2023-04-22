@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -169,7 +172,7 @@
 </blockquote>
 <p><em>条件编译源代码</em> 是指根据某些条件来确定是否将其部分源代码不作为或者作为源代码的一部分。</p>
 <!-- This definition is sort of vacuous --> 
-<p>可以使用 <a href="attributes.html">attributes</a> <a href="#the-cfg-attribute"><code>cfg</code></a> 和 <a href="#the-cfg_attr-attribute"><code>cfg_attr</code></a> 以及内置的 <a href="#the-cfg-macro"><code>cfg</code> 宏</a> 条件编译源代码。
+<p>可以使用 <a href="attributes.html">属性</a> <a href="#the-cfg-attribute"><code>cfg</code></a> 和 <a href="#the-cfg_attr-attribute"><code>cfg_attr</code></a> 以及内置的 <a href="#the-cfg-macro"><code>cfg</code> 宏</a> 条件编译源代码。
 这些条件是基于编译的 crate 的目标架构、传递给编译器的任意值和其他一些细节进行确定的，下面将对其进行详细描述。</p>
 <p>每种形式的条件编译都需要有配置断言，该断言评估为 true 或 false。断言有以下几种形式：</p>
 <ul>
@@ -297,13 +300,13 @@
 </ul>
 <h3 id="test"><a class="header" href="#test"><code>test</code></a></h3>
 <p>该选项在编译测试套件时启用，可以通过在使用 <code>rustc</code> 时加上 <a href="../rustc/command-line-arguments.html#--test-build-a-test-harness"><code>--test</code></a> 标志来实现。
-有关测试支持的更多信息，请参见 <a href="attributes/testing.html">Testing</a> 。</p>
+有关测试支持的更多信息，请参见 <a href="attributes/testing.html">测试</a> 。</p>
 <h3 id="debug_assertions"><a class="header" href="#debug_assertions"><code>debug_assertions</code></a></h3>
 <p>在没有开启优化的情况下，默认启用。
 这可以在开发时启用额外的调试代码，但不用于生产。
 例如，它控制标准库中的 <a href="../std/macro.debug_assert.html"><code>debug_assert!</code></a> 宏的行为。</p>
 <h3 id="proc_macro"><a class="header" href="#proc_macro"><code>proc_macro</code></a></h3>
-<p>当编译的 crate 使用 <code>proc_macro</code> <a href="linkage.html">crate type</a> 时被设置。</p>
+<p>当编译的 crate 使用 <code>proc_macro</code> <a href="linkage.html">crate 类型</a> 时被设置。</p>
 <h3 id="panic"><a class="header" href="#panic"><code>panic</code></a></h3>
 <p>键值选项，根据 panic 策略设置而定。请注意，将来可能会添加更多值。</p>
 <p>示例值:</p>
@@ -319,7 +322,7 @@
    <code>cfg</code> <code>(</code> <em>配置断言</em> <code>)</code></p>
 </blockquote>
 <!-- should we say they're active attributes here? -->
-<p><code>cfg</code> 属性是一个条件包含器，根据一系列配置判断来决定是否包含它所附着的目标。</p>
+<p><code>cfg</code> <a href="attributes.html">属性</a>是一个条件包含器，根据一系列配置判断来决定是否包含它所附着的目标。</p>
 <p>它的语法是 <code>cfg</code>  <code>(</code> 配置断言语句 <code>)</code> 。</p>
 <p>如果断言为 true，则将该条件附加到的条目重新编写，不再具有 <code>cfg</code> 属性。
 如果断言为 false，则该条目将从源代码中删除。</p>
@@ -366,7 +369,7 @@ fn when_unwinding() {
 <p><em>CfgAttr组</em> :<br />
    <a href="attributes.html"><em>Attr</em></a> (<code>,</code> <a href="attributes.html"><em>Attr</em></a>)<sup>*</sup> <code>,</code><sup>?</sup></p>
 </blockquote>
-<p><code>cfg_attr</code> 属性会根据条件断言来选择性地包含其他属性。</p>
+<p><code>cfg_attr</code> <a href="attributes.html">属性</a>会根据条件断言来选择性地包含其他属性。</p>
 <p>当配置断言为真时，此属性将展开为断言后列出的属性。
 例如，以下模块将基于目标平台在 <code>linux.rs</code> 或 <code>windows.rs</code> 中找到：</p>
 <!-- ignore: `mod` needs multiple files -->
@@ -452,5 +455,6 @@ println!(&quot;I'm running on a {} machine!&quot;, machine_kind);
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -148,16 +151,16 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="类型强制转换"><a class="header" href="#类型强制转换">类型强制转换</a></h1>
-<p><strong>类型强制转换</strong> 是隐式操作，可以更改值的类型。它们在特定位置自动发生，并且高度限制实际强制转换的类型。
-由类型强制转换允许的任何转换也可以通过 <a href="expressions/operator-expr.html#type-cast-expressions">类型转换运算符</a> <code>as</code> 显式执行。
+                        <h1 id="类型强转"><a class="header" href="#类型强转">类型强转</a></h1>
+<p><strong>类型强转</strong> 是隐式操作，可以更改值的类型。它们在特定位置自动发生，并且高度限制实际强转的类型。
+由类型强转允许的任何转换也可以通过 <a href="expressions/operator-expr.html#type-cast-expressions">类型转换运算符</a> <code>as</code> 显式执行。
 强制转换最初在 <a href="https://github.com/rust-lang/rfcs/blob/master/text/0401-coercions.md">RFC 401</a> 中定义，并在 <a href="https://github.com/rust-lang/rfcs/blob/master/text/1558-closure-to-fn-coercion.md">RFC 1558</a> 中进行了扩展。</p>
-<h2 id="强制转换位置"><a class="header" href="#强制转换位置">强制转换位置</a></h2>
-<p>强制转换只能发生在程序的某些位置；通常这些位置上，期望的类型是显式或可以从显式类型(不需要类型推断)中衍生。可能的强制转换位置包括：</p>
+<h2 id="强转位置"><a class="header" href="#强转位置">强转位置</a></h2>
+<p>强转只能发生在程序的某些位置；通常这些位置上，期望的类型是显式或可以从显式类型(不需要类型推断)中衍生。可能的强制转换位置包括：</p>
 <ul>
 <li>
 <p><code>let</code> 语句中给出显式类型的位置。
-例如，在以下代码中， <code>&amp;mut 42</code> 被强制转换为类型 <code>&amp;i8</code> :</p>
+例如，在以下代码中， <code>&amp;mut 42</code> 被强转为类型 <code>&amp;i8</code> :</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let _: &amp;i8 = &amp;mut 42;
@@ -168,18 +171,18 @@
 </li>
 <li>
 <p>函数调用的参数
-被强制转换的值是实参，将其强制转换为形参的类型。</p>
-<p>例如，在以下代码中，<code>&amp;mut 42</code> 被强制转换为类型 <code>&amp;i8</code> :</p>
+被强制转换的值是实参，将其强转为形参的类型。</p>
+<p>例如，在以下代码中，<code>&amp;mut 42</code> 被强转为类型 <code>&amp;i8</code> :</p>
 <pre><pre class="playground"><code class="language-rust edition2021">fn bar(_: &amp;i8) { }
 
 fn main() {
     bar(&amp;mut 42);
 }</code></pre></pre>
-<p>在方法调用中，接收器 (<code>self</code> 参数) 只能利用 <a href="#unsized-coercions">非定长强制转换</a> 。</p>
+<p>在方法调用中，接收器 (<code>self</code> 参数) 只能利用 <a href="#unsized-coercions">非定长强转</a> 。</p>
 </li>
 <li>
 <p>结构体、联合体或枚举变体字段的实例化</p>
-<p>例如，在以下示例中， <code>&amp;mut 42</code> 被强制转换为类型 <code>&amp;i8</code> ：</p>
+<p>例如，在以下示例中， <code>&amp;mut 42</code> 被强转为类型 <code>&amp;i8</code> ：</p>
 <pre><pre class="playground"><code class="language-rust edition2021">struct Foo&lt;'a&gt; { x: &amp;'a i8 }
 
 fn main() {
@@ -188,7 +191,7 @@ fn main() {
 </li>
 <li>
 <p>函数结果，可以是块的最后一行，如果它不以分号结尾，或者是 <code>return</code> 语句中的任何表达式。</p>
-<p>例如，在以下示例中， <code>x</code> 被强制转换为类型 <code>&amp;dyn Display</code> ：</p>
+<p>例如，在以下示例中， <code>x</code> 被强转为类型 <code>&amp;dyn Display</code> ：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::fmt::Display;
@@ -202,19 +205,19 @@ fn foo(x: &amp;u32) -&gt; &amp;dyn Display {
 传导从这些新的类型转换位置递归进行。传导表达式及其相关子表达式包括:</p>
 <ul>
 <li>
-<p>数组字面值，数组类型为 <code>[U; n]</code> 。数组字面值中的每个子表达式都是类型强制转换到类型 <code>U</code> 的强制转换位置。</p>
+<p>数组字面值，数组类型为 <code>[U; n]</code> 。数组字面值中的每个子表达式都是类型强转到类型 <code>U</code> 的强转位置。</p>
 </li>
 <li>
-<p>带有重复语法的数组字面值，数组类型为 <code>[U; n]</code> 。重复的子表达式是类型强制转换到类型 <code>U</code> 的强制转换位置。</p>
+<p>带有重复语法的数组字面值，数组类型为 <code>[U; n]</code> 。重复的子表达式是类型强转到类型 <code>U</code> 的强转位置。</p>
 </li>
 <li>
-<p>元组，其中元组是类型强制转换到类型 <code>(U_0, U_1, ..., U_n)</code> 的强制转换位置。每个子表达式都是相应类型的类型转换位置，例如，第零个子表达式是类型强制转换到类型 <code>U_0</code> 的强制转换位置。</p>
+<p>元组，其中元组是类型强转到类型 <code>(U_0, U_1, ..., U_n)</code> 的强转位置。每个子表达式都是相应类型的类型转换位置，例如，第零个子表达式是类型强转到类型 <code>U_0</code> 的强转位置。</p>
 </li>
 <li>
-<p>括号中的子表达式 (<code>(e)</code>) : 如果表达式的类型是 <code>U</code> ，那么子表达式就是类型强制转换到 <code>U</code> 的强制转换位置。</p>
+<p>括号中的子表达式 (<code>(e)</code>) : 如果表达式的类型是 <code>U</code> ，那么子表达式就是类型强转到 <code>U</code> 的强转位置。</p>
 </li>
 <li>
-<p>块: 如果块的类型是 <code>U</code> ，则块中的最后一个表达式 (如果它没有以分号结尾) 是类型强制转换到 <code>U</code> 的强制转换位置。
+<p>块: 如果块的类型是 <code>U</code> ，则块中的最后一个表达式 (如果它没有以分号结尾) 是类型强转到 <code>U</code> 的强转位置。
 这包括控制流语句中的块，例如 <code>if</code>/<code>else</code> ，如果块具有已知类型的话。</p>
 </li>
 </ul>
@@ -222,26 +225,26 @@ fn foo(x: &amp;u32) -&gt; &amp;dyn Display {
 <p>以下类型之间允许进行强制类型转换:</p>
 <ul>
 <li>
-<p>如果 <code>T</code> 是 <code>U</code> 的 <a href="subtyping.html">子类型</a> ，则 <code>T</code> 可以强制转换为 <code>U</code> (<em>自反性的情况</em>)</p>
+<p>如果 <code>T</code> 是 <code>U</code> 的 <a href="subtyping.html">子类型</a> ，则 <code>T</code> 可以强转为 <code>U</code> (<em>自反性的情况</em>)</p>
 </li>
 <li>
 <p>当 <code>T_1</code> 转换为 <code>T_2</code> ， <code>T_2</code> 转换为 <code>T_3</code> 时，<code>T_1</code> 可以转换为 <code>T_3</code> (<em>可传递的情况</em>)</p>
 <p>注意，这种情况目前尚未完全支持。</p>
 </li>
 <li>
-<p><code>&amp;mut T</code> 可以强制转换为 <code>&amp;T</code></p>
+<p><code>&amp;mut T</code> 可以强转为 <code>&amp;T</code></p>
 </li>
 <li>
-<p><code>*mut T</code> 可以强制转换为 <code>*const T</code></p>
+<p><code>*mut T</code> 可以强转为 <code>*const T</code></p>
 </li>
 <li>
-<p><code>&amp;T</code> 可以强制转换为 <code>*const T</code></p>
+<p><code>&amp;T</code> 可以强转为 <code>*const T</code></p>
 </li>
 <li>
-<p><code>&amp;mut T</code> 可以强制转换为 <code>*mut T</code></p>
+<p><code>&amp;mut T</code> 可以强转为 <code>*mut T</code></p>
 </li>
 <li>
-<p>如果 <code>T</code> 实现了 <code>Deref&lt;Target = U&gt;</code> ，则 <code>&amp;T</code> 或 <code>&amp;mut T</code> 可以强制转换为 <code>&amp;U</code> 。例如:</p>
+<p>如果 <code>T</code> 实现了 <code>Deref&lt;Target = U&gt;</code> ，则 <code>&amp;T</code> 或 <code>&amp;mut T</code> 可以强转为 <code>&amp;U</code> 。例如:</p>
 <pre><pre class="playground"><code class="language-rust edition2021">use std::ops::Deref;
 
 struct CharContainer {
@@ -260,14 +263,14 @@ fn foo(arg: &amp;char) {}
 
 fn main() {
     let x = &amp;mut CharContainer { value: 'y' };
-    foo(x); //&amp;mut `CharContainer` 被强制转换为 &amp;char 。
+    foo(x); //&amp;mut `CharContainer` 被强转为 &amp;char 。
 }</code></pre></pre>
 </li>
 <li>
-<p>如果 <code>T</code> 实现了 <code>DerefMut&lt;Target = U&gt;</code>，则 <code>&amp;mut T</code> 可以强制转换为 <code>&amp;mut U</code>。</p>
+<p>如果 <code>T</code> 实现了 <code>DerefMut&lt;Target = U&gt;</code>，则 <code>&amp;mut T</code> 可以强转为 <code>&amp;mut U</code>。</p>
 </li>
 <li>
-<p>TyCtor(<code>T</code>) 可以强制转换为 TyCtor(<code>U</code>) ，其中 TyCtor(<code>T</code>) 是以下之一：</p>
+<p>TyCtor(<code>T</code>) 可以强转为 TyCtor(<code>U</code>) ，其中 TyCtor(<code>T</code>) 是以下之一：</p>
 <ul>
 <li><code>&amp;T</code></li>
 <li><code>&amp;mut T</code></li>
@@ -275,9 +278,9 @@ fn main() {
 <li><code>*mut T</code></li>
 <li><code>Box&lt;T&gt;</code></li>
 </ul>
-<p>而且 <code>U</code> 可以通过 <a href="#unsized-coercions">不可调整大小强制转换</a> 从 <code>T</code> 中获得。</p>
+<p>而且 <code>U</code> 可以通过 <a href="#unsized-coercions">不定大小强转</a> 从 <code>T</code> 中获得。</p>
 <!-- 在未来，coerce_inner 将递归地扩展到元组和结构体。
-  此外，将添加从子 trait 到超 trait 的强制转换。
+  此外，将添加从子 trait 到超 trait 的强转。
   有关更多详细信息，请参见 [RFC 401]。-->
 </li>
 <li>
@@ -290,10 +293,10 @@ fn main() {
 <p><code>!</code> 到任何 <code>T</code> </p>
 </li>
 </ul>
-<h3 id="不定大小的强制转换"><a class="header" href="#不定大小的强制转换">不定大小的强制转换</a></h3>
-<p>下列类型强制转换被称为 <code>不定大小的强制转换</code> ，因为它们涉及将有大小限制的类型转换为无大小限制的类型，并且在一些其他强制转换不允许的情况下被允许，如上所述。
-它们仍然可以发生在强制转换可以发生的任何地方。两个 trait <a href="../std/marker/trait.Unsize.html"><code>Unsize</code></a> 和 <a href="../std/ops/trait.CoerceUnsized.html"><code>CoerceUnsized</code></a> 用于协助此过程并将其公开供库使用。
-下列强制转换是内置的，如果 <code>T</code> 可以通过其中之一转换为 <code>U</code> ，则将为 <code>T</code> 提供一个实现 <code>Unsize&lt;U&gt;</code> 的实现：</p>
+<h3 id="不定大小强转"><a class="header" href="#不定大小强转">不定大小强转</a></h3>
+<p>下列类型强转被称为 <code>不定大小强转</code> ，因为它们涉及将有大小限制的类型转换为无大小限制的类型，并且在一些其他强转不允许的情况下被允许，如上所述。
+它们仍然可以发生在强转可以发生的任何地方。两个 trait <a href="../std/marker/trait.Unsize.html"><code>Unsize</code></a> 和 <a href="../std/ops/trait.CoerceUnsized.html"><code>CoerceUnsized</code></a> 用于协助此过程并将其公开供库使用。
+下列强转是内置的，如果 <code>T</code> 可以通过其中之一转换为 <code>U</code> ，则将为 <code>T</code> 提供一个实现 <code>Unsize&lt;U&gt;</code> 的实现：</p>
 <ul>
 <li>
 <p><code>[T; n]</code> 转换为 <code>[T]</code> 。</p>
@@ -312,13 +315,13 @@ fn main() {
 </ul>
 </li>
 </ul>
-<p>此外，当 <code>T</code> 实现了 <code>Unsize&lt;U&gt;</code> 或 <code>CoerceUnsized&lt;Foo&lt;U&gt;&gt;</code> 时，类型 <code>Foo&lt;T&gt;</code> 可以实现 <code>CoerceUnsized&lt;Foo&lt;U&gt;&gt;</code>。这使它可以提供到 <code>Foo&lt;U&gt;</code> 的不定大小的强制转换。</p>
+<p>此外，当 <code>T</code> 实现了 <code>Unsize&lt;U&gt;</code> 或 <code>CoerceUnsized&lt;Foo&lt;U&gt;&gt;</code> 时，类型 <code>Foo&lt;T&gt;</code> 可以实现 <code>CoerceUnsized&lt;Foo&lt;U&gt;&gt;</code>。这使它可以提供到 <code>Foo&lt;U&gt;</code> 的不定大小的强转。</p>
 <blockquote>
-<p>注意：尽管已经稳定化了不定大小的强制转换的定义及其实现，但这些特性本身尚未稳定，因此不能在稳定的 Rust 中直接使用它们。</p>
+<p>注意：尽管已经稳定化了不定大小的强转的定义及其实现，但这些特性本身尚未稳定，因此不能在稳定的 Rust 中直接使用它们。</p>
 </blockquote>
-<h2 id="最小上界强制转换"><a class="header" href="#最小上界强制转换">最小上界强制转换</a></h2>
-<p>在某些情况下，编译器必须将多个类型强制转换在一起，以尝试找到最通用的类型。
-这被称为 &quot;最小上界强制转换&quot; (Least Upper Bound coercion，简称LUB 强转) 。LUB 强转仅在以下情况下使用：</p>
+<h2 id="最小上界强转"><a class="header" href="#最小上界强转">最小上界强转</a></h2>
+<p>在某些情况下，编译器必须将多个类型强转在一起，以尝试找到最通用的类型。
+这被称为 &quot;最小上界强转&quot; (Least Upper Bound coercion，简称LUB 强转) 。LUB 强转仅在以下情况下使用：</p>
 <ul>
 <li>为一系列 if 分支查找公共类型。</li>
 <li>为一系列 match 分支查找公共类型。</li>
@@ -326,11 +329,11 @@ fn main() {
 <li>为带有多个返回语句的闭包查找返回类型。</li>
 <li>检查带有多个返回语句的函数的返回类型。</li>
 </ul>
-<p>在每种情况下，存在一组要相互强制转换为某个目标类型 <code>T_t</code> 的类型 <code>T0..Tn</code> ，该目标类型最初是未知的。
+<p>在每种情况下，存在一组要相互强转为某个目标类型 <code>T_t</code> 的类型 <code>T0..Tn</code> ，该目标类型最初是未知的。
 计算 LUB 强转是通过迭代完成的。目标类型 <code>T_t</code> 开始是类型 <code>T0</code> 。对于每个新类型 <code>Ti</code> ，我们考虑以下内容：</p>
 <ul>
-<li>如果 <code>Ti</code> 可以强制转换为当前目标类型 <code>T_t</code> ，则不进行任何更改。</li>
-<li>否则，检查是否可以将 <code>T_t</code> 强制转换为 <code>Ti</code> ；如果可以，则将 <code>T_t</code> 更改为 <code>Ti</code> 。 (此检查还取决于迄今为止考虑的所有源表达式是否具有隐式强制转换。)</li>
+<li>如果 <code>Ti</code> 可以强转为当前目标类型 <code>T_t</code> ，则不进行任何更改。</li>
+<li>否则，检查是否可以将 <code>T_t</code> 强转为 <code>Ti</code> ；如果可以，则将 <code>T_t</code> 更改为 <code>Ti</code> 。 (此检查还取决于迄今为止考虑的所有源表达式是否具有隐式强转。)</li>
 <li>如果不行，则尝试计算 <code>T_t</code> 和 <code>Ti</code> 的共同超类，该超类将成为新的目标类型。</li>
 </ul>
 <h3 id="例如"><a class="header" href="#例如">例如:</a></h3>
@@ -430,5 +433,6 @@ fn foo() -&gt; i32 {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

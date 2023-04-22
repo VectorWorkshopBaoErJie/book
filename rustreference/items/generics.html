@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -155,7 +158,7 @@
       <code>&lt;</code> <code>&gt;</code><br />
     | <code>&lt;</code> (<em>泛型参数</em> <code>,</code>)<sup>*</sup> <em>泛型参数</em> <code>,</code><sup>?</sup> <code>&gt;</code></p>
 <p><em>泛型参数</em> :<br />
-   <a href="../attributes.html"><em>外部属性</em></a><sup>*</sup> ( <em>生命周期参数</em> | <em>类型参数</em> | <em>常量参数</em> )</p>
+   <a href="../attributes.html"><em>外围属性</em></a><sup>*</sup> ( <em>生命周期参数</em> | <em>类型参数</em> | <em>常量参数</em> )</p>
 <p><em>生命周期参数</em> :<br />
    <a href="../tokens.html#lifetimes-and-loop-labels">生命周期或标签</a> ( <code>:</code> <a href="../trait-bounds.html"><em>生命周期约束组</em></a> )<sup>?</sup></p>
 <p><em>类型参数</em> :<br />
@@ -394,5 +397,6 @@ struct Foo&lt;#[my_flexible_clone(unbounded)] H&gt; {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

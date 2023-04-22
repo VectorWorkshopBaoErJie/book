@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -148,7 +151,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="tokens"><a class="header" href="#tokens">Tokens</a></h1>
+                        <h1 id="令牌"><a class="header" href="#令牌">令牌</a></h1>
 <p>Token 是非递归的常规编程语言描述语法的原始制品。 Rust 源码解析 Token 有以下几种 :</p>
 <ul>
 <li><a href="keywords.html">关键字</a> </li>
@@ -158,17 +161,18 @@
 <li><a href="#punctuation">标点符号</a> </li>
 <li><a href="#delimiters">定界符号</a> </li>
 </ul>
-<p>在本文档的语法中，&quot;简单&quot; Token 以 <a href="notation.html#string-table-productions">string 标记</a> 的形式给出，并以 <code>monospace</code> &quot;等宽&quot; 字体呈现。</p>
+<p>在本文档的语法表示部分，&quot;简单&quot; Token 以 <a href="notation.html#string-table-productions">string 标记</a> 的形式给出，并以 <code>monospace</code> &quot;等宽&quot; 字体呈现。</p>
+<p>译注: 中译本无法表达等宽字体，如有必要请至译本仓库查看对应的翻译词条。</p>
 <h2 id="字面值"><a class="header" href="#字面值">字面值</a></h2>
 <p>字面值 Token 用于 <a href="expressions/literal-expr.html">字面值表达式</a> 。</p>
 <h3 id="示例"><a class="header" href="#示例">示例</a></h3>
 <h4 id="字符和字符串"><a class="header" href="#字符和字符串">字符和字符串</a></h4>
 <div class="table-wrapper"><table><thead><tr><th></th><th>示例</th><th><code>#</code> 标记*</th><th>字符集</th><th>转义</th></tr></thead><tbody>
-<tr><td><a href="#character-literals">字符</a></td><td><code>'H'</code></td><td>0</td><td>All Unicode</td><td><a href="#quote-escapes">Quote</a> &amp; <a href="#ascii-escapes">ASCII</a> &amp; <a href="#unicode-escapes">Unicode</a></td></tr>
-<tr><td><a href="#string-literals">字符串</a></td><td><code>&quot;hello&quot;</code></td><td>0</td><td>All Unicode</td><td><a href="#quote-escapes">Quote</a> &amp; <a href="#ascii-escapes">ASCII</a> &amp; <a href="#unicode-escapes">Unicode</a></td></tr>
+<tr><td><a href="#character-literals">字符</a></td><td><code>'H'</code></td><td>0</td><td>All Unicode</td><td><a href="#quote-escapes">引号</a> &amp; <a href="#ascii-escapes">ASCII</a> &amp; <a href="#unicode-escapes">Unicode</a></td></tr>
+<tr><td><a href="#string-literals">字符串</a></td><td><code>&quot;hello&quot;</code></td><td>0</td><td>All Unicode</td><td><a href="#quote-escapes">引号</a> &amp; <a href="#ascii-escapes">ASCII</a> &amp; <a href="#unicode-escapes">Unicode</a></td></tr>
 <tr><td><a href="#raw-string-literals">原始字符串</a></td><td><code>r#&quot;hello&quot;#</code></td><td>&lt;256</td><td>All Unicode</td><td><code>N/A</code></td></tr>
-<tr><td><a href="#byte-literals">字节</a></td><td><code>b'H'</code></td><td>0</td><td>All ASCII</td><td><a href="#quote-escapes">Quote</a> &amp; <a href="#byte-escapes">Byte</a></td></tr>
-<tr><td><a href="#byte-string-literals">字节字符串</a></td><td><code>b&quot;hello&quot;</code></td><td>0</td><td>All ASCII</td><td><a href="#quote-escapes">Quote</a> &amp; <a href="#byte-escapes">Byte</a></td></tr>
+<tr><td><a href="#byte-literals">字节</a></td><td><code>b'H'</code></td><td>0</td><td>All ASCII</td><td><a href="#quote-escapes">引号</a> &amp; <a href="#byte-escapes">Byte</a></td></tr>
+<tr><td><a href="#byte-string-literals">字节字符串</a></td><td><code>b&quot;hello&quot;</code></td><td>0</td><td>All ASCII</td><td><a href="#quote-escapes">引号</a> &amp; <a href="#byte-escapes">Byte</a></td></tr>
 <tr><td><a href="#raw-byte-string-literals">原始字节字符串</a></td><td><code>br#&quot;hello&quot;#</code></td><td>&lt;256</td><td>All ASCII</td><td><code>N/A</code></td></tr>
 </tbody></table>
 </div>
@@ -183,7 +187,7 @@
 <tr><td><code>\0</code></td><td>空字符</td></tr>
 </tbody></table>
 </div>
-<h4 id="byte-转义符"><a class="header" href="#byte-转义符">Byte 转义符</a></h4>
+<h4 id="字节转义符"><a class="header" href="#字节转义符">字节转义符</a></h4>
 <div class="table-wrapper"><table><thead><tr><th></th><th>名称</th></tr></thead><tbody>
 <tr><td><code>\x7F</code></td><td>8位字符编码 (确切地说是 2 位数字)</td></tr>
 <tr><td><code>\n</code></td><td>换行</td></tr>
@@ -290,7 +294,7 @@ assert_eq!(b, c);
 <span class="boring">}</span></code></pre></pre>
 <blockquote>
 <p>注意: Rust 跳过额外的新行 (比如在例子 <code>c</code> 中) ，这有可能会令人困惑和意外。 
-在未来可能会调整这种行为。在做出决定之前，建议避免使用,也就是说，目前，会跳过多个连续的换行。
+在未来可能会调整这种行为。在做出决定之前，建议避免使用，也就是说，目前，会跳过多个连续的换行。
 更多内容见这个 <a href="https://github.com/rust-lang/reference/pull/1042">Issue</a> 。</p>
 </blockquote>
 <h4 id="字符转义"><a class="header" href="#字符转义">字符转义</a></h4>
@@ -299,7 +303,7 @@ assert_eq!(b, c);
 <ul>
 <li><em>7 位编码转义</em> 以 <code>U+0078</code> (<code>x</code>) 开始，后面正好有两个数值不超过 <code>0x7F</code> 的 <em>十六进制数字</em> 。
 它表示 ASCII 字符，其值等于提供的十六进制值。不允许更高的值，因为无法明确是指 Unicode 编码还是字节值。</li>
-<li><em>24位编码转义</em> 以 <code>U+0075</code> (<code>u</code>) 开始，后面是最多六个 <em>十六位数字</em> ，由大括号 <code>U+007B</code> (<code>{</code>) 和 <code>U+007D</code> (<code>}</code>) 包围。它表示 Unicode 编码，等于所提供的十六进制值。</li>
+<li><em>24 位编码转义</em> 以 <code>U+0075</code> (<code>u</code>) 开始，后面是最多六个 <em>十六位数字</em> ，由大括号 <code>U+007B</code> (<code>{</code>) 和 <code>U+007D</code> (<code>}</code>) 包围。它表示 Unicode 编码，等于所提供的十六进制值。</li>
 <li><em>空白转义</em> 是字符 <code>U+006E</code> (<code>n</code>) 、 <code>U+0072</code> (<code>r</code>) 或 <code>U+0074</code> (<code>t</code>) 之一，分别表示 Unicode 值 <code>U+000A</code> (LF) 、 <code>U+000D</code> (CR) 或 <code>U+0009</code> (HT) 。</li>
 <li><em>null 转义</em> 是字符 <code>U+0030</code> (<code>0</code>) ，表示 Unicode 值 <code>U+0000</code> (NUL) 。</li>
 <li><em>反斜线转义</em> 是字符 <code>U+005C</code> (<code>\</code>) ，必须经过转义以表示自身。</li>
@@ -330,8 +334,8 @@ r##&quot;foo #&quot;# bar&quot;##;                // foo #&quot;# bar
 &quot;\x52&quot;; &quot;R&quot;; r&quot;R&quot;;                 // R
 &quot;\\x52&quot;; r&quot;\x52&quot;;                  // \x52
 <span class="boring">}</span></code></pre></pre>
-<h3 id="byte-和-byte-字符串字面值"><a class="header" href="#byte-和-byte-字符串字面值">Byte 和 byte 字符串字面值</a></h3>
-<h4 id="byte-字面值"><a class="header" href="#byte-字面值">Byte 字面值</a></h4>
+<h3 id="字节和字节字符串字面值"><a class="header" href="#字节和字节字符串字面值">字节和字节字符串字面值</a></h3>
+<h4 id="字节字面值"><a class="header" href="#字节字面值">字节字面值</a></h4>
 <blockquote>
 <p><strong><sup>词法</sup></strong><br />
 字节字面值 :<br />
@@ -637,11 +641,11 @@ let x: f64 = 2.;
 <tr><td><code>#</code></td><td>井号</td><td><a href="attributes.html">属性</a></td></tr>
 <tr><td><code>$</code></td><td>美元符</td><td><a href="macros-by-example.html">宏</a></td></tr>
 <tr><td><code>?</code></td><td>问号</td><td><a href="expressions/operator-expr.html#the-question-mark-operator">问号运算符</a>，<a href="trait-bounds.html#sized">大小可变</a>，<a href="macros-by-example.html">宏重复匹配器</a></td></tr>
-<tr><td><code>~</code></td><td>波浪符</td><td>Rust 1.0 之前就已经不再使用了，但其标记仍可使用</td></tr>
+<tr><td><code>~</code></td><td>波浪符</td><td>Rust 1.0 之前就已经不再使用了，但其 token 仍可使用</td></tr>
 </tbody></table>
 </div>
 <h2 id="定界符号"><a class="header" href="#定界符号">定界符号</a></h2>
-<p>括号标点符号用在语法的各部分。一个左括号必须总是与一个右括号相配对。括号和其中的 Token 在 <a href="macros-by-example.html">宏</a> 中被称为 &quot;token 树&quot; 。三种类型的括号是：</p>
+<p>括号符号用在语法的各部分。一个左括号必须总是与一个右括号相配对。括号和其中的 Token 在 <a href="macros-by-example.html">宏</a> 中被称为 &quot;token 树&quot; 。三种类型的括号是：</p>
 <div class="table-wrapper"><table><thead><tr><th>括号</th><th>类型</th></tr></thead><tbody>
 <tr><td><code>{</code> <code>}</code></td><td>大括号</td></tr>
 <tr><td><code>[</code> <code>]</code></td><td>方括号</td></tr>
@@ -729,5 +733,6 @@ lexes!{match&quot;...&quot; {}}
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

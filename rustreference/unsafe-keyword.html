@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -159,7 +162,7 @@
 <h2 id="不安全函数-unsafe-fn"><a class="header" href="#不安全函数-unsafe-fn">不安全函数 (<code>unsafe fn</code>)</a></h2>
 <p>不安全函数是在所有上下文和/或所有可能的输入上都不安全的函数。我们说它们具有 <em>额外安全条件</em> ，这些条件是所有调用者必须满足的要求，编译器不会检查。
 例如， <a href="../std/primitive.slice.html#method.get_unchecked"><code>get_unchecked</code></a> 具有额外的安全条件，即索引必须在边界内。不安全函数应该配有说明文档，解释这些额外的安全条件。</p>
-<p>这样的函数必须以关键字 <code>unsafe</code> 为前缀，并且只能从 <code>unsafe</code> 块内部调用，或者在没有 <a href="../rustc/lints/listing/allowed-by-default.html#unsafe-op-in-unsafe-fn"><code>unsafe_op_in_unsafe_fn</code></a> lint 的情况下在 <code>unsafe fn</code> 中调用。</p>
+<p>这样的函数必须以关键字 <code>unsafe</code> 为前缀，并且只能从 <code>unsafe</code> 块内部调用，或者在没有 <a href="../rustc/lints/listing/allowed-by-default.html#unsafe-op-in-unsafe-fn"><code>unsafe_op_in_unsafe_fn</code></a> 代码分析的情况下在 <code>unsafe fn</code> 中调用。</p>
 <h2 id="不安全块-unsafe-"><a class="header" href="#不安全块-unsafe-">不安全块 (<code>unsafe {}</code>)</a></h2>
 <p>一个代码块可以加上 <code>unsafe</code> 关键字，以允许调用 <code>unsafe</code> 函数或对原始指针进行引用。
 默认情况下，不安全函数的函数体也被视为不安全块；这可以通过启用 <a href="../rustc/lints/listing/allowed-by-default.html#unsafe-op-in-unsafe-fn"><code>unsafe_op_in_unsafe_fn</code></a> 限制来改变。</p>
@@ -227,5 +230,6 @@
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

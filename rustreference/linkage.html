@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -158,7 +161,8 @@
 如果指定了一个或多个命令行标志，则忽略所有 <code>crate_type</code> 属性，仅构建由命令行指定制品。</p>
 <ul>
 <li>
-<p><code>--crate-type=bin</code> ， <code>#![crate_type = &quot;bin&quot;]</code> - 将生成可运行的可执行文件。在 crate 中需要有一个 <code>main</code> 函数，程序开始执行时首先运行。这将链接所有的 Rust 和本地依赖项，生成一个可分发的单个二进制文件。是默认的 crate 类型。</p>
+<p><code>--crate-type=bin</code> ， <code>#![crate_type = &quot;bin&quot;]</code> - 将生成可运行的可执行文件。在 crate 中需要有一个 <code>main</code> 函数，程序开始执行时首先运行。
+这将链接所有的 Rust 和本地依赖项，生成一个可分发的单个二进制文件。是默认的 crate 类型。</p>
 </li>
 <li>
 <p><code>--crate-type=lib</code>，<code>#![crate_type = &quot;lib&quot;]</code> - 将生成一个 Rust 库。这是一个广义概念，因为库可以以多种形式呈现。这个通用的 <code>lib</code> 选项的目的是生成 &quot;编译器推荐&quot; 的库风格。输出的库始终可由 rustc 使用，但实际的库类型可能会随时间而变化。其余的输出类型都是不同的库类型，而 <code>lib</code> 类型可以看作是其中一个的别名 (但实际的类型是由编译器定义的) 。</p>
@@ -173,13 +177,19 @@
 <p><code>--crate-type=cdylib</code>，<code>#![crate_type = &quot;cdylib&quot;]</code> - 将生成一个动态系统库。这用于编译从另一种语言加载的动态库。此输出类型将在 Linux 上创建 <code>*.so</code> 文件，在 macOS 上创建 <code>*.dylib</code> 文件，在 Windows 上创建 <code>*.dll</code> 文件。</p>
 </li>
 <li>
-<p><code>--crate-type=rlib</code>，<code>#![crate_type = &quot;rlib&quot;]</code> - 会生成一个 &quot;Rust库&quot; 文件。这是一个中间产物，可以看作是一个 &quot;静态的Rust库&quot; 。与 <code>staticlib</code> 文件不同，这些 <code>rlib</code> 文件将在未来的链接中由编译器进行解释。这基本上意味着， <code>rustc</code> 将像在动态库中查找元数据一样在 <code>rlib</code> 文件中查找元数据。这种输出形式用于生成静态链接的可执行文件以及 <code>staticlib</code> 输出。</p>
+<p><code>--crate-type=rlib</code> ， <code>#![crate_type = &quot;rlib&quot;]</code> - 将生成 &quot;Rust库&quot; 文件。这用作中间制品，可以看作是 &quot;静态Rust库&quot; 。
+这些 <code>rlib</code> 文件不像 <code>staticlib</code> 文件一样被编译器静态链接。
+编译器在将来的链接中将解释这些 <code>rlib</code>文件，这基本上意味着 <code>rustc</code> 将像在动态库中查找元数据一样查找 <code>rlib</code> 文件中的元数据。
+这种输出形式用于生成静态链接的可执行文件以及 <code>staticlib</code> 输出。</p>
 </li>
 <li>
-<p><code>--crate-type=proc-macro</code> ， <code>#![crate_type = &quot;proc-macro&quot;]</code> - 产生的输出未指定，但如果给它提供一个 <code>-L</code> 路径，编译器将识别制品为一个宏，并且它可以被程序加载。使用这种 crate 类型编译的 crate 必须只导出 <a href="procedural-macros.html">过程宏</a> 。编译器将自动设置 <code>proc_macro</code> <a href="conditional-compilation.html">配置选项</a> 。这些 crate 始终使用编译器本身构建时的相同目标进行编译。例如，如果您在 Linux 上使用 <code>x86_64</code> CPU 执行编译器，则目标将为 <code>x86_64-unknown-linux-gnu</code> ，即使该 crate 是另一个 crate 正在为不同目标而构建的依赖项。</p>
+<p><code>--crate-type=proc-macro</code> ， <code>#![crate_type = &quot;proc-macro&quot;]</code> - 产生的输出未指定，但如果提供了 <code>-L</code> 路径，则编译器将识别输出制品为宏，它可以加载到程序中。
+使用此 crate 类型编译的 crate 必须仅导出 <a href="procedural-macros.html">过程宏</a> 。编译器将自动设置 <code>proc_macro</code> <a href="conditional-compilation.html">配置选项</a> 。这些crate总是使用编译器自身构建的相同目标进行编译。
+例如，如果您从 Linux 执行编译器，并且使用 <code>x86_64</code> CPU，则目标将是 <code>x86_64-unknown-linux-gnu</code> ，即使 crate 是正在为不同目标构建的另一个 crate 的依赖项。</p>
 </li>
 </ul>
-<p>请注意，这些输出是可重叠的，即可指定多个，则编译器将同时生成每种形式的输出，而无需重新编译。但是，这仅适用于由同一方法指定的输出。如果仅指定 <code>crate_type</code> 属性，则所有属性都将被构建，但如果指定一个或多个 <code>--crate-type</code> 命令行标志，则仅构建那些输出。</p>
+<p>请注意，这些输出是可叠加的，这意味着如果指定多个，则编译器将生成每种形式的输出而无需重新编译。
+但是，这仅适用于由同一方法指定的输出。如果仅指定了 <code>crate_type</code> 属性，则将构建所有输出，但是如果指定了一个或多个 <code>--crate-type</code> 命令行标志，则仅构建这些输出。</p>
 <p>有了所有这些不同类型的输出，如果 crate A 依赖于 crate B ，那么编译器可以在系统中以各种不同的形式找到 B 。然而，编译器查找的唯一格式是 <code>rlib</code> 格式和动态库格式。有了这两个选项，编译器必须在这两种格式之间做出选择。考虑到这一点，编译器在确定将使用哪种依赖关系格式时遵循以下规则：</p>
 <ol>
 <li>
@@ -210,13 +220,13 @@
 <li><code>i686-unknown-linux-musl</code></li>
 <li><code>x86_64-unknown-linux-musl</code></li>
 </ul>
-<p>C 运行时的链接是配置为遵守 <code>crt-static</code> 目标特性的。这些目标特性通常是通过编译器本身的标志从命令行配置的。例如，要启用静态运行时，您将执行：</p>
+<p>C 运行时的链接是配置为遵守 <code>crt-static</code> 目标特性的。这些目标特性通常是通过编译器本身的标志从命令行配置的。例如，要启用静态运行时，你将执行：</p>
 <pre><code class="language-sh">rustc -C target-feature=+crt-static foo.rs
 </code></pre>
 <p>而要动态链接到 C 运行时，则会执行：</p>
 <pre><code class="language-sh">rustc -C target-feature=-crt-static foo.rs
 </code></pre>
-<p>不支持在 C 运行时链接方式之间切换的目标将忽略此标志。建议在编译器成功后检查生成的二进制文件，确保它被链接为您所期望的方式。</p>
+<p>不支持在 C 运行时链接方式之间切换的目标将忽略此标志。建议在编译器成功后检查生成的二进制文件，确保它被链接为你所期望的方式。</p>
 <p>Crates 也可以了解 C 运行时的链接方式。例如，在 MSVC 上编写的代码需要根据链接的运行时以不同的方式编译 (例如使用 <code>/MT</code> 或 <code>/MD</code> ) 。这是通过 <a href="conditional-compilation.html#target_feature"><code>cfg</code> 属性 <code>target_feature</code> 选项</a> 导出的：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -242,7 +252,7 @@ fn main() {
         println!(&quot;the C runtime will be dynamically linked&quot;);
     }
 }</code></pre></pre>
-<p>要在本地使用此功能，通常会使用 <code>RUSTFLAGS</code> 环境变量通过 Cargo 指定编译器的标志。例如，在 MSVC 上编译静态链接的二进制文件，您可以执行：</p>
+<p>要在本地使用此功能，通常会使用 <code>RUSTFLAGS</code> 环境变量通过 Cargo 指定编译器的标志。例如，在 MSVC 上编译静态链接的二进制文件，你可以执行：</p>
 <pre><code class="language-sh">RUSTFLAGS='-C target-feature=+crt-static' cargo build --target x86_64-pc-windows-msvc
 </code></pre>
 
@@ -294,5 +304,6 @@ fn main() {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -267,18 +270,18 @@ patterns_in_parameters(
 }
 let declared_last = PrintOnDrop(&quot;Dropped first in outer scope&quot;);
 <span class="boring">}</span></code></pre></pre>
-<p>如果在 <code>match</code> 表达式的同一个 <code>arm</code> 中使用了多个模式，则将使用未指定的模式来确定释放顺序。</p>
-<h3 id="临时作用域"><a class="header" href="#临时作用域">临时作用域</a></h3>
-<p>表达式的 <em>临时作用域</em> 是在 <a href="expressions.html#place-expressions-and-value-expressions">位置上下文</a> 中使用该表达式的结果时用于保存临时变量的作用域，
-除非它被 <a href="destructors.html#constant-promotion">提升</a> 。除了生命周期扩展之外，表达式的临时作用域是包含该表达式的最小作用域，并且是以下范围之一：</p>
+<p>如果在 <code>match</code> 表达式的同一分支中使用了多个模式，则使用未指定的模式来确定丢弃的顺序。</p>
+<h3 id="临时变量的作用域"><a class="header" href="#临时变量的作用域">临时变量的作用域</a></h3>
+<p>一个表达式的 <em>临时作用域</em> 是在 <a href="expressions.html#place-expressions-and-value-expressions">占位上下文</a> 中使用该表达式时用于保存该表达式结果的临时变量的作用域，除非该表达式被 <a href="destructors.html#constant-promotion">提升</a>。</p>
+<p>除了生命周期扩展之外，表达式的临时作用域是包含表达式的最小作用域，可以是以下之一:</p>
 <ul>
 <li>整个函数体。</li>
 <li>一个语句。</li>
-<li><a href="expressions/if-expr.html#if-expressions"><code>if</code></a> ， <a href="expressions/loop-expr.html#predicate-loops"><code>while</code></a> 或 <a href="expressions/loop-expr.html#infinite-loops"><code>loop</code></a> 表达式的主体。</li>
-<li><code>if</code> 表达式的 <code>else</code> 块 。</li>
+<li><a href="expressions/if-expr.html#if-expressions"><code>if</code></a>、<a href="expressions/loop-expr.html#predicate-loops"><code>while</code></a> 或 <a href="expressions/loop-expr.html#infinite-loops"><code>loop</code></a> 表达式的主体。</li>
+<li><code>if</code> 表达式的 <code>else</code> 块。</li>
 <li><code>if</code> 或 <code>while</code> 表达式的条件表达式，或 <code>match</code> 守卫。</li>
-<li>match 分支的表达式。</li>
-<li><a href="expressions/operator-expr.html#lazy-boolean-operators">惰性布尔表达式</a> 的第二个操作数。</li>
+<li><code>match</code> 分支的主体表达式。</li>
+<li>惰性布尔表达式的第二个操作数。</li>
 </ul>
 <blockquote>
 <p><strong>注</strong>:</p>
@@ -464,5 +467,6 @@ let x = (&amp;temp()).use_temp();  // 错误
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

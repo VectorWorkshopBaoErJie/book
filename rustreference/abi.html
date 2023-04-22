@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -150,7 +153,7 @@
                     <main>
                         <h1 id="应用程序二进制接口-abi"><a class="header" href="#应用程序二进制接口-abi">应用程序二进制接口 (ABI)</a></h1>
 <p>本节记录了影响创建的编译结果的 ABI 的功能。</p>
-<p>有关指定导出函数的 ABI 的信息，请参见 <em><a href="items/functions.html#extern-function-qualifier">extern functions</a></em> 。 有关指定链接外部库的 ABI 的信息，请参见 <em><a href="items/external-blocks.html">external blocks</a></em> 。</p>
+<p>有关指定导出函数的 ABI 的信息，请参见 <em><a href="items/functions.html#extern-function-qualifier">外部函数</a></em> 。 有关指定链接外部库的 ABI 的信息，请参见 <em><a href="items/external-blocks.html">外部块</a></em> 。</p>
 <h2 id="used属性"><a class="header" href="#used属性"><code>used</code>属性</a></h2>
 <p><em><code>used</code> 属性</em> 仅适用于 <a href="items/static-items.html"><code>static</code> 条目</a> 。此 <a href="attributes.html">属性</a> 强制编译器将变量保留在输出对象文件 (.o .rlib 等，不包括最终二进制文件) 中，即使该变量没有被 crate 中的任何其他条目使用或引用。但是，链接器仍然可以删除这样的条目。</p>
 <p>下面是一个示例，展示了编译器在什么条件下保留一个 <code>static</code> 条目在输出对象文件中。</p>
@@ -260,5 +263,6 @@ pub fn name_in_rust() { }
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

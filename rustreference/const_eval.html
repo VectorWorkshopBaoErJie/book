@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -157,7 +160,7 @@
 否则，这些行为会导致警告，但可能会在运行时崩溃。</p>
 <p>以下表达式是常量表达式，只要任何操作数也是常量表达式并且不会导致任何 <a href="destructors.html"><code>Drop::drop</code></a> 调用运行。</p>
 <ul>
-<li><a href="expressions/literal-expr.html">字面量</a>。</li>
+<li><a href="expressions/literal-expr.html">字面值</a>。</li>
 <li><a href="items/generics.html">常量参数</a>。</li>
 <li><a href="items/functions.html">函数</a> 和 <a href="items/constant-items.html">常量</a> 的 <a href="expressions/path-expr.html">路径</a> 。不允许递归定义常量。</li>
 <li><a href="items/static-items.html">静态变量</a> 的路径。这些只允许在静态变量的初始化器中使用。</li>
@@ -200,9 +203,9 @@
 </ul>
 <h2 id="常量函数"><a class="header" href="#常量函数">常量函数</a></h2>
 <p>常量函数是指允许在常量上下文中调用的函数。
-将函数声明为 <code>const</code> 不会影响任何现有用途，它只限制了参数和返回类型可能使用的类型，并防止在其中使用各种表达式。您可以像普通函数一样自由地使用常量函数做相同的操作。</p>
+将函数声明为 <code>const</code> 不会影响任何现有用途，它只限制了参数和返回类型可能使用的类型，并防止在其中使用各种表达式。你可以像普通函数一样自由地使用常量函数做相同的操作。</p>
 <p>在常量上下文中调用函数时，编译器会在编译时解释该函数。解释发生在编译目标的环境中，而不是主机的环境中。
-因此，如果您正在针对 32 位系统进行编译，则无论您在 64 位系统还是 32 位系统上构建， <code>usize</code> 都是 32 位。</p>
+因此，如果你正在针对 32 位系统进行编译，则无论你在 64 位系统还是 32 位系统上构建， <code>usize</code> 都是 32 位。</p>
 <p>常量函数有各种限制，以确保它们可以在编译时求值。例如，不可能将随机数生成器编写为常量函数。
 在编译时调用常量函数将始终产生与在运行时调用它相同的结果，即使调用多次也是如此。
 有一个例外：如果在极端情况下进行复杂的浮点数运算，则可能会得到(极微小的)不同结果。
@@ -211,7 +214,7 @@
 <ul>
 <li>浮点运算
 <ul>
-<li>浮点值与不包含超出 <code>Copy</code> 之外的 trait 约束的泛型参数一样处理。因此，您无法对它们进行任何操作，只能复制/移动它们。</li>
+<li>浮点值与不包含超出 <code>Copy</code> 之外的 trait 约束的泛型参数一样处理。因此，你无法对它们进行任何操作，只能复制/移动它们。</li>
 </ul>
 </li>
 </ul>
@@ -272,5 +275,6 @@
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

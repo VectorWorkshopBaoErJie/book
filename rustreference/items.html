@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -150,9 +153,9 @@
                     <main>
                         <h1 id="条目"><a class="header" href="#条目">条目</a></h1>
 <blockquote>
-<p><strong><sup>语未能:<sup></strong><br />
+<p><strong><sup>语法:<sup></strong><br />
 <em>条目</em>:<br />
-   <a href="attributes.html"><em>外部属性</em></a><sup>*</sup><br />
+   <a href="attributes.html"><em>外围属性</em></a><sup>*</sup><br />
       <em>可见性条目</em><br />
    | <em>宏条目</em></p>
 <p><em>可见性条目</em>:<br />
@@ -248,5 +251,6 @@
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>
