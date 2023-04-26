@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -156,13 +153,13 @@
 <p><strong><sup>语法</sup></strong><br />
 <em>Trait对象类型</em> :<br />
    <code>dyn</code><sup>?</sup> [<em>类型参数约束组</em>]</p>
-<p><em>Trait对象类型1约束</em> :<br />
+<p><em>Trait对象类型单约束</em> :<br />
    <code>dyn</code><sup>?</sup> <a href="../trait-bounds.html"><em>Trait约束</em></a></p>
 </blockquote>
-<p>一个 <em>trait 对象</em> 是另一个类型的不透明值，该类型实现了一组 trait 。trait 集由一个 <a href="../items/traits.html#object-safety">object safe</a> 的 <em>base trait</em> 和任意数量的 [auto trait] 组成。</p>
+<p>一个 <em>trait 对象</em> 是另一个类型的不透明值，该类型实现了一组 trait 。trait 集由一个 <a href="../items/traits.html#object-safety">对象安全</a> 的 <em>base trait</em> 和任意数量的 [auto trait] 组成。</p>
 <p>Trait 对象实现了 base trait ，它的 auto traits 以及 base trait 的任何 <a href="../items/traits.html#supertraits">超级 Trait</a> 。</p>
 <p>Trait 对象写作关键字 <code>dyn</code> 后跟一组 trait 约束 ，但对 trait 约束有以下限制。
-除了第一个 trait 之外的所有 trait 都必须是 auto trait ，不能有多个 lifetime ，并且不允许 opt-out bounds (例如 <code>?Sized</code> )。
+除了第一个 trait 之外的所有 trait 都必须是 auto trait ，不能有多个生命周期，并且不允许可选附加约束 (例如 <code>?Sized</code> )。
 此外，路径到 traits 可以括在括号中。</p>
 <p>例如，给定 <code>Trait</code> ，以下都是 trait 对象:</p>
 <ul>
@@ -185,7 +182,7 @@
 <p>从 2018 版开始， <code>dyn</code> 是一个真正的关键字，不允许在路径中使用，因此不需要括号。</p>
 </blockquote>
 <p>如果 base trait 相互为别名， auto trait 集相同且生命周期约束相同，则两个 trait 对象类型为别名。例如， <code>dyn Trait + Send + UnwindSafe</code> 与 <code>dyn Trait + UnwindSafe + Send</code> 是相同的。</p>
-<p>由于值的具体类型的不透明性，trait对象是 [动态大小类型] 。与所有 <abbr title="dynamically sized types">DSTs</abbr> 一样，trait 对象在某种类型的指针后面使用，例如 <code>&amp;dyn SomeTrait</code> 或 <code>Box&lt;dyn SomeTrait&gt;</code> 。
+<p>由于值的具体类型的不透明性，trait 对象是 <a href="../dynamically-sized-types.html">动态大小类型</a> 。与所有 <abbr title="dynamically sized types">DSTs</abbr> 一样，trait 对象在某种类型的指针后面使用，例如 <code>&amp;dyn SomeTrait</code> 或 <code>Box&lt;dyn SomeTrait&gt;</code> 。
 指向 trait 对象的指针实例包括：</p>
 <ul>
 <li>指向实现 <code>SomeTrait</code> 的类型 <code>T</code> 的实例的指针</li>
@@ -260,6 +257,5 @@ fn main() {
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

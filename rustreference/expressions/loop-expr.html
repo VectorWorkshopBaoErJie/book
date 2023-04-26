@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -258,7 +255,7 @@ while let Some(v @ 1) | Some(v @ 2) = vals.pop() {
 <a href="block-expr.html"><em>块表达式</em></a></p>
 </blockquote>
 <p><code>for</code> 表达式是一种语法结构，用于循环遍历 <code>std::iter::IntoIterator</code> 的实现提供的元素。
-如果迭代器产生一个值，那么该值将与不可反驳的模式匹配，执行循环体，然后控制返回到 <code>for</code> 循环的开头。
+如果迭代器产生一个值，那么该值将与不可拒绝的模式匹配，执行循环体，然后控制返回到 <code>for</code> 循环的开头。
 如果迭代器为空，则 <code>for</code> 表达式完成。</p>
 <p>一个对数组内容进行 <code>for</code> 循环的例子:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -395,20 +392,20 @@ assert_eq!(last, 12);
 <p>与 <code>break</code> 类似，<code>continue</code> 通常与最内层的封闭循环相关联，但可以使用 <code>continue 'label</code> 指定受影响的循环。
 <code>continue</code> 表达式只允许出现在循环体中。</p>
 <h2 id="break-和循环值"><a class="header" href="#break-和循环值"><code>break</code> 和循环值</a></h2>
-<p>在Rust中，当与 <code>loop</code> 关键字相关联时，可以使用 <code>break</code> 表达式通过 <code>break EXPR</code> 或 <code>break 'label EXPR</code> 的形式从循环中返回一个值，其中 <code>EXPR</code> 是返回给 <code>loop</code> 的表达式结果。
+<p>在 Rust 中，当与 <code>loop</code> 关键字相关联时，可以使用 <code>break</code> 表达式通过 <code>break EXPR</code> 或 <code>break 'label EXPR</code> 的形式从循环中返回一个值，其中 <code>EXPR</code> 是返回给 <code>loop</code> 的表达式结果。
 例如:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let (mut a, mut b) = (1, 1); // 初始化a和b为1
+</span>let (mut a, mut b) = (1, 1); // 初始化 a 和 b 为 1
 let result = loop { // 进入循环
-    if b &gt; 10 { // 如果b大于10
-        break b; // 跳出循环并返回b的值
+    if b &gt; 10 { // 如果 b 大于 10
+        break b; // 跳出循环并返回 b 的值
     }
-    let c = a + b; // 计算c
-    a = b; // 将a赋值为上一个b的值
-    b = c; // 将b赋值为上一个c的值
+    let c = a + b; 
+    a = b; // 将 a 赋值为上一个 b 的值
+    b = c; // 将 b 赋值为上一个 c 的值
 };
-// 斐波那契数列中第一个大于10的数是13:
+// 斐波那契数列中第一个大于 10 的数是 13 :
 assert_eq!(result, 13);
 <span class="boring">}</span></code></pre></pre>
 <p>在 <code>loop</code> 语句中，如果有关联的 <code>break</code> 语句，它就不被视为发散，而且 <code>loop</code> 语句必须与每个 <code>break</code> 表达式兼容的类型。
@@ -462,6 +459,5 @@ assert_eq!(result, 13);
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

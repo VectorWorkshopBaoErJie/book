@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -165,15 +162,16 @@
 <p><em>枚举条目</em> :<br />
    <em>外围属性</em><sup>*</sup> <a href="../visibility-and-privacy.html"><em>可见性</em></a><sup>?</sup><br />
    <a href="../identifiers.html">标识符</a> ( <em>枚举条目元组</em> | <em>枚举条目结构体</em> )<sup>?</sup>
-<em>枚举条目判别式</em><sup>?</sup></p>
+<em>枚举条目判别值</em><sup>?</sup></p>
 <p><em>枚举条目元组</em> :<br />
    <code>(</code> <a href="structs.html"><em>元组字段组</em></a><sup>?</sup> <code>)</code></p>
 <p><em>枚举条目结构体</em> :<br />
    <code>{</code> <a href="structs.html"><em>结构体字段组</em></a><sup>?</sup> <code>}</code></p>
-<p><em>枚举条目判别式</em> :<br />
+<p><em>枚举条目判别值</em> :<br />
    <code>=</code> <a href="../expressions.html"><em>表达式</em></a></p>
 </blockquote>
-<p>一个 <a href="../types/enum.html">枚举类型</a> ， 简称枚举 <em>enum</em> ，是一种同时定义了枚举类型和一组构造器 <em>constructors</em> 的命名类型。这些构造器可以用来创建或者匹配相应枚举类型的值。</p>
+<p>一个 <a href="../types/enum.html">枚举类型</a> ， 简称枚举 <em>enum</em> ，是一种同时定义了枚举类型和一组构造器 <em>constructors</em> 的命名类型。
+这些构造器可以用来创建或者匹配相应枚举类型的值。</p>
 <p>枚举类型使用关键字 <code>enum</code> 进行声明。</p>
 <p>下面是一个 <code>enum</code> 的使用示例:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -217,19 +215,19 @@ a = Animal::Cat { name: &quot;Spotty&quot;.to_string(), weight: 2.7 };
 }
 <span class="boring">}</span></code></pre></pre>
 <p><span id="custom-discriminant-values-for-fieldless-enumerations"></span></p>
-<h2 id="鉴别值"><a class="header" href="#鉴别值">鉴别值</a></h2>
-<p>每个枚举实例都有一个 <em>鉴别值</em> ：一个逻辑上与之关联的整数，用来确定它持有的变体。</p>
-<p>在 <a href="../type-layout.html#the-default-representation">默认表示</a> 下，鉴别值解释为 <code>isize</code> 值。
+<h2 id="判别值"><a class="header" href="#判别值">判别值</a></h2>
+<p>每个枚举实例都有一个 <em>判别值</em> ：一个逻辑上与之关联的整数，用来确定它持有的变体。</p>
+<p>在 <a href="../type-layout.html#the-default-representation">默认表示</a> 下，判别值解释为 <code>isize</code> 值。
 然而，编译器允许在实际内存布局中使用较小的类型 (或其他区分变体的方式) 。</p>
-<h3 id="分配鉴别值"><a class="header" href="#分配鉴别值">分配鉴别值</a></h3>
-<h4 id="显式鉴别值"><a class="header" href="#显式鉴别值">显式鉴别值</a></h4>
+<h3 id="分配判别值"><a class="header" href="#分配判别值">分配判别值</a></h3>
+<h4 id="显式判别值"><a class="header" href="#显式判别值">显式判别值</a></h4>
 <p>在两种情况下，可以通过在变体名称后跟 <code>=</code> 和 <a href="../const_eval.html#constant-expressions">常量表达式</a> 来明确设置变体的判别式 :</p>
 <ol>
 <li>
-<p>如果该枚举是 &quot;<a href="#unit-only-enum">unit-only</a>&quot; 单元枚举 。</p>
+<p>如果该枚举是 &quot;<a href="#unit-only-enum">单元枚举</a>&quot; 。</p>
 </li>
 <li>
-<p>如果使用 [原始表示] <a href="../type-layout.html#primitive-representations">primitive representation</a> 。例如：</p>
+<p>如果使用 <a href="../type-layout.html#primitive-representations">原始表示</a> 。例如：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[repr(u8)]
@@ -244,8 +242,8 @@ enum Enum {
 <span class="boring">}</span></code></pre></pre>
 </li>
 </ol>
-<h4 id="隐式鉴别值"><a class="header" href="#隐式鉴别值">隐式鉴别值</a></h4>
-<p>如果枚举变体的鉴别值没有指定，则它被设置为在声明中前一个变体的鉴别值加1。如果第一个变体的鉴别值未指定，则设置为零。</p>
+<h4 id="隐式判别值"><a class="header" href="#隐式判别值">隐式判别值</a></h4>
+<p>如果枚举变体的判别值没有指定，则它被设置为在声明中前一个变体的判别值加1。如果第一个变体的判别值未指定，则设置为零。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum Foo {
@@ -258,7 +256,7 @@ let baz_discriminant = Foo::Baz as u32;
 assert_eq!(baz_discriminant, 123);
 <span class="boring">}</span></code></pre></pre>
 <h4 id="限制条件"><a class="header" href="#限制条件">限制条件</a></h4>
-<p>当两个变体鉴别值相同时，是一个错误。</p>
+<p>当两个变体判别值相同时，是一个错误。</p>
 <pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum SharedDiscriminantError {
@@ -272,27 +270,27 @@ enum SharedDiscriminantError2 {
     OneToo = 1  // 1 (collision with previous!)
 }
 <span class="boring">}</span></code></pre></pre>
-<p>如果先前枚举的鉴别值达到了其类型能够表示的最大值，那么下一个没有指定鉴别值的项将导致错误。</p>
+<p>如果先前枚举的判别值达到了其类型能够表示的最大值，那么下一个没有指定判别值的项将导致错误。</p>
 <pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[repr(u8)]
 enum OverflowingDiscriminantError {
     Max = 255,
-    MaxPlusOne // 将是256，但那会使枚举溢出。
+    MaxPlusOne // 将是 256 ，但那会使枚举溢出。
 }
 
 #[repr(u8)]
 enum OverflowingDiscriminantError2 {
     MaxMinusOne = 254, // 254
     Max,               // 255
-    MaxPlusOne         // 将是256，但那会使枚举溢出。
+    MaxPlusOne         // 将是 256 ，但那会使枚举溢出。
 }
 <span class="boring">}</span></code></pre></pre>
-<h3 id="访问鉴别值"><a class="header" href="#访问鉴别值">访问鉴别值</a></h3>
+<h3 id="访问判别值"><a class="header" href="#访问判别值">访问判别值</a></h3>
 <h4 id="通过-memdiscriminant"><a class="header" href="#通过-memdiscriminant">通过 <code>mem::discriminant</code></a></h4>
-<p><a href="../../std/mem/fn.discriminant.html"><code>mem::discriminant</code></a> 返回一个不透明的引用，指向枚举值的鉴别值，可以进行比较。但不能用于获取鉴别值。</p>
+<p><a href="../../std/mem/fn.discriminant.html"><code>mem::discriminant</code></a> 返回一个不透明的引用，指向枚举值的判别值，可以进行比较。但不能用于获取判别值。</p>
 <h4 id="转换"><a class="header" href="#转换">转换</a></h4>
-<p>如果一个枚举类型是 <a href="#unit-only-enum">unit-only</a>  (没有元组和结构的变体) ，那么它的鉴别值可以通过 <a href="../expressions/operator-expr.html#semantics">数字强制转换</a> 直接访问；比如:</p>
+<p>如果一个枚举类型是 <a href="#unit-only-enum">单元枚举</a> ，那么它的判别值可以通过 <a href="../expressions/operator-expr.html#semantics">数字强转</a> 直接访问；比如:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum Enum {
@@ -305,7 +303,7 @@ assert_eq!(0, Enum::Foo as isize);
 assert_eq!(1, Enum::Bar as isize);
 assert_eq!(2, Enum::Baz as isize);
 <span class="boring">}</span></code></pre></pre>
-<p><a href="#field-less-enum">无成员的枚举</a> 可以被强制类型转换，如果它们没有显式的鉴别值，或者只有单元变体是显式的。</p>
+<p><a href="#field-less-enum">无成员的枚举</a> 可以被强制类型转换，如果它们没有显式的判别值，或者只有单元变体是显式的。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum Fieldless {
@@ -334,7 +332,7 @@ assert_eq!(21, FieldlessWithDiscrimants::Struct{} as u8);
 assert_eq!(22, FieldlessWithDiscrimants::Unit as u8);
 <span class="boring">}</span></code></pre></pre>
 <h4 id="指针转换"><a class="header" href="#指针转换">指针转换</a></h4>
-<p>如果枚举指定了 <a href="../type-layout.html#primitive-representations">原始表示</a> ，那么可以通过不安全的指针转换来可靠地访问鉴别值:</p>
+<p>如果枚举指定了 <a href="../type-layout.html#primitive-representations">原始表示</a> ，那么可以通过不安全的指针转换来可靠地访问判别值:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[repr(u8)]
@@ -448,6 +446,5 @@ enum E {
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

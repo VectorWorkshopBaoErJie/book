@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -165,9 +162,9 @@
    | <a href="../tokens.html#floating-point-literals">浮点数字面值</a><br />
    | <code>true</code> | <code>false</code></p>
 </blockquote>
-<p>字面值表达式，由一个单独的标记组成，而不是一系列标记，它直接指示其计算结果的值，而不是通过名称或其他计算规则引用它。
-字面值是 [常量表达式] 的一种形式，因此主要在编译时计算。
-每个先前描述的词法 <a href="../tokens.html#literals">字面值</a> 形式都可以组成一个字面表达式，关键字 <code>true</code> 和 <code>false</code> 也可以。</p>
+<p><em>字面值表达式</em> 由一个单独的标记组成，而不是一系列标记，它直接指示其计算结果的值，而不是通过名称或其他计算规则引用它。 </p>
+<p>字面值是 <a href="../const_eval.html#constant-expressions">常量表达式</a> 的一种形式，因此主要在编译时计算。</p>
+<p>每个先前描述的词法 <a href="../tokens.html#literals">字面值</a> 形式都可以组成一个字面表达式，关键字 <code>true</code> 和 <code>false</code> 也可以。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>&quot;hello&quot;;   // 字符串类型
@@ -253,14 +250,14 @@ let a: u64 = 123;                  // type u64
 <p>将字符串转换为 <code>u128</code> 值，就像通过 <a href="../../core/primitive.u128.html#method.from_str_radix"><code>u128::from_str_radix</code></a> 选择的基数一样。如果值不适合 <code>u128</code>，则会出现编译器错误。</p>
 </li>
 <li>
-<p>通过 <a href="operator-expr.html#numeric-cast">数字类型转换</a> 将 <code>u128</code> 值转换为表达式的类型。</p>
+<p>通过 <a href="operator-expr.html#numeric-cast">数字转换</a> 将 <code>u128</code> 值转换为表达式的类型。</p>
 </li>
 </ul>
 <blockquote>
-<p><strong>注意</strong>: 如果该字面值的值超出了该类型的表示范围，最终转换将截断该字面值。 <code>rustc</code> 包括一个名为 <code>overflowing_literals</code> 的 <a href="../attributes/diagnostics.html#lint-check-attributes">lint check</a> ，默认为 <code>deny</code>，拒绝其中出现的表达式。</p>
+<p><strong>注意</strong>: 如果该字面值的值超出了该类型的表示范围，最终转换将截断该字面值。 <code>rustc</code> 包括一个名为 <code>overflowing_literals</code> 的 [代码分析检查] <a href="../attributes/diagnostics.html#lint-check-attributes">lint check</a> ，默认为 <code>deny</code>，拒绝其中出现的表达式。</p>
 </blockquote>
 <blockquote>
-<p><strong>注意</strong>: 例如， <code>-1i8</code> 是对字面值表达式 <code>1i8</code> 应用了 <a href="operator-expr.html#negation-operators">取反运算符</a> ，而不是一个整数字面值表达式。有关表示有符号类型的最负值的注释，请参见 <a href="operator-expr.html#overflow">Overflow</a> 。</p>
+<p><strong>注意</strong>: 例如， <code>-1i8</code> 是对字面值表达式 <code>1i8</code> 应用了 <a href="operator-expr.html#negation-operators">取反运算符</a> ，而不是一个整数字面值表达式。有关表示有符号类型的最负值的注释，请参见 <a href="operator-expr.html#overflow">溢出</a> 。</p>
 </blockquote>
 <h2 id="浮点数字面值表达式"><a class="header" href="#浮点数字面值表达式">浮点数字面值表达式</a></h2>
 <p>浮点数字面值表达式具有以下两种形式:</p>
@@ -303,7 +300,7 @@ let x: f64 = 2.; // type f64
 <blockquote>
 <p><strong>注意</strong>: <code>inf</code> 和 <code>NaN</code> 不是字面值令牌。
 可以使用 <a href="../../core/primitive.f32.html#associatedconstant.INFINITY"><code>f32::INFINITY</code></a> 、 <a href="../../core/primitive.f64.html#associatedconstant.INFINITY"><code>f64::INFINITY</code></a> 、 <a href="../../core/primitive.f32.html#associatedconstant.NAN"><code>f32::NAN</code></a> 和 <a href="../../core/primitive.f64.html#associatedconstant.NAN"><code>f64::NAN</code></a> 常量来代替字面值表达式。
-在 <code>rustc</code> 中，被评估为无限大的字面值将触发 <code>overflowing_literals</code> lint 检查。</p>
+在 <code>rustc</code> 中，被评估为无限大的字面值将触发 <code>overflowing_literals</code> 代码分析检查。</p>
 </blockquote>
 <h2 id="布尔字面值表达式"><a class="header" href="#布尔字面值表达式">布尔字面值表达式</a></h2>
 <p>一个布尔字面值表达式由 <code>true</code> 或 <code>false</code> 中的一个关键字组成。</p>
@@ -361,6 +358,5 @@ let x: f64 = 2.; // type f64
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

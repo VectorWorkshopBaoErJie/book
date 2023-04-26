@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -349,7 +346,7 @@ fn main() {
     // 用关联类型来指代 OtherStruct 为 &lt;Struct as AssociatedType&gt;::Assoc
     let _other_struct: OtherStruct = &lt;Struct as AssociatedType&gt;::Assoc::new();
 }</code></pre></pre>
-<p>带有泛型和 where子句 的关联类型的示例:</p>
+<p>带有泛型和 where 子句的关联类型的示例:</p>
 <pre><pre class="playground"><code class="language-rust edition2021">struct ArrayLender&lt;'a, T&gt;(&amp;'a mut [T; 16]);
 
 trait Lend {
@@ -401,7 +398,7 @@ fn main() {
 }
 <span class="boring">}</span></code></pre></pre>
 <h3 id="bounds-和-wherebounds-之间的关系"><a class="header" href="#bounds-和-wherebounds-之间的关系"><code>Bounds</code> 和 <code>WhereBounds</code> 之间的关系</a></h3>
-<p>In this example:</p>
+<p>在这个例子中:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">use std::fmt::Debug;
@@ -415,7 +412,7 @@ fn main() {
 未来这些规则可能会放宽;
 更新内容可以在 <a href="https://rust-lang.github.io/generic-associated-types-initiative/explainer/required_bounds.html">泛型关联类型提案库</a> 中找到。</p>
 <p>简而言之，这些 <code>where</code> 子句是必需的，以便最大限度允许在 impls 中定义关联类型的范围。
-为了做到这一点，在任何出现 GAT 作为输入或输出的函数 (使用函数或trait的参数) 上，任何 <em>可以证明持有</em> 子句也必须写在 GAT 本身上。</p>
+为了做到这一点，在任何出现 GAT 作为输入或输出的函数 (使用函数或 trait 的参数) 上，任何 <em>可以证明持有</em> 子句也必须写在 GAT 本身上。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>trait LendingIterator {
@@ -487,7 +484,7 @@ fn main() {
     let _ = GenericStruct::&lt;0&gt;::NON_ZERO;
 }</code></pre></pre>
 <h3 id="关联常量实例"><a class="header" href="#关联常量实例">关联常量实例</a></h3>
-<p>A basic example:</p>
+<p>一个基本的例子:</p>
 <pre><pre class="playground"><code class="language-rust edition2021">trait ConstantId {
     const ID: i32;
 }
@@ -577,6 +574,5 @@ fn main() {
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

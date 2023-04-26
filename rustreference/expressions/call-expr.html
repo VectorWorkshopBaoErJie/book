@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -159,11 +156,11 @@
 <p><em>调用参数组</em> :<br />
    <a href="../expressions.html"><em>表达式</em></a> ( <code>,</code> <a href="../expressions.html"><em>表达式</em></a> )<sup>*</sup> <code>,</code><sup>?</sup></p>
 </blockquote>
-<p><em>调用表达式</em> 调用一个函数。
-调用表达式的语法是一个表达式，称为 <em>函数操作数</em> ，后面跟着一个带括号的逗号分隔的表达式列表，称为 <em>参数操作数</em> 。
+<p><em>调用表达式</em> 调用函数。
+调用表达式的语法是一个称为 <em>函数操作</em> 表达式，后面跟着一个带括号的逗号分隔的表达式列表，称为 <em>参数操作</em> 。
 如果函数最终返回，则表达式完成。
-对于 <a href="../types/function-item.html">非函数类型</a> ，表达式 <code>f(...)</code> 使用 <a href="../../std/ops/trait.Fn.html"><code>std::ops::Fn</code></a> 、 <a href="../../std/ops/trait.FnMut.html"><code>std::ops::FnMut</code></a> 或<a href="../../std/ops/trait.FnOnce.html"><code>std::ops::FnOnce</code></a> trait 中的方法，这些 trait 在是否通过引用、可变引用或取得所有权方面有所不同。
-如果需要，将自动借用。函数操作数也将根据需要 <a href="field-expr.html#automatic-dereferencing">自动解引用</a> 。</p>
+对于 <a href="../types/function-item.html">非函数类型</a> ，表达式 <code>f(...)</code> 使用 <a href="../../std/ops/trait.Fn.html"><code>std::ops::Fn</code></a> 、 <a href="../../std/ops/trait.FnMut.html"><code>std::ops::FnMut</code></a> 或 <a href="../../std/ops/trait.FnOnce.html"><code>std::ops::FnOnce</code></a> trait 中的方法，这些 trait 在是否通过引用、可变引用或取得所有权方面有所不同。
+如果需要，将自动借用。函数操作也将根据需要 <a href="field-expr.html#automatic-dereferencing">自动解引用</a> 。</p>
 <p>以下是一些调用表达式的例子:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -179,11 +176,11 @@ let name: &amp;'static str = (|| &quot;Rust&quot;)();
 但是，这些术语缺乏描述能力，可能会让问题变得更加混乱。
 我们在这里提到它们是为了便于搜索。</p>
 </blockquote>
-<p>有几种常见情况可能导致方法或关联函数调用的接收者或参照对象产生歧义。
+<p>有几种常见情况可能导致方法或关联函数调用的接收者或参照产生歧义。
 这些情况可能包括:</p>
 <ul>
 <li>多个作用域内的 trait 为相同类型定义了同名方法</li>
-<li>不希望自动解引用；例如，区分智能指针本身的方法和指针的参照对象的方法</li>
+<li>不希望自动解引用；例如，区分智能指针本身的方法和指针的参照的方法</li>
 <li>不带参数的方法，例如 <a href="../../std/default/trait.Default.html#tymethod.default"><code>default()</code></a> ，返回类型的属性，例如 <a href="../../std/mem/fn.size_of.html"><code>size_of()</code></a></li>
 </ul>
 <p>为了解决歧义，程序员可以使用更具体的路径、类型或 trait 来指定他们想要的方法或函数。</p>
@@ -217,7 +214,7 @@ fn main() {
     f.print();
     // 更明确的，而且在 `Foo` 的情况下并不必要
     Foo::print(&amp;f);
-    // 如果你不喜欢简洁的语法
+    // 如果你不喜欢简略的语法
     &lt;Foo as Pretty&gt;::print(&amp;f);
 
     // b.print(); // 错误：发现多个 'print'
@@ -276,6 +273,5 @@ fn main() {
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

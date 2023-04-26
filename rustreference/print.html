@@ -34,7 +34,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -72,12 +71,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -2263,7 +2260,7 @@ mod thread {
 <h2 id="模块的属性"><a class="header" href="#模块的属性">模块的属性</a></h2>
 <p>模块和所有条目一样，可以接受外围属性 (outer attributes) ，同时也可以接受内部属性 (inner attributes) ，
 内部属性可以出现在模块主体的左括号 <code>{</code> 之后，也可以出现在源文件的开头，在可选的 BOM 和 shebang 之后。</p>
-<p>内置的对模块有意义的属性包括 <a href="items/../conditional-compilation.html"><code>cfg</code></a> 、 <a href="items/../attributes/diagnostics.html#the-deprecated-attribute"><code>deprecated</code></a> 、 <a href="items/../../rustdoc/the-doc-attribute.html"><code>doc</code></a> 、 <a href="items/../attributes/diagnostics.html#lint-check-attributes">lint 检查属性</a> 、 <a href="items/modules.html#the-path-attribute"><code>path</code></a> 和 <a href="items/../names/preludes.html#the-no_implicit_prelude-attribute"><code>no_implicit_prelude</code></a> 。模块还接受宏属性。</p>
+<p>内置的对模块有意义的属性包括 <a href="items/../conditional-compilation.html"><code>cfg</code></a> 、 <a href="items/../attributes/diagnostics.html#the-deprecated-attribute"><code>deprecated</code></a> 、 <a href="items/../../rustdoc/the-doc-attribute.html"><code>doc</code></a> 、 <a href="items/../attributes/diagnostics.html#lint-check-attributes">代码分析检查属性</a> 、 <a href="items/modules.html#the-path-attribute"><code>path</code></a> 和 <a href="items/../names/preludes.html#the-no_implicit_prelude-attribute"><code>no_implicit_prelude</code></a> 。模块还接受宏属性。</p>
 <script>
 (function() {
     var fragments = {
@@ -2485,7 +2482,7 @@ m!(use std as _;);
    <em>函数修饰符组</em> <code>fn</code> <a href="items/../identifiers.html">标识符</a> <a href="items/generics.html"><em>泛型参数组</em></a><sup>?</sup><br />
       <code>(</code> <em>函数参数组</em><sup>?</sup> <code>)</code><br />
       <em>函数返回类型</em><sup>?</sup> <a href="items/generics.html#where-clauses"><em>Where子句</em></a><sup>?</sup><br />
-      ( [<em>块表达式</em>] | <code>;</code> )</p>
+      ( <a href="items/../expressions/block-expr.html"><em>块表达式</em></a> | <code>;</code> )</p>
 <p><em>函数修饰符组</em> :<br />
    <code>const</code><sup>?</sup> <code>async</code><sup class="footnote-reference"><a href="#async-edition">1</a></sup><sup>?</sup> <code>unsafe</code><sup>?</sup> (<code>extern</code> <em>Abi</em><sup>?</sup>)<sup>?</sup></p>
 <p><em>Abi</em> :<br />
@@ -2514,11 +2511,11 @@ m!(use std as _;);
 <p>在 2015 版中，只有在一个 <a href="items/traits.html">trait 条目</a> 的关联函数中才允许使用仅带有类型的函数参数。</p>
 </div>
 </blockquote>
-<p>一个函数包括一个 <a href="items/../expressions/block-expr.html">代码块</a> ，以及一个名称、一组参数和一个输出类型。
+<p>一个函数包括一个 <a href="items/../expressions/block-expr.html">块</a> ，以及一个名称、一组参数和一个输出类型。
 除名称外，其他是可选的。函数是用关键字 <code>fn</code> 声明。
 函数可以声明一组 <em>输入</em> <a href="items/../variables.html">变量</a> 作为参数，通过这些变量，调用者将参数传递给函数，并且函数的 <em>输出</em> 类型为函数完成时将返回给其调用者的 <a href="items/../types.html#type-expressions">类型</a> 。
 如果未显式指定输出类型，则为 <a href="items/../types/tuple.html">单元类型</a> 。</p>
-<p>当引用一个函数时，它会产生一个相应的零大小的 <a href="items/../types/function-item.html"><em>函数条目类型</em></a> 的一类 <em>值</em> ，当调用它时会直接调用该函数。</p>
+<p>当引用一个函数时，它会产生一个相应的零大小的 <a href="items/../types/function-item.html"><em>函数条目类型</em></a> 的第一类 <em>值</em> ，当调用它时会直接调用该函数。</p>
 <p>例如，这是一个简单的函数:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -2527,7 +2524,7 @@ m!(use std as _;);
 }
 <span class="boring">}</span></code></pre></pre>
 <h2 id="函数参数"><a class="header" href="#函数参数">函数参数</a></h2>
-<p>函数参数是不可拒绝的 <a href="items/../patterns.html">模式</a> ，因此任何在没有 else-less <code>let</code> 绑定中有效的模式在参数中也是有效的:</p>
+<p>函数参数是不可拒绝的 <a href="items/../patterns.html">模式</a> ，因此任何在没有其他附加的 <code>let</code> 绑定中有效的模式在参数中也是有效的:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn first((value, _): (i32, i32)) -&gt; i32 { value }
@@ -2542,14 +2539,14 @@ m!(use std as _;);
 如常规一样，如果在函数体内有显式的返回表达式，则会立即返回，如果到达该隐式返回，则会被短路。</p>
 <p>例如，上面的函数的行为类似于以下写法:</p>
 <!-- ignore: example expansion -->
-<pre><code class="language-rust ignore">// argument_0是调用者实际传递的第一个参数。
+<pre><code class="language-rust ignore">// argument_0 是调用者实际传递的第一个参数。
 let (value, _) = argument_0;
 return {
     value
 };</code></pre>
 <p>函数没有函数体时以分号结束。这种形式只能出现在 <a href="items/traits.html">trait</a> 或 <a href="items/external-blocks.html">外部块</a> 中。</p>
 <h2 id="泛型函数"><a class="header" href="#泛型函数">泛型函数</a></h2>
-<p>一种 <em>泛型函数</em> 允许其签名中出现一个或多个 <em>参数化类型</em> 。
+<p><em>泛型函数</em> 允许其签名中出现一个或多个 <em>参数化类型</em> 。
 每个类型参数必须在一个尖括号包围的、由逗号分隔的列表中显式声明，在函数名之后。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -2577,14 +2574,14 @@ fn foo&lt;T&gt;(x: &amp;[T]) where T: Debug {
 
 foo(&amp;[1, 2]);
 <span class="boring">}</span></code></pre></pre>
-<p>将用 <code>i32</code> 实例化类型参数 <code>T</code> 。</p>
-<p>函数的类型参数还可以在函数名后跟一个后缀 <a href="items/../paths.html">path</a> 组件来明确指定。
+<p>将类型参数 <code>T</code> 用实例化为 <code>i32</code> 。</p>
+<p>函数的类型参数还可以在函数名后跟一个后缀 <a href="items/../paths.html">路径</a> 组件来明确指定。
 如果没有足够的上下文来确定类型参数，则可能需要这样做。例如，<code>mem::size_of::&lt;u32&gt;() == 4</code>。</p>
 <h2 id="外部函数修饰"><a class="header" href="#外部函数修饰">外部函数修饰</a></h2>
-<p><code>extern</code> 函数修饰符允许提供函数 <em>定义组</em> ，这些函数可以使用特定的 ABI 进行调用：</p>
+<p><code>extern</code> 函数修饰符允许提供函数 <em>定义组</em> ，这些函数可以使用特定的 ABI 进行调用:</p>
 <!-- ignore: fake ABI -->
 <pre><code class="language-rust ignore">extern &quot;ABI&quot; fn foo() { /* ... */ }</code></pre>
-<p>这些通常与 <a href="items/external-blocks.html">外部块</a> 条目结合使用，后者提供可以用来调用函数而不提供其定义的函数声明:</p>
+<p>这些通常与 <a href="items/external-blocks.html">外部块</a> 条目结合使用，后者可以提供用来调用函数的声明，而不必提供其函数 <em>定义</em> :</p>
 <!-- ignore: fake ABI -->
 <pre><code class="language-rust ignore">extern &quot;ABI&quot; {
   fn foo(); /* no body */
@@ -2600,17 +2597,17 @@ unsafe { foo() }</code></pre>
 </span><span class="boring">fn main() {
 </span>extern &quot;Rust&quot; fn foo() {}
 <span class="boring">}</span></code></pre></pre>
-<p>函数可以被外部代码调用，使用与 Rust 不同的 ABI 允许提供可以从其他编程语言 (如C) 调用的函数:</p>
+<p>ABI 使用非 &quot;Rust&quot; 的函数，允许其他编程语言调用该函数，比如 C 语言:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>// 用 &quot;C&quot; ABI声明函数
+</span>// 用 &quot;C&quot; ABI 声明函数
 extern &quot;C&quot; fn new_i32() -&gt; i32 { 0 }
 
-// 用 &quot;stdcall&quot; ABI声明函数
+// 用 &quot;stdcall&quot; ABI 声明函数
 <span class="boring">#[cfg(target_arch = &quot;x86_64&quot;)]
 </span>extern &quot;stdcall&quot; fn new_i32_stdcall() -&gt; i32 { 0 }
 <span class="boring">}</span></code></pre></pre>
-<p>与 <a href="items/external-blocks.html">external block</a> 类似，当使用 <code>extern</code> 关键字但省略了 <code>&quot;ABI&quot;</code> 时，使用的 ABI 默认为 <code>&quot;C&quot;</code> 。例如：</p>
+<p>与 <a href="items/external-blocks.html">外部块</a> 类似，当使用 <code>extern</code> 关键字但省略了 <code>&quot;ABI&quot;</code> 时，使用的 ABI 默认为 <code>&quot;C&quot;</code> 。例如：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>extern fn new_i32() -&gt; i32 { 0 }
@@ -2622,7 +2619,7 @@ let fptr: extern fn() -&gt; i32 = new_i32;
 </span>extern &quot;C&quot; fn new_i32() -&gt; i32 { 0 }
 let fptr: extern &quot;C&quot; fn() -&gt; i32 = new_i32;
 <span class="boring">}</span></code></pre></pre>
-<p>函数的 ABI (应用程序二进制接口) 和 Rust 不同的函数的 ABI 不能像 Rust 一样支持展开 (unwind) 方式，因此尝试在这些 ABI 中展开超过函数末尾的部分会导致进程中止。</p>
+<p>非 &quot;Rust&quot; 函数的 ABI (应用程序二进制接口) 不能像 Rust 一样支持栈回退，因此尝试在这些 ABI 中回退超过函数末尾的部分会导致进程中止。</p>
 <blockquote>
 <p><strong>注意</strong>: <code>rustc</code> 的 LLVM 后端通过执行非法指令来使进程中止。</p>
 </blockquote>
@@ -2637,8 +2634,8 @@ let fptr: extern &quot;C&quot; fn() -&gt; i32 = new_i32;
 </span>async fn regular_example() { }
 async unsafe fn unsafe_example() { }
 <span class="boring">}</span></code></pre></pre>
-<p>异步函数可以标记为 <code>async</code> 。在调用时，异步函数不会立即执行，而是将其参数捕获为一个 future 。当该 future 被轮询时，它会执行函数的主体。</p>
-<p>一个 async 异步函数大致等同于一个返回 <a href="items/../types/impl-trait.html"><code>impl Future</code></a> 的函数，并且具有一个 <a href="items/../expressions/block-expr.html#async-blocks"><code>async move</code> 块</a>作为函数体:</p>
+<p>异步函数在调用时，不会立即执行，而是将其参数捕获为一个 &quot;future&quot; 。当该 future 被轮询时，它会执行函数的主体。</p>
+<p>一个 async 异步函数大致等同于一个返回 <a href="items/../types/impl-trait.html"><code>impl Future</code></a> 的函数，并且具有一个 <a href="items/../expressions/block-expr.html#async-blocks"><code>async move</code> 块</a> 作为函数体:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// Source
@@ -2694,7 +2691,7 @@ async fn safe_example() {
 例如，在上面的代码段中， <code>unsafe_example</code> 函数接受一个指针 <code>x</code> 作为参数，然后 (当等待时) 对该指针进行解引用。
 这意味着 <code>x</code> 必须在 future 执行完成之前保持有效，并且调用者有责任确保这一点。</p>
 <h2 id="函数的属性"><a class="header" href="#函数的属性">函数的属性</a></h2>
-<p>函数可以使用 <a href="items/../attributes.html">外围属性</a> 。 <a href="items/../attributes.html">内部属性</a> 可以直接在函数的 <a href="items/../expressions/block-expr.html">block</a> 里的 <code>{</code> 后面使用。</p>
+<p>函数可以使用 <a href="items/../attributes.html">外围属性</a> 。 <a href="items/../attributes.html">内部属性</a> 可以直接在函数的 <a href="items/../expressions/block-expr.html">块</a> 里的 <code>{</code> 后面使用。</p>
 <p>以下示例展示了在函数中使用内部属性。该函数的文档注释只包含单词 &quot;Example&quot; 。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -2703,9 +2700,9 @@ async fn safe_example() {
 }
 <span class="boring">}</span></code></pre></pre>
 <blockquote>
-<p>注意: 除了用于 lint ，通常仅在函数条目上使用外围属性是惯用的。</p>
+<p>注意: 除了用于代码分析 ，通常仅在函数条目上使用外围属性是惯用的。</p>
 </blockquote>
-<p>函数可用的属性包括 <a href="items/../conditional-compilation.html#the-cfg-attribute"><code>cfg</code></a> 、 <a href="items/../conditional-compilation.html#the-cfg_attr-attribute"><code>cfg_attr</code></a> 、 <a href="items/../attributes/diagnostics.html#the-deprecated-attribute"><code>deprecated</code></a> 、 <a href="items/../../rustdoc/the-doc-attribute.html"><code>doc</code></a> 、 <a href="items/../abi.html#the-export_name-attribute"><code>export_name</code></a> 、 <a href="items/../abi.html#the-link_section-attribute"><code>link_section</code></a> 、 <a href="items/../abi.html#the-no_mangle-attribute"><code>no_mangle</code></a> 、<a href="items/../attributes/diagnostics.html#lint-check-attributes">代码分析检查属性</a> 、 <a href="items/../attributes/diagnostics.html#the-must_use-attribute"><code>must_use</code></a> 、 <a href="items/../procedural-macros.html">过程宏属性</a> 、 <a href="items/../attributes/testing.html">测试属性</a> 和 <a href="items/../attributes/codegen.html#optimization-hints">优化提示属性</a> 。此外，函数还接受属性宏。</p>
+<p>函数可用的属性包括 <a href="items/../conditional-compilation.html#the-cfg-attribute"><code>cfg</code></a> 、 <a href="items/../conditional-compilation.html#the-cfg_attr-attribute"><code>cfg_attr</code></a> 、 <a href="items/../attributes/diagnostics.html#the-deprecated-attribute"><code>deprecated</code></a> 、 <a href="items/../../rustdoc/the-doc-attribute.html"><code>doc</code></a> 、 <a href="items/../abi.html#the-export_name-attribute"><code>export_name</code></a> 、 <a href="items/../abi.html#the-link_section-attribute"><code>link_section</code></a> 、 <a href="items/../abi.html#the-no_mangle-attribute"><code>no_mangle</code></a> 、<a href="items/../attributes/diagnostics.html#lint-check-attributes">代码分析</a> 、 <a href="items/../attributes/diagnostics.html#the-must_use-attribute"><code>must_use</code></a> 、 <a href="items/../procedural-macros.html">过程宏属性</a> 、 <a href="items/../attributes/testing.html">测试</a> 和 <a href="items/../attributes/codegen.html#optimization-hints">优化提示</a> 。此外，函数还接受属性宏。</p>
 <h2 id="函数参数的属性"><a class="header" href="#函数参数的属性">函数参数的属性</a></h2>
 <p>函数参数上允许使用 <a href="items/../attributes.html">外围属性</a> ，其中允许使用的 <a href="items/../attributes.html#built-in-attributes-index">内置属性</a> 仅限于 <code>cfg</code> ， <code>cfg_attr</code> ， <code>allow</code> ， <code>warn</code> ， <code>deny</code> 和 <code>forbid</code>。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -2831,15 +2828,16 @@ let c = [Cookie, Cookie {}, Cookie, Cookie {}];
 <p><em>枚举条目</em> :<br />
    <em>外围属性</em><sup>*</sup> <a href="items/../visibility-and-privacy.html"><em>可见性</em></a><sup>?</sup><br />
    <a href="items/../identifiers.html">标识符</a> ( <em>枚举条目元组</em> | <em>枚举条目结构体</em> )<sup>?</sup>
-<em>枚举条目判别式</em><sup>?</sup></p>
+<em>枚举条目判别值</em><sup>?</sup></p>
 <p><em>枚举条目元组</em> :<br />
    <code>(</code> <a href="items/structs.html"><em>元组字段组</em></a><sup>?</sup> <code>)</code></p>
 <p><em>枚举条目结构体</em> :<br />
    <code>{</code> <a href="items/structs.html"><em>结构体字段组</em></a><sup>?</sup> <code>}</code></p>
-<p><em>枚举条目判别式</em> :<br />
+<p><em>枚举条目判别值</em> :<br />
    <code>=</code> <a href="items/../expressions.html"><em>表达式</em></a></p>
 </blockquote>
-<p>一个 <a href="items/../types/enum.html">枚举类型</a> ， 简称枚举 <em>enum</em> ，是一种同时定义了枚举类型和一组构造器 <em>constructors</em> 的命名类型。这些构造器可以用来创建或者匹配相应枚举类型的值。</p>
+<p>一个 <a href="items/../types/enum.html">枚举类型</a> ， 简称枚举 <em>enum</em> ，是一种同时定义了枚举类型和一组构造器 <em>constructors</em> 的命名类型。
+这些构造器可以用来创建或者匹配相应枚举类型的值。</p>
 <p>枚举类型使用关键字 <code>enum</code> 进行声明。</p>
 <p>下面是一个 <code>enum</code> 的使用示例:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -2883,19 +2881,19 @@ a = Animal::Cat { name: &quot;Spotty&quot;.to_string(), weight: 2.7 };
 }
 <span class="boring">}</span></code></pre></pre>
 <p><span id="custom-discriminant-values-for-fieldless-enumerations"></span></p>
-<h2 id="鉴别值"><a class="header" href="#鉴别值">鉴别值</a></h2>
-<p>每个枚举实例都有一个 <em>鉴别值</em> ：一个逻辑上与之关联的整数，用来确定它持有的变体。</p>
-<p>在 <a href="items/../type-layout.html#the-default-representation">默认表示</a> 下，鉴别值解释为 <code>isize</code> 值。
+<h2 id="判别值"><a class="header" href="#判别值">判别值</a></h2>
+<p>每个枚举实例都有一个 <em>判别值</em> ：一个逻辑上与之关联的整数，用来确定它持有的变体。</p>
+<p>在 <a href="items/../type-layout.html#the-default-representation">默认表示</a> 下，判别值解释为 <code>isize</code> 值。
 然而，编译器允许在实际内存布局中使用较小的类型 (或其他区分变体的方式) 。</p>
-<h3 id="分配鉴别值"><a class="header" href="#分配鉴别值">分配鉴别值</a></h3>
-<h4 id="显式鉴别值"><a class="header" href="#显式鉴别值">显式鉴别值</a></h4>
+<h3 id="分配判别值"><a class="header" href="#分配判别值">分配判别值</a></h3>
+<h4 id="显式判别值"><a class="header" href="#显式判别值">显式判别值</a></h4>
 <p>在两种情况下，可以通过在变体名称后跟 <code>=</code> 和 <a href="items/../const_eval.html#constant-expressions">常量表达式</a> 来明确设置变体的判别式 :</p>
 <ol>
 <li>
-<p>如果该枚举是 &quot;<a href="items/enumerations.html#unit-only-enum">unit-only</a>&quot; 单元枚举 。</p>
+<p>如果该枚举是 &quot;<a href="items/enumerations.html#unit-only-enum">单元枚举</a>&quot; 。</p>
 </li>
 <li>
-<p>如果使用 [原始表示] <a href="items/../type-layout.html#primitive-representations">primitive representation</a> 。例如：</p>
+<p>如果使用 <a href="items/../type-layout.html#primitive-representations">原始表示</a> 。例如：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[repr(u8)]
@@ -2910,8 +2908,8 @@ enum Enum {
 <span class="boring">}</span></code></pre></pre>
 </li>
 </ol>
-<h4 id="隐式鉴别值"><a class="header" href="#隐式鉴别值">隐式鉴别值</a></h4>
-<p>如果枚举变体的鉴别值没有指定，则它被设置为在声明中前一个变体的鉴别值加1。如果第一个变体的鉴别值未指定，则设置为零。</p>
+<h4 id="隐式判别值"><a class="header" href="#隐式判别值">隐式判别值</a></h4>
+<p>如果枚举变体的判别值没有指定，则它被设置为在声明中前一个变体的判别值加1。如果第一个变体的判别值未指定，则设置为零。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum Foo {
@@ -2924,7 +2922,7 @@ let baz_discriminant = Foo::Baz as u32;
 assert_eq!(baz_discriminant, 123);
 <span class="boring">}</span></code></pre></pre>
 <h4 id="限制条件"><a class="header" href="#限制条件">限制条件</a></h4>
-<p>当两个变体鉴别值相同时，是一个错误。</p>
+<p>当两个变体判别值相同时，是一个错误。</p>
 <pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum SharedDiscriminantError {
@@ -2938,27 +2936,27 @@ enum SharedDiscriminantError2 {
     OneToo = 1  // 1 (collision with previous!)
 }
 <span class="boring">}</span></code></pre></pre>
-<p>如果先前枚举的鉴别值达到了其类型能够表示的最大值，那么下一个没有指定鉴别值的项将导致错误。</p>
+<p>如果先前枚举的判别值达到了其类型能够表示的最大值，那么下一个没有指定判别值的项将导致错误。</p>
 <pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[repr(u8)]
 enum OverflowingDiscriminantError {
     Max = 255,
-    MaxPlusOne // 将是256，但那会使枚举溢出。
+    MaxPlusOne // 将是 256 ，但那会使枚举溢出。
 }
 
 #[repr(u8)]
 enum OverflowingDiscriminantError2 {
     MaxMinusOne = 254, // 254
     Max,               // 255
-    MaxPlusOne         // 将是256，但那会使枚举溢出。
+    MaxPlusOne         // 将是 256 ，但那会使枚举溢出。
 }
 <span class="boring">}</span></code></pre></pre>
-<h3 id="访问鉴别值"><a class="header" href="#访问鉴别值">访问鉴别值</a></h3>
+<h3 id="访问判别值"><a class="header" href="#访问判别值">访问判别值</a></h3>
 <h4 id="通过-memdiscriminant"><a class="header" href="#通过-memdiscriminant">通过 <code>mem::discriminant</code></a></h4>
-<p><a href="items/../../std/mem/fn.discriminant.html"><code>mem::discriminant</code></a> 返回一个不透明的引用，指向枚举值的鉴别值，可以进行比较。但不能用于获取鉴别值。</p>
+<p><a href="items/../../std/mem/fn.discriminant.html"><code>mem::discriminant</code></a> 返回一个不透明的引用，指向枚举值的判别值，可以进行比较。但不能用于获取判别值。</p>
 <h4 id="转换"><a class="header" href="#转换">转换</a></h4>
-<p>如果一个枚举类型是 <a href="items/enumerations.html#unit-only-enum">unit-only</a>  (没有元组和结构的变体) ，那么它的鉴别值可以通过 <a href="items/../expressions/operator-expr.html#semantics">数字强制转换</a> 直接访问；比如:</p>
+<p>如果一个枚举类型是 <a href="items/enumerations.html#unit-only-enum">单元枚举</a> ，那么它的判别值可以通过 <a href="items/../expressions/operator-expr.html#semantics">数字强转</a> 直接访问；比如:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum Enum {
@@ -2971,7 +2969,7 @@ assert_eq!(0, Enum::Foo as isize);
 assert_eq!(1, Enum::Bar as isize);
 assert_eq!(2, Enum::Baz as isize);
 <span class="boring">}</span></code></pre></pre>
-<p><a href="items/enumerations.html#field-less-enum">无成员的枚举</a> 可以被强制类型转换，如果它们没有显式的鉴别值，或者只有单元变体是显式的。</p>
+<p><a href="items/enumerations.html#field-less-enum">无成员的枚举</a> 可以被强制类型转换，如果它们没有显式的判别值，或者只有单元变体是显式的。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum Fieldless {
@@ -3000,7 +2998,7 @@ assert_eq!(21, FieldlessWithDiscrimants::Struct{} as u8);
 assert_eq!(22, FieldlessWithDiscrimants::Unit as u8);
 <span class="boring">}</span></code></pre></pre>
 <h4 id="指针转换"><a class="header" href="#指针转换">指针转换</a></h4>
-<p>如果枚举指定了 <a href="items/../type-layout.html#primitive-representations">原始表示</a> ，那么可以通过不安全的指针转换来可靠地访问鉴别值:</p>
+<p>如果枚举指定了 <a href="items/../type-layout.html#primitive-representations">原始表示</a> ，那么可以通过不安全的指针转换来可靠地访问判别值:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[repr(u8)]
@@ -3125,7 +3123,7 @@ union MyUnion {
     let f = u.f1;
 }
 <span class="boring">}</span></code></pre></pre>
-<p>通常，使用联合体的代码会在不安全的联合体字段访问周围提供安全的包装器。</p>
+<p>通常，使用联合体的代码会在不安全的联合体字段访问外围提供安全的包装器。</p>
 <p>相比之下，写入联合体字段是安全的，因为它们只是覆盖任意数据，而不能导致未定义的行为。
 (请注意，联合体字段类型永远不会具有粘联的丢弃 ，因此联合体字段写入永远不会隐式丢弃任何内容。)</p>
 <h2 id="联合体模式匹配"><a class="header" href="#联合体模式匹配">联合体模式匹配</a></h2>
@@ -3145,8 +3143,8 @@ union MyUnion {
     }
 }
 <span class="boring">}</span></code></pre></pre>
-<p>模式匹配可能将联合体作为更大结构体的字段进行匹配。
-特别是在使用 Rust 联合体通过 FFI 实现 C 标记联合时，这允许同时匹配标记和相应字段:</p>
+<p>模式匹配可能将联合体作为较大结构的字段进行匹配。
+特别地，当使用 Rust 联合体通过 FFI 实现 C 中的标记 union 时，得以同时匹配标记和相应的字段：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[repr(u32)]
@@ -3207,7 +3205,7 @@ fn test() {
 常量在使用时本质上是内联的，这意味着当它们在相关上下文中使用时，它们会被直接复制。
 这包括使用来自外部 crate 的常量，以及 非-<a href="items/../special-types-and-traits.html#copy"><code>Copy</code></a> 类型。对同一常量的引用不能保证引用同一内存地址。</p>
 <p>常量必须显式指定类型。该类型必须具有 <code>'static</code> 生命周期：初始化器中的任何引用都必须具有 <code>'static</code> 生命周期。</p>
-<p>常量可以引用其他常量的地址，在这种情况下，地址将省略适用的生命周期，否则 (在大多数情况下) 默认为 <code>static</code>  生命周期 (请参见 <a href="items/../lifetime-elision.html#static-lifetime-elision">static lifetime elision</a> ) 。
+<p>常量可以引用其他常量的地址，在这种情况下，地址将省略适用的生命周期，否则 (在大多数情况下) 默认为 <code>static</code>  生命周期 (请参见 <a href="items/../lifetime-elision.html#static-lifetime-elision">静态生命周期省略</a> ) 。
 但编译器仍然有自由将常量翻译为多个值，因此引用的地址可能不稳定。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -3244,12 +3242,12 @@ const ZERO_WITH_DESTRUCTOR: TypeWithDestructor = TypeWithDestructor(0);
 
 fn create_and_drop_zero_with_destructor() {
     let x = ZERO_WITH_DESTRUCTOR;
-    // x 在函数结束时丢弃，调用drop。
+    // x 在函数结束时丢弃，调用 drop。
     // prints &quot;Dropped. Held 0.&quot;.
 }
 <span class="boring">}</span></code></pre></pre>
 <h2 id="未命名常量"><a class="header" href="#未命名常量">未命名常量</a></h2>
-<p>与 <a href="items/../items/associated-items.html#associated-constants">关联常量</a> 不同，可以使用下划线代替名称来表示 <a href="items/../glossary.html#free-item">自由</a> 常量无名称。例如:</p>
+<p>与 <a href="items/../items/associated-items.html#associated-constants">关联常量</a> 不同，可以使用下划线代替名称来表示 <a href="items/../glossary.html#free-item">自由</a> 未命名常量。例如:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>const _: () =  { struct _SameNameTwice; };
@@ -3397,7 +3395,7 @@ Trait 还可以包含其他类型参数。这些类型参数，包括 <code>Self
 关联类型绝不能定义类型，类型只能在实现中指定。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>// 有定义和无定义的关联trait条目的示例。
+</span>// 有定义和无定义的关联 trait 条目的示例。
 trait Example {
     const CONST_NO_DEFAULT: i32;
     const CONST_WITH_DEFAULT: i32 = 99;
@@ -3421,10 +3419,10 @@ trait Example {
 }
 <span class="boring">}</span></code></pre></pre>
 <h2 id="对象安全"><a class="header" href="#对象安全">对象安全</a></h2>
-<p>对象安全的 trait 可以是一个 <a href="items/../types/trait-object.html">trait对象</a> 的基础 trait 。
+<p>对象安全的 trait 可以是一个 <a href="items/../types/trait-object.html">trait 对象</a> 的基础 trait 。
 一个 trait 是 <em>对象安全</em> 的，如果它具有以下 trait (在<a href="https://github.com/rust-lang/rfcs/blob/master/text/0255-object-safety.md">RFC 255</a>中定义):</p>
 <ul>
-<li>所有的 <a href="items/traits.html#supertraits">supertraits</a> 也必须是对象安全的。</li>
+<li>所有的 <a href="items/traits.html#supertraits">超级trait</a> 也必须是对象安全的。</li>
 <li><code>Sized</code> 不能是 <a href="items/traits.html#supertraits">超级trait</a> 。换句话说，必须不要求 <code>Self: Sized</code> 。</li>
 <li>不能有任何关联常量。</li>
 <li>不能有任何泛型关联类型。</li>
@@ -3433,7 +3431,7 @@ trait Example {
 <li>可派发函数要求:
 <ul>
 <li>没有任何类型参数 (允许生命周期参数),</li>
-<li>是除接收者类型，不使用 <code>Self</code> 的 <a href="items/associated-items.html#methods">method</a> 。</li>
+<li>是除接收者类型，不使用 <code>Self</code> 的 <a href="items/associated-items.html#methods">方法</a> 。</li>
 <li>有具有以下类型的接收器:
 <ul>
 <li><code>&amp;Self</code> (即 <code>&amp;self</code>)</li>
@@ -3477,11 +3475,11 @@ trait TraitMethods {
 </span><span class="boring">}</span></code></pre></pre>
 <pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>// 这个trait是对象安全的，但这些方法不能在 trait 对象上派发。
+</span>// 这个 trait 是对象安全的，但这些方法不能在 trait 对象上派发。
 trait NonDispatchable {
     // 非方法，不能被派发。
     fn foo() where Self: Sized {}
-    // Self类型只有在运行时才知道。
+    // Self 类型只有在运行时才知道。
     fn returns(&amp;self) -&gt; Self where Self: Sized;
     // `other` 可能是接收者的不同的具体类型。
     fn param(&amp;self, other: Self) where Self: Sized {}
@@ -3539,7 +3537,7 @@ let obj: Box&lt;dyn WithSelf&gt; = Box::new(S); // ERROR: 不能使用 `Self` �
 <span class="boring">}</span></code></pre></pre>
 <h2 id="超级trait"><a class="header" href="#超级trait">超级trait</a></h2>
 <p><strong>超级trait</strong> 是指在一个类型实现某个特定 trait 之前必须实现的一些 trait。
-此外，在泛型或 trait 对象受到一个 trait 限定时，它可以访问其超级 trait 的关联条目。</p>
+此外，在 <a href="items/generics.html">泛型</a> 或 <a href="items/../types/trait-object.html">trait 对象</a> 受到一个 trait 限定时，它可以访问其超级 trait 的关联条目。</p>
 <p>超级 trait 可以通过在 trait 的 <code>Self</code> 类型上使用 trait 约束声明，而超级 trait 的 trait 约束将在其内部声明的 trait 的超级 trait 中传递。trait 不能是自己的超级 trait，这是一个错误。</p>
 <p>具有超级 trait 的 trait 被称为其超级 trait 的 <strong>子trait</strong> 。</p>
 <p>以下是将 <code>Shape</code> 声明为 <code>Circle</code> 的超级 trait 的示例。</p>
@@ -3615,7 +3613,7 @@ trait T {
 <li><code>&amp;&amp;</code> <a href="items/../identifiers.html">标识符</a></li>
 </ul>
 <p>从 2018 版开始，函数或方法参数模式不再是可选的。
-此外，只要有函数体，所有不可反驳模式都是允许的。
+此外，只要有函数体，所有不可拒绝模式都是允许的。
 如果没有函数体，则仍然受到上述限制。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -3625,7 +3623,7 @@ trait T {
 }
 <span class="boring">}</span></code></pre></pre>
 <h2 id="条目可见性"><a class="header" href="#条目可见性">条目可见性</a></h2>
-<p>Trait中的条目在语法上允许添加 <a href="items/../visibility-and-privacy.html"><em>可见性</em></a> 注解，但是当验证该 trait 时，这些注解会被拒绝。
+<p>Trait 中的条目在语法上允许添加 <a href="items/../visibility-and-privacy.html"><em>可见性</em></a> 注解，但是当验证该 trait 时，这些注解会被拒绝。
 这使得在使用这些条目的不同上下文中，可以使用统一的语法进行解析。
 例如，可以使用一个空的 <code>vis</code> 宏片段规格来表示 trait 条目，在其他允许使用可见性的情况下使用该宏规则。</p>
 <pre><pre class="playground"><code class="language-rust edition2021">macro_rules! create_method {
@@ -3682,7 +3680,7 @@ fn main() {
 <h2 id="内部实现"><a class="header" href="#内部实现">内部实现</a></h2>
 <p>一份内部实现被定义为以下几个部分的集合: <code>impl</code> 关键字、泛型类型声明、指向命名类型的路径、 where 子句，以及一组用括号包围的可关联条目。</p>
 <p>命名类型被称为 <em>实现类型</em> ，可关联的条目是实现类型的 <em>关联条目</em> 。</p>
-<p>内部实现将包含的条目与实现类型关联。内部实现可以包含关联函数(包括<a href="items/associated-items.html#methods">方法</a>)和<a href="items/associated-items.html#associated-constants">关联常量</a>。它们不能包含关联类型别名。</p>
+<p>内部实现将包含的条目与实现类型关联。内部实现可以包含关联函数 (包括 <a href="items/associated-items.html#methods">方法</a> ) 和 <a href="items/associated-items.html#associated-constants">关联常量</a> 。它们不能包含关联类型别名。</p>
 <p>到关联条目的 <a href="items/../paths.html">路径</a> 是指到实现类型的任何路径，后面跟着关联条目的标识符作为最终路径组件。</p>
 <p>一个类型也可以有多个内部实现。一个实现类型必须在与原始类型定义相同的 crate 中被定义。</p>
 <pre><pre class="playground"><code class="language-rust edition2021">pub mod color {
@@ -3853,8 +3851,8 @@ impl&lt;T, U&gt; GenericTrait&lt;U&gt; for u32 where U: GenericTrait&lt;T&gt; {}
 }
 <span class="boring">}</span></code></pre></pre>
 <h2 id="实现的属性"><a class="header" href="#实现的属性">实现的属性</a></h2>
-<p>实现可以在 <code>impl</code> 关键字之前包含外部 <a href="items/../attributes.html">属性</a> ，在包含关联条目的括号内部包含内部 <a href="items/../attributes.html">属性</a> 。
-内部属性必须在任何关联条目之前。在这里有意义的属性是 <a href="items/../conditional-compilation.html"><code>cfg</code></a> ， <a href="items/../attributes/diagnostics.html#the-deprecated-attribute"><code>deprecated</code></a> ， <a href="items/../../rustdoc/the-doc-attribute.html"><code>doc</code></a> 和 <a href="items/../attributes/diagnostics.html#lint-check-attributes">检查属性</a> 。</p>
+<p>实现可以在 <code>impl</code> 关键字之前包含外围 <a href="items/../attributes.html">属性</a> ，在包含关联条目的括号内部包含内部 <a href="items/../attributes.html">属性</a> 。
+内部属性必须在任何关联条目之前。在这里有意义的属性是 <a href="items/../conditional-compilation.html"><code>cfg</code></a> ， <a href="items/../attributes/diagnostics.html#the-deprecated-attribute"><code>deprecated</code></a> ， <a href="items/../../rustdoc/the-doc-attribute.html"><code>doc</code></a> 和 <a href="items/../attributes/diagnostics.html#lint-check-attributes">代码分析</a> 。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="外部块"><a class="header" href="#外部块">外部块</a></h1>
 <blockquote>
 <p><strong><sup>语法</sup></strong><br />
@@ -3927,12 +3925,12 @@ extern &quot;stdcall&quot; { }
 <h3 id="link-属性"><a class="header" href="#link-属性"><code>link</code> 属性</a></h3>
 <p><em><code>link</code> 属性</em> 指定编译器为 <code>extern</code> 块中的条目链接的本地库的名称。
 它使用 <a href="items/../attributes.html#meta-item-attribute-syntax"><em>元列表名称值字符串</em></a> 语法来指定其输入。
-<code>name</code> 键是要链接的本地库的名称。<code>kind</code> 键是可选值，用于指定以下可能值的库类型:</p>
+<code>name</code> 键是要链接的本地库的名称。 <code>kind</code> 键是可选值，用于指定以下可能值的库类型:</p>
 <ul>
 <li><code>dylib</code> - 表示动态库。如果未指定 <code>kind</code> ，则为默认值。</li>
 <li><code>static</code> - 表示静态库。</li>
 <li><code>framework</code> - 表示 macOS 框架。仅适用于 macOS 目标。</li>
-<li><code>raw-dylib</code> - 表示动态库，其中编译器将生成要链接的导入库 (详情请参见 <a href="items/external-blocks.html#dylib-versus-raw-dylib"><code>dylib</code> versus <code>raw-dylib</code></a> )。仅适用于 Windows 目标。</li>
+<li><code>raw-dylib</code> - 表示动态库，其中编译器将生成要链接的导入库 (详情参见 <a href="items/external-blocks.html#dylib-versus-raw-dylib"><code>dylib</code> 对比 <code>raw-dylib</code></a> )。仅适用于 Windows 目标。</li>
 </ul>
 <p>如果指定了 <code>kind</code> ，必须包括 <code>name</code> 键。</p>
 <p>可选的 <code>modifiers</code> 参数是指定要链接的库的链接修饰符的一种方法。
@@ -3962,8 +3960,8 @@ extern {
 <p>此修饰符仅与 <code>static</code> 链接类型兼容。使用任何其他类型都会导致编译器错误。</p>
 <p>在构建 rlib 或 staticlib 时， <code>+bundle</code> 表示本地静态库将被打包到 rlib 或 staticlib 归档中，然后在链接最终二进制文件时从其中检索出来。</p>
 <p>在构建 rlib 时， <code>-bundle</code> 表示本地静态库以名称的方式注册为该 rlib 的依赖项，并且其中的目标文件仅在链接最终二进制文件时包含，文件搜索也在最终链接期间按该名称执行。<br />
-在构建 staticlib 时， <code>-bundle</code> 表示本地静态库不会被包含在档案中，某些更高级别的构建系统需要在链接最终二进制文件时稍后添加它。</p>
-<p>当构建其他目标(如可执行文件或动态库)时，此修饰符不起作用。</p>
+在构建 staticlib 时， <code>-bundle</code> 表示本地静态库不会被包含在档案中，某些更高级别的构建系统需要在链接最终二进制文件时随后添加它。</p>
+<p>当构建其他目标 (如可执行文件或动态库) 时，此修饰符不起作用。</p>
 <p>修饰符的默认值是 <code>+bundle</code> 。</p>
 <p>关于这个修饰符的更多实现细节可在 <a href="items/../../rustc/command-line-arguments.html#linking-modifiers-bundle">rustc 文档 <code>bundle</code></a> 找到 。</p>
 <h4 id="链接修饰符-whole-archive"><a class="header" href="#链接修饰符-whole-archive">链接修饰符: <code>whole-archive</code></a></h4>
@@ -3977,11 +3975,11 @@ extern {
 <p><code>-verbatim</code> 表示 rustc 将在将库名称传递给链接器之前添加特定目标的前缀和后缀，且不会阻止链接器隐式添加它。</p>
 <p>这个修饰符的默认值是 <code>-verbatim</code> 。</p>
 <p>关于这个修饰符的更多实现细节可在 <a href="items/../../rustc/command-line-arguments.html#linking-modifiers-verbatim">rustc 文档 <code>verbatim</code></a> 中找到。</p>
-<h4 id="dylib-相比-raw-dylib"><a class="header" href="#dylib-相比-raw-dylib"><code>dylib</code> 相比 <code>raw-dylib</code></a></h4>
+<h4 id="dylib-对比-raw-dylib"><a class="header" href="#dylib-对比-raw-dylib"><code>dylib</code> 对比 <code>raw-dylib</code></a></h4>
 <p>在 Windows 上，链接动态库需要向链接器提供导入库：这是一个特殊的静态库，以这样一种方式声明动态库导出的所有符号，使得链接器知道它们必须在运行时动态加载。</p>
 <p>指定 <code>kind = &quot;dylib&quot;</code> 会指示 Rust 编译器基于 <code>name</code> 键链接导入库。
 然后，链接器将使用其正常的库解析逻辑来找到该导入库。另外，指定 <code>kind = &quot;raw-dylib&quot;</code> 会指示编译器在编译期间生成一个导入库，并提供给链接器。</p>
-<p>只有在 Windows 上才支持 <code>raw-dylib</code>，不支持 32 位 x86 ( <code>target_arch=&quot;x86&quot;</code> ) 。将其用于针对其他平台或 Windows 上的 x86 时将导致编译器错误。</p>
+<p>只有在 Windows 上才支持 <code>raw-dylib</code> ，不支持 32 位 x86 ( <code>target_arch=&quot;x86&quot;</code> ) 。将其用于针对其他平台或 Windows 上的 x86 时将导致编译器错误。</p>
 <h3 id="link_name-属性"><a class="header" href="#link_name-属性"><code>link_name</code> 属性</a></h3>
 <p>在 <code>extern</code> 块内的声明上可以指定 <em><code>link_name</code> 属性</em> ，以指示要为给定函数或静态导入的符号。
 使用 <a href="items/../attributes.html#meta-item-attribute-syntax"><em>元名称值字符串</em></a> 语法来指定符号的名称。</p>
@@ -4120,7 +4118,7 @@ fn bad_function&lt;const N: usize&gt;() -&gt; [u8; {N + 1}] {
 const SOME_CONST: i32 = 12;
 
 fn example() {
-    // const参数的使用示例。
+    // const 参数的使用示例。
     double::&lt;9&gt;();
     double::&lt;-123&gt;();
     double::&lt;{7 + 8}&gt;();
@@ -4404,7 +4402,7 @@ fn main() {
     // 用关联类型来指代 OtherStruct 为 &lt;Struct as AssociatedType&gt;::Assoc
     let _other_struct: OtherStruct = &lt;Struct as AssociatedType&gt;::Assoc::new();
 }</code></pre></pre>
-<p>带有泛型和 where子句 的关联类型的示例:</p>
+<p>带有泛型和 where 子句的关联类型的示例:</p>
 <pre><pre class="playground"><code class="language-rust edition2021">struct ArrayLender&lt;'a, T&gt;(&amp;'a mut [T; 16]);
 
 trait Lend {
@@ -4456,7 +4454,7 @@ fn main() {
 }
 <span class="boring">}</span></code></pre></pre>
 <h3 id="bounds-和-wherebounds-之间的关系"><a class="header" href="#bounds-和-wherebounds-之间的关系"><code>Bounds</code> 和 <code>WhereBounds</code> 之间的关系</a></h3>
-<p>In this example:</p>
+<p>在这个例子中:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">use std::fmt::Debug;
@@ -4470,7 +4468,7 @@ fn main() {
 未来这些规则可能会放宽;
 更新内容可以在 <a href="https://rust-lang.github.io/generic-associated-types-initiative/explainer/required_bounds.html">泛型关联类型提案库</a> 中找到。</p>
 <p>简而言之，这些 <code>where</code> 子句是必需的，以便最大限度允许在 impls 中定义关联类型的范围。
-为了做到这一点，在任何出现 GAT 作为输入或输出的函数 (使用函数或trait的参数) 上，任何 <em>可以证明持有</em> 子句也必须写在 GAT 本身上。</p>
+为了做到这一点，在任何出现 GAT 作为输入或输出的函数 (使用函数或 trait 的参数) 上，任何 <em>可以证明持有</em> 子句也必须写在 GAT 本身上。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>trait LendingIterator {
@@ -4542,7 +4540,7 @@ fn main() {
     let _ = GenericStruct::&lt;0&gt;::NON_ZERO;
 }</code></pre></pre>
 <h3 id="关联常量实例"><a class="header" href="#关联常量实例">关联常量实例</a></h3>
-<p>A basic example:</p>
+<p>一个基本的例子:</p>
 <pre><pre class="playground"><code class="language-rust edition2021">trait ConstantId {
     const ID: i32;
 }
@@ -4947,7 +4945,7 @@ struct Foo&lt;T&gt; {
 <span class="boring">}</span></code></pre></pre>
 <p>你可以通过 <a href="attributes/../procedural-macros.html#derive-macros">过程宏</a> 为你自己的 trait 实现 <code>derive</code> 。</p>
 <h2 id="automatically_derived-属性"><a class="header" href="#automatically_derived-属性"><code>automatically_derived</code> 属性</a></h2>
-<p>自动生成的实现由 <code>derive</code> 属性自动添加了 <code>automatically_derived</code> 属性，它本身没有直接作用，但是可以被工具和诊断lint用来检测这些自动生成的实现。</p>
+<p>自动生成的实现由 <code>derive</code> 属性自动添加了 <code>automatically_derived</code> 属性，它本身没有直接作用，但是可以被工具和代码分析诊断用来检测这些自动生成的实现。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="诊断属性"><a class="header" href="#诊断属性">诊断属性</a></h1>
 <p>下面的 <a href="attributes/../attributes.html">属性</a> 用于在编译期间控制或生成诊断信息。</p>
 <h2 id="代码分析检查属性"><a class="header" href="#代码分析检查属性">代码分析检查属性</a></h2>
@@ -4979,7 +4977,7 @@ struct Foo&lt;T&gt; {
     pub fn undocumented_end() -&gt; i32 { 3 }
 }
 <span class="boring">}</span></code></pre></pre>
-<p>Lint属性可以覆盖先前属性中指定的级别，只要级别不会试图更改禁止的lint。
+<p>代码分析属性可以覆盖先前属性中指定的级别，只要级别不会试图更改禁止的代码分析。
 先前的属性来自语法树中更高级别的属性，或者是源代码中左到右的先前属性。</p>
 <p>以下示例展示了如何使用 <code>allow</code> 和 <code>warn</code> 来打开和关闭特定检查:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -5001,7 +4999,7 @@ pub mod m2 {
     pub fn undocumented_too() -&gt; i32 { 3 }
 }
 <span class="boring">}</span></code></pre></pre>
-<p>这个例子展示了如何使用 <code>forbid</code> 禁止对某个 lint 检查使用 <code>allow</code> :</p>
+<p>这个例子展示了如何使用 <code>forbid</code> 禁止对某个代码分析检查使用 <code>allow</code> :</p>
 <pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[forbid(missing_docs)]
@@ -5019,15 +5017,15 @@ pub mod m3 {
 <p>代码分析可以被组织成具有名称的组，以便可以一起调整相关代码分析的级别。使用命名组相当于列出该组中的代码分析。</p>
 <pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>// 这允许所有 &quot;unused&quot; 组中的 lint。
+</span>// 这允许所有 &quot;unused&quot; 组中的代码分析。
 #[allow(unused)]
-// 这将 &quot;unused&quot; 组中的 &quot;unused_must_use&quot; lint 改为了 &quot;deny&quot;。
+// 这将 &quot;unused&quot; 组中的 &quot;unused_must_use&quot; 代码分析改为了 &quot;deny&quot;。
 #[deny(unused_must_use)]
 fn example() {
-    // 这不会生成警告，因为 &quot;unused_variables&quot; lint 在 &quot;unused&quot; 组中。
+    // 这不会生成警告，因为 &quot;unused_variables&quot; 代码分析在 &quot;unused&quot; 组中。
     let x = 1;
     // 这会生成一个错误，因为结果未使用且 &quot;unused_must_use&quot; 被标记为 &quot;deny&quot;。
-    std::fs::remove_file(&quot;some_file&quot;); // ERROR: unused `Result` that must be used
+    std::fs::remove_file(&quot;some_file&quot;); // ERROR: 必须使用的未使用的 `Result` 
 }
 <span class="boring">}</span></code></pre></pre>
 <p>有一个特殊的名为 &quot;warnings&quot; 的分组，其中包括所有 &quot;warn&quot; 级别的代码分析。
@@ -5037,11 +5035,11 @@ fn example() {
 </span><span class="boring">unsafe fn an_unsafe_fn() {}
 </span>// 这两个属性的顺序无关紧要。
 #[deny(warnings)]
-// unsafe_code lint 通常默认为 &quot;allow&quot;。
+// unsafe_code 代码分析通常默认为 &quot;allow&quot;。
 #[warn(unsafe_code)]
 fn example_err() {
     // 这是一个错误，因为 `unsafe_code` 警告已经被提升到了 &quot;deny&quot;。
-    unsafe { an_unsafe_fn() } // ERROR: usage of `unsafe` block
+    unsafe { an_unsafe_fn() } // ERROR: 使用 `unsafe` 块
 }
 <span class="boring">}</span></code></pre></pre>
 <h3 id="工具代码分析属性"><a class="header" href="#工具代码分析属性">工具代码分析属性</a></h3>
@@ -5073,7 +5071,7 @@ fn foo() {
 <ul>
 <li><code>deprecated</code> — 发出一条通用信息。</li>
 <li><code>deprecated = &quot;message&quot;</code> — 在弃用消息中包含给定的字符串。</li>
-<li><a href="attributes/../attributes.html#meta-item-attribute-syntax"><em>MetaListNameValueStr</em></a> 语法有两个可选字段:
+<li><a href="attributes/../attributes.html#meta-item-attribute-syntax"><em>无列表名称值字符串</em></a> 语法有两个可选字段:
 <ul>
 <li><code>since</code> — 指定条目被弃用的版本号。 <code>rustc</code> 目前不解释该字符串，但像 <a href="https://github.com/rust-lang/rust-clippy">Clippy</a> 这样的外部工具可能会检查值的有效性。</li>
 <li><code>note</code> — 指定应在弃用消息中包含的字符串。通常用于提供有关弃用和首选替代方法的解释。</li>
@@ -5148,7 +5146,7 @@ impl Trait for i32 {
     fn use_me(&amp;self) -&gt; i32 { 0i32 }
 }
 
-// 违反了 `unused_must_use` lint.
+// 违反了 `unused_must_use` 代码分析。
 5i32.use_me();
 <span class="boring">}</span></code></pre></pre>
 <p>当用于 trait 实现中的函数时，该属性无效。</p>
@@ -5162,7 +5160,7 @@ impl Trait for i32 {
 </span>#[must_use]
 fn five() -&gt; i32 { 5i32 }
 
-// 这些都不违反 unused_must_use lint 。
+// 这些都不违反 unused_must_use 代码分析。
 (five(),);
 Some(five());
 { five() };
@@ -5179,33 +5177,33 @@ match true {
 </span>#[must_use]
 fn five() -&gt; i32 { 5i32 }
 
-// 不违反 unused_must_use lint 。
+// 不违反 unused_must_use 代码分析。
 let _ = five();
 <span class="boring">}</span></code></pre></pre>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="代码生成属性"><a class="header" href="#代码生成属性">代码生成属性</a></h1>
 <p>下面的 <a href="attributes/../attributes.html">属性</a> 用于控制代码生成。</p>
 <h2 id="优化提示"><a class="header" href="#优化提示">优化提示</a></h2>
-<p><code>cold</code> 和 <code>inline</code> <a href="attributes/../attributes.html">属性</a> 给出一些建议，以便生成比没有提示更快的代码。
-这些属性仅是提示，可能会被忽略。</p>
-<p>这两个属性可以用于 <a href="attributes/../items/functions.html">函数</a> 。
-当应用于 <a href="attributes/../items/traits.html">trait</a> 中的函数时，它们仅适用于该函数作为默认函数用于 trait 实现时，而不是所有 trait 实现。
-这些属性对于没有函数体的 trait 函数没有影响。</p>
+<p><code>cold</code> 和 <code>inline</code> <a href="attributes/../attributes.html">属性</a> 给出一些编译建议，期望生成更快的代码。
+但仅是提示，可能会被编译器忽略。</p>
+<p>这两个属性可应用于 <a href="attributes/../items/functions.html">函数</a> 。
+当应用于 <a href="attributes/../items/traits.html">trait</a> 中的函数时，仅适用于作为 trait 实现默认函数，而不是所有 trait 实现。
+这些属性对于没有函数体的 trait 函数没有效果。</p>
 <h3 id="inline-属性"><a class="header" href="#inline-属性"><code>inline</code> 属性</a></h3>
 <ul>
-<li><code>inline</code> 属性* 建议将带有该属性的函数的副本放置在调用者中，而不是在定义的地方生成调用该函数的代码。</li>
+<li><code>inline</code> 属性* 建议将函数副本放置于调用者中，而不是在相应位置生成调用该函数的代码。</li>
 </ul>
 <blockquote>
-<p><em><strong>注意</strong></em>: <code>rustc</code> 编译器基于内部启发式算法自动内联函数。不正确地内联函数可能会使程序变慢，因此应谨慎使用此属性。</p>
+<p><em><strong>注意</strong></em>: <code>rustc</code> 编译器基于内部启发式算法自动内联函数。不正确地内联函数可能会使程序变慢，因而此属性应谨慎使用。</p>
 </blockquote>
-<p>有三种使用 <code>inline</code> 属性的方法:</p>
+<p>有三种使用 <code>inline</code> 属性的方式:</p>
 <ul>
 <li><code>#[inline]</code> <em>建议</em> 进行内联展开。</li>
 <li><code>#[inline(always)]</code> <em>建议</em> 总是进行内联展开。</li>
 <li><code>#[inline(never)]</code> <em>建议</em> 永远不进行内联展开。</li>
 </ul>
 <blockquote>
-<p><em><strong>注意</strong></em>: 无论形式如何， <code>#[inline]</code> 都是一个提示，对于将带有该属性的函数的副本放置在调用者中没有任何 <em>强制</em> 。</p>
+<p><em><strong>注意</strong></em>: 无论形式如何， <code>#[inline]</code> 都是一个提示，对于是否将带有该属性的函数副本放置在调用者中，并不作 <em>强制</em> 。</p>
 </blockquote>
 <h3 id="cold-属性"><a class="header" href="#cold-属性"><code>cold</code> 属性</a></h3>
 <p><em><code>cold</code> <a href="attributes/../attributes.html">属性</a></em> 表示带有该属性的函数不太可能被调用。</p>
@@ -5221,8 +5219,8 @@ let _ = five();
 unsafe fn foo_avx2() {}
 <span class="boring">}</span></code></pre></pre>
 <p>每个 <a href="attributes/../conditional-compilation.html#target_arch">目标架构</a> 都有一组可启用的特性。
-对于正在编译的 crate，如果指定了未被支持的目标架构的特性，则会出现错误。</p>
-<p>对于使用不被当前平台支持的特性进行编译的函数进行调用是 <a href="attributes/../behavior-considered-undefined.html">未定义行为</a> ，除非平台明确说明这是安全的。</p>
+对于进行编译的 crate，如果指定了不受支持的目标架构特性，则会出现错误。</p>
+<p>对于使用不受当前平台支持的特性进行编译的函数，进行调用是 <a href="attributes/../behavior-considered-undefined.html">未定义行为</a> ，除非平台明确说明这是安全的。</p>
 <p>使用 <code>target_feature</code> 标注的函数不会被内联到不支持所给定特性的上下文中。
 <code>#[inline(always)]</code> 属性不能与 <code>target_feature</code> 属性一起使用。</p>
 <h3 id="可用特性"><a class="header" href="#可用特性">可用特性</a></h3>
@@ -5546,10 +5544,10 @@ let message = Message::Quit;</code></pre>
 <li>当匹配非穷尽 <a href="attributes/../items/enumerations.html"><code>enum</code></a> 时，匹配一个变体不会导致分支的穷尽性。</li>
 </ul>
 <!-- ignore: requires external crates -->
-<pre><code class="language-rust  ignore">// `Config` ， `Error` 和 `Message` 是在上游 crate 中定义的类型，已经被注释为 `#[non_exhaustive]`。
+<pre><code class="language-rust  ignore">// `Config` ， `Error` 和 `Message` 是在上游 crate 中定义的类型，已经被注解为 `#[non_exhaustive]`。
 use upstream::{Config, Error, Message};
 
-// 无法在非枚举穷尽(enum non-exhaustive)上进行匹配而不包括通配符分支。
+// 无法在非穷尽枚举上进行匹配，除非使用通配符。
 match error {
 Error::Message(ref s) =&gt; {},
 Error::Other =&gt; {},
@@ -5624,19 +5622,19 @@ let _ = NonExhaustiveEnum::default() as u8;</code></pre>
 <p><code>let</code> 语句引入了一组由 <a href="patterns.html">模式</a> 给定的新 <a href="variables.html">变量</a> 。模式可选地后跟一个类型注释，然后以初始化表达式结束，或者跟随可选的 <code>else</code> 块。
 当没有给出类型注释时，编译器将推断类型，如果没有足够的类型信息进行明确推断，则会发出错误信号。
 任何由变量声明引入的变量在声明点到包含块范围的结尾之间都可见，除非它们被另一个变量声明隐藏。</p>
-<p>如果不存在 <code>else</code> 块，则模式必须是不可反驳的。
-如果存在 <code>else</code> 块，则模式可以是可反驳的。
-如果模式不匹配 (这需要它是可反驳的) ，则执行 <code>else</code> 块。
+<p>如果不存在 <code>else</code> 块，则模式必须是不可拒绝的。
+如果存在 <code>else</code> 块，则模式可以是可拒绝的。
+如果模式不匹配 (这需要它是可拒绝的) ，则执行 <code>else</code> 块。
 <code>else</code> 块必须始终发散 (求值为 <a href="types/never.html">永不类型</a> )。</p>
-<p>译注：&quot;反驳&quot; (refutable) 和 &quot;不可反驳&quot; (irrefutable) 表示模式是否能够在任何情况下都成功匹配。
+<p>译注：&quot;拒绝&quot; (refutable) 和 &quot;不可拒绝&quot; (irrefutable) 表示模式是否能够在任何情况下都成功匹配。
 &quot;发散&quot; (diverge) 指的是一个表达式无法正常终止并返回值的情况。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let (mut v, w) = (vec![1, 2, 3], 42); // 绑定可以是可变或常量
-let Some(t) = v.pop() else { // 可反驳的模式需要一个 else 块
+let Some(t) = v.pop() else { // 可拒绝的模式需要一个 else 块
     panic!(); // else 块必须发散
 };
-let [u, v] = [v[0], v[1]] else { // 这个模式是不可反驳的，所以编译器会作为 else 块是冗余的进行代码分析检查
+let [u, v] = [v[0], v[1]] else { // 这个模式是不可拒绝的，所以编译器会作为 else 块是冗余的进行代码分析检查
     panic!();
 };
 <span class="boring">}</span></code></pre></pre>
@@ -5922,9 +5920,9 @@ let b: &amp;[i32];
    | <a href="expressions/../tokens.html#floating-point-literals">浮点数字面值</a><br />
    | <code>true</code> | <code>false</code></p>
 </blockquote>
-<p>字面值表达式，由一个单独的标记组成，而不是一系列标记，它直接指示其计算结果的值，而不是通过名称或其他计算规则引用它。
-字面值是 [常量表达式] 的一种形式，因此主要在编译时计算。
-每个先前描述的词法 <a href="expressions/../tokens.html#literals">字面值</a> 形式都可以组成一个字面表达式，关键字 <code>true</code> 和 <code>false</code> 也可以。</p>
+<p><em>字面值表达式</em> 由一个单独的标记组成，而不是一系列标记，它直接指示其计算结果的值，而不是通过名称或其他计算规则引用它。 </p>
+<p>字面值是 <a href="expressions/../const_eval.html#constant-expressions">常量表达式</a> 的一种形式，因此主要在编译时计算。</p>
+<p>每个先前描述的词法 <a href="expressions/../tokens.html#literals">字面值</a> 形式都可以组成一个字面表达式，关键字 <code>true</code> 和 <code>false</code> 也可以。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>&quot;hello&quot;;   // 字符串类型
@@ -6010,14 +6008,14 @@ let a: u64 = 123;                  // type u64
 <p>将字符串转换为 <code>u128</code> 值，就像通过 <a href="expressions/../../core/primitive.u128.html#method.from_str_radix"><code>u128::from_str_radix</code></a> 选择的基数一样。如果值不适合 <code>u128</code>，则会出现编译器错误。</p>
 </li>
 <li>
-<p>通过 <a href="expressions/operator-expr.html#numeric-cast">数字类型转换</a> 将 <code>u128</code> 值转换为表达式的类型。</p>
+<p>通过 <a href="expressions/operator-expr.html#numeric-cast">数字转换</a> 将 <code>u128</code> 值转换为表达式的类型。</p>
 </li>
 </ul>
 <blockquote>
-<p><strong>注意</strong>: 如果该字面值的值超出了该类型的表示范围，最终转换将截断该字面值。 <code>rustc</code> 包括一个名为 <code>overflowing_literals</code> 的 <a href="expressions/../attributes/diagnostics.html#lint-check-attributes">lint check</a> ，默认为 <code>deny</code>，拒绝其中出现的表达式。</p>
+<p><strong>注意</strong>: 如果该字面值的值超出了该类型的表示范围，最终转换将截断该字面值。 <code>rustc</code> 包括一个名为 <code>overflowing_literals</code> 的 [代码分析检查] <a href="expressions/../attributes/diagnostics.html#lint-check-attributes">lint check</a> ，默认为 <code>deny</code>，拒绝其中出现的表达式。</p>
 </blockquote>
 <blockquote>
-<p><strong>注意</strong>: 例如， <code>-1i8</code> 是对字面值表达式 <code>1i8</code> 应用了 <a href="expressions/operator-expr.html#negation-operators">取反运算符</a> ，而不是一个整数字面值表达式。有关表示有符号类型的最负值的注释，请参见 <a href="expressions/operator-expr.html#overflow">Overflow</a> 。</p>
+<p><strong>注意</strong>: 例如， <code>-1i8</code> 是对字面值表达式 <code>1i8</code> 应用了 <a href="expressions/operator-expr.html#negation-operators">取反运算符</a> ，而不是一个整数字面值表达式。有关表示有符号类型的最负值的注释，请参见 <a href="expressions/operator-expr.html#overflow">溢出</a> 。</p>
 </blockquote>
 <h2 id="浮点数字面值表达式"><a class="header" href="#浮点数字面值表达式">浮点数字面值表达式</a></h2>
 <p>浮点数字面值表达式具有以下两种形式:</p>
@@ -6060,7 +6058,7 @@ let x: f64 = 2.; // type f64
 <blockquote>
 <p><strong>注意</strong>: <code>inf</code> 和 <code>NaN</code> 不是字面值令牌。
 可以使用 <a href="expressions/../../core/primitive.f32.html#associatedconstant.INFINITY"><code>f32::INFINITY</code></a> 、 <a href="expressions/../../core/primitive.f64.html#associatedconstant.INFINITY"><code>f64::INFINITY</code></a> 、 <a href="expressions/../../core/primitive.f32.html#associatedconstant.NAN"><code>f32::NAN</code></a> 和 <a href="expressions/../../core/primitive.f64.html#associatedconstant.NAN"><code>f64::NAN</code></a> 常量来代替字面值表达式。
-在 <code>rustc</code> 中，被评估为无限大的字面值将触发 <code>overflowing_literals</code> lint 检查。</p>
+在 <code>rustc</code> 中，被评估为无限大的字面值将触发 <code>overflowing_literals</code> 代码分析检查。</p>
 </blockquote>
 <h2 id="布尔字面值表达式"><a class="header" href="#布尔字面值表达式">布尔字面值表达式</a></h2>
 <p>一个布尔字面值表达式由 <code>true</code> 或 <code>false</code> 中的一个关键字组成。</p>
@@ -6108,7 +6106,7 @@ let slice_reverse = &lt;[i32]&gt;::reverse;
 </blockquote>
 <p><em>块表达式</em> 或 <em>块</em> 是一个控制流表达式和用于条目和变量声明的匿名命名空间作用域。
 作为控制流表达式，块按顺序执行其组成的非条目声明语句，然后执行其最后的可选表达式。
-作为匿名命名空间作用域，仅在块内部声明的条目声明在块本身中可用，而由 <code>let</code> 语句声明的变量从下一条语句开始在块结束之前处于作用域中。</p>
+作为匿名命名空间作用域，在块内部声明的条目声明在块本身中可用，而由 <code>let</code> 语句声明的变量从下一条语句开始在块结束之前处于作用域中。</p>
 <p>块的语法是 <code>{</code> ，然后是任何 <a href="expressions/../attributes.html">内部属性</a> ，然后是任意数量的 <a href="expressions/../statements.html">语句</a> ，然后是一个可选的表达式，称为最后的操作数，最后是一个 <code>}</code> 。</p>
 <p>语句通常需要在分号后面，有两个例外：</p>
 <ol>
@@ -6179,13 +6177,13 @@ fn move_by_block_expression() {
 与闭包一样，当写成 <code>async { .. }</code> 时，每个变量的捕获模式将从块的内容中推断出来。
 然而， <code>async move { .. }</code> 块将移动所有被引用的变量到生成的 future 中。</p>
 <h3 id="异步上下文"><a class="header" href="#异步上下文">异步上下文</a></h3>
-<p>由于异步块构造了一个future，它们定义了一个 <strong>异步上下文</strong> ，这个上下文可以包含 <a href="expressions/await-expr.html"><code>await</code> 表达式</a> 。
+<p>由于异步块构造了一个 future ，其定义了一个 <strong>异步上下文</strong> ，这个上下文可以包含 <a href="expressions/await-expr.html"><code>await</code> 表达式</a> 。
 异步上下文由异步块以及异步函数的函数体建立，后者的语义是以异步块为基础定义的。</p>
 <h3 id="控制流运算符"><a class="header" href="#控制流运算符">控制流运算符</a></h3>
 <p>异步块类似于函数约束，就像闭包一样。
-因此， <code>?</code> 运算符和 <code>return</code> 表达式都会影响未来的输出，而不是封闭函数或其他上下文。
-也就是说，从异步块中的 <code>return &lt;expr&gt;</code> 将返回 <code>&lt;expr&gt;</code> 的结果作为未来的输出。
-同样，如果 <code>&lt;expr&gt;?</code> 传播错误，则该错误将作为未来的结果传播。</p>
+因此， <code>?</code> 运算符和 <code>return</code> 表达式都会影响 future 的输出，而不是封闭函数或其他上下文。
+也就是说，从异步块中的 <code>return &lt;expr&gt;</code> 将返回 <code>&lt;expr&gt;</code> 的结果作为 future 的输出。
+同样，如果 <code>&lt;expr&gt;?</code> 传播错误，则该错误将作为 future 的结果传播。</p>
 <p>最后， <code>break</code> 和 <code>continue</code> 关键字不能用于从异步块中分支跳出。
 因此以下代码是非法的:</p>
 <pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
@@ -6202,7 +6200,7 @@ fn move_by_block_expression() {
 <em>Unsafe块表达式</em> :<br />
    <code>unsafe</code> <em>块表达式</em></p>
 </blockquote>
-<p>在需要进行 <a href="expressions/../unsafety.html">unsafe 操作</a> 时，可以在一段代码块前加上 <code>unsafe</code> 关键字。详见 <a href="expressions/../unsafe-blocks.html"><code>unsafe</code> block</a> 。
+<p>在需要进行 <a href="expressions/../unsafety.html">unsafe 操作</a> 时，可以在一段代码块前加上 <code>unsafe</code> 关键字。详见 <a href="expressions/../unsafe-blocks.html"><code>unsafe</code> 块</a> 。
 示例:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -6228,7 +6226,7 @@ fn move_by_block_expression() {
 <li>另一个块表达式的尾表达式是块表达式。</li>
 </ul>
 <!-- Keep list in sync with expressions.md -->
-<p>具有在块表达式上的含义的属性包括 <a href="expressions/../conditional-compilation.html"><code>cfg</code></a> 和 <a href="expressions/../attributes/diagnostics.html#lint-check-attributes">lint 检查属性</a> 。</p>
+<p>具有在块表达式上的含义的属性包括 <a href="expressions/../conditional-compilation.html"><code>cfg</code></a> 和 <a href="expressions/../attributes/diagnostics.html#lint-check-attributes">代码分析检查属性</a> 。</p>
 <p>例如，这个函数在 Unix 平台上返回 <code>true</code> ，在其他平台上返回 <code>false</code> 。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -6280,7 +6278,7 @@ fn move_by_block_expression() {
 <p><code>&amp;</code> (共享借用) 和 <code>&amp;mut</code> (可变借用) 运算符是一元前缀运算符。
 当应用于一个 <a href="expressions/../expressions.html#place-expressions-and-value-expressions">占位表达式</a> 时，该表达式产生一个指向该值引用的位置的引用 (指针) 。
 在引用的持续时间内，该内存位置也被置于借用状态。对于共享借用 ( <code>&amp;</code> ) ，这意味着该位置可能不能被修改，但可以被读取或再次共享。
-对于可变借用 ( <code>&amp;mut</code> ) ，在借用过期之前，该位置可能不能以任何方式访问。
+对于可变借用 (<code>&amp;mut</code>) ，在借用过期之前，该位置可能不能以任何方式访问。
 <code>&amp;mut</code> 在可变位置表达式上下文中评估其操作数。如果 <code>&amp;</code> 或 <code>&amp;mut</code> 运算符应用于一个 <a href="expressions/../expressions.html#place-expressions-and-value-expressions">值表达式</a> ，则将创建一个 <a href="expressions/../expressions.html#temporaries">临时值</a>。</p>
 <p>这些运算符不能被重载。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -6298,11 +6296,11 @@ let mut array = [-2, 3, 9];
 <p>即使 <code>&amp;&amp;</code> 是单个标记 (<a href="expressions/operator-expr.html#lazy-boolean-operators">惰性 'and' 运算符</a>) ，但在借用表达式的上下文中使用时，它的作用相当于两个借用:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>// same meanings:
+</span>// 同样的含义:
 let a = &amp;&amp;  10;
 let a = &amp; &amp; 10;
 
-// same meanings:
+// 同样的含义:
 let a = &amp;&amp;&amp;&amp;  mut 10;
 let a = &amp;&amp; &amp;&amp; mut 10;
 let a = &amp; &amp; &amp; &amp; mut 10;
@@ -6343,11 +6341,11 @@ struct Demo {
 }
 
 let mut uninit = MaybeUninit::&lt;Demo&gt;::uninit();
-// &amp;uninit.as_mut().field将创建对未初始化的'bool'的引用，因此为Undefined Behavior!
+// &amp;uninit.as_mut().field 将创建对未初始化的  `bool` 的引用，因此为未定义行为!
 let f1_ptr = unsafe { ptr::addr_of_mut!((*uninit.as_mut_ptr()).field) };
-// 将'true'写入先前未初始化的字段。
+// 将 'true' 写入先前未初始化的字段。
 unsafe { f1_ptr.write(true); }
-// 因为'uninit'已在上面初始化，所以是安全的。
+// 因为 'uninit' 已在上面初始化，所以是安全的。
 let init = unsafe { uninit.assume_init() };
 <span class="boring">}</span></code></pre></pre>
 <h2 id="解引用操作符"><a class="header" href="#解引用操作符">解引用操作符</a></h2>
@@ -6558,8 +6556,8 @@ let y = false &amp;&amp; panic!(); // false 不会对右侧的操作数进行求
     sum / size
 }
 <span class="boring">}</span></code></pre></pre>
-<p><code>as</code> 可以用于显式执行 <a href="expressions/../type-coercions.html">coercions</a> ，以及以下附加转换。
-任何不符合 coercion 规则或表中条目的转换都是编译器错误。
+<p><code>as</code> 可以用于显式执行 <a href="expressions/../type-coercions.html">强转</a> ，以及以下附加转换。
+任何不符合强转规则或表中条目的转换都是编译器错误。
 这里的 <code>*T</code> 表示 <code>*const T</code> 或 <code>*mut T</code>。
 在引用类型中， <code>m</code> 表示可选的 <code>mut</code> ，在指针类型中表示 <code>mut</code> 或 <code>const</code> 。</p>
 <div class="table-wrapper"><table><thead><tr><th><code>e</code> 的类型</th><th><code>U</code></th><th><code>e as U</code> 执行的类型转换</th></tr></thead><tbody>
@@ -6691,7 +6689,7 @@ x = y;
 <p>与使用 <code>let</code> 进行解构声明不同，由于语法歧义，模式不能出现在赋值语句的左侧。
 相反，一组对应模式的表达式被指定为 <a href="expressions/../expressions.html#place-expressions-and-value-expressions">可赋值表达式</a> ，并允许出现在赋值语句的左侧。
 然后，将赋值表达式展开为模式匹配，然后进行顺序赋值。
-展开后的模式必须是不可反驳的：特别地，这意味着仅允许具有在编译时已知长度的切片模式以及简单的切片 <code>[..]</code> 用于解构赋值。</p>
+展开后的模式必须是不可拒绝的：特别地，这意味着仅允许具有在编译时已知长度的切片模式以及简单的切片 <code>[..]</code> 用于解构赋值。</p>
 <p>展开的方法很简单，最好通过示例来说明。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -6790,9 +6788,9 @@ fn example() {
    <code>(</code> <a href="expressions/../expressions.html"><em>表达式</em></a> <code>)</code></p>
 </blockquote>
 <p><em>括号表达式</em> 将一个单独的表达式包裹起来，最终的结果是这个表达式的值。
-括号表达式的语法是 <code>(</code> ，然后是一个表达式，称为 <em>内嵌操作数</em> ，最后是一个 <code>)</code> 。</p>
-<p>括号表达式的值等同于内嵌操作数的值。与其他表达式不同的是，括号表达式既是 <a href="expressions/../expressions.html#place-expressions-and-value-expressions">占位表达式</a> 也是值表达式。
-当内嵌操作数是占位表达式时，括号表达式也是占位表达式；当内嵌操作数是值表达式时，括号表达式也是值表达式。</p>
+括号表达式的语法是 <code>(</code> ，然后是一个表达式，称为 <em>内嵌操作</em> ，最后是一个 <code>)</code> 。</p>
+<p>括号表达式的值等同于内嵌操作的值。与其他表达式不同的是，括号表达式既是 <a href="expressions/../expressions.html#place-expressions-and-value-expressions">占位表达式</a> 也是值表达式。
+当内嵌操作是占位表达式时，括号表达式也是占位表达式；当内嵌操作是值表达式时，括号表达式也是值表达式。</p>
 <p>括号可以用于显式修改表达式中子表达式的优先级顺序。</p>
 <p>以下是括号表达式的示例:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -6916,13 +6914,13 @@ arr[10];                  // 警告：索引越界
    <a href="expressions/../expressions.html"><em>表达式</em></a> <code>.</code> <a href="expressions/../tokens.html#tuple-index">元组索引</a></p>
 </blockquote>
 <p><em>元组索引表达式</em> 用于访问 <a href="expressions/../types/tuple.html">元组</a> 和 <a href="expressions/../types/struct.html">元组结构体</a> 中的字段。</p>
-<p>元组索引表达式的语法是一个表达式，即 <em>元组操作数</em> ，后跟一个点号 ( <code>.</code> ) ，最后是一个元组索引。
+<p>元组索引表达式的语法是一个表达式，即 <em>元组操作</em> ，后跟一个点号 ( <code>.</code> ) ，最后是一个元组索引。
 元组索引的语法是一个 <a href="expressions/../tokens.html#integer-literals">十进制字面值</a> ，没有前导零、下划线或后缀。
 例如，<code>0</code> 和 <code>2</code> 是有效的元组索引，但  <code>01</code> 、 <code>0_</code> 和 <code>0i32</code> 不是。</p>
-<p>元组操作数的类型必须是 <a href="expressions/../types/tuple.html">元组类型</a> 或 <a href="expressions/../types/struct.html">元组结构体</a> 的一种。
-元组索引必须是元组操作数类型中与之同名的字段。</p>
-<p>求值元组索引表达式除了求值其元组操作数之外没有任何副作用。
-作为 <a href="expressions/../expressions.html#place-expressions-and-value-expressions">占位表达式</a> ，它将求值元组操作数中与元组索引同名的字段的位置。</p>
+<p>元组操作的类型必须是 <a href="expressions/../types/tuple.html">元组类型</a> 或 <a href="expressions/../types/struct.html">元组结构体</a> 的一种。
+元组索引必须是元组操作类型中与之同名的字段。</p>
+<p>求值元组索引表达式除了求值其元组操作之外没有任何副作用。
+作为 <a href="expressions/../expressions.html#place-expressions-and-value-expressions">占位表达式</a> ，它将求值元组操作中与元组索引同名的字段的位置。</p>
 <p>元组索引表达式的示例如下:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -6937,7 +6935,7 @@ assert_eq!(point.0, 1.0);
 assert_eq!(point.1, 0.0);
 <span class="boring">}</span></code></pre></pre>
 <blockquote>
-<p><strong>注意</strong>: 与字段访问表达式不同，元组索引表达式可以作为 <a href="expressions/./call-expr.html">调用表达式</a> 的函数操作数，因为它不能与方法调用混淆，因为方法名称不能是数字。</p>
+<p><strong>注意</strong>: 与字段访问表达式不同，元组索引表达式可以作为 <a href="expressions/./call-expr.html">调用表达式</a> 的函数操作，因为它不能与方法调用混淆，因为方法名称不能是数字。</p>
 </blockquote>
 <blockquote>
 <p><strong>注意</strong>: 尽管数组和切片也有元素，但必须使用 <a href="expressions/array-expr.html#array-and-slice-indexing-expressions">数组或切片索引表达式</a> 或 <a href="expressions/../patterns.html#slice-patterns">切片模式</a> 来访问它们的元素。</p>
@@ -6946,20 +6944,20 @@ assert_eq!(point.1, 0.0);
 <blockquote>
 <p><strong><sup>语法</sup></strong><br />
 <em>结构体表达式</em> :<br />
-      <em>结构体表达式结构体</em><br />
+      <em>结构体表达式结构</em><br />
    | <em>结构体表达式元组</em><br />
    | <em>结构体表达式单元</em></p>
-<p><em>结构体表达式结构体</em> :<br />
-   <a href="expressions/../paths.html#paths-in-expressions"><em>表达式中路径</em></a> <code>{</code> (<em>结构体表达式字段组</em> | <em>结构体省略</em>)<sup>?</sup> <code>}</code></p>
+<p><em>结构体表达式结构</em> :<br />
+   <a href="expressions/../paths.html#paths-in-expressions"><em>表达式中路径</em></a> <code>{</code> (<em>结构体表达式字段组</em> | <em>结构省略</em>)<sup>?</sup> <code>}</code></p>
 <p><em>结构体表达式字段组</em> :<br />
-   <em>结构体表达式字段</em> (<code>,</code> <em>结构体表达式字段</em>)<sup>*</sup> (<code>,</code> <em>结构体省略</em> | <code>,</code><sup>?</sup>)</p>
+   <em>结构体表达式字段</em> (<code>,</code> <em>结构体表达式字段</em>)<sup>*</sup> (<code>,</code> <em>结构省略</em> | <code>,</code><sup>?</sup>)</p>
 <p><em>结构体表达式字段</em> :<br />
    <a href="expressions/../attributes.html"><em>外围属性</em></a> <sup>*</sup><br />
    (<br />
          <a href="expressions/../identifiers.html">标识符</a><br />
       | (<a href="expressions/../identifiers.html">标识符</a> | <a href="expressions/../tokens.html#tuple-index">元组索引</a>) <code>:</code> <a href="expressions/../expressions.html"><em>表达式</em></a><br />
    )</p>
-<p><em>结构体省略</em> :<br />
+<p><em>结构省略</em> :<br />
    <code>..</code> <a href="expressions/../expressions.html"><em>表达式</em></a></p>
 <p><em>结构体表达式元组</em> :<br />
    <a href="expressions/../paths.html#paths-in-expressions"><em>表达式中路径</em></a> <code>(</code><br />
@@ -6968,7 +6966,8 @@ assert_eq!(point.1, 0.0);
 <p><em>结构体表达式单元</em> : <a href="expressions/../paths.html#paths-in-expressions"><em>表达式中路径</em></a></p>
 </blockquote>
 <p><em>结构体表达式</em> 用于创建结构体、枚举或联合体值。
-它由指向 <a href="expressions/../items/structs.html">结构体</a> 、 <a href="expressions/../items/enumerations.html">枚举变体</a> 或 <a href="expressions/../items/unions.html">联合体</a> 条目的路径，以及该条目字段的值组成。结构体表达式有三种形式：结构体、元组和单元结构体。</p>
+它由指向 <a href="expressions/../items/structs.html">结构体</a> 、 <a href="expressions/../items/enumerations.html">枚举变体</a> 或 <a href="expressions/../items/unions.html">联合体</a> 条目的路径，以及该条目字段的值组成。
+结构体表达式有三种形式：结构体、元组和单元结构体。</p>
 <p>以下是结构体表达式的示例：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -6988,8 +6987,8 @@ some_fn::&lt;Cookie&gt;(Cookie);
 <p>带有花括号括起来的字段结构体表达式允许你以任何顺序指定每个单独字段的值。字段名称用冒号与其值分开。</p>
 <p><a href="expressions/../items/unions.html">联合体</a> 类型的值只能使用此语法创建，并且必须指定一个字段。</p>
 <h2 id="函数式更新语法"><a class="header" href="#函数式更新语法">函数式更新语法</a></h2>
-<p>用于构造结构体类型值的结构体表达式可以以 <code>..</code> 语法结尾，后跟表达式，表示函数式更新。
-<code>..</code> 后面的表达式（基表达式）必须与新结构体类型相同。</p>
+<p>用于构造结构体类型值的结构体表达式可以用 <code>..</code> 语法结尾，后跟表达式，表示函数式更新。
+<code>..</code> 后面的表达式 (基表达式) 必须与新结构体类型相同。</p>
 <p>整个表达式使用给定值填充指定的字段，并将其余字段从基表达式中移动或复制。
 与所有结构体表达式一样，结构体的所有字段都必须是 <a href="expressions/../visibility-and-privacy.html">可见的</a> ，即使未显式命名。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -7005,7 +7004,7 @@ drop(y_ref);
 <p>字段名称可以是十进制整数值，用于指定用于构造元组结构体的索引。这可以与基础结构体一起使用，以填充未指定的其余索引:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>struct Color(u8, u8, u8); // 定义一个名为Color的元组结构体
+</span>struct Color(u8, u8, u8); // 定义一个名为 Color 的元组结构体
 let c1 = Color(0, 0, 0); // 创建元组结构体实例的一般方式
 let c2 = Color{0: 255, 1: 127, 2: 0}; // 按索引指定结构体字段的值
 let c3 = Color{1: 0, ..c2}; // 使用基础结构体填充所有其他字段
@@ -7052,11 +7051,11 @@ let b = Gamma{};  // 与 `a` 完全相同的值。
 <p><em>调用参数组</em> :<br />
    <a href="expressions/../expressions.html"><em>表达式</em></a> ( <code>,</code> <a href="expressions/../expressions.html"><em>表达式</em></a> )<sup>*</sup> <code>,</code><sup>?</sup></p>
 </blockquote>
-<p><em>调用表达式</em> 调用一个函数。
-调用表达式的语法是一个表达式，称为 <em>函数操作数</em> ，后面跟着一个带括号的逗号分隔的表达式列表，称为 <em>参数操作数</em> 。
+<p><em>调用表达式</em> 调用函数。
+调用表达式的语法是一个称为 <em>函数操作</em> 表达式，后面跟着一个带括号的逗号分隔的表达式列表，称为 <em>参数操作</em> 。
 如果函数最终返回，则表达式完成。
-对于 <a href="expressions/../types/function-item.html">非函数类型</a> ，表达式 <code>f(...)</code> 使用 <a href="expressions/../../std/ops/trait.Fn.html"><code>std::ops::Fn</code></a> 、 <a href="expressions/../../std/ops/trait.FnMut.html"><code>std::ops::FnMut</code></a> 或<a href="expressions/../../std/ops/trait.FnOnce.html"><code>std::ops::FnOnce</code></a> trait 中的方法，这些 trait 在是否通过引用、可变引用或取得所有权方面有所不同。
-如果需要，将自动借用。函数操作数也将根据需要 <a href="expressions/field-expr.html#automatic-dereferencing">自动解引用</a> 。</p>
+对于 <a href="expressions/../types/function-item.html">非函数类型</a> ，表达式 <code>f(...)</code> 使用 <a href="expressions/../../std/ops/trait.Fn.html"><code>std::ops::Fn</code></a> 、 <a href="expressions/../../std/ops/trait.FnMut.html"><code>std::ops::FnMut</code></a> 或 <a href="expressions/../../std/ops/trait.FnOnce.html"><code>std::ops::FnOnce</code></a> trait 中的方法，这些 trait 在是否通过引用、可变引用或取得所有权方面有所不同。
+如果需要，将自动借用。函数操作也将根据需要 <a href="expressions/field-expr.html#automatic-dereferencing">自动解引用</a> 。</p>
 <p>以下是一些调用表达式的例子:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -7072,11 +7071,11 @@ let name: &amp;'static str = (|| &quot;Rust&quot;)();
 但是，这些术语缺乏描述能力，可能会让问题变得更加混乱。
 我们在这里提到它们是为了便于搜索。</p>
 </blockquote>
-<p>有几种常见情况可能导致方法或关联函数调用的接收者或参照对象产生歧义。
+<p>有几种常见情况可能导致方法或关联函数调用的接收者或参照产生歧义。
 这些情况可能包括:</p>
 <ul>
 <li>多个作用域内的 trait 为相同类型定义了同名方法</li>
-<li>不希望自动解引用；例如，区分智能指针本身的方法和指针的参照对象的方法</li>
+<li>不希望自动解引用；例如，区分智能指针本身的方法和指针的参照的方法</li>
 <li>不带参数的方法，例如 <a href="expressions/../../std/default/trait.Default.html#tymethod.default"><code>default()</code></a> ，返回类型的属性，例如 <a href="expressions/../../std/mem/fn.size_of.html"><code>size_of()</code></a></li>
 </ul>
 <p>为了解决歧义，程序员可以使用更具体的路径、类型或 trait 来指定他们想要的方法或函数。</p>
@@ -7110,7 +7109,7 @@ fn main() {
     f.print();
     // 更明确的，而且在 `Foo` 的情况下并不必要
     Foo::print(&amp;f);
-    // 如果你不喜欢简洁的语法
+    // 如果你不喜欢简略的语法
     &lt;Foo as Pretty&gt;::print(&amp;f);
 
     // b.print(); // 错误：发现多个 'print'
@@ -7135,8 +7134,8 @@ let log_pi = pi.unwrap_or(1.0).log(2.72);
 <span class="boring">assert!(1.14 &lt; log_pi &amp;&amp; log_pi &lt; 1.15)
 </span><span class="boring">}</span></code></pre></pre>
 <p>在查找方法调用时，为了调用方法，接收者可能会自动解引用或借用。与其他函数相比，这需要更复杂的查找过程，因为可能有许多可能要调用的方法。使用以下过程:</p>
-<p>第一步是构建候选接收者类型列表。通过重复 <a href="expressions/operator-expr.html#the-dereference-operator">解引用</a> 接收者表达式的类型，将遇到的每种类型添加到列表中，然后在最后尝试 <a href="expressions/../type-coercions.html#unsized-coercions">不可缩放强制转换</a> ，如果成功，则添加结果类型。然后，对于每个候选项 <code>T</code> ，在 <code>T</code> 之后立即添加 <code>&amp;T</code> 和 <code>&amp;mut T</code> 。</p>
-<p>例如，如果接收者的类型为 <code>Box&lt;[i32;2]&gt;</code> ，则候选类型将是 <code>Box&lt;[i32;2]&gt;</code> 、 <code>&amp;Box&lt;[i32;2]&gt;</code> 、 <code>&amp;mut Box&lt;[i32;2]&gt;</code> 、 <code>[i32;2]</code> (通过解引用) 、 <code>&amp;[i32;2]</code> 、<code>&amp;mut [i32;2]</code> 、 <code>[i32]</code> （通过不可缩放强制转换）、 <code>&amp;[i32]</code> 和最后的 <code>&amp;mut [i32]</code> 。</p>
+<p>第一步是构建候选接收者类型列表。通过重复 <a href="expressions/operator-expr.html#the-dereference-operator">解引用</a> 接收者表达式的类型，将遇到的每种类型添加到列表中，然后在最后尝试 <a href="expressions/../type-coercions.html#unsized-coercions">不确定大小的强制转换</a> ，如果成功，则添加结果类型。然后，对于每个候选项 <code>T</code> ，在 <code>T</code> 之后立即添加 <code>&amp;T</code> 和 <code>&amp;mut T</code> 。</p>
+<p>例如，如果接收者的类型为 <code>Box&lt;[i32;2]&gt;</code> ，则候选类型将是 <code>Box&lt;[i32;2]&gt;</code> 、 <code>&amp;Box&lt;[i32;2]&gt;</code> 、 <code>&amp;mut Box&lt;[i32;2]&gt;</code> 、 <code>[i32;2]</code> (通过解引用) 、 <code>&amp;[i32;2]</code> 、<code>&amp;mut [i32;2]</code> 、 <code>[i32]</code> (通过不可缩放强制转换) 、 <code>&amp;[i32]</code> 和最后的 <code>&amp;mut [i32]</code> 。</p>
 <p>然后，对于每个候选类型 <code>T</code> ，在以下位置搜索具有该类型接收者的 <a href="expressions/../visibility-and-privacy.html">可见</a> 方法:</p>
 <ol>
 <li><code>T</code> 的内部方法 (直接在 <code>T</code> 上实现的方法)。</li>
@@ -7177,7 +7176,9 @@ fn main() {
 <p>这种特殊情况可能会在将来被删除。</p>
 </blockquote>
 <div class="warning">
-<p><em><strong>警告:</strong></em> 对于 <a href="expressions/../types/trait-object.html">trait对象</a> ，如果存在与 trait 方法同名的内部方法，在方法调用表达式中尝试调用该方法会导致编译器错误。相反，可以使用 <a href="expressions/call-expr.html#disambiguating-function-calls">消除歧义的函数调用语法</a> 来调用该方法，这样会调用 trait 方法而不是内部方法。没有方法可以调用内部方法。不要在具有与 trait 方法同名的内部方法的 trait 对象上定义内部方法，这样就不会出现问题。</p>
+<p><em><strong>警告:</strong></em> 对于 <a href="expressions/../types/trait-object.html">trait 对象</a> ，如果存在与 trait 方法同名的内部方法，在方法调用表达式中尝试调用该方法会导致编译器错误。
+相反，可以使用 <a href="expressions/call-expr.html#disambiguating-function-calls">消除歧义的函数调用语法</a> 来调用该方法，这样会调用 trait 方法而不是内部方法。
+没有方法可以调用内部方法。不要在具有与 trait 方法同名的内部方法的 trait 对象上定义内部方法，这样就不会出现问题。</p>
 </div>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="字段访问表达式"><a class="header" href="#字段访问表达式">字段访问表达式</a></h1>
 <blockquote>
@@ -7185,11 +7186,11 @@ fn main() {
 <em>字段表达式</em> :<br />
    <a href="expressions/../expressions.html"><em>表达式</em></a> <code>.</code> <a href="expressions/../identifiers.html">标识符</a></p>
 </blockquote>
-<p><em>字段表达式</em> 是一个 <a href="expressions/../expressions.html#place-expressions-and-value-expressions">占位表达式</a>  ，它求值为 <a href="expressions/../items/structs.html">结构体</a> 或 <a href="expressions/../items/unions.html">联合体</a> 的一个字段的位置。
+<p><em>字段表达式</em> 是一个 <a href="expressions/../expressions.html#place-expressions-and-value-expressions">占位表达式</a>  ，它求值为 <a href="expressions/../items/structs.html">结构体</a> 或 <a href="expressions/../items/unions.html">联合体</a> 的一个字段的地址。
 当操作数是 <a href="expressions/../expressions.html#mutability">可变的</a> ，字段表达式也是可变的。
-字段表达式的语法是一个表达式 (称为 <em>容器操作数</em> ) ，然后是一个 <code>.</code> ，最后是一个 <a href="expressions/../identifiers.html">标识符</a> 。
+字段表达式的语法是一个表达式 (称为 <em>容器操作</em> ) ，然后是一个 <code>.</code> ，最后是一个 <a href="expressions/../identifiers.html">标识符</a> 。
 字段表达式不能后跟一个括号内的逗号分隔的表达式列表，因为那将被解析为 <a href="expressions/method-call-expr.html">方法调用表达式</a> 。
-也就是说，它们不能作为 <a href="expressions/call-expr.html">调用表达式</a> 的函数操作数。</p>
+也就是说，它们不能作为 <a href="expressions/call-expr.html">调用表达式</a> 的函数操作对象。</p>
 <blockquote>
 <p><strong>注意</strong>: 在调用表达式中使用字段表达式时，要将其包装在 <a href="expressions/grouped-expr.html">括号表达式</a> 中。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -7244,9 +7245,9 @@ let d: String = x.f3;           // 从 x.f3 中移动值
    <a href="expressions/../attributes.html"><em>外围属性</em></a><sup>*</sup> <a href="expressions/../patterns.html"><em>模式无顶层选项</em></a> ( <code>:</code> <a href="expressions/../types.html#type-expressions"><em>类型</em></a> )<sup>?</sup></p>
 </blockquote>
 <p><em>闭包表达式</em> ，也称为 lambda 表达式或 lambda ，定义一个 <a href="expressions/../types/closure.html">闭包类型</a> 并求值为该类型的值。
-闭包表达式的语法是一个可选的 <code>move</code> 关键字，然后是一个由管道符号分隔 (<code>|</code>) 的逗号分隔的 <a href="expressions/../patterns.html">模式</a> 列表，称为<em>闭包参数</em>，每个参数后面可选地跟随一个 <code>:</code> 和一个类型，然后是一个可选的 <code>-&gt;</code> 和类型，称为 <em>返回类型</em> ，然后是一个表达式，称为 <em>闭包体操作数</em> 。每个模式后面的可选类型是该模式的类型注解。如果存在返回类型，则闭包体必须是一个 <a href="expressions/block-expr.html">块</a> 。</p>
+闭包表达式的语法是一个可选的 <code>move</code> 关键字，然后是一个由管道符号分隔 (<code>|</code>) 的逗号分隔的 <a href="expressions/../patterns.html">模式</a> 列表，称为<em>闭包参数</em>，每个参数后面可选地跟随一个 <code>:</code> 和一个类型，然后是一个可选的 <code>-&gt;</code> 和类型，称为 <em>返回类型</em> ，然后是一个表达式，称为 <em>闭包体操作</em> 。每个模式后面的可选类型是该模式的类型注解。如果存在返回类型，则闭包体必须是一个 <a href="expressions/block-expr.html">块</a> 。</p>
 <p>闭包表达式表示一个函数，该函数将一系列参数映射到跟随参数的表达式。
-就像 <a href="expressions/../statements.html#let-statements"><code>let</code> 绑定</a> 一样，闭包参数是无法反驳的 <a href="expressions/../patterns.html">模式</a> ，其类型注解是可选的，如果未给出，将从上下文中推断。
+就像 <a href="expressions/../statements.html#let-statements"><code>let</code> 绑定</a> 一样，闭包参数是无法拒绝的 <a href="expressions/../patterns.html">模式</a> ，其类型注解是可选的，如果未给出，将从上下文中推断。
 每个闭包表达式都具有一个唯一的、匿名的类型。</p>
 <p>值得注意的是，闭包表达式 <em>捕获其环境</em> ，而普通的 <a href="expressions/../items/functions.html">函数定义</a> 不会。
 如果没有 <code>move</code> 关键字，闭包表达式 <a href="expressions/../types/closure.html#capture-modes">推断它如何从其环境中捕获每个变量</a> ，优先通过共享引用来捕获，实际上借用闭包体内提到的所有外部变量。
@@ -7255,7 +7256,7 @@ let d: String = x.f3;           // 从 x.f3 中移动值
 这通常用于确保闭包的生命周期为 <code>'static</code> 。</p>
 <h2 id="闭包类型实现的-trait"><a class="header" href="#闭包类型实现的-trait">闭包类型实现的 trait</a></h2>
 <p>闭包类型实现哪些 trait 取决于如何捕获变量和捕获的变量的类型。
-请参考 <a href="expressions/../types/closure.html#call-traits-and-coercions">调用 trait 和强制转换</a> 章节了解闭包实现 <code>Fn</code> 、 <code>FnMut</code> 和 <code>FnOnce</code> 的情况和时间。
+请参考 <a href="expressions/../types/closure.html#call-traits-and-coercions">调用 trait 和强转</a> 章节了解闭包实现 <code>Fn</code> 、 <code>FnMut</code> 和 <code>FnOnce</code> 的情况和时间。
 如果每个捕获的变量的类型也实现了 trait ，闭包类型实现 <a href="expressions/../special-types-and-traits.html#send"><code>Send</code></a> 和 <a href="expressions/../special-types-and-traits.html#sync"><code>Sync</code></a> 。</p>
 <h2 id="示例-3"><a class="header" href="#示例-3">示例</a></h2>
 <p>在这个例子中，我们定义了一个函数 <code>ten_times</code> ，它接受一个高阶函数参数，然后我们调用它并传入一个闭包表达式作为参数，接着传入一个从环境中移动值的闭包表达式。</p>
@@ -7387,7 +7388,7 @@ while let Some(v @ 1) | Some(v @ 2) = vals.pop() {
 <a href="expressions/block-expr.html"><em>块表达式</em></a></p>
 </blockquote>
 <p><code>for</code> 表达式是一种语法结构，用于循环遍历 <code>std::iter::IntoIterator</code> 的实现提供的元素。
-如果迭代器产生一个值，那么该值将与不可反驳的模式匹配，执行循环体，然后控制返回到 <code>for</code> 循环的开头。
+如果迭代器产生一个值，那么该值将与不可拒绝的模式匹配，执行循环体，然后控制返回到 <code>for</code> 循环的开头。
 如果迭代器为空，则 <code>for</code> 表达式完成。</p>
 <p>一个对数组内容进行 <code>for</code> 循环的例子:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -7524,25 +7525,25 @@ assert_eq!(last, 12);
 <p>与 <code>break</code> 类似，<code>continue</code> 通常与最内层的封闭循环相关联，但可以使用 <code>continue 'label</code> 指定受影响的循环。
 <code>continue</code> 表达式只允许出现在循环体中。</p>
 <h2 id="break-和循环值"><a class="header" href="#break-和循环值"><code>break</code> 和循环值</a></h2>
-<p>在Rust中，当与 <code>loop</code> 关键字相关联时，可以使用 <code>break</code> 表达式通过 <code>break EXPR</code> 或 <code>break 'label EXPR</code> 的形式从循环中返回一个值，其中 <code>EXPR</code> 是返回给 <code>loop</code> 的表达式结果。
+<p>在 Rust 中，当与 <code>loop</code> 关键字相关联时，可以使用 <code>break</code> 表达式通过 <code>break EXPR</code> 或 <code>break 'label EXPR</code> 的形式从循环中返回一个值，其中 <code>EXPR</code> 是返回给 <code>loop</code> 的表达式结果。
 例如:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let (mut a, mut b) = (1, 1); // 初始化a和b为1
+</span>let (mut a, mut b) = (1, 1); // 初始化 a 和 b 为 1
 let result = loop { // 进入循环
-    if b &gt; 10 { // 如果b大于10
-        break b; // 跳出循环并返回b的值
+    if b &gt; 10 { // 如果 b 大于 10
+        break b; // 跳出循环并返回 b 的值
     }
-    let c = a + b; // 计算c
-    a = b; // 将a赋值为上一个b的值
-    b = c; // 将b赋值为上一个c的值
+    let c = a + b; 
+    a = b; // 将 a 赋值为上一个 b 的值
+    b = c; // 将 b 赋值为上一个 c 的值
 };
-// 斐波那契数列中第一个大于10的数是13:
+// 斐波那契数列中第一个大于 10 的数是 13 :
 assert_eq!(result, 13);
 <span class="boring">}</span></code></pre></pre>
 <p>在 <code>loop</code> 语句中，如果有关联的 <code>break</code> 语句，它就不被视为发散，而且 <code>loop</code> 语句必须与每个 <code>break</code> 表达式兼容的类型。
 如果没有表达式的 <code>break</code> 语句被视为与表达式为 <code>()</code> 的 <code>break</code> 语句相同。</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="范围表达式"><a class="header" href="#范围表达式">范围表达式</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="区间表达式"><a class="header" href="#区间表达式">区间表达式</a></h1>
 <blockquote>
 <p><strong><sup>语法</sup></strong><br />
 <em>区间表达式</em> :<br />
@@ -7593,7 +7594,7 @@ let y = 0..10;
 
 assert_eq!(x, y);
 <span class="boring">}</span></code></pre></pre>
-<p>Ranges可以在 <code>for</code> 循环中使用:</p>
+<p>区间可以在 <code>for</code> 循环中使用:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>for i in 1..11 {
@@ -7652,22 +7653,22 @@ assert_eq!(y, &quot;Bigger&quot;);
 与 <code>if</code> 表达式类似， <code>if let</code> 表达式具有由执行的代码块确定的值。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let dish = (&quot;Ham&quot;, &quot;Eggs&quot;); // 定义一个元组dish，包含两个字符串&quot;Ham&quot;和&quot;Eggs&quot;
+</span>let dish = (&quot;Ham&quot;, &quot;Eggs&quot;); // 定义一个元组 dish ，包含两个字符串 &quot;Ham&quot; 和 &quot;Eggs&quot; 
 
 // 由于模式不匹配，这个代码块将被跳过
-if let (&quot;Bacon&quot;, b) = dish { // 在dish上应用模式匹配，如果dish与(&quot;Bacon&quot;, b)相同，则执行代码块
+if let (&quot;Bacon&quot;, b) = dish { // 在 dish上应用模式匹配，如果 dish 与(&quot;Bacon&quot;, b)相同，则执行代码块
     println!(&quot;Bacon is served with {}&quot;, b);
 } else { 
     // 否则执行这个代码块
-    println!(&quot;No bacon will be served&quot;); // 打印&quot;No bacon will be served&quot;
+    println!(&quot;No bacon will be served&quot;); // 打印 &quot;No bacon will be served&quot;
 }
 
 // 由于模式匹配，这个代码块将被执行
-if let (&quot;Ham&quot;, b) = dish { // 在dish上应用模式匹配，如果dish与(&quot;Ham&quot;, b)相同，则执行代码块
-    println!(&quot;Ham is served with {}&quot;, b); // 打印&quot;Ham is served with Eggs&quot;
+if let (&quot;Ham&quot;, b) = dish { // 在 dish 上应用模式匹配，如果 dish 与 (&quot;Ham&quot;, b) 相同，则执行代码块
+    println!(&quot;Ham is served with {}&quot;, b); // 打印 &quot;Ham is served with Eggs&quot;
 }
 
-if let _ = 5 { // 对5应用不可反驳的模式，始终为真，执行代码块
+if let _ = 5 { // 对5应用不可拒绝的模式，始终为真，执行代码块
     println!(&quot;Irrefutable patterns are always true&quot;); // 打印&quot;Irrefutable patterns are always true&quot;
 }
 <span class="boring">}</span></code></pre></pre>
@@ -7712,7 +7713,7 @@ if let E::X(n) | E::Y(n) = v {
     assert_eq!(n, 12);
 }
 <span class="boring">}</span></code></pre></pre>
-<p>该表达式不能是一个 <a href="expressions/operator-expr.html#lazy-boolean-operators">惰性布尔运算符表达式</a>。
+<p>该表达式不能是一个 <a href="expressions/operator-expr.html#lazy-boolean-operators"><em>惰性布尔运算符表达式</em></a>。
 使用惰性布尔运算符会与语言计划更改的特性产生歧义 (即 if-let 链的实现 - 请参见 <a href="https://github.com/rust-lang/rfcs/blob/master/text/2497-if-let-chains.md#rollout-plan-and-transitioning-to-rust-2018">eRFC 2947</a> )。
 当需要惰性布尔运算符表达式时，可以通过如下方式使用括号来实现：</p>
 <!-- ignore: pseudo code -->
@@ -7786,8 +7787,10 @@ assert_eq!(message, &quot;a few&quot;);
 struct S(i32, i32);
 
 match S(1, 2) {
-    S(z @ 1, _) | S(_, z @ 2) =&gt; assert_eq!(z, 1),  // 如果 S 的第一个元素是 1 或者第二个元素是 2，则将 z 绑定为 1，并且通过断言来检查 z 的值。
-    _ =&gt; panic!(),                                 // 否则发生错误
+    // 如果 S 的第一个元素是 1 或者第二个元素是 2，则将 z 绑定为 1，并且通过断言来检查 z 的值。
+    S(z @ 1, _) | S(_, z @ 2) =&gt; assert_eq!(z, 1),  
+    // 否则发生错误
+    _ =&gt; panic!(),
 }
 <span class="boring">}</span></code></pre></pre>
 <blockquote>
@@ -7993,15 +7996,15 @@ let mut a = 0;
     }
 };
 <span class="boring">}</span></code></pre></pre>
-<h2 id="可反驳性"><a class="header" href="#可反驳性">可反驳性</a></h2>
-<p>当模式可能无法匹配其所匹配的值时，该模式被称为 <em>可反驳的</em> 。相反， <em>不可反驳</em> 模式总是与其所匹配的值匹配。例如：</p>
+<h2 id="可拒绝性"><a class="header" href="#可拒绝性">可拒绝性</a></h2>
+<p>当模式可能无法匹配其所匹配的值时，该模式被称为 <em>可拒绝的</em> 。相反， <em>不可拒绝</em> 模式总是与其所匹配的值匹配。例如：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let (x, y) = (1, 2);               // &quot;(x, y)&quot; 是一个不可反驳的模式
+</span>let (x, y) = (1, 2);               // &quot;(x, y)&quot; 是一个不可拒绝的模式
 
-if let (a, 3) = (1, 2) {           // &quot;(a, 3)&quot; 是可反驳的，将不匹配
+if let (a, 3) = (1, 2) {           // &quot;(a, 3)&quot; 是可拒绝的，将不匹配
     panic!(&quot;不应该到达这里&quot;);
-} else if let (a, 4) = (3, 4) {    // &quot;(a, 4)&quot; 是可反驳的，并将匹配
+} else if let (a, 4) = (3, 4) {    // &quot;(a, 4)&quot; 是可拒绝的，并将匹配
     println!(&quot;匹配到 ({}, 4)&quot;, a);
 }
 <span class="boring">}</span></code></pre></pre>
@@ -8024,7 +8027,7 @@ if let (a, 3) = (1, 2) {           // &quot;(a, 3)&quot; 是可反驳的，将�
 <div class="warning">
 <p>目前接受浮点型字面值，但由于比较复杂，未来的 Rust 版本中将禁止在字面值模式中使用它们 (参见<a href="https://github.com/rust-lang/rust/issues/41620">问题 #41620</a>)。</p>
 </div>
-<p>字面值模式总是可反驳的。</p>
+<p>字面值模式总是可拒绝的。</p>
 <p>例如:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -8106,7 +8109,7 @@ match a {
 <p>因此， <code>ref</code> 不是被匹配的内容。
 它的目的仅仅是将匹配的绑定作为引用而不是复制或移动匹配的内容。</p>
 <p><a href="patterns.html#path-patterns">路径模式</a> 优先于标识符模式。如果指定了 <code>ref</code> 或 <code>ref mut</code> ，并且标识符遮蔽了一个常量，则会出现错误。</p>
-<p>如果子模式是不可反驳的或未指定子模式，则标识符模式是不可反驳的。</p>
+<p>如果子模式是不可拒绝的或未指定子模式，则标识符模式是不可拒绝的。</p>
 <h3 id="绑定模式"><a class="header" href="#绑定模式">绑定模式</a></h3>
 <p>为了提供更好的人机交互，模式运行在不同的 <em>绑定模式</em> 中，以便更容易地将引用绑定到值。
 当引用值被非引用模式匹配时，它会自动被视为 <code>ref</code> 或 <code>ref mut</code> 绑定。
@@ -8177,7 +8180,7 @@ let real_part = |a: f64, _: f64| { a };
 <span class="boring">let x = Some(10);
 </span>if let Some(_) = x {}
 <span class="boring">}</span></code></pre></pre>
-<p>通配符模式始终是不可反驳的。</p>
+<p>通配符模式始终是不可拒绝的。</p>
 <h2 id="剩余模式"><a class="header" href="#剩余模式">剩余模式</a></h2>
 <blockquote>
 <p><strong><sup>语法</sup></strong><br />
@@ -8187,7 +8190,7 @@ let real_part = |a: f64, _: f64| { a };
 <p><em>剩余模式</em> (<code>..</code> 符号) 作为一个可变长度的模式，用于匹配在之前和之后尚未被匹配到的零个或多个元素。
 它只能在 <a href="patterns.html#tuple-patterns">元组模式</a> 、 <a href="patterns.html#tuple-struct-patterns">元组结构体模式</a> 和 <a href="patterns.html#slice-patterns">切片模式</a> 中使用，并且只能出现一次作为这些模式中的一个元素。
 在 <a href="patterns.html#slice-patterns">切片模式</a> 中，它也允许出现在 <a href="patterns.html#identifier-patterns">标识符模式</a> 中。</p>
-<p>剩余模式始终是不可反驳的。</p>
+<p>剩余模式始终是不可拒绝的。</p>
 <p>例如:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -8334,8 +8337,8 @@ println!(&quot;{}&quot;, match 0xfacade {
     _ =&gt; &quot;too big&quot;,
 });
 <span class="boring">}</span></code></pre></pre>
-<p>固定宽度整数和 <code>char</code> 类型的区间模式在它们 span 类型的所有可能值时是不可反驳的。
-例如， <code>0u8..=255u8</code> 是不可反驳的。
+<p>固定宽度整数和 <code>char</code> 类型的区间模式在它们 span 类型的所有可能值时是不可拒绝的。
+例如， <code>0u8..=255u8</code> 是不可拒绝的。
 整数类型的值区间是从其最小值到最大值的闭区间。
 <code>char</code> 类型的值区间恰好包含所有 Unicode 标量值的区间: <code>'\U{0000}'..='\U{D7FF}'</code> 和 <code>'\U{E000}'..='\U{10FFFF}'</code> 。</p>
 <p>浮点数区间模式已被弃用，可能会在未来的Rust版本中删除。
@@ -8367,7 +8370,7 @@ assert_eq!(a, b);
 <p>引用模式的语法规则必须匹配标记 <code>&amp;&amp;</code> 来匹配引用到引用，因为它本身是一个标记，不是两个 <code>&amp;</code> 标记。</p>
 <p>添加 <code>mut</code> 关键字会对可变引用进行解引用。
 可变性必须与引用的可变性相匹配。</p>
-<p>引用模式始终是不可反驳的。</p>
+<p>引用模式始终是不可拒绝的。</p>
 <h2 id="结构体模式"><a class="header" href="#结构体模式">结构体模式</a></h2>
 <blockquote>
 <p><strong><sup>语法</sup></strong><br />
@@ -8452,7 +8455,7 @@ assert_eq!(a, b);
 </span><span class="boring">
 </span>let Struct{a: x, b: y, c: z} = struct_value;          // destructure all fields
 <span class="boring">}</span></code></pre></pre>
-<p>当结构体模式的任何子模式都是可反驳的时，结构体模式就是可反驳的。</p>
+<p>当结构体模式的任何子模式都是可拒绝的时，结构体模式就是可拒绝的。</p>
 <h2 id="元组结构模式"><a class="header" href="#元组结构模式">元组结构模式</a></h2>
 <blockquote>
 <p><strong><sup>语法</sup></strong><br />
@@ -8462,7 +8465,7 @@ assert_eq!(a, b);
    <a href="patterns.html#patterns"><em>模式</em></a> ( <code>,</code> <a href="patterns.html#patterns"><em>模式</em></a> )<sup>*</sup> <code>,</code><sup>?</sup></p>
 </blockquote>
 <p>元组结构体模式匹配元组结构体和枚举值，匹配所有符合其子模式定义的条件。它们还可用于 <a href="patterns.html#destructuring">解构</a> 元组结构体或枚举值。</p>
-<p>当子模式中有不可反驳模式时，元组结构体模式就是可反驳的。</p>
+<p>当子模式中有不可拒绝模式时，元组结构体模式就是可拒绝的。</p>
 <h2 id="元组模式"><a class="header" href="#元组模式">元组模式</a></h2>
 <blockquote>
 <p><strong><sup>语法</sup></strong><br />
@@ -8475,7 +8478,7 @@ assert_eq!(a, b);
 </blockquote>
 <p>元组模式匹配满足其子模式定义的所有条件的元组值。它们也用于 <a href="patterns.html#destructuring">解构</a> 元组。
 形式为 <code>(..)</code> 且具有单个 <a href="patterns.html#rest-patterns"><em>剩余模式</em></a> 的是一种特殊形式，它不需要逗号，可以匹配任意大小的元组。</p>
-<p>当其子模式中有一个可反驳时，元组模式是可反驳的。</p>
+<p>当其子模式中有一个可拒绝时，元组模式是可拒绝的。</p>
 <p>以下是使用元组模式的示例：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -8529,8 +8532,8 @@ match v[..] {
     _ =&gt; { /* 这个通配符是必须的，因为长度不能在编译时确定 */ }
 };
 <span class="boring">}</span></code></pre></pre>
-<p>切片模式在匹配数组时是不可反驳的，只要每个元素都是不可反驳的。
-在匹配切片时，只有在形式为单个 <code>..</code> 的 <a href="patterns.html#rest-patterns">剩余模式</a> 或 <a href="patterns.html#identifier-patterns">标识符模式</a> 时才是不可反驳的，其中 <code>..</code> 剩余模式作为子模式。</p>
+<p>切片模式在匹配数组时是不可拒绝的，只要每个元素都是不可拒绝的。
+在匹配切片时，只有在形式为单个 <code>..</code> 的 <a href="patterns.html#rest-patterns">剩余模式</a> 或 <a href="patterns.html#identifier-patterns">标识符模式</a> 时才是不可拒绝的，其中 <code>..</code> 剩余模式作为子模式。</p>
 <p>在切片内，没有同时具有下限和上限的区间模式必须用括号括起来，例如 <code>(a..)</code>，以明确其意图是匹配单个切片元素。
 同时具有下限和上限的区间模式，例如 <code>a..=b</code> ，不需要用括号括起来。</p>
 <h2 id="路径模式"><a class="header" href="#路径模式">路径模式</a></h2>
@@ -8548,7 +8551,7 @@ match v[..] {
 <li>关联常量</li>
 </ul>
 <p>修饰的路径模式只能引用关联常量。常量不能是联合类型。结构体和枚举常量必须有 <code>#[derive(PartialEq, Eq)]</code> (而不是仅实现) 。
-当路径模式引用结构体或枚举变体并且枚举只有一个变体或类型为不可反驳类型的常量时，路径模式是不可反驳的。当路径模式引用可反驳的常量或具有多个变体的枚举变体时，它们是可反驳的。</p>
+当路径模式引用结构体或枚举变体并且枚举只有一个变体或类型为不可拒绝类型的常量时，路径模式是不可拒绝的。当路径模式引用可拒绝的常量或具有多个变体的枚举变体时，它们是可拒绝的。</p>
 <h2 id="或模式"><a class="header" href="#或模式">或模式</a></h2>
 <p><em>或模式</em> 是指可以匹配两个或更多子模式的模式 (例如 <code>A | B | C</code> )。它们可以任意嵌套。
 从语法上讲，或模式可以在任何其他模式允许的地方使用 (由 <em>模式</em> 生成式表示)，但有一些例外情况，例如 <code>let</code> 绑定和函数和闭包参数 (由 <em>模式非顶层选项</em> 产生式表示) 。</p>
@@ -8679,8 +8682,8 @@ match v[..] {
    | <a href="types/trait-object.html"><em>Trait对象类型</em></a></p>
 <p><em>无约束类型组</em> :<br />
       <a href="types.html#parenthesized-types"><em>括号类型</em></a><br />
-   | <a href="types/impl-trait.html"><em>ImplTrait类型1约束</em></a><br />
-   | <a href="types/trait-object.html"><em>Trait对象类型1约束</em></a><br />
+   | <a href="types/impl-trait.html"><em>ImplTrait类型单约束</em></a><br />
+   | <a href="types/trait-object.html"><em>Trait对象类型单约束</em></a><br />
    | <a href="paths.html#paths-in-types"><em>类型路径</em></a><br />
    | <a href="types/tuple.html#tuple-types"><em>元组类型</em></a><br />
    | <a href="types/never.html"><em>永不类型</em></a><br />
@@ -8753,7 +8756,7 @@ let a: List&lt;i32&gt; = List::Cons(7, Box::new(List::Cons(13, Box::new(List::Ni
 <span class="boring">}</span></code></pre></pre>
 <p><em>布尔类型</em> 或 <em>bool</em> 是一种原始数据类型，可以取两个值之一，称为 <em>true</em> 和 <em>false</em> 。</p>
 <p>可以使用关键字 <code>true</code> 和 <code>false</code> 创建此类型的值，通过 <a href="types/../expressions/literal-expr.html">字面值表达式</a> 生成。</p>
-<p>此类型是 <a href="types/../names/preludes.html#language-prelude">language prelude</a> 的一部分，其 <a href="types/../names.html">name</a> 为 <code>bool</code> 。</p>
+<p>此类型是 <a href="types/../names/preludes.html#language-prelude">语言预定义</a> 的一部分，其 <a href="types/../names.html">name</a> 为 <code>bool</code> 。</p>
 <p>具有布尔类型的对象每个都具有 <a href="types/../type-layout.html#size-and-alignment">大小和对齐方式</a> 1 。
 值 false 的位模式为 <code>0x00</code> ，值 true 的位模式为 <code>0x01</code> 。
 具有布尔类型的对象具有任何其他位模式是 <a href="types/../behavior-considered-undefined.html">未定义行为</a> 。</p>
@@ -8998,7 +9001,7 @@ let foo_ptr_2 = if want_i32 {
 <span class="boring">}</span></code></pre></pre>
 <p>所有的函数条目都实现了 <a href="types/../../std/ops/trait.Fn.html"><code>Fn</code></a> , <a href="types/../../std/ops/trait.FnMut.html"><code>FnMut</code></a> , <a href="types/../../std/ops/trait.FnOnce.html"><code>FnOnce</code></a> , <a href="types/../special-types-and-traits.html#copy"><code>Copy</code></a> , <a href="types/../special-types-and-traits.html#clone"><code>Clone</code></a> , <a href="types/../special-types-and-traits.html#send"><code>Send</code></a> 和 <a href="types/../special-types-and-traits.html#sync"><code>Sync</code></a> 。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="闭包类型"><a class="header" href="#闭包类型">闭包类型</a></h1>
-<p><a href="types/../expressions/closure-expr.html">闭包表达式</a> 生成一个闭包值，具有独特的匿名类型，无法显式书写。
+<p><a href="types/../expressions/closure-expr.html">闭包表达式</a> 生成一个闭包值，具有独特匿名的类型，无法显式书写。
 闭包类型类似于包含捕获变量的结构体。例如，以下闭包:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -9033,7 +9036,7 @@ impl&lt;'a&gt; FnOnce&lt;()&gt; for Closure&lt;'a&gt; {
 <!-- ignore: continuation of above -->
 <pre><code class="language-rust ignore">f(Closure{s: s, t: &amp;t});</code></pre>
 <h2 id="捕获模式-1"><a class="header" href="#捕获模式-1">捕获模式</a></h2>
-<p>编译器优先选择对闭合变量进行不可变借用，然后是唯一不可变借用 (参见下文) ，然后是可变借用，最后才是移动方式。
+<p>编译器优先选择对闭合变量进行不可变借用，然后是唯一不可变借用 (参见下文) ，然后是可变借用，最后才是移动的方式。
 编译器将选择与在闭包体内使用捕获变量的方式兼容的这些选项中的第一个。编译器不考虑周围的代码，比如涉及变量的生命周期或闭包本身的生命周期。</p>
 <p>如果使用了 <code>move</code> 关键字，则所有的捕获都是通过移动，或者对于 <code>Copy</code> 类型是通过复制，而不管是否可以使用借用。
 通常， <code>move</code> 关键字用于允许闭包超出捕获值的生命周期，例如，如果闭包正在被返回或用于生成新线程。</p>
@@ -9152,7 +9155,7 @@ x = bo(5,7);
 <p><em>函数类型限定符组</em>:<br />
    <code>unsafe</code><sup>?</sup> (<code>extern</code> <a href="types/../items/functions.html"><em>Abi</em></a><sup>?</sup>)<sup>?</sup></p>
 <p><em>裸函数返回类型</em>:<br />
-   <code>-&gt;</code> <a href="types/../types.html#type-expressions"><em>TypeNoBounds</em></a></p>
+   <code>-&gt;</code> <a href="types/../types.html#type-expressions"><em>无约束类型组</em></a></p>
 <p><em>函数参数可能命名为可变参数</em> :<br />
    <em>可能命名函数参数组</em> | <em>可能命名函数参数可变</em></p>
 <p><em>可能命名函数参数组</em> :<br />
@@ -9186,13 +9189,13 @@ x = bo(5,7);
 <p><strong><sup>语法</sup></strong><br />
 <em>Trait对象类型</em> :<br />
    <code>dyn</code><sup>?</sup> [<em>类型参数约束组</em>]</p>
-<p><em>Trait对象类型1约束</em> :<br />
+<p><em>Trait对象类型单约束</em> :<br />
    <code>dyn</code><sup>?</sup> <a href="types/../trait-bounds.html"><em>Trait约束</em></a></p>
 </blockquote>
-<p>一个 <em>trait 对象</em> 是另一个类型的不透明值，该类型实现了一组 trait 。trait 集由一个 <a href="types/../items/traits.html#object-safety">object safe</a> 的 <em>base trait</em> 和任意数量的 [auto trait] 组成。</p>
+<p>一个 <em>trait 对象</em> 是另一个类型的不透明值，该类型实现了一组 trait 。trait 集由一个 <a href="types/../items/traits.html#object-safety">对象安全</a> 的 <em>base trait</em> 和任意数量的 [auto trait] 组成。</p>
 <p>Trait 对象实现了 base trait ，它的 auto traits 以及 base trait 的任何 <a href="types/../items/traits.html#supertraits">超级 Trait</a> 。</p>
 <p>Trait 对象写作关键字 <code>dyn</code> 后跟一组 trait 约束 ，但对 trait 约束有以下限制。
-除了第一个 trait 之外的所有 trait 都必须是 auto trait ，不能有多个 lifetime ，并且不允许 opt-out bounds (例如 <code>?Sized</code> )。
+除了第一个 trait 之外的所有 trait 都必须是 auto trait ，不能有多个生命周期，并且不允许可选附加约束 (例如 <code>?Sized</code> )。
 此外，路径到 traits 可以括在括号中。</p>
 <p>例如，给定 <code>Trait</code> ，以下都是 trait 对象:</p>
 <ul>
@@ -9215,7 +9218,7 @@ x = bo(5,7);
 <p>从 2018 版开始， <code>dyn</code> 是一个真正的关键字，不允许在路径中使用，因此不需要括号。</p>
 </blockquote>
 <p>如果 base trait 相互为别名， auto trait 集相同且生命周期约束相同，则两个 trait 对象类型为别名。例如， <code>dyn Trait + Send + UnwindSafe</code> 与 <code>dyn Trait + UnwindSafe + Send</code> 是相同的。</p>
-<p>由于值的具体类型的不透明性，trait对象是 [动态大小类型] 。与所有 <abbr title="dynamically sized types">DSTs</abbr> 一样，trait 对象在某种类型的指针后面使用，例如 <code>&amp;dyn SomeTrait</code> 或 <code>Box&lt;dyn SomeTrait&gt;</code> 。
+<p>由于值的具体类型的不透明性，trait 对象是 <a href="types/../dynamically-sized-types.html">动态大小类型</a> 。与所有 <abbr title="dynamically sized types">DSTs</abbr> 一样，trait 对象在某种类型的指针后面使用，例如 <code>&amp;dyn SomeTrait</code> 或 <code>Box&lt;dyn SomeTrait&gt;</code> 。
 指向 trait 对象的指针实例包括：</p>
 <ul>
 <li>指向实现 <code>SomeTrait</code> 的类型 <code>T</code> 的实例的指针</li>
@@ -9266,7 +9269,7 @@ fn bar() -&gt; impl Trait {
 <blockquote>
 <p>注意: 这经常被称为 &quot;参数位置的impl Trait&quot;。 (这里更准确的术语是 &quot;参数&quot;，但 &quot;参数位置的impl Trait&quot; 是这个特性开发期间使用的措辞，而且它仍然在实现的某些部分中保留着。)</p>
 </blockquote>
-<p>函数可以使用 <code>impl</code> ，后面跟一组 trait bound，来声明一个参数为匿名类型。调用方必须提供一个满足匿名类型参数所声明的 trait bound 的类型，而函数只能使用匿名类型参数的 trait bound 可用的方法。</p>
+<p>函数可以使用 <code>impl</code> ，后面跟一组 trait 约束，来声明一个参数为匿名类型。调用方必须提供一个满足匿名类型参数所声明的 trait 约束的类型，而函数只能使用匿名类型参数的 trait 约束可用的方法。</p>
 <p>例如，以下这两种形式几乎是等价的:</p>
 <pre><code class="language-rust ignore">trait Trait {}
 
@@ -9277,11 +9280,11 @@ fn foo&lt;T: Trait&gt;(arg: T) {
 // impl Trait 作为函数参数的匿名类型参数
 fn foo(arg: impl Trait) {
 }</code></pre>
-<p>换句话说， <code>impl Trait</code> 作为函数参数是一种语法糖，用于泛型类型参数 <code>&lt;T: Trait&gt;</code> ，只不过该类型是匿名的并且不出现在 <a href="types/../items/generics.html"><em>GenericParams</em></a> 列表中。</p>
+<p>换句话说， <code>impl Trait</code> 作为函数参数是一种语法糖，用于泛型类型参数 <code>&lt;T: Trait&gt;</code> ，只不过该类型是匿名的并且不出现在 <a href="types/../items/generics.html"><em>泛型参数组</em></a> 列表中。</p>
 <blockquote>
 <p><strong>注意：</strong>
 对于函数参数而言，泛型类型参数和 <code>impl Trait</code> 并不完全等效。
-对于泛型参数如 <code>&lt;T: Trait&gt;</code> ，调用方可以在调用时使用 <a href="types/../paths.html#paths-in-expressions"><em>GenericArgs</em></a> 显式指定 <code>T</code> 的泛型参数，例如 <code>foo::&lt;usize&gt;(1)</code> 。
+对于泛型参数如 <code>&lt;T: Trait&gt;</code> ，调用方可以在调用时使用 <a href="types/../paths.html#paths-in-expressions"><em>泛型实参组</em></a> 显式指定 <code>T</code> 的泛型参数，例如 <code>foo::&lt;usize&gt;(1)</code> 。
 如果 <code>impl Trait</code> 是 <em>任何</em> 函数参数的类型，那么调用方在调用该函数时永远不能提供任何泛型参数。
 这包括返回类型或任何常量泛型参数。</p>
 <p>因此，从其中一个函数签名更改到另一个函数签名可能会对函数的调用方构成破坏性更改。</p>
@@ -9300,7 +9303,7 @@ fn foo(arg: impl Trait) {
     Box::new(|x| x + 1)
 }
 <span class="boring">}</span></code></pre></pre>
-<p>这可能会导致堆分配和动态分派的性能惩罚。
+<p>这可能会导致堆分配和动态分派的性能损失。
 无法完全指定闭包的类型，只能使用 <code>Fn</code> trait。
 这意味着 trait 对象是必需的。
 但是，使用 <code>impl Trait</code> 可以更简单地编写此代码:</p>
@@ -9324,7 +9327,7 @@ fn foo(arg: impl Trait) {
 <pre><code class="language-rust ignore">fn foo() -&gt; impl Trait {</code></pre>
 <p>不允许调用者确定返回类型。相反，函数选择返回类型，但只承诺它将实现 <code>Trait</code> 。</p>
 <h2 id="限制-2"><a class="header" href="#限制-2">限制</a></h2>
-<p><code>impl Trait</code> 只能出现在自由函数或固有函数的参数或返回类型中。它不能出现在 trait 的实现内部，也不能是 let 绑定的类型或出现在类型别名中。</p>
+<p><code>impl Trait</code> 只能出现在自由函数或内部函数的参数或返回类型中。它不能出现在 trait 的实现内部，也不能是 let 绑定的类型或出现在类型别名中。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="类型参数"><a class="header" href="#类型参数">类型参数</a></h1>
 <p>在具有类型参数声明的条目的主体内部，其类型参数名称是类型:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -12341,7 +12344,7 @@ GCC 将根据操作数值类型推断修饰符，而我们默认使用完整的�
 <li><a href="expressions/struct-expr.html">结构体</a> 表达式。</li>
 <li><a href="expressions/block-expr.html">块表达式</a> ，包括 <code>unsafe</code> 块。
 <ul>
-<li><a href="statements.html#let-statements">let语句</a> 和因此不可反驳的 <a href="patterns.html">模式</a> ，包括可变绑定。</li>
+<li><a href="statements.html#let-statements">let语句</a> 和因此不可拒绝的 <a href="patterns.html">模式</a> ，包括可变绑定。</li>
 <li><a href="expressions/operator-expr.html#assignment-expressions">赋值表达式</a></li>
 <li><a href="expressions/operator-expr.html#compound-assignment-expressions">复合赋值表达式</a></li>
 <li><a href="statements.html#expression-statements">表达式语句</a></li>
@@ -12937,6 +12940,5 @@ let vec = [1, 2, 3].iter().map(|n| n * 2).collect::&lt;Vec&lt;_&gt;&gt;();
         });
         </script>
 
-    </div>
     </body>
 </html>

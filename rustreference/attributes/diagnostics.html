@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -182,7 +179,7 @@
     pub fn undocumented_end() -&gt; i32 { 3 }
 }
 <span class="boring">}</span></code></pre></pre>
-<p>Lint属性可以覆盖先前属性中指定的级别，只要级别不会试图更改禁止的lint。
+<p>代码分析属性可以覆盖先前属性中指定的级别，只要级别不会试图更改禁止的代码分析。
 先前的属性来自语法树中更高级别的属性，或者是源代码中左到右的先前属性。</p>
 <p>以下示例展示了如何使用 <code>allow</code> 和 <code>warn</code> 来打开和关闭特定检查:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -204,7 +201,7 @@ pub mod m2 {
     pub fn undocumented_too() -&gt; i32 { 3 }
 }
 <span class="boring">}</span></code></pre></pre>
-<p>这个例子展示了如何使用 <code>forbid</code> 禁止对某个 lint 检查使用 <code>allow</code> :</p>
+<p>这个例子展示了如何使用 <code>forbid</code> 禁止对某个代码分析检查使用 <code>allow</code> :</p>
 <pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[forbid(missing_docs)]
@@ -222,15 +219,15 @@ pub mod m3 {
 <p>代码分析可以被组织成具有名称的组，以便可以一起调整相关代码分析的级别。使用命名组相当于列出该组中的代码分析。</p>
 <pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>// 这允许所有 &quot;unused&quot; 组中的 lint。
+</span>// 这允许所有 &quot;unused&quot; 组中的代码分析。
 #[allow(unused)]
-// 这将 &quot;unused&quot; 组中的 &quot;unused_must_use&quot; lint 改为了 &quot;deny&quot;。
+// 这将 &quot;unused&quot; 组中的 &quot;unused_must_use&quot; 代码分析改为了 &quot;deny&quot;。
 #[deny(unused_must_use)]
 fn example() {
-    // 这不会生成警告，因为 &quot;unused_variables&quot; lint 在 &quot;unused&quot; 组中。
+    // 这不会生成警告，因为 &quot;unused_variables&quot; 代码分析在 &quot;unused&quot; 组中。
     let x = 1;
     // 这会生成一个错误，因为结果未使用且 &quot;unused_must_use&quot; 被标记为 &quot;deny&quot;。
-    std::fs::remove_file(&quot;some_file&quot;); // ERROR: unused `Result` that must be used
+    std::fs::remove_file(&quot;some_file&quot;); // ERROR: 必须使用的未使用的 `Result` 
 }
 <span class="boring">}</span></code></pre></pre>
 <p>有一个特殊的名为 &quot;warnings&quot; 的分组，其中包括所有 &quot;warn&quot; 级别的代码分析。
@@ -240,11 +237,11 @@ fn example() {
 </span><span class="boring">unsafe fn an_unsafe_fn() {}
 </span>// 这两个属性的顺序无关紧要。
 #[deny(warnings)]
-// unsafe_code lint 通常默认为 &quot;allow&quot;。
+// unsafe_code 代码分析通常默认为 &quot;allow&quot;。
 #[warn(unsafe_code)]
 fn example_err() {
     // 这是一个错误，因为 `unsafe_code` 警告已经被提升到了 &quot;deny&quot;。
-    unsafe { an_unsafe_fn() } // ERROR: usage of `unsafe` block
+    unsafe { an_unsafe_fn() } // ERROR: 使用 `unsafe` 块
 }
 <span class="boring">}</span></code></pre></pre>
 <h3 id="工具代码分析属性"><a class="header" href="#工具代码分析属性">工具代码分析属性</a></h3>
@@ -276,7 +273,7 @@ fn foo() {
 <ul>
 <li><code>deprecated</code> — 发出一条通用信息。</li>
 <li><code>deprecated = &quot;message&quot;</code> — 在弃用消息中包含给定的字符串。</li>
-<li><a href="../attributes.html#meta-item-attribute-syntax"><em>MetaListNameValueStr</em></a> 语法有两个可选字段:
+<li><a href="../attributes.html#meta-item-attribute-syntax"><em>无列表名称值字符串</em></a> 语法有两个可选字段:
 <ul>
 <li><code>since</code> — 指定条目被弃用的版本号。 <code>rustc</code> 目前不解释该字符串，但像 <a href="https://github.com/rust-lang/rust-clippy">Clippy</a> 这样的外部工具可能会检查值的有效性。</li>
 <li><code>note</code> — 指定应在弃用消息中包含的字符串。通常用于提供有关弃用和首选替代方法的解释。</li>
@@ -351,7 +348,7 @@ impl Trait for i32 {
     fn use_me(&amp;self) -&gt; i32 { 0i32 }
 }
 
-// 违反了 `unused_must_use` lint.
+// 违反了 `unused_must_use` 代码分析。
 5i32.use_me();
 <span class="boring">}</span></code></pre></pre>
 <p>当用于 trait 实现中的函数时，该属性无效。</p>
@@ -365,7 +362,7 @@ impl Trait for i32 {
 </span>#[must_use]
 fn five() -&gt; i32 { 5i32 }
 
-// 这些都不违反 unused_must_use lint 。
+// 这些都不违反 unused_must_use 代码分析。
 (five(),);
 Some(five());
 { five() };
@@ -382,7 +379,7 @@ match true {
 </span>#[must_use]
 fn five() -&gt; i32 { 5i32 }
 
-// 不违反 unused_must_use lint 。
+// 不违反 unused_must_use 代码分析。
 let _ = five();
 <span class="boring">}</span></code></pre></pre>
 </blockquote>
@@ -435,6 +432,5 @@ let _ = five();
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

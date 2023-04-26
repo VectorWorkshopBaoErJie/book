@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -161,7 +158,7 @@
 常量在使用时本质上是内联的，这意味着当它们在相关上下文中使用时，它们会被直接复制。
 这包括使用来自外部 crate 的常量，以及 非-<a href="../special-types-and-traits.html#copy"><code>Copy</code></a> 类型。对同一常量的引用不能保证引用同一内存地址。</p>
 <p>常量必须显式指定类型。该类型必须具有 <code>'static</code> 生命周期：初始化器中的任何引用都必须具有 <code>'static</code> 生命周期。</p>
-<p>常量可以引用其他常量的地址，在这种情况下，地址将省略适用的生命周期，否则 (在大多数情况下) 默认为 <code>static</code>  生命周期 (请参见 <a href="../lifetime-elision.html#static-lifetime-elision">static lifetime elision</a> ) 。
+<p>常量可以引用其他常量的地址，在这种情况下，地址将省略适用的生命周期，否则 (在大多数情况下) 默认为 <code>static</code>  生命周期 (请参见 <a href="../lifetime-elision.html#static-lifetime-elision">静态生命周期省略</a> ) 。
 但编译器仍然有自由将常量翻译为多个值，因此引用的地址可能不稳定。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -198,12 +195,12 @@ const ZERO_WITH_DESTRUCTOR: TypeWithDestructor = TypeWithDestructor(0);
 
 fn create_and_drop_zero_with_destructor() {
     let x = ZERO_WITH_DESTRUCTOR;
-    // x 在函数结束时丢弃，调用drop。
+    // x 在函数结束时丢弃，调用 drop。
     // prints &quot;Dropped. Held 0.&quot;.
 }
 <span class="boring">}</span></code></pre></pre>
 <h2 id="未命名常量"><a class="header" href="#未命名常量">未命名常量</a></h2>
-<p>与 <a href="../items/associated-items.html#associated-constants">关联常量</a> 不同，可以使用下划线代替名称来表示 <a href="../glossary.html#free-item">自由</a> 常量无名称。例如:</p>
+<p>与 <a href="../items/associated-items.html#associated-constants">关联常量</a> 不同，可以使用下划线代替名称来表示 <a href="../glossary.html#free-item">自由</a> 未命名常量。例如:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>const _: () =  { struct _SameNameTwice; };
@@ -284,6 +281,5 @@ fn unused_generic_function&lt;T&gt;() {
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -166,7 +163,7 @@
 </blockquote>
 <p><em>块表达式</em> 或 <em>块</em> 是一个控制流表达式和用于条目和变量声明的匿名命名空间作用域。
 作为控制流表达式，块按顺序执行其组成的非条目声明语句，然后执行其最后的可选表达式。
-作为匿名命名空间作用域，仅在块内部声明的条目声明在块本身中可用，而由 <code>let</code> 语句声明的变量从下一条语句开始在块结束之前处于作用域中。</p>
+作为匿名命名空间作用域，在块内部声明的条目声明在块本身中可用，而由 <code>let</code> 语句声明的变量从下一条语句开始在块结束之前处于作用域中。</p>
 <p>块的语法是 <code>{</code> ，然后是任何 <a href="../attributes.html">内部属性</a> ，然后是任意数量的 <a href="../statements.html">语句</a> ，然后是一个可选的表达式，称为最后的操作数，最后是一个 <code>}</code> 。</p>
 <p>语句通常需要在分号后面，有两个例外：</p>
 <ol>
@@ -237,13 +234,13 @@ fn move_by_block_expression() {
 与闭包一样，当写成 <code>async { .. }</code> 时，每个变量的捕获模式将从块的内容中推断出来。
 然而， <code>async move { .. }</code> 块将移动所有被引用的变量到生成的 future 中。</p>
 <h3 id="异步上下文"><a class="header" href="#异步上下文">异步上下文</a></h3>
-<p>由于异步块构造了一个future，它们定义了一个 <strong>异步上下文</strong> ，这个上下文可以包含 <a href="await-expr.html"><code>await</code> 表达式</a> 。
+<p>由于异步块构造了一个 future ，其定义了一个 <strong>异步上下文</strong> ，这个上下文可以包含 <a href="await-expr.html"><code>await</code> 表达式</a> 。
 异步上下文由异步块以及异步函数的函数体建立，后者的语义是以异步块为基础定义的。</p>
 <h3 id="控制流运算符"><a class="header" href="#控制流运算符">控制流运算符</a></h3>
 <p>异步块类似于函数约束，就像闭包一样。
-因此， <code>?</code> 运算符和 <code>return</code> 表达式都会影响未来的输出，而不是封闭函数或其他上下文。
-也就是说，从异步块中的 <code>return &lt;expr&gt;</code> 将返回 <code>&lt;expr&gt;</code> 的结果作为未来的输出。
-同样，如果 <code>&lt;expr&gt;?</code> 传播错误，则该错误将作为未来的结果传播。</p>
+因此， <code>?</code> 运算符和 <code>return</code> 表达式都会影响 future 的输出，而不是封闭函数或其他上下文。
+也就是说，从异步块中的 <code>return &lt;expr&gt;</code> 将返回 <code>&lt;expr&gt;</code> 的结果作为 future 的输出。
+同样，如果 <code>&lt;expr&gt;?</code> 传播错误，则该错误将作为 future 的结果传播。</p>
 <p>最后， <code>break</code> 和 <code>continue</code> 关键字不能用于从异步块中分支跳出。
 因此以下代码是非法的:</p>
 <pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
@@ -260,7 +257,7 @@ fn move_by_block_expression() {
 <em>Unsafe块表达式</em> :<br />
    <code>unsafe</code> <em>块表达式</em></p>
 </blockquote>
-<p>在需要进行 <a href="../unsafety.html">unsafe 操作</a> 时，可以在一段代码块前加上 <code>unsafe</code> 关键字。详见 <a href="../unsafe-blocks.html"><code>unsafe</code> block</a> 。
+<p>在需要进行 <a href="../unsafety.html">unsafe 操作</a> 时，可以在一段代码块前加上 <code>unsafe</code> 关键字。详见 <a href="../unsafe-blocks.html"><code>unsafe</code> 块</a> 。
 示例:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -286,7 +283,7 @@ fn move_by_block_expression() {
 <li>另一个块表达式的尾表达式是块表达式。</li>
 </ul>
 <!-- Keep list in sync with expressions.md -->
-<p>具有在块表达式上的含义的属性包括 <a href="../conditional-compilation.html"><code>cfg</code></a> 和 <a href="../attributes/diagnostics.html#lint-check-attributes">lint 检查属性</a> 。</p>
+<p>具有在块表达式上的含义的属性包括 <a href="../conditional-compilation.html"><code>cfg</code></a> 和 <a href="../attributes/diagnostics.html#lint-check-attributes">代码分析检查属性</a> 。</p>
 <p>例如，这个函数在 Unix 平台上返回 <code>true</code> ，在其他平台上返回 <code>false</code> 。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -344,6 +341,5 @@ fn move_by_block_expression() {
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -157,11 +154,11 @@
 <em>字段表达式</em> :<br />
    <a href="../expressions.html"><em>表达式</em></a> <code>.</code> <a href="../identifiers.html">标识符</a></p>
 </blockquote>
-<p><em>字段表达式</em> 是一个 <a href="../expressions.html#place-expressions-and-value-expressions">占位表达式</a>  ，它求值为 <a href="../items/structs.html">结构体</a> 或 <a href="../items/unions.html">联合体</a> 的一个字段的位置。
+<p><em>字段表达式</em> 是一个 <a href="../expressions.html#place-expressions-and-value-expressions">占位表达式</a>  ，它求值为 <a href="../items/structs.html">结构体</a> 或 <a href="../items/unions.html">联合体</a> 的一个字段的地址。
 当操作数是 <a href="../expressions.html#mutability">可变的</a> ，字段表达式也是可变的。
-字段表达式的语法是一个表达式 (称为 <em>容器操作数</em> ) ，然后是一个 <code>.</code> ，最后是一个 <a href="../identifiers.html">标识符</a> 。
+字段表达式的语法是一个表达式 (称为 <em>容器操作</em> ) ，然后是一个 <code>.</code> ，最后是一个 <a href="../identifiers.html">标识符</a> 。
 字段表达式不能后跟一个括号内的逗号分隔的表达式列表，因为那将被解析为 <a href="method-call-expr.html">方法调用表达式</a> 。
-也就是说，它们不能作为 <a href="call-expr.html">调用表达式</a> 的函数操作数。</p>
+也就是说，它们不能作为 <a href="call-expr.html">调用表达式</a> 的函数操作对象。</p>
 <blockquote>
 <p><strong>注意</strong>: 在调用表达式中使用字段表达式时，要将其包装在 <a href="grouped-expr.html">括号表达式</a> 中。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -252,6 +249,5 @@ let d: String = x.f3;           // 从 x.f3 中移动值
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -154,26 +151,26 @@
                         <h1 id="代码生成属性"><a class="header" href="#代码生成属性">代码生成属性</a></h1>
 <p>下面的 <a href="../attributes.html">属性</a> 用于控制代码生成。</p>
 <h2 id="优化提示"><a class="header" href="#优化提示">优化提示</a></h2>
-<p><code>cold</code> 和 <code>inline</code> <a href="../attributes.html">属性</a> 给出一些建议，以便生成比没有提示更快的代码。
-这些属性仅是提示，可能会被忽略。</p>
-<p>这两个属性可以用于 <a href="../items/functions.html">函数</a> 。
-当应用于 <a href="../items/traits.html">trait</a> 中的函数时，它们仅适用于该函数作为默认函数用于 trait 实现时，而不是所有 trait 实现。
-这些属性对于没有函数体的 trait 函数没有影响。</p>
+<p><code>cold</code> 和 <code>inline</code> <a href="../attributes.html">属性</a> 给出一些编译建议，期望生成更快的代码。
+但仅是提示，可能会被编译器忽略。</p>
+<p>这两个属性可应用于 <a href="../items/functions.html">函数</a> 。
+当应用于 <a href="../items/traits.html">trait</a> 中的函数时，仅适用于作为 trait 实现默认函数，而不是所有 trait 实现。
+这些属性对于没有函数体的 trait 函数没有效果。</p>
 <h3 id="inline-属性"><a class="header" href="#inline-属性"><code>inline</code> 属性</a></h3>
 <ul>
-<li><code>inline</code> 属性* 建议将带有该属性的函数的副本放置在调用者中，而不是在定义的地方生成调用该函数的代码。</li>
+<li><code>inline</code> 属性* 建议将函数副本放置于调用者中，而不是在相应位置生成调用该函数的代码。</li>
 </ul>
 <blockquote>
-<p><em><strong>注意</strong></em>: <code>rustc</code> 编译器基于内部启发式算法自动内联函数。不正确地内联函数可能会使程序变慢，因此应谨慎使用此属性。</p>
+<p><em><strong>注意</strong></em>: <code>rustc</code> 编译器基于内部启发式算法自动内联函数。不正确地内联函数可能会使程序变慢，因而此属性应谨慎使用。</p>
 </blockquote>
-<p>有三种使用 <code>inline</code> 属性的方法:</p>
+<p>有三种使用 <code>inline</code> 属性的方式:</p>
 <ul>
 <li><code>#[inline]</code> <em>建议</em> 进行内联展开。</li>
 <li><code>#[inline(always)]</code> <em>建议</em> 总是进行内联展开。</li>
 <li><code>#[inline(never)]</code> <em>建议</em> 永远不进行内联展开。</li>
 </ul>
 <blockquote>
-<p><em><strong>注意</strong></em>: 无论形式如何， <code>#[inline]</code> 都是一个提示，对于将带有该属性的函数的副本放置在调用者中没有任何 <em>强制</em> 。</p>
+<p><em><strong>注意</strong></em>: 无论形式如何， <code>#[inline]</code> 都是一个提示，对于是否将带有该属性的函数副本放置在调用者中，并不作 <em>强制</em> 。</p>
 </blockquote>
 <h3 id="cold-属性"><a class="header" href="#cold-属性"><code>cold</code> 属性</a></h3>
 <p><em><code>cold</code> <a href="../attributes.html">属性</a></em> 表示带有该属性的函数不太可能被调用。</p>
@@ -189,8 +186,8 @@
 unsafe fn foo_avx2() {}
 <span class="boring">}</span></code></pre></pre>
 <p>每个 <a href="../conditional-compilation.html#target_arch">目标架构</a> 都有一组可启用的特性。
-对于正在编译的 crate，如果指定了未被支持的目标架构的特性，则会出现错误。</p>
-<p>对于使用不被当前平台支持的特性进行编译的函数进行调用是 <a href="../behavior-considered-undefined.html">未定义行为</a> ，除非平台明确说明这是安全的。</p>
+对于进行编译的 crate，如果指定了不受支持的目标架构特性，则会出现错误。</p>
+<p>对于使用不受当前平台支持的特性进行编译的函数，进行调用是 <a href="../behavior-considered-undefined.html">未定义行为</a> ，除非平台明确说明这是安全的。</p>
 <p>使用 <code>target_feature</code> 标注的函数不会被内联到不支持所给定特性的上下文中。
 <code>#[inline(always)]</code> 属性不能与 <code>target_feature</code> 属性一起使用。</p>
 <h3 id="可用特性"><a class="header" href="#可用特性">可用特性</a></h3>
@@ -440,6 +437,5 @@ fn bar_thumb_code() {}</code></pre>
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

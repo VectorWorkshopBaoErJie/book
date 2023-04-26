@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -230,10 +227,10 @@ let message = Message::Quit;</code></pre>
 <li>当匹配非穷尽 <a href="../items/enumerations.html"><code>enum</code></a> 时，匹配一个变体不会导致分支的穷尽性。</li>
 </ul>
 <!-- ignore: requires external crates -->
-<pre><code class="language-rust  ignore">// `Config` ， `Error` 和 `Message` 是在上游 crate 中定义的类型，已经被注释为 `#[non_exhaustive]`。
+<pre><code class="language-rust  ignore">// `Config` ， `Error` 和 `Message` 是在上游 crate 中定义的类型，已经被注解为 `#[non_exhaustive]`。
 use upstream::{Config, Error, Message};
 
-// 无法在非枚举穷尽(enum non-exhaustive)上进行匹配而不包括通配符分支。
+// 无法在非穷尽枚举上进行匹配，除非使用通配符。
 match error {
 Error::Message(ref s) =&gt; {},
 Error::Other =&gt; {},
@@ -307,6 +304,5 @@ let _ = NonExhaustiveEnum::default() as u8;</code></pre>
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

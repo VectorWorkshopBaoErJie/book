@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -250,8 +247,8 @@
    | <a href="types/trait-object.html"><em>Trait对象类型</em></a></p>
 <p><em>无约束类型组</em> :<br />
       <a href="types.html#parenthesized-types"><em>括号类型</em></a><br />
-   | <a href="types/impl-trait.html"><em>ImplTrait类型1约束</em></a><br />
-   | <a href="types/trait-object.html"><em>Trait对象类型1约束</em></a><br />
+   | <a href="types/impl-trait.html"><em>ImplTrait类型单约束</em></a><br />
+   | <a href="types/trait-object.html"><em>Trait对象类型单约束</em></a><br />
    | <a href="paths.html#paths-in-types"><em>类型路径</em></a><br />
    | <a href="types/tuple.html#tuple-types"><em>元组类型</em></a><br />
    | <a href="types/never.html"><em>永不类型</em></a><br />
@@ -366,6 +363,5 @@ let a: List&lt;i32&gt; = List::Cons(7, Box::new(List::Cons(13, Box::new(List::Ni
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

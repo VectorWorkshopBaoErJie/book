@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -158,9 +155,9 @@
    <code>(</code> <a href="../expressions.html"><em>表达式</em></a> <code>)</code></p>
 </blockquote>
 <p><em>括号表达式</em> 将一个单独的表达式包裹起来，最终的结果是这个表达式的值。
-括号表达式的语法是 <code>(</code> ，然后是一个表达式，称为 <em>内嵌操作数</em> ，最后是一个 <code>)</code> 。</p>
-<p>括号表达式的值等同于内嵌操作数的值。与其他表达式不同的是，括号表达式既是 <a href="../expressions.html#place-expressions-and-value-expressions">占位表达式</a> 也是值表达式。
-当内嵌操作数是占位表达式时，括号表达式也是占位表达式；当内嵌操作数是值表达式时，括号表达式也是值表达式。</p>
+括号表达式的语法是 <code>(</code> ，然后是一个表达式，称为 <em>内嵌操作</em> ，最后是一个 <code>)</code> 。</p>
+<p>括号表达式的值等同于内嵌操作的值。与其他表达式不同的是，括号表达式既是 <a href="../expressions.html#place-expressions-and-value-expressions">占位表达式</a> 也是值表达式。
+当内嵌操作是占位表达式时，括号表达式也是占位表达式；当内嵌操作是值表达式时，括号表达式也是值表达式。</p>
 <p>括号可以用于显式修改表达式中子表达式的优先级顺序。</p>
 <p>以下是括号表达式的示例:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -235,6 +232,5 @@ assert_eq!((a.f)(), &quot;The field f&quot;);
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

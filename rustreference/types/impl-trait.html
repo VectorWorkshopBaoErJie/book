@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -176,7 +173,7 @@ fn bar() -&gt; impl Trait {
 <blockquote>
 <p>注意: 这经常被称为 &quot;参数位置的impl Trait&quot;。 (这里更准确的术语是 &quot;参数&quot;，但 &quot;参数位置的impl Trait&quot; 是这个特性开发期间使用的措辞，而且它仍然在实现的某些部分中保留着。)</p>
 </blockquote>
-<p>函数可以使用 <code>impl</code> ，后面跟一组 trait bound，来声明一个参数为匿名类型。调用方必须提供一个满足匿名类型参数所声明的 trait bound 的类型，而函数只能使用匿名类型参数的 trait bound 可用的方法。</p>
+<p>函数可以使用 <code>impl</code> ，后面跟一组 trait 约束，来声明一个参数为匿名类型。调用方必须提供一个满足匿名类型参数所声明的 trait 约束的类型，而函数只能使用匿名类型参数的 trait 约束可用的方法。</p>
 <p>例如，以下这两种形式几乎是等价的:</p>
 <pre><code class="language-rust ignore">trait Trait {}
 
@@ -187,11 +184,11 @@ fn foo&lt;T: Trait&gt;(arg: T) {
 // impl Trait 作为函数参数的匿名类型参数
 fn foo(arg: impl Trait) {
 }</code></pre>
-<p>换句话说， <code>impl Trait</code> 作为函数参数是一种语法糖，用于泛型类型参数 <code>&lt;T: Trait&gt;</code> ，只不过该类型是匿名的并且不出现在 <a href="../items/generics.html"><em>GenericParams</em></a> 列表中。</p>
+<p>换句话说， <code>impl Trait</code> 作为函数参数是一种语法糖，用于泛型类型参数 <code>&lt;T: Trait&gt;</code> ，只不过该类型是匿名的并且不出现在 <a href="../items/generics.html"><em>泛型参数组</em></a> 列表中。</p>
 <blockquote>
 <p><strong>注意：</strong>
 对于函数参数而言，泛型类型参数和 <code>impl Trait</code> 并不完全等效。
-对于泛型参数如 <code>&lt;T: Trait&gt;</code> ，调用方可以在调用时使用 <a href="../paths.html#paths-in-expressions"><em>GenericArgs</em></a> 显式指定 <code>T</code> 的泛型参数，例如 <code>foo::&lt;usize&gt;(1)</code> 。
+对于泛型参数如 <code>&lt;T: Trait&gt;</code> ，调用方可以在调用时使用 <a href="../paths.html#paths-in-expressions"><em>泛型实参组</em></a> 显式指定 <code>T</code> 的泛型参数，例如 <code>foo::&lt;usize&gt;(1)</code> 。
 如果 <code>impl Trait</code> 是 <em>任何</em> 函数参数的类型，那么调用方在调用该函数时永远不能提供任何泛型参数。
 这包括返回类型或任何常量泛型参数。</p>
 <p>因此，从其中一个函数签名更改到另一个函数签名可能会对函数的调用方构成破坏性更改。</p>
@@ -210,7 +207,7 @@ fn foo(arg: impl Trait) {
     Box::new(|x| x + 1)
 }
 <span class="boring">}</span></code></pre></pre>
-<p>这可能会导致堆分配和动态分派的性能惩罚。
+<p>这可能会导致堆分配和动态分派的性能损失。
 无法完全指定闭包的类型，只能使用 <code>Fn</code> trait。
 这意味着 trait 对象是必需的。
 但是，使用 <code>impl Trait</code> 可以更简单地编写此代码:</p>
@@ -234,7 +231,7 @@ fn foo(arg: impl Trait) {
 <pre><code class="language-rust ignore">fn foo() -&gt; impl Trait {</code></pre>
 <p>不允许调用者确定返回类型。相反，函数选择返回类型，但只承诺它将实现 <code>Trait</code> 。</p>
 <h2 id="限制"><a class="header" href="#限制">限制</a></h2>
-<p><code>impl Trait</code> 只能出现在自由函数或固有函数的参数或返回类型中。它不能出现在 trait 的实现内部，也不能是 let 绑定的类型或出现在类型别名中。</p>
+<p><code>impl Trait</code> 只能出现在自由函数或内部函数的参数或返回类型中。它不能出现在 trait 的实现内部，也不能是 let 绑定的类型或出现在类型别名中。</p>
 
                     </main>
 
@@ -284,6 +281,5 @@ fn foo(arg: impl Trait) {
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

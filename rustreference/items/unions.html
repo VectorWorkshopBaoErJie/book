@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -211,7 +208,7 @@ union MyUnion {
     let f = u.f1;
 }
 <span class="boring">}</span></code></pre></pre>
-<p>通常，使用联合体的代码会在不安全的联合体字段访问周围提供安全的包装器。</p>
+<p>通常，使用联合体的代码会在不安全的联合体字段访问外围提供安全的包装器。</p>
 <p>相比之下，写入联合体字段是安全的，因为它们只是覆盖任意数据，而不能导致未定义的行为。
 (请注意，联合体字段类型永远不会具有粘联的丢弃 ，因此联合体字段写入永远不会隐式丢弃任何内容。)</p>
 <h2 id="联合体模式匹配"><a class="header" href="#联合体模式匹配">联合体模式匹配</a></h2>
@@ -231,8 +228,8 @@ union MyUnion {
     }
 }
 <span class="boring">}</span></code></pre></pre>
-<p>模式匹配可能将联合体作为更大结构体的字段进行匹配。
-特别是在使用 Rust 联合体通过 FFI 实现 C 标记联合时，这允许同时匹配标记和相应字段:</p>
+<p>模式匹配可能将联合体作为较大结构的字段进行匹配。
+特别地，当使用 Rust 联合体通过 FFI 实现 C 中的标记 union 时，得以同时匹配标记和相应的字段：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[repr(u32)]
@@ -332,6 +329,5 @@ fn test() {
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

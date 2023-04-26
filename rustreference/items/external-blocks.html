@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -223,12 +220,12 @@ extern &quot;stdcall&quot; { }
 <h3 id="link-属性"><a class="header" href="#link-属性"><code>link</code> 属性</a></h3>
 <p><em><code>link</code> 属性</em> 指定编译器为 <code>extern</code> 块中的条目链接的本地库的名称。
 它使用 <a href="../attributes.html#meta-item-attribute-syntax"><em>元列表名称值字符串</em></a> 语法来指定其输入。
-<code>name</code> 键是要链接的本地库的名称。<code>kind</code> 键是可选值，用于指定以下可能值的库类型:</p>
+<code>name</code> 键是要链接的本地库的名称。 <code>kind</code> 键是可选值，用于指定以下可能值的库类型:</p>
 <ul>
 <li><code>dylib</code> - 表示动态库。如果未指定 <code>kind</code> ，则为默认值。</li>
 <li><code>static</code> - 表示静态库。</li>
 <li><code>framework</code> - 表示 macOS 框架。仅适用于 macOS 目标。</li>
-<li><code>raw-dylib</code> - 表示动态库，其中编译器将生成要链接的导入库 (详情请参见 <a href="#dylib-versus-raw-dylib"><code>dylib</code> versus <code>raw-dylib</code></a> )。仅适用于 Windows 目标。</li>
+<li><code>raw-dylib</code> - 表示动态库，其中编译器将生成要链接的导入库 (详情参见 <a href="#dylib-versus-raw-dylib"><code>dylib</code> 对比 <code>raw-dylib</code></a> )。仅适用于 Windows 目标。</li>
 </ul>
 <p>如果指定了 <code>kind</code> ，必须包括 <code>name</code> 键。</p>
 <p>可选的 <code>modifiers</code> 参数是指定要链接的库的链接修饰符的一种方法。
@@ -258,8 +255,8 @@ extern {
 <p>此修饰符仅与 <code>static</code> 链接类型兼容。使用任何其他类型都会导致编译器错误。</p>
 <p>在构建 rlib 或 staticlib 时， <code>+bundle</code> 表示本地静态库将被打包到 rlib 或 staticlib 归档中，然后在链接最终二进制文件时从其中检索出来。</p>
 <p>在构建 rlib 时， <code>-bundle</code> 表示本地静态库以名称的方式注册为该 rlib 的依赖项，并且其中的目标文件仅在链接最终二进制文件时包含，文件搜索也在最终链接期间按该名称执行。<br />
-在构建 staticlib 时， <code>-bundle</code> 表示本地静态库不会被包含在档案中，某些更高级别的构建系统需要在链接最终二进制文件时稍后添加它。</p>
-<p>当构建其他目标(如可执行文件或动态库)时，此修饰符不起作用。</p>
+在构建 staticlib 时， <code>-bundle</code> 表示本地静态库不会被包含在档案中，某些更高级别的构建系统需要在链接最终二进制文件时随后添加它。</p>
+<p>当构建其他目标 (如可执行文件或动态库) 时，此修饰符不起作用。</p>
 <p>修饰符的默认值是 <code>+bundle</code> 。</p>
 <p>关于这个修饰符的更多实现细节可在 <a href="../../rustc/command-line-arguments.html#linking-modifiers-bundle">rustc 文档 <code>bundle</code></a> 找到 。</p>
 <h4 id="链接修饰符-whole-archive"><a class="header" href="#链接修饰符-whole-archive">链接修饰符: <code>whole-archive</code></a></h4>
@@ -273,11 +270,11 @@ extern {
 <p><code>-verbatim</code> 表示 rustc 将在将库名称传递给链接器之前添加特定目标的前缀和后缀，且不会阻止链接器隐式添加它。</p>
 <p>这个修饰符的默认值是 <code>-verbatim</code> 。</p>
 <p>关于这个修饰符的更多实现细节可在 <a href="../../rustc/command-line-arguments.html#linking-modifiers-verbatim">rustc 文档 <code>verbatim</code></a> 中找到。</p>
-<h4 id="dylib-相比-raw-dylib"><a class="header" href="#dylib-相比-raw-dylib"><code>dylib</code> 相比 <code>raw-dylib</code></a></h4>
+<h4 id="dylib-对比-raw-dylib"><a class="header" href="#dylib-对比-raw-dylib"><code>dylib</code> 对比 <code>raw-dylib</code></a></h4>
 <p>在 Windows 上，链接动态库需要向链接器提供导入库：这是一个特殊的静态库，以这样一种方式声明动态库导出的所有符号，使得链接器知道它们必须在运行时动态加载。</p>
 <p>指定 <code>kind = &quot;dylib&quot;</code> 会指示 Rust 编译器基于 <code>name</code> 键链接导入库。
 然后，链接器将使用其正常的库解析逻辑来找到该导入库。另外，指定 <code>kind = &quot;raw-dylib&quot;</code> 会指示编译器在编译期间生成一个导入库，并提供给链接器。</p>
-<p>只有在 Windows 上才支持 <code>raw-dylib</code>，不支持 32 位 x86 ( <code>target_arch=&quot;x86&quot;</code> ) 。将其用于针对其他平台或 Windows 上的 x86 时将导致编译器错误。</p>
+<p>只有在 Windows 上才支持 <code>raw-dylib</code> ，不支持 32 位 x86 ( <code>target_arch=&quot;x86&quot;</code> ) 。将其用于针对其他平台或 Windows 上的 x86 时将导致编译器错误。</p>
 <h3 id="link_name-属性"><a class="header" href="#link_name-属性"><code>link_name</code> 属性</a></h3>
 <p>在 <code>extern</code> 块内的声明上可以指定 <em><code>link_name</code> 属性</em> ，以指示要为给定函数或静态导入的符号。
 使用 <a href="../attributes.html#meta-item-attribute-syntax"><em>元名称值字符串</em></a> 语法来指定符号的名称。</p>
@@ -354,6 +351,5 @@ extern &quot;stdcall&quot; {
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

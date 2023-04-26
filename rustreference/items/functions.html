@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -158,7 +155,7 @@
    <em>函数修饰符组</em> <code>fn</code> <a href="../identifiers.html">标识符</a> <a href="generics.html"><em>泛型参数组</em></a><sup>?</sup><br />
       <code>(</code> <em>函数参数组</em><sup>?</sup> <code>)</code><br />
       <em>函数返回类型</em><sup>?</sup> <a href="generics.html#where-clauses"><em>Where子句</em></a><sup>?</sup><br />
-      ( [<em>块表达式</em>] | <code>;</code> )</p>
+      ( <a href="../expressions/block-expr.html"><em>块表达式</em></a> | <code>;</code> )</p>
 <p><em>函数修饰符组</em> :<br />
    <code>const</code><sup>?</sup> <code>async</code><sup class="footnote-reference"><a href="#async-edition">1</a></sup><sup>?</sup> <code>unsafe</code><sup>?</sup> (<code>extern</code> <em>Abi</em><sup>?</sup>)<sup>?</sup></p>
 <p><em>Abi</em> :<br />
@@ -187,11 +184,11 @@
 <p>在 2015 版中，只有在一个 <a href="traits.html">trait 条目</a> 的关联函数中才允许使用仅带有类型的函数参数。</p>
 </div>
 </blockquote>
-<p>一个函数包括一个 <a href="../expressions/block-expr.html">代码块</a> ，以及一个名称、一组参数和一个输出类型。
+<p>一个函数包括一个 <a href="../expressions/block-expr.html">块</a> ，以及一个名称、一组参数和一个输出类型。
 除名称外，其他是可选的。函数是用关键字 <code>fn</code> 声明。
 函数可以声明一组 <em>输入</em> <a href="../variables.html">变量</a> 作为参数，通过这些变量，调用者将参数传递给函数，并且函数的 <em>输出</em> 类型为函数完成时将返回给其调用者的 <a href="../types.html#type-expressions">类型</a> 。
 如果未显式指定输出类型，则为 <a href="../types/tuple.html">单元类型</a> 。</p>
-<p>当引用一个函数时，它会产生一个相应的零大小的 <a href="../types/function-item.html"><em>函数条目类型</em></a> 的一类 <em>值</em> ，当调用它时会直接调用该函数。</p>
+<p>当引用一个函数时，它会产生一个相应的零大小的 <a href="../types/function-item.html"><em>函数条目类型</em></a> 的第一类 <em>值</em> ，当调用它时会直接调用该函数。</p>
 <p>例如，这是一个简单的函数:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -200,7 +197,7 @@
 }
 <span class="boring">}</span></code></pre></pre>
 <h2 id="函数参数"><a class="header" href="#函数参数">函数参数</a></h2>
-<p>函数参数是不可拒绝的 <a href="../patterns.html">模式</a> ，因此任何在没有 else-less <code>let</code> 绑定中有效的模式在参数中也是有效的:</p>
+<p>函数参数是不可拒绝的 <a href="../patterns.html">模式</a> ，因此任何在没有其他附加的 <code>let</code> 绑定中有效的模式在参数中也是有效的:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn first((value, _): (i32, i32)) -&gt; i32 { value }
@@ -215,14 +212,14 @@
 如常规一样，如果在函数体内有显式的返回表达式，则会立即返回，如果到达该隐式返回，则会被短路。</p>
 <p>例如，上面的函数的行为类似于以下写法:</p>
 <!-- ignore: example expansion -->
-<pre><code class="language-rust ignore">// argument_0是调用者实际传递的第一个参数。
+<pre><code class="language-rust ignore">// argument_0 是调用者实际传递的第一个参数。
 let (value, _) = argument_0;
 return {
     value
 };</code></pre>
 <p>函数没有函数体时以分号结束。这种形式只能出现在 <a href="traits.html">trait</a> 或 <a href="external-blocks.html">外部块</a> 中。</p>
 <h2 id="泛型函数"><a class="header" href="#泛型函数">泛型函数</a></h2>
-<p>一种 <em>泛型函数</em> 允许其签名中出现一个或多个 <em>参数化类型</em> 。
+<p><em>泛型函数</em> 允许其签名中出现一个或多个 <em>参数化类型</em> 。
 每个类型参数必须在一个尖括号包围的、由逗号分隔的列表中显式声明，在函数名之后。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -250,14 +247,14 @@ fn foo&lt;T&gt;(x: &amp;[T]) where T: Debug {
 
 foo(&amp;[1, 2]);
 <span class="boring">}</span></code></pre></pre>
-<p>将用 <code>i32</code> 实例化类型参数 <code>T</code> 。</p>
-<p>函数的类型参数还可以在函数名后跟一个后缀 <a href="../paths.html">path</a> 组件来明确指定。
+<p>将类型参数 <code>T</code> 用实例化为 <code>i32</code> 。</p>
+<p>函数的类型参数还可以在函数名后跟一个后缀 <a href="../paths.html">路径</a> 组件来明确指定。
 如果没有足够的上下文来确定类型参数，则可能需要这样做。例如，<code>mem::size_of::&lt;u32&gt;() == 4</code>。</p>
 <h2 id="外部函数修饰"><a class="header" href="#外部函数修饰">外部函数修饰</a></h2>
-<p><code>extern</code> 函数修饰符允许提供函数 <em>定义组</em> ，这些函数可以使用特定的 ABI 进行调用：</p>
+<p><code>extern</code> 函数修饰符允许提供函数 <em>定义组</em> ，这些函数可以使用特定的 ABI 进行调用:</p>
 <!-- ignore: fake ABI -->
 <pre><code class="language-rust ignore">extern &quot;ABI&quot; fn foo() { /* ... */ }</code></pre>
-<p>这些通常与 <a href="external-blocks.html">外部块</a> 条目结合使用，后者提供可以用来调用函数而不提供其定义的函数声明:</p>
+<p>这些通常与 <a href="external-blocks.html">外部块</a> 条目结合使用，后者可以提供用来调用函数的声明，而不必提供其函数 <em>定义</em> :</p>
 <!-- ignore: fake ABI -->
 <pre><code class="language-rust ignore">extern &quot;ABI&quot; {
   fn foo(); /* no body */
@@ -273,17 +270,17 @@ unsafe { foo() }</code></pre>
 </span><span class="boring">fn main() {
 </span>extern &quot;Rust&quot; fn foo() {}
 <span class="boring">}</span></code></pre></pre>
-<p>函数可以被外部代码调用，使用与 Rust 不同的 ABI 允许提供可以从其他编程语言 (如C) 调用的函数:</p>
+<p>ABI 使用非 &quot;Rust&quot; 的函数，允许其他编程语言调用该函数，比如 C 语言:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>// 用 &quot;C&quot; ABI声明函数
+</span>// 用 &quot;C&quot; ABI 声明函数
 extern &quot;C&quot; fn new_i32() -&gt; i32 { 0 }
 
-// 用 &quot;stdcall&quot; ABI声明函数
+// 用 &quot;stdcall&quot; ABI 声明函数
 <span class="boring">#[cfg(target_arch = &quot;x86_64&quot;)]
 </span>extern &quot;stdcall&quot; fn new_i32_stdcall() -&gt; i32 { 0 }
 <span class="boring">}</span></code></pre></pre>
-<p>与 <a href="external-blocks.html">external block</a> 类似，当使用 <code>extern</code> 关键字但省略了 <code>&quot;ABI&quot;</code> 时，使用的 ABI 默认为 <code>&quot;C&quot;</code> 。例如：</p>
+<p>与 <a href="external-blocks.html">外部块</a> 类似，当使用 <code>extern</code> 关键字但省略了 <code>&quot;ABI&quot;</code> 时，使用的 ABI 默认为 <code>&quot;C&quot;</code> 。例如：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>extern fn new_i32() -&gt; i32 { 0 }
@@ -295,7 +292,7 @@ let fptr: extern fn() -&gt; i32 = new_i32;
 </span>extern &quot;C&quot; fn new_i32() -&gt; i32 { 0 }
 let fptr: extern &quot;C&quot; fn() -&gt; i32 = new_i32;
 <span class="boring">}</span></code></pre></pre>
-<p>函数的 ABI (应用程序二进制接口) 和 Rust 不同的函数的 ABI 不能像 Rust 一样支持展开 (unwind) 方式，因此尝试在这些 ABI 中展开超过函数末尾的部分会导致进程中止。</p>
+<p>非 &quot;Rust&quot; 函数的 ABI (应用程序二进制接口) 不能像 Rust 一样支持栈回退，因此尝试在这些 ABI 中回退超过函数末尾的部分会导致进程中止。</p>
 <blockquote>
 <p><strong>注意</strong>: <code>rustc</code> 的 LLVM 后端通过执行非法指令来使进程中止。</p>
 </blockquote>
@@ -310,8 +307,8 @@ let fptr: extern &quot;C&quot; fn() -&gt; i32 = new_i32;
 </span>async fn regular_example() { }
 async unsafe fn unsafe_example() { }
 <span class="boring">}</span></code></pre></pre>
-<p>异步函数可以标记为 <code>async</code> 。在调用时，异步函数不会立即执行，而是将其参数捕获为一个 future 。当该 future 被轮询时，它会执行函数的主体。</p>
-<p>一个 async 异步函数大致等同于一个返回 <a href="../types/impl-trait.html"><code>impl Future</code></a> 的函数，并且具有一个 <a href="../expressions/block-expr.html#async-blocks"><code>async move</code> 块</a>作为函数体:</p>
+<p>异步函数在调用时，不会立即执行，而是将其参数捕获为一个 &quot;future&quot; 。当该 future 被轮询时，它会执行函数的主体。</p>
+<p>一个 async 异步函数大致等同于一个返回 <a href="../types/impl-trait.html"><code>impl Future</code></a> 的函数，并且具有一个 <a href="../expressions/block-expr.html#async-blocks"><code>async move</code> 块</a> 作为函数体:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// Source
@@ -367,7 +364,7 @@ async fn safe_example() {
 例如，在上面的代码段中， <code>unsafe_example</code> 函数接受一个指针 <code>x</code> 作为参数，然后 (当等待时) 对该指针进行解引用。
 这意味着 <code>x</code> 必须在 future 执行完成之前保持有效，并且调用者有责任确保这一点。</p>
 <h2 id="函数的属性"><a class="header" href="#函数的属性">函数的属性</a></h2>
-<p>函数可以使用 <a href="../attributes.html">外围属性</a> 。 <a href="../attributes.html">内部属性</a> 可以直接在函数的 <a href="../expressions/block-expr.html">block</a> 里的 <code>{</code> 后面使用。</p>
+<p>函数可以使用 <a href="../attributes.html">外围属性</a> 。 <a href="../attributes.html">内部属性</a> 可以直接在函数的 <a href="../expressions/block-expr.html">块</a> 里的 <code>{</code> 后面使用。</p>
 <p>以下示例展示了在函数中使用内部属性。该函数的文档注释只包含单词 &quot;Example&quot; 。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -376,9 +373,9 @@ async fn safe_example() {
 }
 <span class="boring">}</span></code></pre></pre>
 <blockquote>
-<p>注意: 除了用于 lint ，通常仅在函数条目上使用外围属性是惯用的。</p>
+<p>注意: 除了用于代码分析 ，通常仅在函数条目上使用外围属性是惯用的。</p>
 </blockquote>
-<p>函数可用的属性包括 <a href="../conditional-compilation.html#the-cfg-attribute"><code>cfg</code></a> 、 <a href="../conditional-compilation.html#the-cfg_attr-attribute"><code>cfg_attr</code></a> 、 <a href="../attributes/diagnostics.html#the-deprecated-attribute"><code>deprecated</code></a> 、 <a href="../../rustdoc/the-doc-attribute.html"><code>doc</code></a> 、 <a href="../abi.html#the-export_name-attribute"><code>export_name</code></a> 、 <a href="../abi.html#the-link_section-attribute"><code>link_section</code></a> 、 <a href="../abi.html#the-no_mangle-attribute"><code>no_mangle</code></a> 、<a href="../attributes/diagnostics.html#lint-check-attributes">代码分析检查属性</a> 、 <a href="../attributes/diagnostics.html#the-must_use-attribute"><code>must_use</code></a> 、 <a href="../procedural-macros.html">过程宏属性</a> 、 <a href="../attributes/testing.html">测试属性</a> 和 <a href="../attributes/codegen.html#optimization-hints">优化提示属性</a> 。此外，函数还接受属性宏。</p>
+<p>函数可用的属性包括 <a href="../conditional-compilation.html#the-cfg-attribute"><code>cfg</code></a> 、 <a href="../conditional-compilation.html#the-cfg_attr-attribute"><code>cfg_attr</code></a> 、 <a href="../attributes/diagnostics.html#the-deprecated-attribute"><code>deprecated</code></a> 、 <a href="../../rustdoc/the-doc-attribute.html"><code>doc</code></a> 、 <a href="../abi.html#the-export_name-attribute"><code>export_name</code></a> 、 <a href="../abi.html#the-link_section-attribute"><code>link_section</code></a> 、 <a href="../abi.html#the-no_mangle-attribute"><code>no_mangle</code></a> 、<a href="../attributes/diagnostics.html#lint-check-attributes">代码分析</a> 、 <a href="../attributes/diagnostics.html#the-must_use-attribute"><code>must_use</code></a> 、 <a href="../procedural-macros.html">过程宏属性</a> 、 <a href="../attributes/testing.html">测试</a> 和 <a href="../attributes/codegen.html#optimization-hints">优化提示</a> 。此外，函数还接受属性宏。</p>
 <h2 id="函数参数的属性"><a class="header" href="#函数参数的属性">函数参数的属性</a></h2>
 <p>函数参数上允许使用 <a href="../attributes.html">外围属性</a> ，其中允许使用的 <a href="../attributes.html#built-in-attributes-index">内置属性</a> 仅限于 <code>cfg</code> ， <code>cfg_attr</code> ， <code>allow</code> ， <code>warn</code> ， <code>deny</code> 和 <code>forbid</code>。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -446,6 +443,5 @@ fn foo_oof(#[some_inert_attribute] arg: u8) {
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

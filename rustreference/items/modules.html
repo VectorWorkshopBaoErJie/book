@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -243,7 +240,7 @@ mod thread {
 <h2 id="模块的属性"><a class="header" href="#模块的属性">模块的属性</a></h2>
 <p>模块和所有条目一样，可以接受外围属性 (outer attributes) ，同时也可以接受内部属性 (inner attributes) ，
 内部属性可以出现在模块主体的左括号 <code>{</code> 之后，也可以出现在源文件的开头，在可选的 BOM 和 shebang 之后。</p>
-<p>内置的对模块有意义的属性包括 <a href="../conditional-compilation.html"><code>cfg</code></a> 、 <a href="../attributes/diagnostics.html#the-deprecated-attribute"><code>deprecated</code></a> 、 <a href="../../rustdoc/the-doc-attribute.html"><code>doc</code></a> 、 <a href="../attributes/diagnostics.html#lint-check-attributes">lint 检查属性</a> 、 <a href="#the-path-attribute"><code>path</code></a> 和 <a href="../names/preludes.html#the-no_implicit_prelude-attribute"><code>no_implicit_prelude</code></a> 。模块还接受宏属性。</p>
+<p>内置的对模块有意义的属性包括 <a href="../conditional-compilation.html"><code>cfg</code></a> 、 <a href="../attributes/diagnostics.html#the-deprecated-attribute"><code>deprecated</code></a> 、 <a href="../../rustdoc/the-doc-attribute.html"><code>doc</code></a> 、 <a href="../attributes/diagnostics.html#lint-check-attributes">代码分析检查属性</a> 、 <a href="#the-path-attribute"><code>path</code></a> 和 <a href="../names/preludes.html#the-no_implicit_prelude-attribute"><code>no_implicit_prelude</code></a> 。模块还接受宏属性。</p>
 <script>
 (function() {
     var fragments = {
@@ -306,6 +303,5 @@ mod thread {
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

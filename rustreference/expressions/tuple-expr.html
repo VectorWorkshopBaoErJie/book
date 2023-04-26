@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -183,13 +180,13 @@
    <a href="../expressions.html"><em>表达式</em></a> <code>.</code> <a href="../tokens.html#tuple-index">元组索引</a></p>
 </blockquote>
 <p><em>元组索引表达式</em> 用于访问 <a href="../types/tuple.html">元组</a> 和 <a href="../types/struct.html">元组结构体</a> 中的字段。</p>
-<p>元组索引表达式的语法是一个表达式，即 <em>元组操作数</em> ，后跟一个点号 ( <code>.</code> ) ，最后是一个元组索引。
+<p>元组索引表达式的语法是一个表达式，即 <em>元组操作</em> ，后跟一个点号 ( <code>.</code> ) ，最后是一个元组索引。
 元组索引的语法是一个 <a href="../tokens.html#integer-literals">十进制字面值</a> ，没有前导零、下划线或后缀。
 例如，<code>0</code> 和 <code>2</code> 是有效的元组索引，但  <code>01</code> 、 <code>0_</code> 和 <code>0i32</code> 不是。</p>
-<p>元组操作数的类型必须是 <a href="../types/tuple.html">元组类型</a> 或 <a href="../types/struct.html">元组结构体</a> 的一种。
-元组索引必须是元组操作数类型中与之同名的字段。</p>
-<p>求值元组索引表达式除了求值其元组操作数之外没有任何副作用。
-作为 <a href="../expressions.html#place-expressions-and-value-expressions">占位表达式</a> ，它将求值元组操作数中与元组索引同名的字段的位置。</p>
+<p>元组操作的类型必须是 <a href="../types/tuple.html">元组类型</a> 或 <a href="../types/struct.html">元组结构体</a> 的一种。
+元组索引必须是元组操作类型中与之同名的字段。</p>
+<p>求值元组索引表达式除了求值其元组操作之外没有任何副作用。
+作为 <a href="../expressions.html#place-expressions-and-value-expressions">占位表达式</a> ，它将求值元组操作中与元组索引同名的字段的位置。</p>
 <p>元组索引表达式的示例如下:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -204,7 +201,7 @@ assert_eq!(point.0, 1.0);
 assert_eq!(point.1, 0.0);
 <span class="boring">}</span></code></pre></pre>
 <blockquote>
-<p><strong>注意</strong>: 与字段访问表达式不同，元组索引表达式可以作为 <a href="./call-expr.html">调用表达式</a> 的函数操作数，因为它不能与方法调用混淆，因为方法名称不能是数字。</p>
+<p><strong>注意</strong>: 与字段访问表达式不同，元组索引表达式可以作为 <a href="./call-expr.html">调用表达式</a> 的函数操作，因为它不能与方法调用混淆，因为方法名称不能是数字。</p>
 </blockquote>
 <blockquote>
 <p><strong>注意</strong>: 尽管数组和切片也有元素，但必须使用 <a href="array-expr.html#array-and-slice-indexing-expressions">数组或切片索引表达式</a> 或 <a href="../patterns.html#slice-patterns">切片模式</a> 来访问它们的元素。</p>
@@ -258,6 +255,5 @@ assert_eq!(point.1, 0.0);
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

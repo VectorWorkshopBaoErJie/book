@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -197,19 +194,19 @@
 <p><code>let</code> 语句引入了一组由 <a href="patterns.html">模式</a> 给定的新 <a href="variables.html">变量</a> 。模式可选地后跟一个类型注释，然后以初始化表达式结束，或者跟随可选的 <code>else</code> 块。
 当没有给出类型注释时，编译器将推断类型，如果没有足够的类型信息进行明确推断，则会发出错误信号。
 任何由变量声明引入的变量在声明点到包含块范围的结尾之间都可见，除非它们被另一个变量声明隐藏。</p>
-<p>如果不存在 <code>else</code> 块，则模式必须是不可反驳的。
-如果存在 <code>else</code> 块，则模式可以是可反驳的。
-如果模式不匹配 (这需要它是可反驳的) ，则执行 <code>else</code> 块。
+<p>如果不存在 <code>else</code> 块，则模式必须是不可拒绝的。
+如果存在 <code>else</code> 块，则模式可以是可拒绝的。
+如果模式不匹配 (这需要它是可拒绝的) ，则执行 <code>else</code> 块。
 <code>else</code> 块必须始终发散 (求值为 <a href="types/never.html">永不类型</a> )。</p>
-<p>译注：&quot;反驳&quot; (refutable) 和 &quot;不可反驳&quot; (irrefutable) 表示模式是否能够在任何情况下都成功匹配。
+<p>译注：&quot;拒绝&quot; (refutable) 和 &quot;不可拒绝&quot; (irrefutable) 表示模式是否能够在任何情况下都成功匹配。
 &quot;发散&quot; (diverge) 指的是一个表达式无法正常终止并返回值的情况。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let (mut v, w) = (vec![1, 2, 3], 42); // 绑定可以是可变或常量
-let Some(t) = v.pop() else { // 可反驳的模式需要一个 else 块
+let Some(t) = v.pop() else { // 可拒绝的模式需要一个 else 块
     panic!(); // else 块必须发散
 };
-let [u, v] = [v[0], v[1]] else { // 这个模式是不可反驳的，所以编译器会作为 else 块是冗余的进行代码分析检查
+let [u, v] = [v[0], v[1]] else { // 这个模式是不可拒绝的，所以编译器会作为 else 块是冗余的进行代码分析检查
     panic!();
 };
 <span class="boring">}</span></code></pre></pre>
@@ -303,6 +300,5 @@ if true {
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

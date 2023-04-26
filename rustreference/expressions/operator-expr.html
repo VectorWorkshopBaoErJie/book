@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -194,7 +191,7 @@
 <p><code>&amp;</code> (共享借用) 和 <code>&amp;mut</code> (可变借用) 运算符是一元前缀运算符。
 当应用于一个 <a href="../expressions.html#place-expressions-and-value-expressions">占位表达式</a> 时，该表达式产生一个指向该值引用的位置的引用 (指针) 。
 在引用的持续时间内，该内存位置也被置于借用状态。对于共享借用 ( <code>&amp;</code> ) ，这意味着该位置可能不能被修改，但可以被读取或再次共享。
-对于可变借用 ( <code>&amp;mut</code> ) ，在借用过期之前，该位置可能不能以任何方式访问。
+对于可变借用 (<code>&amp;mut</code>) ，在借用过期之前，该位置可能不能以任何方式访问。
 <code>&amp;mut</code> 在可变位置表达式上下文中评估其操作数。如果 <code>&amp;</code> 或 <code>&amp;mut</code> 运算符应用于一个 <a href="../expressions.html#place-expressions-and-value-expressions">值表达式</a> ，则将创建一个 <a href="../expressions.html#temporaries">临时值</a>。</p>
 <p>这些运算符不能被重载。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
@@ -212,11 +209,11 @@ let mut array = [-2, 3, 9];
 <p>即使 <code>&amp;&amp;</code> 是单个标记 (<a href="#lazy-boolean-operators">惰性 'and' 运算符</a>) ，但在借用表达式的上下文中使用时，它的作用相当于两个借用:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>// same meanings:
+</span>// 同样的含义:
 let a = &amp;&amp;  10;
 let a = &amp; &amp; 10;
 
-// same meanings:
+// 同样的含义:
 let a = &amp;&amp;&amp;&amp;  mut 10;
 let a = &amp;&amp; &amp;&amp; mut 10;
 let a = &amp; &amp; &amp; &amp; mut 10;
@@ -257,11 +254,11 @@ struct Demo {
 }
 
 let mut uninit = MaybeUninit::&lt;Demo&gt;::uninit();
-// &amp;uninit.as_mut().field将创建对未初始化的'bool'的引用，因此为Undefined Behavior!
+// &amp;uninit.as_mut().field 将创建对未初始化的  `bool` 的引用，因此为未定义行为!
 let f1_ptr = unsafe { ptr::addr_of_mut!((*uninit.as_mut_ptr()).field) };
-// 将'true'写入先前未初始化的字段。
+// 将 'true' 写入先前未初始化的字段。
 unsafe { f1_ptr.write(true); }
-// 因为'uninit'已在上面初始化，所以是安全的。
+// 因为 'uninit' 已在上面初始化，所以是安全的。
 let init = unsafe { uninit.assume_init() };
 <span class="boring">}</span></code></pre></pre>
 <h2 id="解引用操作符"><a class="header" href="#解引用操作符">解引用操作符</a></h2>
@@ -472,8 +469,8 @@ let y = false &amp;&amp; panic!(); // false 不会对右侧的操作数进行求
     sum / size
 }
 <span class="boring">}</span></code></pre></pre>
-<p><code>as</code> 可以用于显式执行 <a href="../type-coercions.html">coercions</a> ，以及以下附加转换。
-任何不符合 coercion 规则或表中条目的转换都是编译器错误。
+<p><code>as</code> 可以用于显式执行 <a href="../type-coercions.html">强转</a> ，以及以下附加转换。
+任何不符合强转规则或表中条目的转换都是编译器错误。
 这里的 <code>*T</code> 表示 <code>*const T</code> 或 <code>*mut T</code>。
 在引用类型中， <code>m</code> 表示可选的 <code>mut</code> ，在指针类型中表示 <code>mut</code> 或 <code>const</code> 。</p>
 <div class="table-wrapper"><table><thead><tr><th><code>e</code> 的类型</th><th><code>U</code></th><th><code>e as U</code> 执行的类型转换</th></tr></thead><tbody>
@@ -605,7 +602,7 @@ x = y;
 <p>与使用 <code>let</code> 进行解构声明不同，由于语法歧义，模式不能出现在赋值语句的左侧。
 相反，一组对应模式的表达式被指定为 <a href="../expressions.html#place-expressions-and-value-expressions">可赋值表达式</a> ，并允许出现在赋值语句的左侧。
 然后，将赋值表达式展开为模式匹配，然后进行顺序赋值。
-展开后的模式必须是不可反驳的：特别地，这意味着仅允许具有在编译时已知长度的切片模式以及简单的切片 <code>[..]</code> 用于解构赋值。</p>
+展开后的模式必须是不可拒绝的：特别地，这意味着仅允许具有在编译时已知长度的切片模式以及简单的切片 <code>[..]</code> 用于解构赋值。</p>
 <p>展开的方法很简单，最好通过示例来说明。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -746,6 +743,5 @@ fn example() {
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

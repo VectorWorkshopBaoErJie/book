@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -178,7 +175,7 @@ Trait 还可以包含其他类型参数。这些类型参数，包括 <code>Self
 关联类型绝不能定义类型，类型只能在实现中指定。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>// 有定义和无定义的关联trait条目的示例。
+</span>// 有定义和无定义的关联 trait 条目的示例。
 trait Example {
     const CONST_NO_DEFAULT: i32;
     const CONST_WITH_DEFAULT: i32 = 99;
@@ -202,10 +199,10 @@ trait Example {
 }
 <span class="boring">}</span></code></pre></pre>
 <h2 id="对象安全"><a class="header" href="#对象安全">对象安全</a></h2>
-<p>对象安全的 trait 可以是一个 <a href="../types/trait-object.html">trait对象</a> 的基础 trait 。
+<p>对象安全的 trait 可以是一个 <a href="../types/trait-object.html">trait 对象</a> 的基础 trait 。
 一个 trait 是 <em>对象安全</em> 的，如果它具有以下 trait (在<a href="https://github.com/rust-lang/rfcs/blob/master/text/0255-object-safety.md">RFC 255</a>中定义):</p>
 <ul>
-<li>所有的 <a href="#supertraits">supertraits</a> 也必须是对象安全的。</li>
+<li>所有的 <a href="#supertraits">超级trait</a> 也必须是对象安全的。</li>
 <li><code>Sized</code> 不能是 <a href="#supertraits">超级trait</a> 。换句话说，必须不要求 <code>Self: Sized</code> 。</li>
 <li>不能有任何关联常量。</li>
 <li>不能有任何泛型关联类型。</li>
@@ -214,7 +211,7 @@ trait Example {
 <li>可派发函数要求:
 <ul>
 <li>没有任何类型参数 (允许生命周期参数),</li>
-<li>是除接收者类型，不使用 <code>Self</code> 的 <a href="associated-items.html#methods">method</a> 。</li>
+<li>是除接收者类型，不使用 <code>Self</code> 的 <a href="associated-items.html#methods">方法</a> 。</li>
 <li>有具有以下类型的接收器:
 <ul>
 <li><code>&amp;Self</code> (即 <code>&amp;self</code>)</li>
@@ -258,11 +255,11 @@ trait TraitMethods {
 </span><span class="boring">}</span></code></pre></pre>
 <pre><pre class="playground"><code class="language-rust compile_fail edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>// 这个trait是对象安全的，但这些方法不能在 trait 对象上派发。
+</span>// 这个 trait 是对象安全的，但这些方法不能在 trait 对象上派发。
 trait NonDispatchable {
     // 非方法，不能被派发。
     fn foo() where Self: Sized {}
-    // Self类型只有在运行时才知道。
+    // Self 类型只有在运行时才知道。
     fn returns(&amp;self) -&gt; Self where Self: Sized;
     // `other` 可能是接收者的不同的具体类型。
     fn param(&amp;self, other: Self) where Self: Sized {}
@@ -320,7 +317,7 @@ let obj: Box&lt;dyn WithSelf&gt; = Box::new(S); // ERROR: 不能使用 `Self` �
 <span class="boring">}</span></code></pre></pre>
 <h2 id="超级trait"><a class="header" href="#超级trait">超级trait</a></h2>
 <p><strong>超级trait</strong> 是指在一个类型实现某个特定 trait 之前必须实现的一些 trait。
-此外，在泛型或 trait 对象受到一个 trait 限定时，它可以访问其超级 trait 的关联条目。</p>
+此外，在 <a href="generics.html">泛型</a> 或 <a href="../types/trait-object.html">trait 对象</a> 受到一个 trait 限定时，它可以访问其超级 trait 的关联条目。</p>
 <p>超级 trait 可以通过在 trait 的 <code>Self</code> 类型上使用 trait 约束声明，而超级 trait 的 trait 约束将在其内部声明的 trait 的超级 trait 中传递。trait 不能是自己的超级 trait，这是一个错误。</p>
 <p>具有超级 trait 的 trait 被称为其超级 trait 的 <strong>子trait</strong> 。</p>
 <p>以下是将 <code>Shape</code> 声明为 <code>Circle</code> 的超级 trait 的示例。</p>
@@ -396,7 +393,7 @@ trait T {
 <li><code>&amp;&amp;</code> <a href="../identifiers.html">标识符</a></li>
 </ul>
 <p>从 2018 版开始，函数或方法参数模式不再是可选的。
-此外，只要有函数体，所有不可反驳模式都是允许的。
+此外，只要有函数体，所有不可拒绝模式都是允许的。
 如果没有函数体，则仍然受到上述限制。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -406,7 +403,7 @@ trait T {
 }
 <span class="boring">}</span></code></pre></pre>
 <h2 id="条目可见性"><a class="header" href="#条目可见性">条目可见性</a></h2>
-<p>Trait中的条目在语法上允许添加 <a href="../visibility-and-privacy.html"><em>可见性</em></a> 注解，但是当验证该 trait 时，这些注解会被拒绝。
+<p>Trait 中的条目在语法上允许添加 <a href="../visibility-and-privacy.html"><em>可见性</em></a> 注解，但是当验证该 trait 时，这些注解会被拒绝。
 这使得在使用这些条目的不同上下文中，可以使用统一的语法进行解析。
 例如，可以使用一个空的 <code>vis</code> 宏片段规格来表示 trait 条目，在其他允许使用可见性的情况下使用该宏规则。</p>
 <pre><pre class="playground"><code class="language-rust edition2021">macro_rules! create_method {
@@ -483,6 +480,5 @@ fn main() {
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

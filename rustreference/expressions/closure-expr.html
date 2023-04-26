@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -164,9 +161,9 @@
    <a href="../attributes.html"><em>外围属性</em></a><sup>*</sup> <a href="../patterns.html"><em>模式无顶层选项</em></a> ( <code>:</code> <a href="../types.html#type-expressions"><em>类型</em></a> )<sup>?</sup></p>
 </blockquote>
 <p><em>闭包表达式</em> ，也称为 lambda 表达式或 lambda ，定义一个 <a href="../types/closure.html">闭包类型</a> 并求值为该类型的值。
-闭包表达式的语法是一个可选的 <code>move</code> 关键字，然后是一个由管道符号分隔 (<code>|</code>) 的逗号分隔的 <a href="../patterns.html">模式</a> 列表，称为<em>闭包参数</em>，每个参数后面可选地跟随一个 <code>:</code> 和一个类型，然后是一个可选的 <code>-&gt;</code> 和类型，称为 <em>返回类型</em> ，然后是一个表达式，称为 <em>闭包体操作数</em> 。每个模式后面的可选类型是该模式的类型注解。如果存在返回类型，则闭包体必须是一个 <a href="block-expr.html">块</a> 。</p>
+闭包表达式的语法是一个可选的 <code>move</code> 关键字，然后是一个由管道符号分隔 (<code>|</code>) 的逗号分隔的 <a href="../patterns.html">模式</a> 列表，称为<em>闭包参数</em>，每个参数后面可选地跟随一个 <code>:</code> 和一个类型，然后是一个可选的 <code>-&gt;</code> 和类型，称为 <em>返回类型</em> ，然后是一个表达式，称为 <em>闭包体操作</em> 。每个模式后面的可选类型是该模式的类型注解。如果存在返回类型，则闭包体必须是一个 <a href="block-expr.html">块</a> 。</p>
 <p>闭包表达式表示一个函数，该函数将一系列参数映射到跟随参数的表达式。
-就像 <a href="../statements.html#let-statements"><code>let</code> 绑定</a> 一样，闭包参数是无法反驳的 <a href="../patterns.html">模式</a> ，其类型注解是可选的，如果未给出，将从上下文中推断。
+就像 <a href="../statements.html#let-statements"><code>let</code> 绑定</a> 一样，闭包参数是无法拒绝的 <a href="../patterns.html">模式</a> ，其类型注解是可选的，如果未给出，将从上下文中推断。
 每个闭包表达式都具有一个唯一的、匿名的类型。</p>
 <p>值得注意的是，闭包表达式 <em>捕获其环境</em> ，而普通的 <a href="../items/functions.html">函数定义</a> 不会。
 如果没有 <code>move</code> 关键字，闭包表达式 <a href="../types/closure.html#capture-modes">推断它如何从其环境中捕获每个变量</a> ，优先通过共享引用来捕获，实际上借用闭包体内提到的所有外部变量。
@@ -175,7 +172,7 @@
 这通常用于确保闭包的生命周期为 <code>'static</code> 。</p>
 <h2 id="闭包类型实现的-trait"><a class="header" href="#闭包类型实现的-trait">闭包类型实现的 trait</a></h2>
 <p>闭包类型实现哪些 trait 取决于如何捕获变量和捕获的变量的类型。
-请参考 <a href="../types/closure.html#call-traits-and-coercions">调用 trait 和强制转换</a> 章节了解闭包实现 <code>Fn</code> 、 <code>FnMut</code> 和 <code>FnOnce</code> 的情况和时间。
+请参考 <a href="../types/closure.html#call-traits-and-coercions">调用 trait 和强转</a> 章节了解闭包实现 <code>Fn</code> 、 <code>FnMut</code> 和 <code>FnOnce</code> 的情况和时间。
 如果每个捕获的变量的类型也实现了 trait ，闭包类型实现 <a href="../special-types-and-traits.html#send"><code>Send</code></a> 和 <a href="../special-types-and-traits.html#sync"><code>Sync</code></a> 。</p>
 <h2 id="示例"><a class="header" href="#示例">示例</a></h2>
 <p>在这个例子中，我们定义了一个函数 <code>ten_times</code> ，它接受一个高阶函数参数，然后我们调用它并传入一个闭包表达式作为参数，接着传入一个从环境中移动值的闭包表达式。</p>
@@ -249,6 +246,5 @@ ten_times(move |j| println!(&quot;{}, {}&quot;, word, j));
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>

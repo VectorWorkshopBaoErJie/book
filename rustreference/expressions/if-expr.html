@@ -33,7 +33,6 @@
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -71,12 +70,10 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -203,22 +200,22 @@ assert_eq!(y, &quot;Bigger&quot;);
 与 <code>if</code> 表达式类似， <code>if let</code> 表达式具有由执行的代码块确定的值。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let dish = (&quot;Ham&quot;, &quot;Eggs&quot;); // 定义一个元组dish，包含两个字符串&quot;Ham&quot;和&quot;Eggs&quot;
+</span>let dish = (&quot;Ham&quot;, &quot;Eggs&quot;); // 定义一个元组 dish ，包含两个字符串 &quot;Ham&quot; 和 &quot;Eggs&quot; 
 
 // 由于模式不匹配，这个代码块将被跳过
-if let (&quot;Bacon&quot;, b) = dish { // 在dish上应用模式匹配，如果dish与(&quot;Bacon&quot;, b)相同，则执行代码块
+if let (&quot;Bacon&quot;, b) = dish { // 在 dish上应用模式匹配，如果 dish 与(&quot;Bacon&quot;, b)相同，则执行代码块
     println!(&quot;Bacon is served with {}&quot;, b);
 } else { 
     // 否则执行这个代码块
-    println!(&quot;No bacon will be served&quot;); // 打印&quot;No bacon will be served&quot;
+    println!(&quot;No bacon will be served&quot;); // 打印 &quot;No bacon will be served&quot;
 }
 
 // 由于模式匹配，这个代码块将被执行
-if let (&quot;Ham&quot;, b) = dish { // 在dish上应用模式匹配，如果dish与(&quot;Ham&quot;, b)相同，则执行代码块
-    println!(&quot;Ham is served with {}&quot;, b); // 打印&quot;Ham is served with Eggs&quot;
+if let (&quot;Ham&quot;, b) = dish { // 在 dish 上应用模式匹配，如果 dish 与 (&quot;Ham&quot;, b) 相同，则执行代码块
+    println!(&quot;Ham is served with {}&quot;, b); // 打印 &quot;Ham is served with Eggs&quot;
 }
 
-if let _ = 5 { // 对5应用不可反驳的模式，始终为真，执行代码块
+if let _ = 5 { // 对5应用不可拒绝的模式，始终为真，执行代码块
     println!(&quot;Irrefutable patterns are always true&quot;); // 打印&quot;Irrefutable patterns are always true&quot;
 }
 <span class="boring">}</span></code></pre></pre>
@@ -263,7 +260,7 @@ if let E::X(n) | E::Y(n) = v {
     assert_eq!(n, 12);
 }
 <span class="boring">}</span></code></pre></pre>
-<p>该表达式不能是一个 <a href="operator-expr.html#lazy-boolean-operators">惰性布尔运算符表达式</a>。
+<p>该表达式不能是一个 <a href="operator-expr.html#lazy-boolean-operators"><em>惰性布尔运算符表达式</em></a>。
 使用惰性布尔运算符会与语言计划更改的特性产生歧义 (即 if-let 链的实现 - 请参见 <a href="https://github.com/rust-lang/rfcs/blob/master/text/2497-if-let-chains.md#rollout-plan-and-transitioning-to-rust-2018">eRFC 2947</a> )。
 当需要惰性布尔运算符表达式时，可以通过如下方式使用括号来实现：</p>
 <!-- ignore: pseudo code -->
@@ -327,6 +324,5 @@ if let PAT = ( EXPR || EXPR ) { .. } </code></pre>
         <!-- Custom JS scripts -->
 
 
-    </div>
     </body>
 </html>
