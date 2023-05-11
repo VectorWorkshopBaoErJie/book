@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -81,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">介绍</a></li><li class="chapter-item expanded "><a href="../notation.html"><strong aria-hidden="true">1.</strong> 符号约定</a></li><li class="chapter-item expanded "><a href="../lexical-structure.html"><strong aria-hidden="true">2.</strong> 词法结构</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../input-format.html"><strong aria-hidden="true">2.1.</strong> 输入格式</a></li><li class="chapter-item expanded "><a href="../keywords.html"><strong aria-hidden="true">2.2.</strong> 关键字</a></li><li class="chapter-item expanded "><a href="../identifiers.html"><strong aria-hidden="true">2.3.</strong> 标识符</a></li><li class="chapter-item expanded "><a href="../comments.html"><strong aria-hidden="true">2.4.</strong> 注释</a></li><li class="chapter-item expanded "><a href="../whitespace.html"><strong aria-hidden="true">2.5.</strong> 空白</a></li><li class="chapter-item expanded "><a href="../tokens.html"><strong aria-hidden="true">2.6.</strong> 令牌</a></li></ol></li><li class="chapter-item expanded "><a href="../macros.html"><strong aria-hidden="true">3.</strong> 宏</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../macros-by-example.html"><strong aria-hidden="true">3.1.</strong> 实例宏</a></li><li class="chapter-item expanded "><a href="../procedural-macros.html"><strong aria-hidden="true">3.2.</strong> 过程宏</a></li></ol></li><li class="chapter-item expanded "><a href="../crates-and-source-files.html"><strong aria-hidden="true">4.</strong> Crate和源文件</a></li><li class="chapter-item expanded "><a href="../conditional-compilation.html"><strong aria-hidden="true">5.</strong> 条件编译</a></li><li class="chapter-item expanded "><a href="../items.html"><strong aria-hidden="true">6.</strong> 条目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../items/modules.html"><strong aria-hidden="true">6.1.</strong> 模块</a></li><li class="chapter-item expanded "><a href="../items/extern-crates.html"><strong aria-hidden="true">6.2.</strong> 外部Crate</a></li><li class="chapter-item expanded "><a href="../items/use-declarations.html"><strong aria-hidden="true">6.3.</strong> Use 声明</a></li><li class="chapter-item expanded "><a href="../items/functions.html"><strong aria-hidden="true">6.4.</strong> 函数</a></li><li class="chapter-item expanded "><a href="../items/type-aliases.html"><strong aria-hidden="true">6.5.</strong> 类型别名</a></li><li class="chapter-item expanded "><a href="../items/structs.html"><strong aria-hidden="true">6.6.</strong> 结构体</a></li><li class="chapter-item expanded "><a href="../items/enumerations.html"><strong aria-hidden="true">6.7.</strong> 枚举</a></li><li class="chapter-item expanded "><a href="../items/unions.html"><strong aria-hidden="true">6.8.</strong> 联合体</a></li><li class="chapter-item expanded "><a href="../items/constant-items.html"><strong aria-hidden="true">6.9.</strong> 常量条目</a></li><li class="chapter-item expanded "><a href="../items/static-items.html"><strong aria-hidden="true">6.10.</strong> 静态条目</a></li><li class="chapter-item expanded "><a href="../items/traits.html"><strong aria-hidden="true">6.11.</strong> Trait</a></li><li class="chapter-item expanded "><a href="../items/implementations.html"><strong aria-hidden="true">6.12.</strong> 实现</a></li><li class="chapter-item expanded "><a href="../items/external-blocks.html"><strong aria-hidden="true">6.13.</strong> 外部块</a></li><li class="chapter-item expanded "><a href="../items/generics.html"><strong aria-hidden="true">6.14.</strong> 泛型参数</a></li><li class="chapter-item expanded "><a href="../items/associated-items.html" class="active"><strong aria-hidden="true">6.15.</strong> 关联条目</a></li></ol></li><li class="chapter-item expanded "><a href="../attributes.html"><strong aria-hidden="true">7.</strong> 属性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../attributes/testing.html"><strong aria-hidden="true">7.1.</strong> 测试</a></li><li class="chapter-item expanded "><a href="../attributes/derive.html"><strong aria-hidden="true">7.2.</strong> 派生</a></li><li class="chapter-item expanded "><a href="../attributes/diagnostics.html"><strong aria-hidden="true">7.3.</strong> 诊断</a></li><li class="chapter-item expanded "><a href="../attributes/codegen.html"><strong aria-hidden="true">7.4.</strong> 代码生成</a></li><li class="chapter-item expanded "><a href="../attributes/limits.html"><strong aria-hidden="true">7.5.</strong> 约束</a></li><li class="chapter-item expanded "><a href="../attributes/type_system.html"><strong aria-hidden="true">7.6.</strong> 类型系统</a></li></ol></li><li class="chapter-item expanded "><a href="../statements-and-expressions.html"><strong aria-hidden="true">8.</strong> 语句和表达式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../statements.html"><strong aria-hidden="true">8.1.</strong> 语句</a></li><li class="chapter-item expanded "><a href="../expressions.html"><strong aria-hidden="true">8.2.</strong> 表达式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../expressions/literal-expr.html"><strong aria-hidden="true">8.2.1.</strong> 字面值表达式</a></li><li class="chapter-item expanded "><a href="../expressions/path-expr.html"><strong aria-hidden="true">8.2.2.</strong> 路径表达式</a></li><li class="chapter-item expanded "><a href="../expressions/block-expr.html"><strong aria-hidden="true">8.2.3.</strong> 块表达式</a></li><li class="chapter-item expanded "><a href="../expressions/operator-expr.html"><strong aria-hidden="true">8.2.4.</strong> 运算符表达式</a></li><li class="chapter-item expanded "><a href="../expressions/grouped-expr.html"><strong aria-hidden="true">8.2.5.</strong> 分组表达式</a></li><li class="chapter-item expanded "><a href="../expressions/array-expr.html"><strong aria-hidden="true">8.2.6.</strong> 数组和索引表达式</a></li><li class="chapter-item expanded "><a href="../expressions/tuple-expr.html"><strong aria-hidden="true">8.2.7.</strong> 元组和索引表达式</a></li><li class="chapter-item expanded "><a href="../expressions/struct-expr.html"><strong aria-hidden="true">8.2.8.</strong> 结构体表达式</a></li><li class="chapter-item expanded "><a href="../expressions/call-expr.html"><strong aria-hidden="true">8.2.9.</strong> 调用表达式</a></li><li class="chapter-item expanded "><a href="../expressions/method-call-expr.html"><strong aria-hidden="true">8.2.10.</strong> 方法调用表达式</a></li><li class="chapter-item expanded "><a href="../expressions/field-expr.html"><strong aria-hidden="true">8.2.11.</strong> 字段访问表达式</a></li><li class="chapter-item expanded "><a href="../expressions/closure-expr.html"><strong aria-hidden="true">8.2.12.</strong> 闭包表达式</a></li><li class="chapter-item expanded "><a href="../expressions/loop-expr.html"><strong aria-hidden="true">8.2.13.</strong> 循环表达式</a></li><li class="chapter-item expanded "><a href="../expressions/range-expr.html"><strong aria-hidden="true">8.2.14.</strong> 区间表达式</a></li><li class="chapter-item expanded "><a href="../expressions/if-expr.html"><strong aria-hidden="true">8.2.15.</strong> if 和 if let 表达式</a></li><li class="chapter-item expanded "><a href="../expressions/match-expr.html"><strong aria-hidden="true">8.2.16.</strong> 匹配表达式</a></li><li class="chapter-item expanded "><a href="../expressions/return-expr.html"><strong aria-hidden="true">8.2.17.</strong> 返回表达式</a></li><li class="chapter-item expanded "><a href="../expressions/await-expr.html"><strong aria-hidden="true">8.2.18.</strong> 等待表达式</a></li><li class="chapter-item expanded "><a href="../expressions/underscore-expr.html"><strong aria-hidden="true">8.2.19.</strong> 下划线表达式</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../patterns.html"><strong aria-hidden="true">9.</strong> 模式</a></li><li class="chapter-item expanded "><a href="../type-system.html"><strong aria-hidden="true">10.</strong> 类型系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../types.html"><strong aria-hidden="true">10.1.</strong> 类型</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../types/boolean.html"><strong aria-hidden="true">10.1.1.</strong> 布尔类型</a></li><li class="chapter-item expanded "><a href="../types/numeric.html"><strong aria-hidden="true">10.1.2.</strong> 数字类型</a></li><li class="chapter-item expanded "><a href="../types/textual.html"><strong aria-hidden="true">10.1.3.</strong> 文本类型</a></li><li class="chapter-item expanded "><a href="../types/never.html"><strong aria-hidden="true">10.1.4.</strong> 永不类型</a></li><li class="chapter-item expanded "><a href="../types/tuple.html"><strong aria-hidden="true">10.1.5.</strong> 元组类型</a></li><li class="chapter-item expanded "><a href="../types/array.html"><strong aria-hidden="true">10.1.6.</strong> 数组类型</a></li><li class="chapter-item expanded "><a href="../types/slice.html"><strong aria-hidden="true">10.1.7.</strong> 切片类型</a></li><li class="chapter-item expanded "><a href="../types/struct.html"><strong aria-hidden="true">10.1.8.</strong> 结构体类型</a></li><li class="chapter-item expanded "><a href="../types/enum.html"><strong aria-hidden="true">10.1.9.</strong> 枚举类型</a></li><li class="chapter-item expanded "><a href="../types/union.html"><strong aria-hidden="true">10.1.10.</strong> 联合类型</a></li><li class="chapter-item expanded "><a href="../types/function-item.html"><strong aria-hidden="true">10.1.11.</strong> 函数条目类型</a></li><li class="chapter-item expanded "><a href="../types/closure.html"><strong aria-hidden="true">10.1.12.</strong> 闭包类型</a></li><li class="chapter-item expanded "><a href="../types/pointer.html"><strong aria-hidden="true">10.1.13.</strong> 指针类型</a></li><li class="chapter-item expanded "><a href="../types/function-pointer.html"><strong aria-hidden="true">10.1.14.</strong> 函数指针类型</a></li><li class="chapter-item expanded "><a href="../types/trait-object.html"><strong aria-hidden="true">10.1.15.</strong> Trait 对象类型</a></li><li class="chapter-item expanded "><a href="../types/impl-trait.html"><strong aria-hidden="true">10.1.16.</strong> 实现 Trait 的类型</a></li><li class="chapter-item expanded "><a href="../types/parameters.html"><strong aria-hidden="true">10.1.17.</strong> 类型参数</a></li><li class="chapter-item expanded "><a href="../types/inferred.html"><strong aria-hidden="true">10.1.18.</strong> 推导出的类型</a></li></ol></li><li class="chapter-item expanded "><a href="../dynamically-sized-types.html"><strong aria-hidden="true">10.2.</strong> 动态大小类型</a></li><li class="chapter-item expanded "><a href="../type-layout.html"><strong aria-hidden="true">10.3.</strong> 类型布局</a></li><li class="chapter-item expanded "><a href="../interior-mutability.html"><strong aria-hidden="true">10.4.</strong> 内部可变性</a></li><li class="chapter-item expanded "><a href="../subtyping.html"><strong aria-hidden="true">10.5.</strong> 子类型和协变</a></li><li class="chapter-item expanded "><a href="../trait-bounds.html"><strong aria-hidden="true">10.6.</strong> Trait 和生命周期约束</a></li><li class="chapter-item expanded "><a href="../type-coercions.html"><strong aria-hidden="true">10.7.</strong> 类型强制转换</a></li><li class="chapter-item expanded "><a href="../destructors.html"><strong aria-hidden="true">10.8.</strong> 析构函数</a></li><li class="chapter-item expanded "><a href="../lifetime-elision.html"><strong aria-hidden="true">10.9.</strong> 生命周期省略</a></li></ol></li><li class="chapter-item expanded "><a href="../special-types-and-traits.html"><strong aria-hidden="true">11.</strong> 特殊类型和Trait</a></li><li class="chapter-item expanded "><a href="../names.html"><strong aria-hidden="true">12.</strong> 名称</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../names/namespaces.html"><strong aria-hidden="true">12.1.</strong> 命名空间</a></li><li class="chapter-item expanded "><a href="../names/scopes.html"><strong aria-hidden="true">12.2.</strong> 作用域</a></li><li class="chapter-item expanded "><a href="../names/preludes.html"><strong aria-hidden="true">12.3.</strong> 预定义</a></li><li class="chapter-item expanded "><a href="../paths.html"><strong aria-hidden="true">12.4.</strong> 路径</a></li><li class="chapter-item expanded "><a href="../names/name-resolution.html"><strong aria-hidden="true">12.5.</strong> 名称解析</a></li><li class="chapter-item expanded "><a href="../visibility-and-privacy.html"><strong aria-hidden="true">12.6.</strong> 可见性和私有性</a></li></ol></li><li class="chapter-item expanded "><a href="../memory-model.html"><strong aria-hidden="true">13.</strong> 内存模型</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../memory-allocation-and-lifetime.html"><strong aria-hidden="true">13.1.</strong> 内存分配和生命周期</a></li><li class="chapter-item expanded "><a href="../variables.html"><strong aria-hidden="true">13.2.</strong> 变量</a></li></ol></li><li class="chapter-item expanded "><a href="../linkage.html"><strong aria-hidden="true">14.</strong> 链接</a></li><li class="chapter-item expanded "><a href="../inline-assembly.html"><strong aria-hidden="true">15.</strong> 内联汇编</a></li><li class="chapter-item expanded "><a href="../unsafety.html"><strong aria-hidden="true">16.</strong> Unsafety</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../unsafe-keyword.html"><strong aria-hidden="true">16.1.</strong> unsafe 关键字</a></li><li class="chapter-item expanded "><a href="../behavior-considered-undefined.html"><strong aria-hidden="true">16.2.</strong> 被视为未定义行为的行为</a></li><li class="chapter-item expanded "><a href="../behavior-not-considered-unsafe.html"><strong aria-hidden="true">16.3.</strong> 不被视为不安全的行为</a></li></ol></li><li class="chapter-item expanded "><a href="../const_eval.html"><strong aria-hidden="true">17.</strong> 常量求值</a></li><li class="chapter-item expanded "><a href="../abi.html"><strong aria-hidden="true">18.</strong> 应用程序二进制接口</a></li><li class="chapter-item expanded "><a href="../runtime.html"><strong aria-hidden="true">19.</strong> Rust 运行时</a></li><li class="chapter-item expanded "><a href="../appendices.html"><strong aria-hidden="true">20.</strong> 附录</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../macro-ambiguity.html"><strong aria-hidden="true">20.1.</strong> 宏 Follow-Set 歧义正式规范</a></li><li class="chapter-item expanded "><a href="../influences.html"><strong aria-hidden="true">20.2.</strong> 影响</a></li><li class="chapter-item expanded "><a href="../glossary.html"><strong aria-hidden="true">20.3.</strong> 术语表</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">介绍</a></li><li class="chapter-item expanded "><a href="../notation.html"><strong aria-hidden="true">1.</strong> 符号约定</a></li><li class="chapter-item expanded "><a href="../lexical-structure.html"><strong aria-hidden="true">2.</strong> 词法结构</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../input-format.html"><strong aria-hidden="true">2.1.</strong> 输入格式</a></li><li class="chapter-item expanded "><a href="../keywords.html"><strong aria-hidden="true">2.2.</strong> 关键字</a></li><li class="chapter-item expanded "><a href="../identifiers.html"><strong aria-hidden="true">2.3.</strong> 标识符</a></li><li class="chapter-item expanded "><a href="../comments.html"><strong aria-hidden="true">2.4.</strong> 注释</a></li><li class="chapter-item expanded "><a href="../whitespace.html"><strong aria-hidden="true">2.5.</strong> 空白</a></li><li class="chapter-item expanded "><a href="../tokens.html"><strong aria-hidden="true">2.6.</strong> 令牌</a></li></ol></li><li class="chapter-item expanded "><a href="../macros.html"><strong aria-hidden="true">3.</strong> 宏</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../macros-by-example.html"><strong aria-hidden="true">3.1.</strong> 实例宏</a></li><li class="chapter-item expanded "><a href="../procedural-macros.html"><strong aria-hidden="true">3.2.</strong> 过程宏</a></li></ol></li><li class="chapter-item expanded "><a href="../crates-and-source-files.html"><strong aria-hidden="true">4.</strong> Crate和源文件</a></li><li class="chapter-item expanded "><a href="../conditional-compilation.html"><strong aria-hidden="true">5.</strong> 条件编译</a></li><li class="chapter-item expanded "><a href="../items.html"><strong aria-hidden="true">6.</strong> 条目</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../items/modules.html"><strong aria-hidden="true">6.1.</strong> 模块</a></li><li class="chapter-item expanded "><a href="../items/extern-crates.html"><strong aria-hidden="true">6.2.</strong> 外部Crate</a></li><li class="chapter-item expanded "><a href="../items/use-declarations.html"><strong aria-hidden="true">6.3.</strong> Use 声明</a></li><li class="chapter-item expanded "><a href="../items/functions.html"><strong aria-hidden="true">6.4.</strong> 函数</a></li><li class="chapter-item expanded "><a href="../items/type-aliases.html"><strong aria-hidden="true">6.5.</strong> 类型别名</a></li><li class="chapter-item expanded "><a href="../items/structs.html"><strong aria-hidden="true">6.6.</strong> 结构体</a></li><li class="chapter-item expanded "><a href="../items/enumerations.html"><strong aria-hidden="true">6.7.</strong> 枚举</a></li><li class="chapter-item expanded "><a href="../items/unions.html"><strong aria-hidden="true">6.8.</strong> 联合体</a></li><li class="chapter-item expanded "><a href="../items/constant-items.html"><strong aria-hidden="true">6.9.</strong> 常量条目</a></li><li class="chapter-item expanded "><a href="../items/static-items.html"><strong aria-hidden="true">6.10.</strong> 静态条目</a></li><li class="chapter-item expanded "><a href="../items/traits.html"><strong aria-hidden="true">6.11.</strong> Trait</a></li><li class="chapter-item expanded "><a href="../items/implementations.html"><strong aria-hidden="true">6.12.</strong> 实现</a></li><li class="chapter-item expanded "><a href="../items/external-blocks.html"><strong aria-hidden="true">6.13.</strong> 外部块</a></li><li class="chapter-item expanded "><a href="../items/generics.html"><strong aria-hidden="true">6.14.</strong> 泛型参数</a></li><li class="chapter-item expanded "><a href="../items/associated-items.html" class="active"><strong aria-hidden="true">6.15.</strong> 关联条目</a></li></ol></li><li class="chapter-item expanded "><a href="../attributes.html"><strong aria-hidden="true">7.</strong> 属性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../attributes/testing.html"><strong aria-hidden="true">7.1.</strong> 测试</a></li><li class="chapter-item expanded "><a href="../attributes/derive.html"><strong aria-hidden="true">7.2.</strong> 派生</a></li><li class="chapter-item expanded "><a href="../attributes/diagnostics.html"><strong aria-hidden="true">7.3.</strong> 诊断</a></li><li class="chapter-item expanded "><a href="../attributes/codegen.html"><strong aria-hidden="true">7.4.</strong> 代码生成</a></li><li class="chapter-item expanded "><a href="../attributes/limits.html"><strong aria-hidden="true">7.5.</strong> 约束</a></li><li class="chapter-item expanded "><a href="../attributes/type_system.html"><strong aria-hidden="true">7.6.</strong> 类型系统</a></li></ol></li><li class="chapter-item expanded "><a href="../statements-and-expressions.html"><strong aria-hidden="true">8.</strong> 语句和表达式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../statements.html"><strong aria-hidden="true">8.1.</strong> 语句</a></li><li class="chapter-item expanded "><a href="../expressions.html"><strong aria-hidden="true">8.2.</strong> 表达式</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../expressions/literal-expr.html"><strong aria-hidden="true">8.2.1.</strong> 字面值表达式</a></li><li class="chapter-item expanded "><a href="../expressions/path-expr.html"><strong aria-hidden="true">8.2.2.</strong> 路径表达式</a></li><li class="chapter-item expanded "><a href="../expressions/block-expr.html"><strong aria-hidden="true">8.2.3.</strong> 块表达式</a></li><li class="chapter-item expanded "><a href="../expressions/operator-expr.html"><strong aria-hidden="true">8.2.4.</strong> 运算符表达式</a></li><li class="chapter-item expanded "><a href="../expressions/grouped-expr.html"><strong aria-hidden="true">8.2.5.</strong> 分组表达式</a></li><li class="chapter-item expanded "><a href="../expressions/array-expr.html"><strong aria-hidden="true">8.2.6.</strong> 数组和索引表达式</a></li><li class="chapter-item expanded "><a href="../expressions/tuple-expr.html"><strong aria-hidden="true">8.2.7.</strong> 元组和索引表达式</a></li><li class="chapter-item expanded "><a href="../expressions/struct-expr.html"><strong aria-hidden="true">8.2.8.</strong> 结构体表达式</a></li><li class="chapter-item expanded "><a href="../expressions/call-expr.html"><strong aria-hidden="true">8.2.9.</strong> 调用表达式</a></li><li class="chapter-item expanded "><a href="../expressions/method-call-expr.html"><strong aria-hidden="true">8.2.10.</strong> 方法调用表达式</a></li><li class="chapter-item expanded "><a href="../expressions/field-expr.html"><strong aria-hidden="true">8.2.11.</strong> 字段访问表达式</a></li><li class="chapter-item expanded "><a href="../expressions/closure-expr.html"><strong aria-hidden="true">8.2.12.</strong> 闭包表达式</a></li><li class="chapter-item expanded "><a href="../expressions/loop-expr.html"><strong aria-hidden="true">8.2.13.</strong> 循环表达式</a></li><li class="chapter-item expanded "><a href="../expressions/range-expr.html"><strong aria-hidden="true">8.2.14.</strong> 区间表达式</a></li><li class="chapter-item expanded "><a href="../expressions/if-expr.html"><strong aria-hidden="true">8.2.15.</strong> if 和 if let 表达式</a></li><li class="chapter-item expanded "><a href="../expressions/match-expr.html"><strong aria-hidden="true">8.2.16.</strong> 匹配表达式</a></li><li class="chapter-item expanded "><a href="../expressions/return-expr.html"><strong aria-hidden="true">8.2.17.</strong> 返回表达式</a></li><li class="chapter-item expanded "><a href="../expressions/await-expr.html"><strong aria-hidden="true">8.2.18.</strong> 等待表达式</a></li><li class="chapter-item expanded "><a href="../expressions/underscore-expr.html"><strong aria-hidden="true">8.2.19.</strong> 下划线表达式</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../patterns.html"><strong aria-hidden="true">9.</strong> 模式</a></li><li class="chapter-item expanded "><a href="../type-system.html"><strong aria-hidden="true">10.</strong> 类型系统</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../types.html"><strong aria-hidden="true">10.1.</strong> 类型</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../types/boolean.html"><strong aria-hidden="true">10.1.1.</strong> 布尔类型</a></li><li class="chapter-item expanded "><a href="../types/numeric.html"><strong aria-hidden="true">10.1.2.</strong> 数字类型</a></li><li class="chapter-item expanded "><a href="../types/textual.html"><strong aria-hidden="true">10.1.3.</strong> 文本类型</a></li><li class="chapter-item expanded "><a href="../types/never.html"><strong aria-hidden="true">10.1.4.</strong> 永不类型</a></li><li class="chapter-item expanded "><a href="../types/tuple.html"><strong aria-hidden="true">10.1.5.</strong> 元组类型</a></li><li class="chapter-item expanded "><a href="../types/array.html"><strong aria-hidden="true">10.1.6.</strong> 数组类型</a></li><li class="chapter-item expanded "><a href="../types/slice.html"><strong aria-hidden="true">10.1.7.</strong> 切片类型</a></li><li class="chapter-item expanded "><a href="../types/struct.html"><strong aria-hidden="true">10.1.8.</strong> 结构体类型</a></li><li class="chapter-item expanded "><a href="../types/enum.html"><strong aria-hidden="true">10.1.9.</strong> 枚举类型</a></li><li class="chapter-item expanded "><a href="../types/union.html"><strong aria-hidden="true">10.1.10.</strong> 联合类型</a></li><li class="chapter-item expanded "><a href="../types/function-item.html"><strong aria-hidden="true">10.1.11.</strong> 函数条目类型</a></li><li class="chapter-item expanded "><a href="../types/closure.html"><strong aria-hidden="true">10.1.12.</strong> 闭包类型</a></li><li class="chapter-item expanded "><a href="../types/pointer.html"><strong aria-hidden="true">10.1.13.</strong> 指针类型</a></li><li class="chapter-item expanded "><a href="../types/function-pointer.html"><strong aria-hidden="true">10.1.14.</strong> 函数指针类型</a></li><li class="chapter-item expanded "><a href="../types/trait-object.html"><strong aria-hidden="true">10.1.15.</strong> Trait 对象类型</a></li><li class="chapter-item expanded "><a href="../types/impl-trait.html"><strong aria-hidden="true">10.1.16.</strong> 实现 Trait 的类型</a></li><li class="chapter-item expanded "><a href="../types/parameters.html"><strong aria-hidden="true">10.1.17.</strong> 类型参数</a></li><li class="chapter-item expanded "><a href="../types/inferred.html"><strong aria-hidden="true">10.1.18.</strong> 推导出的类型</a></li></ol></li><li class="chapter-item expanded "><a href="../dynamically-sized-types.html"><strong aria-hidden="true">10.2.</strong> 动态大小类型</a></li><li class="chapter-item expanded "><a href="../type-layout.html"><strong aria-hidden="true">10.3.</strong> 类型布局</a></li><li class="chapter-item expanded "><a href="../interior-mutability.html"><strong aria-hidden="true">10.4.</strong> 内部可变性</a></li><li class="chapter-item expanded "><a href="../subtyping.html"><strong aria-hidden="true">10.5.</strong> 子类型和协变</a></li><li class="chapter-item expanded "><a href="../trait-bounds.html"><strong aria-hidden="true">10.6.</strong> Trait 和生命周期约束</a></li><li class="chapter-item expanded "><a href="../type-coercions.html"><strong aria-hidden="true">10.7.</strong> 类型强制转换</a></li><li class="chapter-item expanded "><a href="../destructors.html"><strong aria-hidden="true">10.8.</strong> 析构函数</a></li><li class="chapter-item expanded "><a href="../lifetime-elision.html"><strong aria-hidden="true">10.9.</strong> 生命周期省略</a></li></ol></li><li class="chapter-item expanded "><a href="../special-types-and-traits.html"><strong aria-hidden="true">11.</strong> 特殊类型和Trait</a></li><li class="chapter-item expanded "><a href="../names.html"><strong aria-hidden="true">12.</strong> 名称</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../names/namespaces.html"><strong aria-hidden="true">12.1.</strong> 命名空间</a></li><li class="chapter-item expanded "><a href="../names/scopes.html"><strong aria-hidden="true">12.2.</strong> 作用域</a></li><li class="chapter-item expanded "><a href="../names/preludes.html"><strong aria-hidden="true">12.3.</strong> 预定义</a></li><li class="chapter-item expanded "><a href="../paths.html"><strong aria-hidden="true">12.4.</strong> 路径</a></li><li class="chapter-item expanded "><a href="../names/name-resolution.html"><strong aria-hidden="true">12.5.</strong> 名称解析</a></li><li class="chapter-item expanded "><a href="../visibility-and-privacy.html"><strong aria-hidden="true">12.6.</strong> 可见性和私有性</a></li></ol></li><li class="chapter-item expanded "><a href="../memory-model.html"><strong aria-hidden="true">13.</strong> 内存模型</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../memory-allocation-and-lifetime.html"><strong aria-hidden="true">13.1.</strong> 内存分配和生命周期</a></li><li class="chapter-item expanded "><a href="../variables.html"><strong aria-hidden="true">13.2.</strong> 变量</a></li></ol></li><li class="chapter-item expanded "><a href="../linkage.html"><strong aria-hidden="true">14.</strong> 链接</a></li><li class="chapter-item expanded "><a href="../inline-assembly.html"><strong aria-hidden="true">15.</strong> 内联汇编</a></li><li class="chapter-item expanded "><a href="../unsafety.html"><strong aria-hidden="true">16.</strong> 不安全的</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../unsafe-keyword.html"><strong aria-hidden="true">16.1.</strong> unsafe 关键字</a></li><li class="chapter-item expanded "><a href="../behavior-considered-undefined.html"><strong aria-hidden="true">16.2.</strong> 被视为未定义行为的行为</a></li><li class="chapter-item expanded "><a href="../behavior-not-considered-unsafe.html"><strong aria-hidden="true">16.3.</strong> 不被视为不安全的行为</a></li></ol></li><li class="chapter-item expanded "><a href="../const_eval.html"><strong aria-hidden="true">17.</strong> 常量求值</a></li><li class="chapter-item expanded "><a href="../abi.html"><strong aria-hidden="true">18.</strong> 应用程序二进制接口</a></li><li class="chapter-item expanded "><a href="../runtime.html"><strong aria-hidden="true">19.</strong> Rust 运行时</a></li><li class="chapter-item expanded "><a href="../appendices.html"><strong aria-hidden="true">20.</strong> 附录</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../macro-ambiguity.html"><strong aria-hidden="true">20.1.</strong> 宏 Follow-Set 歧义正式规范</a></li><li class="chapter-item expanded "><a href="../influences.html"><strong aria-hidden="true">20.2.</strong> 影响</a></li><li class="chapter-item expanded "><a href="../glossary.html"><strong aria-hidden="true">20.3.</strong> 术语表</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -157,19 +160,20 @@
       | ( <a href="../visibility-and-privacy.html"><em>可见性</em></a><sup>?</sup> ( <a href="type-aliases.html"><em>类型别名</em></a> | <a href="constant-items.html"><em>常量条目</em></a> | <a href="functions.html"><em>函数</em></a> ) )<br />
    )</p>
 </blockquote>
-<p><em>关联条目</em> 是在 Rust 语言中通过 <a href="traits.html">traits</a> 或 <a href="implementations.html">实现</a> 中的类型定义的条目。
-它们被称为关联条目，是因为它们是在关联类型上定义的。
-关联条目是你可以在模块中声明的条目的子集，具体包括 <a href="#associated-functions-and-methods">关联函数</a> (包括方法)、 <a href="#associated-types">关联类型</a> 和 <a href="#associated-constants">关联常量</a>。</p>
-<p>关联条目在关联类型中定义，通常是与关联类型有逻辑关系。
+<p><em>关联条目</em> 是 <a href="traits.html">traits</a> 及 <a href="implementations.html">实现</a> 中类型定义的条目。
+之所以称为关联条目，是因为是在关联类型中定义。
+关联条目是可在模块中声明条目的子集，包括 <a href="#associated-functions-and-methods">关联函数</a> (包括方法)、 <a href="#associated-types">关联类型</a> 和 <a href="#associated-constants">关联常量</a>。</p>
+<p>关联条目通常与关联类型有逻辑关系。
 例如， <code>is_some</code> 方法与 <code>Option</code> 类型本身有密切的关系，因此应该定义为关联条目。</p>
-<p>每个关联条目都有两种类型：定义和声明。定义包含实际的实现，而声明只声明定义的签名。</p>
-<p>在 Rust 语言中，trait 的声明和在泛型类型上可用的内容构成了 trait 的约定。</p>
+<p>关联条目有两种类型：定义和声明。定义是实际的实现，而声明只是签名。</p>
+<p>trait 声明以及泛型类型上可用的内容组成了其约定。</p>
 <h2 id="关联函数和方法"><a class="header" href="#关联函数和方法">关联函数和方法</a></h2>
 <p><em>关联函数</em> 是与类型相关的 <a href="functions.html">函数</a> 。</p>
-<p><em>关联函数声明</em> 声明了关联函数定义的签名。它采用函数条目的形式书写，但函数体被替换为 <code>;</code> 。</p>
-<p>标识符是函数的名称。关联函数的泛型、参数列表、返回类型和 where 子句必须与关联函数声明相同。</p>
-<p><em>关联函数定义</em> 是定义与另一种类型关联的函数。它的写法与 <a href="../types/function-item.html">函数条目</a> 相同。</p>
-<p>一个常见的关联函数例子是 <code>new</code> 函数，它返回与关联函数关联的类型的值。</p>
+<p><em>关联函数声明</em> 是签名，采用函数条目的书写形式，函数体替换为 <code>;</code> 。</p>
+<p>函数名称是标识符。
+关联函数的泛型、参数列表、返回类型和 where 子句必须与其声明相同。</p>
+<p><em>关联函数定义</em> 定义了与类型关联的函数，写法与 <a href="../types/function-item.html">函数条目</a> 相同。</p>
+<p>常见的关联函数一个例子是 <code>new</code> 函数，返回关联类型的值。</p>
 <pre><pre class="playground"><code class="language-rust edition2021">struct Struct {
     field: i32
 }
@@ -186,7 +190,7 @@ fn main () {
     let _struct = Struct::new();
 }</code></pre></pre>
 <p>当关联函数在 trait 中声明时，可以使用 <a href="../paths.html">路径</a> 调用该函数，该路径是附加 trait 名称的路径。
-当发生这种情况时，它会替换为 <code>&lt;_ as Trait&gt;::function_name</code>。</p>
+此时，会替代为 <code>&lt;_ as Trait&gt;::function_name</code> 的形式。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>trait Num {
@@ -197,7 +201,7 @@ impl Num for f64 {
     fn from_i32(n: i32) -&gt; f64 { n as f64 }
 }
 
-// 在这种情况下，这4个都是等价的。
+// 在这种情况下，这 4 个都是等价的。
 let _: f64 = Num::from_i32(42);
 let _: f64 = &lt;_ as Num&gt;::from_i32(42);
 let _: f64 = &lt;f64 as Num&gt;::from_i32(42);
@@ -205,12 +209,12 @@ let _: f64 = f64::from_i32(42);
 <span class="boring">}</span></code></pre></pre>
 <h3 id="方法"><a class="header" href="#方法">方法</a></h3>
 <p>第一个参数名为 <code>self</code> 的关联函数称为 <em>方法</em> ，可以使用 <a href="../expressions/method-call-expr.html">方法调用运算符</a> 例如 <code>x.foo()</code> ，以及通常的函数调用符号进行调用。</p>
-<p>如果指定了 <code>self</code> 参数的类型，则限制解析为以下语法生成的类型之一 (其中 <code>'lt</code> 表示任意生命周期):</p>
+<p>如果要指定 <code>self</code> 参数的类型，则限制为以下语法类型之一 (其 <code>'lt</code> 表示任意生命周期):</p>
 <pre><code class="language-text">P = &amp;'lt S | &amp;'lt mut S | Box&lt;S&gt; | Rc&lt;S&gt; | Arc&lt;S&gt; | Pin&lt;P&gt;
 S = Self | P
 </code></pre>
-<p>在这个语法中，<code>Self</code> 表示解析为实现类型的类型。
-这也可以包括上下文类型别名 <code>Self </code>、其他类型别名或解析为实现类型的关联类型推导。</p>
+<p>在这个语法中，<code>Self</code> 表示实现类型。
+其包括上下文类型别名 <code>Self</code> 、其他类型别名或解析为实现类型的关联类型推导。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">use std::rc::Rc;
@@ -245,7 +249,7 @@ impl Example {
 <blockquote>
 <p><strong>注意</strong>: 生命周期通常也可以用这种简写语法。</p>
 </blockquote>
-<p>如果 <code>self</code> 参数带有 <code>mut</code> 前缀，则它将变为可变变量，类似于使用 <code>mut</code> <a href="../patterns.html#identifier-patterns">标识符模式</a> 的常规参数。例如:</p>
+<p>如果 <code>self</code> 参数带有 <code>mut</code> 前缀，则是可变的，与 <code>mut</code> <a href="../patterns.html#identifier-patterns">标识符模式</a> 常规参数类似。例如:</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>trait Changer: Sized {
@@ -253,7 +257,7 @@ impl Example {
     fn modify(mut self: Box&lt;Self&gt;) {}
 }
 <span class="boring">}</span></code></pre></pre>
-<p>以下是关于 trait 上方法的例子：</p>
+<p>以下是关于 trait 中方法的例子：</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">type Surface = i32;
@@ -263,7 +267,8 @@ impl Example {
     fn bounding_box(&amp;self) -&gt; BoundingBox;
 }
 <span class="boring">}</span></code></pre></pre>
-<p>这个例子定义了一个具有两个方法的 trait 。只要在该 trait 作用域内的时候，所有 <a href="implementations.html">实现</a> 该 trait 的值都可以调用其 <code>draw</code> 和 <code>bounding_box</code> 方法。</p>
+<p>这个例子定义了一个具有两个方法的 trait 。
+只要该 trait 在作用域内，则所有 <a href="implementations.html">实现</a> 该 trait 的值就可以调用其 <code>draw</code> 和 <code>bounding_box</code> 方法。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">type Surface = i32;
@@ -291,14 +296,15 @@ impl Shape for Circle {
 let bounding_box = circle_shape.bounding_box();
 <span class="boring">}</span></code></pre></pre>
 <blockquote>
-<p><strong>版本差异</strong>: 在 2015 版中，可以使用匿名参数 (例如 <code>fn foo(u8)</code> ) 声明 trait 方法。但在 2018 版中，这已被弃用并且会导致错误。所有参数必须有参数名。</p>
+<p><strong>版本差异</strong>: 在 2015 版中，可以使用匿名参数 (例如 <code>fn foo(u8)</code> ) 声明 trait 方法。但在 2018 版中，已被弃用且会导致错误，所有参数必须要有参数名。</p>
 </blockquote>
 <h4 id="方法参数的属性"><a class="header" href="#方法参数的属性">方法参数的属性</a></h4>
-<p>方法参数上的属性遵循与 <a href="functions.html#attributes-on-function-parameters">常规函数参数</a> 相同的规则和限制。</p>
+<p>方法参数之上的属性遵循与 <a href="functions.html#attributes-on-function-parameters">常规函数参数</a> 相同的规则和限制。</p>
 <h2 id="关联类型"><a class="header" href="#关联类型">关联类型</a></h2>
-<p><em>关联类型</em> 是与另一个类型相关联的 <a href="type-aliases.html">类型别名</a> 。关联类型不能在 <a href="implementations.html#inherent-implementations">内部实现</a> 中定义，也不能在 trait 中给出默认实现。</p>
-<p><em>关联类型声明</em> 声明了关联类型定义的签名。
-它以以下一种形式书写，其中 <code>Assoc</code> 是关联类型的名称，<code>Params</code> 是由逗号分隔的类型、生命周期或常量参数列表，
+<p><em>关联类型</em> 是与另一个类型相关联的 <a href="type-aliases.html">类型别名</a> 。
+关联类型不能在 <a href="implementations.html#inherent-implementations">内部实现</a> 中定义，不能在 trait 中给出默认实现。</p>
+<p><em>关联类型声明</em> 是签名。
+用以下一种形式书写，其中 <code>Assoc</code> 是关联类型的名称，<code>Params</code> 是由逗号分隔的类型、生命周期或常量参数列表，
 <code>Bounds</code> 是关联类型必须满足的一组用加号分隔的 trait 约束列表， <code>WhereBounds</code> 是参数必须满足的一组用逗号分隔的约束列表:</p>
 <!-- ignore: illustrative example forms -->
 <pre><code class="language-rust ignore">type Assoc;
@@ -309,19 +315,19 @@ type Assoc&lt;Params&gt; where WhereBounds;
 type Assoc&lt;Params&gt;: Bounds where WhereBounds;</code></pre>
 <p>该标识符是已声明的类型别名的名称。可选的 trait 约束必须由类型别名的实现满足。
 关联类型存在一个隐式 <a href="../special-types-and-traits.html#sized"><code>Sized</code></a> 约束，可以使用特殊的 <code>?Sized</code> 约束放宽。</p>
-<p><em>关联类型定义</em> 为类型别名，用于为类型上的 trait 实现定义类型。它们的书写方式与 <em>关联类型声明</em> 类似，但不能包含 <code>Bounds</code>，而是必须包含一个 <code>Type</code> :</p>
+<p><em>关联类型定义</em> 为类型别名。它们的书写方式与 <em>关联类型声明</em> 相似，而不能包含 <code>Bounds</code> ，必须包含一个 <code>Type</code> :</p>
 <!-- ignore: illustrative example forms -->
 <pre><code class="language-rust ignore">type Assoc = Type;
 type Assoc&lt;Params&gt; = Type; // 这里的 `Type` 可以引用 `Params` 
 type Assoc&lt;Params&gt; = Type where WhereBounds;
 type Assoc&lt;Params&gt; where WhereBounds = Type; // 已废弃，请选择上面的形式</code></pre>
-<p>如果一个类型 <code>Item</code> 拥有一个从 trait <code>Trait</code> 中获取的关联类型 <code>Assoc</code>，那么 <code>&lt;Item as Trait&gt;::Assoc</code> 就是一个类型，它是关联类型定义中指定的类型的别名。此外，如果 <code>Item</code> 是一个类型参数，那么 <code>Item::Assoc</code> 可以在类型参数中使用。</p>
-<p>关联类型可以包括 <a href="generics.html">泛型参数</a> 和 <a href="generics.html#where-clauses">where 约束</a> ；这些通常被称为 <em>泛型关联类型</em> 或 <em>GATs</em> 。
-如果类型 <code>Thing</code> 从 trait <code>Trait</code> 中具有泛型 <code>&lt;'a&gt;</code> 的关联类型 <code>Item</code>，则该类型可以命名为 <code>&lt;Thing as Trait&gt;::Item&lt;'x&gt;</code>，其中 <code>'x</code> 是作用域内的某个生命周期。
-在这种情况下，无论何时出现在 impl 上的关联类型定义中的 <code>'a</code> 都将使用 <code>'x</code> 。</p>
+<p>如果 <code>Item</code> 类型拥有一个从 <code>Trait</code> 中获取的关联类型 <code>Assoc</code>，即 <code>&lt;Item as Trait&gt;::Assoc</code> 。此外，如果 <code>Item</code> 是类型参数，那么类型参数中可以使用 <code>Item::Assoc</code> 。</p>
+<p>关联类型可以包含 <a href="generics.html">泛型参数</a> 和 <a href="generics.html#where-clauses">where 约束</a> ；这些通常被称为 <em>泛型关联类型</em> 或 <em>GATs</em> 。
+如果类型 <code>Thing</code> 从 <code>Trait</code> 中具有泛型 <code>&lt;'a&gt;</code> 的关联类型 <code>Item</code>，则该类型可以命名为 <code>&lt;Thing as Trait&gt;::Item&lt;'x&gt;</code> ，其中 <code>'x</code> 是作用域内的某个生命周期。
+此时，无论何时出现在 impl 上的关联类型定义中的 <code>'a</code> 都将使用 <code>'x</code> 。</p>
 <p>关联类型可能包含 <a href="generics.html">泛型参数</a> 和 <a href="generics.html#where-clauses">where 约束</a> ；这些通常被称为 <em>泛型关联类型</em> 或 GAT。
 如果类型 <code>Thing</code> 有一个来自 <code>Trait</code> 的关联类型 <code>Item</code> ，具有泛型 <code>&lt;'a&gt;</code> ，则可以像 <code>&lt;Thing as Trait&gt; ::Item&lt;'x&gt;</code> 这样命名该类型，其中 <code>'x</code> 是某个有效作用域内的生命周期。
-在这种情况下，<code>'x</code> 将在实现中的关联类型定义中的 <code>'a</code> 处使用。</p>
+此时，<code>'x</code> 将在实现中的关联类型定义中的 <code>'a</code> 处使用。</p>
 <pre><pre class="playground"><code class="language-rust edition2021">trait AssociatedType {
     // 关联类型声明
     type Assoc;
@@ -420,9 +426,9 @@ fn main() {
     fn next&lt;'a&gt;(&amp;'a mut self) -&gt; Self::Item&lt;'a&gt;;
 }
 <span class="boring">}</span></code></pre></pre>
-<p>在上面的例子中，在 <code>next</code> 函数中，我们可以证明 <code>Self: 'a</code>，因为我们从 <code>&amp;'a mut self</code> 推导出了这个隐含的限制。
-因此，我们必须在 GAT 自身上写出等效的限制: <code>where Self: 'x</code> 。</p>
-<p>当 trait 中有多个函数使用 GAT 时，会使用不同函数的边界的 <em>交集</em> ，而不是并集。</p>
+<p>在上面的例子中，在 <code>next</code> 函数中，我们可以证明 <code>Self: 'a</code>，因为我们从 <code>&amp;'a mut self</code> 推导出了这个隐含的约束。
+因此，我们必须在 GAT 自身上写出等效的约束: <code>where Self: 'x</code> 。</p>
+<p>当 trait 中有多个函数使用 GAT 时，会使用不同函数的约束的 <em>交集</em> ，而不是并集。</p>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>trait Check&lt;T&gt; {
@@ -453,21 +459,21 @@ fn main() {
 <span class="boring">}</span></code></pre></pre>
 <h2 id="关联常量"><a class="header" href="#关联常量">关联常量</a></h2>
 <p><em>关联常量</em> 是与类型相关联的 <a href="constant-items.html">常量</a> 。</p>
-<p><em>关联常量声明</em> 声明了关联常量定义的签名。它写为 <code>const</code> ，然后是标识符，然后是 <code>:</code> ，然后是类型，最后以 <code>;</code> 结束。</p>
+<p><em>关联常量声明</em> 是签名。它写为 <code>const</code> ，然后是标识符，然后是 <code>:</code> ，然后是类型，最后以 <code>;</code> 结束。</p>
 <p>标识符是路径中使用的常量的名称。类型是定义必须实现的类型。</p>
 <p><em>关联常量定义</em> 定义了与类型相关联的常量。它的写法与 <a href="constant-items.html">常量条目</a> 相同。</p>
-<p>关联常量定义仅在被引用时才会经过 <a href="../const_eval.html">常量求值</a> 。
+<p>关联常量定义仅在被引用时才会进行 <a href="../const_eval.html">常量求值</a> 。
 此外，包括 <a href="generics.html">泛型参数</a> 的定义会在单态化后进行求值。</p>
 <pre><pre class="playground"><code class="language-rust compile_fail edition2021">struct Struct;
 struct GenericStruct&lt;const ID: i32&gt;;
 
 impl Struct {
-    // 定义没有立即评估
+    // 定义没有立即求值
     const PANIC: () = panic!(&quot;compile-time panic&quot;);
 }
 
 impl&lt;const ID: i32&gt; GenericStruct&lt;ID&gt; {
-    // 定义没有立即评估
+    // 定义没有立即求值
     const NON_ZERO: () = if ID == 0 {
         panic!(&quot;contradiction&quot;)
     };
@@ -480,7 +486,7 @@ fn main() {
     // 可以, ID 不是 0
     let _ = GenericStruct::&lt;1&gt;::NON_ZERO;
 
-    // 在 ID=0 的情况下评估 NON_ZERO 是编译错误
+    // 在 ID=0 的情况下求值 NON_ZERO 是编译错误
     let _ = GenericStruct::&lt;0&gt;::NON_ZERO;
 }</code></pre></pre>
 <h3 id="关联常量实例"><a class="header" href="#关联常量实例">关联常量实例</a></h3>
@@ -505,9 +511,9 @@ trait ConstantIdDefault {
     const ID: i32 = 1;
 }
 
-// 定义结构体 `Struct`
+
 struct Struct;
-// 定义结构体 `OtherStruct`
+
 struct OtherStruct;
 
 // 为结构体 `Struct` 实现 `ConstantIdDefault` trait
@@ -518,7 +524,7 @@ impl ConstantIdDefault for OtherStruct {
     const ID: i32 = 5;
 }
 
-// 程序入口函数
+
 fn main() {
     // 断言结构体 `Struct` 的 `ID` 常量值为 `1`
     assert_eq!(1, Struct::ID);
@@ -574,5 +580,6 @@ fn main() {
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>
